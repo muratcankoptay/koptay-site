@@ -5,33 +5,14 @@ const STRAPI_BASE_URL = 'https://diligent-delight-1590f0baf0.strapiapp.com';
 
 // Function to get articles from Strapi with fallback to mock data
 const getArticlesFromStrapi = async () => {
-  try {
-    const response = await fetch(`${STRAPI_BASE_URL}/api/articles?populate=*`)
-    if (response.ok) {
-      const data = await response.json()
-      return data.data.map(article => ({
-        id: article.id,
-        slug: article.slug,
-        title: article.title,
-        excerpt: article.excerpt,
-        content: article.content,
-        category: article.category,
-        tags: article.tags || [],
-        author: article.author || 'Av. Koptay',
-        publishDate: article.publishedAt?.split('T')[0] || article.createdAt?.split('T')[0],
-        updatedDate: article.updatedAt?.split('T')[0],
-        readTime: article.readTime || '5 dakika',
-        featured: article.featured || false,
-        views: article.views || 0,
-        metaDescription: article.metaDescription || article.excerpt,
-        metaKeywords: article.metaKeywords || '',
-        image: article.featuredImage?.url ? `${STRAPI_BASE_URL}${article.featuredImage.url}` : '/images/hero.jpg'
-      }))
-    }
-  } catch (error) {
-    console.error('Strapi connection failed, using mock data:', error)
-  }
-  return null
+  // Temporarily use mock data until Strapi Content Type is ready
+  console.log('Using mock data temporarily')
+  return getMockArticles()
+}
+
+// Function to get mock articles
+const getMockArticles = () => {
+  return mockArticles
 }
 
 // Mock data for fallback

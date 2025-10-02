@@ -34,7 +34,3 @@ dist-ssr
 src/BickLawClone/
 *.zip
 Attached HTML and CSS Context.txt
-
-# PostCSS config for root (not needed in Strapi)
-postcss.config.cjs
-tailwind.config.cjs
