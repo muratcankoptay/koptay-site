@@ -1,7 +1,7 @@
 // API utility functions for the law firm website
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-const STRAPI_BASE_URL = 'http://localhost:1337';
+const STRAPI_BASE_URL = 'https://diligent-delight-1590f0baf0.strapiapp.com';
 
 // Function to get articles from Strapi with fallback to mock data
 const getArticlesFromStrapi = async () => {
