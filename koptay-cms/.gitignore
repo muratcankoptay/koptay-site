@@ -1,0 +1,14 @@
+# PostCSS and Tailwind configs (for frontend only)
+/postcss.config.*
+/tailwind.config.*
+
+# Frontend build files
+/dist
+/public/images
+
+# VS Code
+/.vscode
+
+# Other frontend files
+/index.html
+/vite.config.js
