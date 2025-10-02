@@ -28,7 +28,7 @@ const Hero = () => {
         className="relative min-h-screen flex items-center bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `linear-gradient(rgba(141, 27, 84, 0.2), rgba(53, 52, 65, 0.7)), 
-                           url('/src/assets/images/hero-bg-1.jpg'), 
+                           url('/images/hero-bg-1.jpg'), 
                            url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23353441" width="1200" height="800"/><polygon fill="%23548c8d" points="0,800 400,600 800,700 1200,500 1200,800"/><polygon fill="%238d1b54" points="0,800 300,650 600,750 900,550 1200,600 1200,800"/></svg>')`
         }}
       >
