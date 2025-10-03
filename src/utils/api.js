@@ -1,12 +1,40 @@
 // API utility functions for the law firm website
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-const STRAPI_BASE_URL = 'https://diligent-delight-1590f0baf0.strapiapp.com';
+const STRAPI_BASE_URL = 'https://passionate-basket-17f9c03fdf.strapiapp.com';
 
 // Function to get articles from Strapi with fallback to mock data
 const getArticlesFromStrapi = async () => {
-  // Temporarily use mock data until Strapi Content Type is ready
-  console.log('Using mock data temporarily')
+  try {
+    console.log('Fetching articles from Strapi...')
+    const response = await fetch(`${STRAPI_BASE_URL}/api/articles?populate=*`)
+    if (response.ok) {
+      const data = await response.json()
+      return data.data.map(article => ({
+        id: article.id,
+        slug: article.slug,
+        title: article.title,
+        excerpt: article.excerpt,
+        content: article.content,
+        category: article.category,
+        tags: article.tags || [],
+        author: article.author || 'Av. Koptay',
+        publishDate: article.publishedAt?.split('T')[0] || article.createdAt?.split('T')[0],
+        updatedDate: article.updatedAt?.split('T')[0],
+        readTime: article.readTime || '5 dakika',
+        featured: article.featured || false,
+        views: article.views || 0,
+        metaDescription: article.metaDescription || article.excerpt,
+        metaKeywords: article.metaKeywords || '',
+        image: article.featuredImage?.url ? `${STRAPI_BASE_URL}${article.featuredImage.url}` : '/images/hero.jpg'
+      }))
+    }
+  } catch (error) {
+    console.error('Strapi connection failed, using mock data:', error)
+  }
+  
+  // Fallback to mock data
+  console.log('Using mock data as fallback')
   return getMockArticles()
 }
 
