@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://koptay-site.vercel.app/sitemap.xml
+
+# Allow search engines to crawl the site
+User-agent: Googlebot
+Allow: /
+
+# Block crawling of admin or development paths
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /api/
