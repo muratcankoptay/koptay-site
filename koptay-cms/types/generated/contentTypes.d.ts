@@ -470,7 +470,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   collectionName: 'articles';
   info: {
-    displayName: 'article';
+    displayName: 'Article';
     pluralName: 'articles';
     singularName: 'article';
   };
@@ -478,31 +478,47 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    article: Schema.Attribute.Relation<'manyToOne', 'api::article.article'> &
+      Schema.Attribute.Private;
+    articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'> &
+      Schema.Attribute.Private;
     author: Schema.Attribute.String &
+      Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Av. Murat Can Koptay'>;
-    category: Schema.Attribute.String;
+    category: Schema.Attribute.Enumeration<
+      [
+        'Ceza Hukuku',
+        'Aile Hukuku',
+        'Ticaret Hukuku',
+        '\u0130\u015F Hukuku',
+        '\u0130cra-\u0130flas',
+        '\u0130dare Hukuku',
+      ]
+    > &
+      Schema.Attribute.Required;
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     excerpt: Schema.Attribute.Text & Schema.Attribute.Required;
-    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    featuredImage: Schema.Attribute.Media<'images' | 'files'>;
+    image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    keywords: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::article.article'
     > &
       Schema.Attribute.Private;
-    metaDescription: Schema.Attribute.Text;
-    metaKeywords: Schema.Attribute.String;
+    publishedat: Schema.Attribute.Date & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    readTime: Schema.Attribute.String & Schema.Attribute.DefaultTo<'5'>;
-    slug: Schema.Attribute.String &
+    readTime: Schema.Attribute.Integer & Schema.Attribute.Required;
+    seoDescription: Schema.Attribute.Text;
+    seoTitle: Schema.Attribute.String;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    tags: Schema.Attribute.JSON;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

@@ -1,7 +1,7 @@
 // API utility functions for the law firm website
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-const STRAPI_BASE_URL = 'https://passionate-basket-17f9c03fdf.strapiapp.com';
+const STRAPI_BASE_URL = 'https://abundant-hope-d2eafdac0c.strapiapp.com';
 
 // Function to get articles from Strapi with fallback to mock data
 const getArticlesFromStrapi = async () => {
@@ -18,15 +18,16 @@ const getArticlesFromStrapi = async () => {
         content: article.content,
         category: article.category,
         tags: article.tags || [],
-        author: article.author || 'Av. Koptay',
-        publishDate: article.publishedAt?.split('T')[0] || article.createdAt?.split('T')[0],
+        author: article.author || 'Av. Murat Can Koptay',
+        publishDate: article.publishedat?.split('T')[0] || article.publishedAt?.split('T')[0] || article.createdAt?.split('T')[0],
         updatedDate: article.updatedAt?.split('T')[0],
-        readTime: article.readTime || '5 dakika',
+        readTime: `${article.readTime || 5} dakika`,
         featured: article.featured || false,
         views: article.views || 0,
-        metaDescription: article.metaDescription || article.excerpt,
-        metaKeywords: article.metaKeywords || '',
-        image: article.featuredImage?.url ? `${STRAPI_BASE_URL}${article.featuredImage.url}` : '/images/hero.jpg'
+        metaDescription: article.seoDescription || article.excerpt,
+        metaKeywords: article.keywords || '',
+        seoTitle: article.seoTitle || article.title,
+        image: article.image?.url ? `${STRAPI_BASE_URL}${article.image.url}` : '/images/hero.jpg'
       }))
     }
   } catch (error) {
@@ -314,15 +315,16 @@ export const api = {
               content: article.content,
               category: article.category,
               tags: article.tags || [],
-              author: article.author || 'Av. Koptay',
-              publishDate: article.publishedAt?.split('T')[0] || article.createdAt?.split('T')[0],
+              author: article.author || 'Av. Murat Can Koptay',
+              publishDate: article.publishedat?.split('T')[0] || article.publishedAt?.split('T')[0] || article.createdAt?.split('T')[0],
               updatedDate: article.updatedAt?.split('T')[0],
-              readTime: article.readTime || '5 dakika',
+              readTime: `${article.readTime || 5} dakika`,
               featured: article.featured || false,
               views: (article.views || 0) + 1,
-              metaDescription: article.metaDescription || article.excerpt,
-              metaKeywords: article.metaKeywords || '',
-              image: article.featuredImage?.url ? `${STRAPI_BASE_URL}${article.featuredImage.url}` : '/images/hero.jpg'
+              metaDescription: article.seoDescription || article.excerpt,
+              metaKeywords: article.keywords || '',
+              seoTitle: article.seoTitle || article.title,
+              image: article.image?.url ? `${STRAPI_BASE_URL}${article.image.url}` : '/images/hero.jpg'
             }
           };
         }
