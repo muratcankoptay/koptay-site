@@ -350,13 +350,26 @@ export const api = {
 
   // Submit contact form
   submitContact: async (formData) => {
-    await delay(1000);
-    // In a real app, this would send to your backend
-    console.log('Contact form submitted:', formData);
-    return {
-      success: true,
-      message: 'Mesajınız başarıyla gönderildi. En kısa sürede size döneceğiz.'
-    };
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Mesaj gönderilemedi');
+      }
+
+      return result;
+    } catch (error) {
+      console.error('Contact form error:', error);
+      throw new Error('Mesaj gönderilemedi. Lütfen tekrar deneyiniz.');
+    }
   },
 
   // Get practice areas
