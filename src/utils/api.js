@@ -27,7 +27,7 @@ const getArticlesFromStrapi = async () => {
         metaDescription: article.seoDescription || article.excerpt,
         metaKeywords: article.keywords || '',
         seoTitle: article.seoTitle || article.title,
-        image: article.image?.url ? `${STRAPI_BASE_URL}${article.image.url}` : '/images/hero.jpg'
+        image: article.image?.url || '/images/hero.jpg'
       }))
     }
   } catch (error) {
