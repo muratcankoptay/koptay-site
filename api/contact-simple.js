@@ -31,8 +31,8 @@ export default async function handler(req, res) {
         const resend = new Resend(process.env.RESEND_API_KEY);
 
         const emailResult = await resend.emails.send({
-          from: 'İletişim Formu <noreply@koptay.av.tr>',
-          to: ['info@koptay.av.tr'],
+          from: 'onboarding@resend.dev',
+          to: 'info@koptay.av.tr',
           subject: `Website İletişim: ${subject || 'Konu Belirtilmemiş'}`,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
