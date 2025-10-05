@@ -247,7 +247,7 @@ const IletisimPage = () => {
               <div className="mb-8 rounded-2xl overflow-hidden shadow-lg">
                 <div className="aspect-video">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3058.7999999999997!2d32.855!3d39.9334!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDU2JzAwLjIiTiAzMsKwNTEnMTguMCJF!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3060.474957!2d32.851064!3d39.890109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDUzJzI0LjQiTiAzMsKwNTEnMTIuOCJF!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
@@ -259,7 +259,7 @@ const IletisimPage = () => {
                 </div>
                 <div className="bg-lawPrimary text-white p-4 text-center">
                   <a 
-                    href="https://maps.app.goo.gl/koptay-hukuk-ankara" 
+                    href="https://www.google.com/maps/place/39%C2%B053'24.4%22N+32%C2%B051'12.8%22E/@39.890109,32.851064,17z" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 hover:text-lawSecondary transition-colors"
