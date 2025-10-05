@@ -351,7 +351,7 @@ export const api = {
   // Submit contact form
   submitContact: async (formData) => {
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/api/contact-simple', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
