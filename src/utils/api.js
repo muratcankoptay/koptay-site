@@ -351,6 +351,8 @@ export const api = {
   // Submit contact form
   submitContact: async (formData) => {
     try {
+      console.log('📤 Sending contact form:', formData);
+      
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -359,15 +361,20 @@ export const api = {
         body: JSON.stringify(formData)
       });
 
-      const result = await response.json();
+      console.log('📡 Response status:', response.status);
       
       if (!response.ok) {
-        throw new Error(result.error || 'Mesaj gönderilemedi');
+        const errorText = await response.text();
+        console.error('❌ Response error:', errorText);
+        throw new Error(`HTTP ${response.status}: ${errorText}`);
       }
 
+      const result = await response.json();
+      console.log('✅ Success result:', result);
+      
       return result;
     } catch (error) {
-      console.error('Contact form error:', error);
+      console.error('❌ Contact form error:', error);
       throw new Error('Mesaj gönderilemedi. Lütfen tekrar deneyiniz.');
     }
   },
