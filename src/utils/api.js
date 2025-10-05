@@ -364,18 +364,21 @@ export const api = {
       console.log('📡 Response status:', response.status);
       
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('❌ Response error:', errorText);
-        throw new Error(`HTTP ${response.status}: ${errorText}`);
+        const errorData = await response.json();
+        console.error('❌ Response error:', errorData);
+        throw new Error(errorData.error || `HTTP ${response.status}`);
       }
 
       const result = await response.json();
       console.log('✅ Success result:', result);
       
-      return result;
+      return {
+        success: true,
+        message: result.message || 'Mesajınız başarıyla gönderildi.'
+      };
     } catch (error) {
       console.error('❌ Contact form error:', error);
-      throw new Error('Mesaj gönderilemedi. Lütfen tekrar deneyiniz.');
+      throw new Error(error.message || 'Mesaj gönderilemedi. Lütfen tekrar deneyiniz.');
     }
   },
 
