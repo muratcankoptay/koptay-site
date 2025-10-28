@@ -355,7 +355,7 @@ export const api = {
       
       // Web3Forms API Key
       // https://web3forms.com adresinden ücretsiz key alın
-      const WEB3FORMS_ACCESS_KEY = 'YOUR_ACCESS_KEY_HERE'; // Buraya key gelecek
+      const WEB3FORMS_ACCESS_KEY = '0793b4d9-026b-47f3-b03e-efa21814fc54';
       
       // Web3Forms entegrasyonu
       const response = await fetch('https://api.web3forms.com/submit', {
