@@ -41,10 +41,10 @@ const Nav = () => {
     <header className={`fixed w-full z-50 transition-all duration-300 ${
       shouldUseDarkMode 
         ? "bg-white border-b-2 border-lawSecondary py-2" 
-        : "bg-transparent py-6"
+        : "bg-transparent py-4"
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center gap-4">
           <Link 
             to="/" 
             className="flex items-center"
@@ -64,12 +64,12 @@ const Nav = () => {
             </div>
           </Link>
 
-          <nav className="hidden lg:flex space-x-8">
+          <nav className="hidden lg:flex space-x-4 xl:space-x-6">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.href}
-                className={`font-medium uppercase tracking-wide transition-colors duration-300 ${
+                className={`text-sm xl:text-base font-medium uppercase tracking-wide transition-colors duration-300 whitespace-nowrap ${
                   shouldUseDarkMode 
                     ? "text-lawDark hover:text-lawSecondary" 
                     : "text-white/80 hover:text-white"
@@ -85,7 +85,7 @@ const Nav = () => {
 
           <Link 
             to="/iletisim"
-            className={`hidden lg:block px-6 py-3 font-medium uppercase transition-all duration-300 ${
+            className={`hidden lg:block px-4 xl:px-6 py-3 text-sm xl:text-base font-medium uppercase transition-all duration-300 whitespace-nowrap ${
               shouldUseDarkMode 
                 ? "bg-lawPrimary text-white hover:bg-lawSecondary" 
                 : "bg-lawSecondary text-white hover:bg-lawPrimary"
