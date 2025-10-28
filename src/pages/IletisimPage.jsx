@@ -21,6 +21,7 @@ const IletisimPage = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
+  const [submitStatus, setSubmitStatus] = useState('') // 'success' or 'error'
 
   const handleInputChange = (e) => {
     setContactForm({
@@ -33,11 +34,13 @@ const IletisimPage = () => {
     e.preventDefault()
     setIsSubmitting(true)
     setSubmitMessage('')
+    setSubmitStatus('')
 
     try {
       const response = await api.submitContact(contactForm)
       if (response.success) {
         setSubmitMessage(response.message)
+        setSubmitStatus('success')
         setContactForm({
           name: '',
           email: '',
@@ -45,9 +48,22 @@ const IletisimPage = () => {
           subject: '',
           message: ''
         })
+        
+        // 5 saniye sonra mesajı temizle
+        setTimeout(() => {
+          setSubmitMessage('')
+          setSubmitStatus('')
+        }, 5000)
       }
     } catch (error) {
-      setSubmitMessage('Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.')
+      setSubmitMessage('Mesaj gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin veya telefon/e-posta ile iletişime geçin.')
+      setSubmitStatus('error')
+      
+      // 7 saniye sonra hata mesajını temizle
+      setTimeout(() => {
+        setSubmitMessage('')
+        setSubmitStatus('')
+      }, 7000)
     } finally {
       setIsSubmitting(false)
     }
@@ -230,8 +246,23 @@ const IletisimPage = () => {
                 </button>
 
                 {submitMessage && (
-                  <div className={`p-4 rounded-lg ${submitMessage.includes('hata') ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
-                    {submitMessage}
+                  <div className={`p-4 rounded-lg border-2 animate-fade-in-up ${
+                    submitStatus === 'success' 
+                      ? 'bg-green-50 border-green-500 text-green-800' 
+                      : 'bg-red-50 border-red-500 text-red-800'
+                  }`}>
+                    <div className="flex items-center gap-3">
+                      {submitStatus === 'success' ? (
+                        <svg className="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      ) : (
+                        <svg className="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      )}
+                      <p className="font-medium">{submitMessage}</p>
+                    </div>
                   </div>
                 )}
               </form>
