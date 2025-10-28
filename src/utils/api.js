@@ -354,11 +354,10 @@ export const api = {
       console.log('📤 Sending contact form:', formData);
       
       // EmailJS Configuration
-      // TODO: EmailJS kurulumunu tamamladıktan sonra bu değerleri güncelleyin
       const EMAILJS_CONFIG = {
-        serviceID: 'service_XXXXX',      // EmailJS'den alacağınız Service ID
-        templateID: 'template_XXXXX',    // EmailJS'den alacağınız Template ID
-        publicKey: 'YOUR_PUBLIC_KEY'     // EmailJS'den alacağınız Public Key
+        serviceID: 'service_o7y6h3w',
+        templateID: 'template_yg76i5q',
+        publicKey: '0_n6EIQWRrtxJllRp'
       };
 
       // EmailJS kurulumu yapılmamışsa geçici çözüm
