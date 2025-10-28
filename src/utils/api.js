@@ -353,48 +353,64 @@ export const api = {
     try {
       console.log('📤 Sending contact form:', formData);
       
-      // Web3Forms - Ücretsiz ve kolay alternatif
-      // FormSubmit.co alternatifi
-      const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY'; // https://web3forms.com'dan alınacak
+      // Web3Forms API Key
+      // https://web3forms.com adresinden ücretsiz key alın
+      const WEB3FORMS_ACCESS_KEY = 'YOUR_ACCESS_KEY_HERE'; // Buraya key gelecek
       
-      // Geçici çözüm: FormSubmit.co kullanarak (EmailJS yerine)
-      // Bu servis direkt email adresinize yönlendirir
-      const formSubmitResponse = await fetch(`https://formsubmit.co/ajax/info@koptay.av.tr`, {
+      // Web3Forms entegrasyonu
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          name: formData.name,
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `Yeni İletişim Formu: ${formData.subject || 'Genel'}`,
+          from_name: formData.name,
           email: formData.email,
           phone: formData.phone || 'Belirtilmedi',
-          subject: formData.subject || 'İletişim Formu',
-          message: formData.message,
-          _captcha: 'false', // Captcha'yı kapat
-          _template: 'table', // Tablo formatı
+          message: `
+İsim: ${formData.name}
+E-posta: ${formData.email}
+Telefon: ${formData.phone || 'Belirtilmedi'}
+Konu: ${formData.subject || 'Belirtilmedi'}
+
+Mesaj:
+${formData.message}
+
+---
+Bu mesaj koptay.av.tr web sitesi iletişim formundan gönderilmiştir.
+          `,
+          replyto: formData.email,
+          redirect: false
         })
       });
 
-      console.log('📡 FormSubmit Response status:', formSubmitResponse.status);
+      console.log('📡 Web3Forms Response status:', response.status);
 
-      if (!formSubmitResponse.ok) {
-        const errorText = await formSubmitResponse.text();
-        console.error('❌ FormSubmit error:', errorText);
-        throw new Error('E-posta gönderilemedi');
+      const result = await response.json();
+      console.log('📋 Web3Forms Response:', result);
+
+      if (!response.ok || !result.success) {
+        console.error('❌ Web3Forms error:', result);
+        throw new Error(result.message || 'E-posta gönderilemedi');
       }
-
-      const result = await formSubmitResponse.json();
-      console.log('✅ FormSubmit success:', result);
 
       return {
         success: true,
-        message: 'Mesajınız başarıyla info@koptay.av.tr adresine gönderildi. İlk kullanımda e-posta doğrulaması gerekebilir.'
+        message: 'Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.'
       };
       
     } catch (error) {
       console.error('❌ Contact form error:', error);
-      throw new Error(error.message || 'Mesaj gönderilemedi. Lütfen tekrar deneyiniz.');
+      
+      // Hata durumunda alternatif çözüm - mailto linki
+      if (error.message.includes('YOUR_ACCESS_KEY_HERE')) {
+        console.warn('⚠️ Web3Forms key henüz ayarlanmamış');
+      }
+      
+      throw new Error('Mesaj gönderilemedi. Lütfen info@koptay.av.tr adresine direkt mail atın veya +90 530 711 18 64 numarasından arayın.');
     }
   },
 
