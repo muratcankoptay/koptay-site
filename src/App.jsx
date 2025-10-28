@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import ArticlePage from './pages/ArticlePage'
 import ArticlesPage from './pages/ArticlesPage'
 import HizmetlerimizPage from './pages/HizmetlerimizPage'
+import EkibimizPage from './pages/EkibimizPage'
 import HesaplamaAraclariPage from './pages/HesaplamaAraclariPage'
 import InfazYatarPage from './pages/InfazYatarPage'
 import TazminatHesaplamaPage from './pages/TazminatHesaplamaPage'
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/hizmetlerimiz" element={<HizmetlerimizPage />} />
+          <Route path="/ekibimiz" element={<EkibimizPage />} />
           <Route path="/hesaplama-araclari" element={<HesaplamaAraclariPage />} />
           <Route path="/hesaplama-araclari/infaz-yatar" element={<InfazYatarPage />} />
           <Route path="/hesaplama-araclari/tazminat-hesaplama" element={<TazminatHesaplamaPage />} />

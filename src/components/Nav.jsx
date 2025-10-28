@@ -26,6 +26,7 @@ const Nav = () => {
   const navLinks = [
     { name: "Ana Sayfa", href: "/" },
     { name: "Hizmetler", href: "/hizmetlerimiz" },
+    { name: "Ekibimiz", href: "/ekibimiz" },
     { name: "Hesaplama Araçları", href: "/hesaplama-araclari" },
     { name: "Makaleler", href: "/makaleler" },
     { name: "Müvekkil Paneli", href: "/muvekkil-paneli" },
