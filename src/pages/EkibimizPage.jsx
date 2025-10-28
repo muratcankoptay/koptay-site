@@ -16,7 +16,7 @@ const EkibimizPage = () => {
       title: "Kurucu Ortak & Yönetici Avukat",
       specialization: "Ankara 2 Nolu Barosu - Sicil No: 3560",
       bio: "KOPTAY Hukuk Bürosu'nun kurucusu olarak, müvekkillerine en yüksek kalitede hukuki hizmet sunmayı ve onların haklarını en iyi şekilde korumayı ilke edinmiştir. Ceza hukuku, iş hukuku ve tazminat davaları alanlarında uzmanlaşmış olup, adalet ve etik değerlere bağlı kalarak çözüm odaklı yaklaşımıyla müvekkillerinin güvenini kazanmıştır.",
-      image: "/images/team/murat-can-koptay.jpg",
+      image: "/images/team/murat-can-koptay.jpeg",
       education: [
         "Ankara Yıldırım Beyazıt Üniversitesi Hukuk Fakültesi"
       ],
