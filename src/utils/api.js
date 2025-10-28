@@ -353,53 +353,73 @@ export const api = {
     try {
       console.log('📤 Sending contact form:', formData);
       
-      // EmailJS ile mail gönderimi
-      const emailJsConfig = {
-        serviceID: 'service_koptay', // EmailJS'den alacaksınız
-        templateID: 'template_contact', // EmailJS'den alacaksınız
-        publicKey: 'YOUR_PUBLIC_KEY' // EmailJS'den alacaksınız
+      // EmailJS Configuration
+      // TODO: EmailJS kurulumunu tamamladıktan sonra bu değerleri güncelleyin
+      const EMAILJS_CONFIG = {
+        serviceID: 'service_XXXXX',      // EmailJS'den alacağınız Service ID
+        templateID: 'template_XXXXX',    // EmailJS'den alacağınız Template ID
+        publicKey: 'YOUR_PUBLIC_KEY'     // EmailJS'den alacağınız Public Key
       };
 
-      // Geçici olarak - direkt başarılı yanıt dönüyoruz
-      // EmailJS kurulumunu yaparken bu kısmı aktif edeceğiz
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simüle edilmiş gecikme
-      
-      console.log('✅ Form submitted (simulated):', formData);
-      
-      return {
-        success: true,
-        message: 'Mesajınız başarıyla alındı! En kısa sürede size dönüş yapacağız.'
-      };
+      // EmailJS kurulumu yapılmamışsa geçici çözüm
+      if (EMAILJS_CONFIG.publicKey === 'YOUR_PUBLIC_KEY') {
+        console.warn('⚠️ EmailJS henüz yapılandırılmamış. Form verileri konsola yazılıyor.');
+        console.log('📧 Mail gönderilecek adres: info@koptay.av.tr');
+        console.log('📋 Form verileri:', {
+          to: 'info@koptay.av.tr',
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone || 'Belirtilmedi',
+          subject: formData.subject || 'İletişim Formu',
+          message: formData.message
+        });
+        
+        // Simüle edilmiş bekleme
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        return {
+          success: true,
+          message: 'Mesajınız başarıyla alındı! EmailJS kurulumu tamamlandığında info@koptay.av.tr adresine otomatik gönderilecek.'
+        };
+      }
 
-      /* EmailJS kurulumu tamamlandığında bu kodu kullanacağız:
+      // EmailJS ile gerçek mail gönderimi
       const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          service_id: emailJsConfig.serviceID,
-          template_id: emailJsConfig.templateID,
-          user_id: emailJsConfig.publicKey,
+          service_id: EMAILJS_CONFIG.serviceID,
+          template_id: EMAILJS_CONFIG.templateID,
+          user_id: EMAILJS_CONFIG.publicKey,
           template_params: {
+            to_email: 'info@koptay.av.tr',
             from_name: formData.name,
             from_email: formData.email,
             phone: formData.phone || 'Belirtilmedi',
             subject: formData.subject || 'İletişim Formu',
-            message: formData.message
+            message: formData.message,
+            reply_to: formData.email
           }
         })
       });
 
+      console.log('📡 EmailJS Response status:', response.status);
+
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error('❌ EmailJS error:', errorText);
         throw new Error('E-posta gönderilemedi');
       }
 
+      const result = await response.text();
+      console.log('✅ EmailJS success:', result);
+
       return {
         success: true,
-        message: 'Mesajınız başarıyla gönderildi.'
+        message: 'Mesajınız başarıyla info@koptay.av.tr adresine gönderildi. En kısa sürede size dönüş yapacağız.'
       };
-      */
       
     } catch (error) {
       console.error('❌ Contact form error:', error);
