@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { Users, Scale, Award, Heart } from "lucide-react"
+import { Scale, Award, Heart } from "lucide-react"
 import TeamMember from "../components/TeamMember"
 import SEO from "../components/SEO"
 
@@ -34,29 +34,6 @@ const EkibimizPage = () => {
     }
   ]
 
-  const stats = [
-    {
-      icon: Scale,
-      number: "500+",
-      label: "Başarılı Dava"
-    },
-    {
-      icon: Award,
-      number: "Ankara Barosu",
-      label: "Sicil No: 3560"
-    },
-    {
-      icon: Users,
-      number: "100+",
-      label: "Mutlu Müvekkil"
-    },
-    {
-      icon: Heart,
-      number: "%98",
-      label: "Müvekkil Memnuniyeti"
-    }
-  ]
-
   return (
     <>
       <SEO 
@@ -77,30 +54,6 @@ const EkibimizPage = () => {
               Deneyimli, uzman ve çözüm odaklı kadromuzla<br />
               hukuki ihtiyaçlarınızda yanınızdayız
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* İstatistikler */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div 
-                key={index}
-                className="text-center group hover:transform hover:scale-105 transition-all duration-300"
-              >
-                <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-lawPrimary/10 group-hover:bg-lawPrimary transition-colors duration-300">
-                  <stat.icon className="w-8 h-8 text-lawPrimary group-hover:text-white transition-colors duration-300" />
-                </div>
-                <div className="text-4xl font-bold text-lawDark mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-gray-600 font-medium">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
