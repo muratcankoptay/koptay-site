@@ -1,7 +1,7 @@
 // API utility functions for the law firm website
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-const STRAPI_BASE_URL = 'https://abundant-hope-d2eafdac0c.strapiapp.com';
+const STRAPI_BASE_URL = (import.meta.env.VITE_STRAPI_URL || 'https://koptay-law-cms.strapiapp.com').replace(/\/$/, '');
 
 // Function to get articles from Strapi with fallback to mock data
 const getArticlesFromStrapi = async () => {
@@ -463,14 +463,39 @@ Bu mesaj koptay.av.tr web sitesi iletişim formundan gönderilmiştir.
 
 // Helper functions
 export const formatDate = (dateString) => {
-  const options = { 
-    year: 'numeric', 
-    month: 'long', 
+  if (!dateString) return ''
+
+  const normalizeIsoDate = (value) => {
+    const isoMatch = /^\d{4}-\d{2}-\d{2}$/.exec(value)
+    if (isoMatch) {
+      const [year, month, day] = value.split('-').map(Number)
+      return new Date(Date.UTC(year, month - 1, day))
+    }
+
+    const dottedMatch = /^\d{2}\.\d{2}\.\d{4}$/.exec(value)
+    if (dottedMatch) {
+      const [day, month, year] = value.split('.').map(Number)
+      return new Date(Date.UTC(year, month - 1, day))
+    }
+
+    return new Date(value)
+  }
+
+  const date = dateString instanceof Date ? dateString : normalizeIsoDate(dateString)
+
+  if (Number.isNaN(date.getTime())) {
+    return dateString
+  }
+
+  const formatter = new Intl.DateTimeFormat('tr-TR', {
+    year: 'numeric',
+    month: 'long',
     day: 'numeric',
     timeZone: 'Europe/Istanbul'
-  };
-  return new Date(dateString).toLocaleDateString('tr-TR', options);
-};
+  })
+
+  return formatter.format(date)
+}
 
 export const slugify = (text) => {
   return text

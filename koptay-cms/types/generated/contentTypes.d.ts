@@ -487,12 +487,31 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<'Av. Murat Can Koptay'>;
     category: Schema.Attribute.Enumeration<
       [
-        'Ceza Hukuku',
         'Aile Hukuku',
+        'Ceza Hukuku',
         'Ticaret Hukuku',
         '\u0130\u015F Hukuku',
         '\u0130cra-\u0130flas',
         '\u0130dare Hukuku',
+        'Gayrimenkul Hukuku',
+        'Miras Hukuku',
+        'Vergi Hukuku',
+        'T\u00FCketici Hukuku',
+        'Fikri M\u00FClkiyet Hukuku',
+        'Sigorta Hukuku',
+        'Bankac\u0131l\u0131k ve Finans Hukuku',
+        'Uluslararas\u0131 Hukuk',
+        'Enerji Hukuku',
+        'Sa\u011Fl\u0131k Hukuku',
+        'Bili\u015Fim Hukuku',
+        'S\u00F6zle\u015Fmeler Hukuku',
+        'Kamu \u0130hale Hukuku',
+        'Sermaye Piyasas\u0131 Hukuku',
+        'Deniz Hukuku',
+        '\u00C7evre Hukuku',
+        'Rekabet Hukuku',
+        'Hukuk G\u00FCncel',
+        'Avukatl\u0131k \u00DCcretleri',
       ]
     > &
       Schema.Attribute.Required;
