@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Calendar, Clock, User, ArrowLeft, Share2, Facebook, Twitter, Linkedin } from 'lucide-react'
+import { marked } from 'marked'
 import { api, formatDate } from '../utils/api'
 import SEO from '../components/SEO'
 import ArticleCard from '../components/ArticleCard'
@@ -225,7 +226,7 @@ const ArticlePage = () => {
             {/* Article Content */}
             <div className="prose prose-lg max-w-none">
               <div 
-                dangerouslySetInnerHTML={{ __html: article.content }}
+                dangerouslySetInnerHTML={{ __html: marked.parse(article.content || '') }}
                 className="text-gray-700 leading-relaxed"
               />
             </div>
