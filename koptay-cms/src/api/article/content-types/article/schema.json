@@ -33,12 +33,31 @@
       "type": "enumeration",
       "required": true,
       "enum": [
-        "Ceza Hukuku",
         "Aile Hukuku",
+        "Ceza Hukuku",
         "Ticaret Hukuku",
         "İş Hukuku",
         "İcra-İflas",
-        "İdare Hukuku"
+        "İdare Hukuku",
+        "Gayrimenkul Hukuku",
+        "Miras Hukuku",
+        "Vergi Hukuku",
+        "Tüketici Hukuku",
+        "Fikri Mülkiyet Hukuku",
+        "Sigorta Hukuku",
+        "Bankacılık ve Finans Hukuku",
+        "Uluslararası Hukuk",
+        "Enerji Hukuku",
+        "Sağlık Hukuku",
+        "Bilişim Hukuku",
+        "Sözleşmeler Hukuku",
+        "Kamu İhale Hukuku",
+        "Sermaye Piyasası Hukuku",
+        "Deniz Hukuku",
+        "Çevre Hukuku",
+        "Rekabet Hukuku",
+        "Hukuk Güncel",
+        "Avukatlık Ücretleri"
       ]
     },
     "author": {
