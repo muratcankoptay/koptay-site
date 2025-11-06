@@ -5,14 +5,6 @@
       "destination": "/index.html"
     }
   ],
-  "images": {
-    "domains": [
-      "passionate-basket-17f9c03fdf.media.strapiapp.com",
-      "passionate-basket-17f9c03fdf.strapiapp.com"
-    ],
-    "formats": ["image/avif", "image/webp"],
-    "minimumCacheTTL": 31536000
-  },
   "headers": [
     {
       "source": "/(.*)",

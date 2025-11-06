@@ -1,25 +1,22 @@
 /**
  * Image Optimization Utility
- * Uses Vercel's built-in image optimization for better performance
+ * For Vite/React apps - returns original URL
+ * Image optimization handled at source (Strapi) or CDN level
  */
 
 /**
- * Optimize image URL using Vercel Image Optimization
+ * Get optimized image URL
  * @param {string} url - Original image URL
- * @param {number} width - Target width
- * @param {number} quality - Quality (1-100)
- * @returns {string} - Optimized image URL
+ * @param {number} width - Target width (unused in this implementation)
+ * @param {number} quality - Quality (unused in this implementation)
+ * @returns {string} - Image URL
  */
 export const optimizeImage = (url, width = 1024, quality = 80) => {
   if (!url) return url
   
-  // Skip if already optimized or local
-  if (url.includes('/_vercel/image') || url.startsWith('/')) return url
-  
-  // Use Vercel's Image Optimization API
-  // Format: /_vercel/image?url=ENCODED_URL&w=WIDTH&q=QUALITY
-  const encodedUrl = encodeURIComponent(url)
-  return `/_vercel/image?url=${encodedUrl}&w=${width}&q=${quality}`
+  // For Strapi images, use as-is
+  // Optimization should be done at Strapi level or via CDN
+  return url
 }
 
 /**
