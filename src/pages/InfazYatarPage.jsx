@@ -504,11 +504,188 @@ const InfazYatarPage = () => {
   return (
     <>
       <SEO 
-        title="İnfaz Süresi Hesaplama - Ceza İnfaz Hesaplayıcısı | Koptay Hukuk"
-        description="Ceza infazı süresi hesaplama aracı. Koşullu salıverme, denetimli serbestlik hesaplaması. CGTİK m.107 ve m.105/A esas alınmıştır. Ücretsiz hukuki hesaplama."
-        keywords="infaz süresi hesaplama, koşullu salıverme hesaplama, denetimli serbestlik, ceza infazı, CGTİK, infaz hesaplayıcısı, ceza süresi hesaplama"
+        title="İnfaz Yatar Hesaplama: Cezaevinde Ne Kadar Kalınır? 2025 Güncel Rehber"
+        description="İnfaz yatar hesaplama rehberi: Cezaevinde ne kadar kalınır, koşullu salıverilme tarihi nasıl hesaplanır? Ücretsiz infaz hesaplama aracı ve adım adım rehber. CGTİK m.107 hükümlerine göre."
+        keywords="infaz yatar hesaplama, cezaevinde ne kadar kalınır, infaz süresi hesaplama, koşullu salıverilme hesaplama, denetimli serbestlik, CGTİK m.107, infaz hesaplayıcısı, ceza süresi hesaplama, tahliye tarihi hesaplama"
         url="/hesaplama-araclari/infaz-yatar"
+        canonical="https://koptay.com/hesaplama-araclari/infaz-yatar"
       />
+      
+      {/* JSON-LD Structured Data - Article Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "İnfaz Yatar Hesaplama: Cezaevinde Ne Kadar Kalınır? 2025 Güncel Rehber",
+          "description": "İnfaz yatar hesaplama rehberi: Cezaevinde ne kadar kalınır, koşullu salıverilme tarihi nasıl hesaplanır? Detaylı rehber ve ücretsiz hesaplama aracı.",
+          "image": "https://koptay.com/images/infaz-yatar-hesaplama.jpg",
+          "author": {
+            "@type": "Organization",
+            "name": "Koptay Hukuk Bürosu"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Koptay Hukuk Bürosu",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://koptay.com/logo.png"
+            }
+          },
+          "datePublished": "2025-01-06",
+          "dateModified": "2025-01-06",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://koptay.com/hesaplama-araclari/infaz-yatar"
+          },
+          "keywords": ["infaz yatar hesaplama", "cezaevinde ne kadar kalınır", "koşullu salıverilme", "denetimli serbestlik", "CGTİK"],
+          "articleSection": "Ceza Hukuku",
+          "inLanguage": "tr-TR"
+        })}
+      </script>
+      
+      {/* JSON-LD Structured Data - HowTo Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          "name": "İnfaz Yatar Nasıl Hesaplanır?",
+          "description": "Ceza infazı süresini ve tahliye tarihini adım adım hesaplama rehberi",
+          "image": "https://koptay.com/images/infaz-yatar-hesaplama.jpg",
+          "totalTime": "PT5M",
+          "tool": [
+            {
+              "@type": "HowToTool",
+              "name": "İnfaz Hesaplama Aracı"
+            },
+            {
+              "@type": "HowToTool",
+              "name": "Mahkeme Kararı"
+            }
+          ],
+          "step": [
+            {
+              "@type": "HowToStep",
+              "name": "Toplam Ceza Süresini Belirleyin",
+              "text": "Mahkeme kararındaki toplam hapis cezasını yıl, ay ve gün olarak not edin.",
+              "position": 1
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Mahkumiyet Tarihini Kontrol Edin",
+              "text": "Kararın kesinleşme tarihini not edin. Bu tarih hangi yasal düzenlemenin uygulanacağını belirler.",
+              "position": 2
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Suç Türünü ve İnfaz Oranını Belirleyin",
+              "text": "İşlenen suçun türüne göre uygulanacak infaz oranını tespit edin (1/2, 2/3 veya 3/4).",
+              "position": 3
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Koşullu Salıverilme Tarihini Hesaplayın",
+              "text": "Toplam ceza günü × İnfaz Oranı = Koşullu salıverilme için gerekli gün sayısı.",
+              "position": 4
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Mahsup Günlerini Düşün",
+              "text": "Gözaltı ve tutukluluk süresini hesaplamadan düşün. Bu süreler cezadan düşülür.",
+              "position": 5
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Tahliye Tarihini Belirleyin",
+              "text": "İnfaz başlangıç tarihi + Koşullu salıverilme gün sayısı - Mahsup günleri = Tahmini tahliye tarihi.",
+              "position": 6
+            }
+          ]
+        })}
+      </script>
+      
+      {/* JSON-LD Structured Data - FAQPage Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "İnfaz yatar hesaplama nedir?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "İnfaz yatar hesaplama, bir hükümlünün ceza infaz kurumunda (cezaevinde) ne kadar süre kalacağını belirleyen hukuki bir işlemdir. Türk hukuk sisteminde, mahkeme tarafından verilen cezanın tamamı cezaevinde çekilmez; hükümlü, belirli koşulları yerine getirdiğinde koşullu salıverme ve denetimli serbestlik sisteminden yararlanabilir."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Cezaevinde ne kadar kalınır?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Cezaevinde kalma süresi, suçun türüne, işlenme tarihine ve hükümlünün kişisel durumuna göre değişir. Genel suçlar için 1/2 (50%), cinsel suçlar için 2/3 (67%), ağır suçlar için 3/4 (75%) oranında infaz uygulanır. Örneğin 10 yıl ceza alan bir hükümlü, suç türüne göre 5-7.5 yıl cezaevinde kalabilir."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Koşullu salıverme nedir?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Koşullu salıverme, hükümlünün cezasının belirli bir kısmını çektikten sonra, iyi halini göstermesi halinde geri kalan cezasını cezaevi dışında geçirmesine imkan veren bir infaz kurumudur. CGTİK m.107'ye göre, suç türüne göre 1/2, 2/3 veya 3/4 oranında ceza çekildikten sonra koşullu salıverilme mümkündür."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Denetimli serbestlik nedir?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Denetimli serbestlik, hükümlünün toplumsal yaşama uyumunu sağlamak amacıyla, cezasının son kısmını belirli denetim ve yükümlülükler altında geçirmesini sağlar. 30 Mart 2020 öncesi suçlar için son 3 yıl, sonrası suçlar için son 1 yıl denetimli serbestlik uygulanır."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Mahsup nedir?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Mahsup, tutukluluk süresi, gözaltı süresi gibi özgürlüğü kısıtlayan tedbirlerin ceza süresinden düşülmesi işlemidir. Bu süreler infaz süresini kısaltır ve tahliye tarihini öne çeker."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "30 Mart 2020 tarihi neden önemli?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Bu tarihte yapılan yasal düzenleme ile denetimli serbestlik süreleri değişmiştir. Bu tarih öncesi suçlarda 3 yıl, sonrasında ise 1 yıl denetimli serbestlik uygulanır. TCK m.7 lehe hüküm gereği, hükümlü lehine olan düzenleme geriye dönük uygulanabilir."
+              }
+            }
+          ]
+        })}
+      </script>
+      
+      {/* JSON-LD Structured Data - WebApplication Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "İnfaz Yatar Hesaplama Aracı",
+          "description": "Ceza infazı süresi, koşullu salıverilme ve denetimli serbestlik hesaplama aracı",
+          "url": "https://koptay.com/hesaplama-araclari/infaz-yatar",
+          "applicationCategory": "LegalApplication",
+          "operatingSystem": "Web",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "TRY"
+          },
+          "featureList": [
+            "İnfaz süresi hesaplama",
+            "Koşullu salıverilme tarihi hesaplama",
+            "Denetimli serbestlik hesaplama",
+            "TCK m.7 lehe hüküm otomatiği",
+            "PDF rapor indirme",
+            "Mahsup günü hesaplama"
+          ]
+        })}
+      </script>
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20 mt-20">
@@ -539,15 +716,365 @@ const InfazYatarPage = () => {
         </div>
       </section>
 
+      {/* Makale İçeriği - SEO İçin */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto prose prose-lg">
+            <article>
+              {/* Giriş */}
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">İnfaz Yatar Hesaplama Nedir?</h2>
+              
+              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                İnfaz yatar hesaplama, bir hükümlünün ceza infaz kurumunda (cezaevinde) ne kadar süre 
+                kalacağını belirleyen hukuki bir işlemdir. Türk hukuk sisteminde, mahkeme tarafından 
+                verilen cezanın tamamı cezaevinde çekilmez; hükümlü, belirli koşulları yerine getirdiğinde 
+                <strong> koşullu salıverme</strong> ve <strong>denetimli serbestlik</strong> sisteminden 
+                yararlanabilir.
+              </p>
+
+              <div className="bg-blue-50 border-l-4 border-blue-600 p-6 my-8 rounded-r-lg">
+                <p className="text-blue-900 font-medium">
+                  💡 <strong>Önemli Not:</strong> İnfaz yatar hesaplaması, 5275 sayılı Ceza ve Güvenlik 
+                  Tedbirlerinin İnfazı Hakkında Kanun (CGTİK) hükümlerine göre yapılır. Bu hesaplama, 
+                  hükümlünün hangi tarihte tahliye olacağını, koşullu salıverilme hakkından ne zaman 
+                  yararlanabileceğini ve denetimli serbestlik süresini belirler.
+                </p>
+              </div>
+
+              {/* İnfaz ve Yatar Kavramları */}
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 mt-12">İnfaz ve Yatar Kavramları</h2>
+              
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">İnfaz Nedir?</h3>
+              <p className="text-gray-700 leading-relaxed mb-6">
+                <strong>İnfaz</strong>, mahkeme tarafından verilen hapis cezasının yerine getirilmesi 
+                sürecidir. İnfaz süreci, hükümlünün ceza infaz kurumuna girdiği andan itibaren başlar 
+                ve cezanın tamamının çekilmesi veya koşullu salıverilme ile sona erer. İnfaz süresi, 
+                suçun türüne, işlenme tarihine ve hükümlünün kişisel durumuna göre değişiklik gösterir.
+              </p>
+
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">Yatar Nedir?</h3>
+              <p className="text-gray-700 leading-relaxed mb-6">
+                <strong>Yatar</strong>, hükümlünün ceza infaz kurumunda fiilen kalacağı süreyi ifade eder. 
+                Mahkemece verilen toplam ceza süresi ile yatar süresi genellikle aynı değildir. Çünkü 
+                Türk hukuku, iyi hal gösteren hükümlülere koşullu salıverilme ve denetimli serbestlik 
+                imkanı tanır. Bu nedenle, örneğin 10 yıl hapis cezası alan bir hükümlü, suçun türüne 
+                göre 5-7.5 yıl kadar cezaevinde kalabilir.
+              </p>
+
+              <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 my-8 rounded-r-lg">
+                <p className="text-yellow-900">
+                  ⚠️ <strong>Dikkat:</strong> Yatar süresi, mahsup günleri, iyi hal indirimi, 
+                  disiplin cezaları gibi faktörlere bağlı olarak değişebilir. Bu nedenle kesin sonuç 
+                  için mutlaka bir ceza avukatına danışmanız önerilir.
+                </p>
+              </div>
+
+              {/* Cezaevinde Ne Kadar Kalınır Kriterleri */}
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 mt-12">Cezaevinde Ne Kadar Kalınır? Belirleyici Kriterler</h2>
+              
+              <p className="text-gray-700 leading-relaxed mb-6">
+                Bir hükümlünün cezaevinde ne kadar kalacağını belirleyen birçok önemli kriter vardır. 
+                Bu kriterler doğru analiz edildiğinde, tahliye tarihinin tam olarak hesaplanması mümkündür.
+              </p>
+
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">1. Suçun İşlenme Tarihi</h3>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Suçun hangi tarihte işlendiği, uygulanacak infaz rejimini belirler:
+              </p>
+              <ul className="list-disc list-inside space-y-2 mb-6 text-gray-700">
+                <li><strong>30 Mart 2020 öncesi suçlar:</strong> Son 3 yıl denetimli serbestlik uygulanır</li>
+                <li><strong>30 Mart 2020 sonrası suçlar:</strong> Son 1 yıl denetimli serbestlik uygulanır</li>
+                <li><strong>TCK m.7 Lehe Hüküm:</strong> Hükümlü lehine olan yeni düzenlemeler geriye dönük uygulanır</li>
+              </ul>
+
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">2. Suç Türü ve İnfaz Oranı</h3>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Suçun türü, koşullu salıverilme için gereken infaz oranını belirler:
+              </p>
+              
+              <div className="overflow-x-auto my-6">
+                <table className="min-w-full bg-white border border-gray-200 rounded-lg">
+                  <thead className="bg-gradient-to-r from-teal-600 to-teal-700 text-white">
+                    <tr>
+                      <th className="px-6 py-3 text-left font-semibold">Suç Kategorisi</th>
+                      <th className="px-6 py-3 text-left font-semibold">İnfaz Oranı</th>
+                      <th className="px-6 py-3 text-left font-semibold">Örnekler</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-6 py-4">Genel Suçlar</td>
+                      <td className="px-6 py-4 font-semibold text-green-600">1/2 (50%)</td>
+                      <td className="px-6 py-4 text-sm">Hırsızlık, Dolandırıcılık, Kasten Yaralama</td>
+                    </tr>
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-6 py-4">Cinsel Suçlar</td>
+                      <td className="px-6 py-4 font-semibold text-orange-600">2/3 (67%)</td>
+                      <td className="px-6 py-4 text-sm">Cinsel İstismar, Cinsel Saldırı</td>
+                    </tr>
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-6 py-4">Ağır Suçlar</td>
+                      <td className="px-6 py-4 font-semibold text-red-600">3/4 (75%)</td>
+                      <td className="px-6 py-4 text-sm">Terör, Uyuşturucu Ticareti, Örgütlü Suç</td>
+                    </tr>
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-6 py-4">Müebbet Hapis</td>
+                      <td className="px-6 py-4 font-semibold text-purple-600">30 yıl</td>
+                      <td className="px-6 py-4 text-sm">Kasten Adam Öldürme (Ağırlaştırılmış)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">3. Özel Durumlar</h3>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Bazı özel durumlar, infaz süresini doğrudan etkiler:
+              </p>
+              <ul className="list-disc list-inside space-y-2 mb-6 text-gray-700">
+                <li><strong>Çocuk Hükümlü (18 yaş altı):</strong> Daha kısa infaz oranları uygulanır</li>
+                <li><strong>Hamile veya Yeni Doğum Yapmış Kadın:</strong> Erteleme veya ev hapsi mümkün olabilir</li>
+                <li><strong>Mükerrir (Tekrar Suç İşleyen):</strong> Koşullu salıverilme hakkı yoktur</li>
+                <li><strong>İyi Hal Şartları:</strong> Eğitim, meslek kursları, disiplin ihlali yapmama</li>
+                <li><strong>Gözaltı/Tutukluluk Süresi:</strong> Ceza süresinden düşülür (mahsup)</li>
+              </ul>
+
+              {/* Adım Adım Hesaplama Rehberi */}
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 mt-12">İnfaz Yatar Hesaplama: Adım Adım Rehber</h2>
+              
+              <p className="text-gray-700 leading-relaxed mb-6">
+                İnfaz yatar hesaplamasını doğru yapmak için aşağıdaki adımları takip edebilirsiniz:
+              </p>
+
+              <div className="space-y-6 mb-8">
+                <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                  <h4 className="font-bold text-blue-900 mb-2">📋 Adım 1: Toplam Ceza Süresini Belirleyin</h4>
+                  <p className="text-blue-800">
+                    Mahkeme kararındaki toplam hapis cezasını yıl, ay ve gün olarak not edin. 
+                    Örnek: 5 yıl 6 ay 15 gün = 2012 gün
+                  </p>
+                </div>
+
+                <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+                  <h4 className="font-bold text-green-900 mb-2">📅 Adım 2: Mahkumiyet Tarihini Kontrol Edin</h4>
+                  <p className="text-green-800">
+                    Kararın kesinleşme tarihini not edin. Bu tarih, hangi yasal düzenlemenin 
+                    uygulanacağını belirler (30 Mart 2020 öncesi/sonrası).
+                  </p>
+                </div>
+
+                <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+                  <h4 className="font-bold text-yellow-900 mb-2">⚖️ Adım 3: Suç Türünü ve İnfaz Oranını Belirleyin</h4>
+                  <p className="text-yellow-800">
+                    İşlenen suçun türüne göre uygulanacak infaz oranını tespit edin (1/2, 2/3 veya 3/4). 
+                    Yukarıdaki tabloya bakarak doğru oranı seçin.
+                  </p>
+                </div>
+
+                <div className="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
+                  <h4 className="font-bold text-purple-900 mb-2">🧮 Adım 4: Koşullu Salıverilme Tarihini Hesaplayın</h4>
+                  <p className="text-purple-800">
+                    Toplam ceza günü × İnfaz Oranı = Koşullu salıverilme için gerekli gün sayısı. 
+                    Örnek: 2012 gün × 1/2 = 1006 gün (yaklaşık 2 yıl 9 ay)
+                  </p>
+                </div>
+
+                <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+                  <h4 className="font-bold text-red-900 mb-2">🔢 Adım 5: Mahsup Günlerini Düşün</h4>
+                  <p className="text-red-800">
+                    Gözaltı ve tutukluluk süresini hesaplamadan düşün. Bu süreler cezadan düşülür ve 
+                    tahliye tarihini öne çeker.
+                  </p>
+                </div>
+
+                <div className="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+                  <h4 className="font-bold text-indigo-900 mb-2">📆 Adım 6: Tahliye Tarihini Belirleyin</h4>
+                  <p className="text-indigo-800">
+                    İnfaz başlangıç tarihi + Koşullu salıverilme gün sayısı - Mahsup günleri = 
+                    Tahmini tahliye tarihi. Bu tarihte hükümlü denetimli serbestliğe çıkar.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-blue-600 to-teal-600 text-white p-8 rounded-xl my-8">
+                <h4 className="text-2xl font-bold mb-4">💻 Otomatik Hesaplama İçin Aracımızı Kullanın</h4>
+                <p className="text-lg mb-4">
+                  Yukarıdaki karmaşık hesaplamaları tek tıkla yapmak için aşağıdaki hesaplama 
+                  aracımızı kullanabilirsiniz. Sadece bilgileri girin, hesaplama otomatik olarak 
+                  yapılsın!
+                </p>
+                <a 
+                  href="#hesaplama-formu" 
+                  className="inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  Hesaplama Aracına Git →
+                </a>
+              </div>
+
+              {/* Hesaplama Aracı Kullanım İpuçları */}
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 mt-12">Hesaplama Aracı Kullanım İpuçları</h2>
+              
+              <p className="text-gray-700 leading-relaxed mb-6">
+                İnfaz yatar hesaplama aracımızı kullanırken aşağıdaki ipuçlarını göz önünde 
+                bulundurarak daha doğru sonuçlar elde edebilirsiniz:
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
+                <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                  <div className="text-3xl mb-3">✅</div>
+                  <h4 className="font-bold text-gray-900 mb-2">Doğru Bilgi Girişi</h4>
+                  <p className="text-gray-700 text-sm">
+                    Mahkeme kararınızı yanınızda bulundurarak tüm bilgileri eksiksiz ve doğru girin. 
+                    Yanlış bilgi, yanlış hesaplama sonucu verir.
+                  </p>
+                </div>
+
+                <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                  <div className="text-3xl mb-3">📅</div>
+                  <h4 className="font-bold text-gray-900 mb-2">Tarih Kontrolü</h4>
+                  <p className="text-gray-700 text-sm">
+                    Suçun işlenme tarihi ve mahkumiyet tarihini karıştırmayın. Her ikisi de 
+                    hesaplama için kritik öneme sahiptir.
+                  </p>
+                </div>
+
+                <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                  <div className="text-3xl mb-3">⚖️</div>
+                  <h4 className="font-bold text-gray-900 mb-2">Suç Türü Seçimi</h4>
+                  <p className="text-gray-700 text-sm">
+                    Suç türünü doğru seçin. Emin değilseniz, mahkeme kararındaki TCK madde 
+                    numarasına bakarak seçim yapın veya avukata danışın.
+                  </p>
+                </div>
+
+                <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                  <div className="text-3xl mb-3">🔢</div>
+                  <h4 className="font-bold text-gray-900 mb-2">Mahsup Hesabı</h4>
+                  <p className="text-gray-700 text-sm">
+                    Gözaltı ve tutukluluk günlerinizi toplamayı unutmayın. Bu günler cezanızdan 
+                    düşüleceği için tahliye tarihinizi öne çeker.
+                  </p>
+                </div>
+
+                <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                  <div className="text-3xl mb-3">👶</div>
+                  <h4 className="font-bold text-gray-900 mb-2">Özel Durumlar</h4>
+                  <p className="text-gray-700 text-sm">
+                    18 yaş altı, hamilelik, mükerirlik gibi özel durumları mutlaka belirtin. 
+                    Bu faktörler hesaplamayı doğrudan etkiler.
+                  </p>
+                </div>
+
+                <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                  <div className="text-3xl mb-3">⚠️</div>
+                  <h4 className="font-bold text-gray-900 mb-2">Avukat Danışmanlığı</h4>
+                  <p className="text-gray-700 text-sm">
+                    Hesaplama aracı tahmini sonuç verir. Kesin bilgi için mutlaka bir ceza avukatına 
+                    danışın ve durumunuzu detaylı inceletin.
+                  </p>
+                </div>
+              </div>
+
+              {/* İlgili Konular ve İç Linkler */}
+              <div className="bg-blue-50 border-l-4 border-blue-600 p-6 my-8 rounded-r-lg">
+                <h4 className="text-xl font-bold text-blue-900 mb-4">📚 İlgili Konular</h4>
+                <p className="text-blue-800 mb-4">
+                  Ceza hukuku ile ilgili diğer önemli konular hakkında bilgi almak için:
+                </p>
+                <div className="grid md:grid-cols-2 gap-3">
+                  <Link 
+                    to="/makaleler" 
+                    className="bg-white hover:bg-blue-50 text-blue-800 px-4 py-3 rounded-lg font-medium transition-colors border border-blue-200"
+                  >
+                    → Ceza Hukuku Makaleleri
+                  </Link>
+                  <Link 
+                    to="/hizmetlerimiz" 
+                    className="bg-white hover:bg-blue-50 text-blue-800 px-4 py-3 rounded-lg font-medium transition-colors border border-blue-200"
+                  >
+                    → Ceza Avukatı Hizmetleri
+                  </Link>
+                  <Link 
+                    to="/hesaplama-araclari/tazminat-hesaplama" 
+                    className="bg-white hover:bg-blue-50 text-blue-800 px-4 py-3 rounded-lg font-medium transition-colors border border-blue-200"
+                  >
+                    → Tazminat Hesaplama
+                  </Link>
+                  <Link 
+                    to="/hesaplama-araclari" 
+                    className="bg-white hover:bg-blue-50 text-blue-800 px-4 py-3 rounded-lg font-medium transition-colors border border-blue-200"
+                  >
+                    → Diğer Hesaplama Araçları
+                  </Link>
+                </div>
+              </div>
+
+              {/* Sonuç ve CTA */}
+              <div className="bg-gradient-to-br from-gray-800 to-gray-900 text-white p-8 rounded-xl my-12">
+                <h3 className="text-2xl font-bold mb-4">🎯 Sonuç</h3>
+                <p className="text-lg leading-relaxed mb-6">
+                  İnfaz yatar hesaplama, ceza hukukunun en karmaşık konularından biridir. Doğru 
+                  hesaplama için suç türü, işlenme tarihi, özel durumlar ve güncel mevzuat bilgisi 
+                  gereklidir. Yukarıdaki rehber ve hesaplama aracımız, size genel bir fikir verecektir. 
+                  Ancak kesin sonuç için mutlaka <strong>deneyimli bir ceza avukatına danışmanızı</strong> 
+                  öneririz.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link 
+                    to="/iletisim"
+                    className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold text-center transition-colors"
+                  >
+                    📞 Ücretsiz Hukuki Danışmanlık
+                  </Link>
+                  <Link 
+                    to="/makaleler"
+                    className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold text-center transition-colors"
+                  >
+                    📚 Ceza Hukuku Makaleleri
+                  </Link>
+                </div>
+              </div>
+
+              {/* Uzman Görüşü Uyarısı */}
+              <div className="bg-amber-50 border border-amber-300 rounded-lg p-6 my-8">
+                <div className="flex items-start space-x-3">
+                  <AlertTriangle className="w-6 h-6 text-amber-600 mt-1 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-bold text-amber-900 mb-2">⚖️ Profesyonel Hukuki Destek</h4>
+                    <p className="text-amber-800 mb-4">
+                      Bu hesaplama aracı ve rehber, genel bilgilendirme amaçlıdır ve hukuki görüş niteliği taşımaz. 
+                      Her ceza dosyası kendine özgü özellikler içerir. <strong>Avukat danışmanlığı almadan</strong> 
+                      önemli kararlar vermeyin.
+                    </p>
+                    <ul className="text-sm text-amber-700 space-y-1 mb-4">
+                      <li>✓ Dosyanızın detaylı incelenmesi</li>
+                      <li>✓ İnfaz hâkimliği başvuruları</li>
+                      <li>✓ Koşullu salıverme prosedürleri</li>
+                      <li>✓ İyi hal belgesi hazırlama</li>
+                      <li>✓ Açık cezaevi geçiş başvuruları</li>
+                    </ul>
+                    <Link 
+                      to="/iletisim"
+                      className="inline-block bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded-lg font-semibold transition-colors"
+                    >
+                      Hemen Avukat Desteği Alın →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
       {/* Bilgilendirme Bölümü */}
-      <section className="py-16 bg-blue-50">
+      <section id="hesaplama-formu" className="py-16 bg-blue-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-2xl p-8 shadow-lg">
               <div className="flex items-start space-x-4 mb-6">
                 <AlertTriangle className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Ceza İnfaz Süresi Hesaplama</h2>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Ceza İnfaz Süresi Hesaplama Aracı</h2>
                   <div className="prose max-w-none text-gray-700 space-y-4">
                     <p className="text-lg font-medium text-blue-800 bg-blue-100 p-4 rounded-lg">
                       Bu araç <strong>Ceza ve Güvenlik Tedbirlerinin İnfazı Hakkında Kanun m.107 ve m.105/A</strong> esas alınarak geliştirilmiştir.
@@ -1621,30 +2148,91 @@ const InfazYatarPage = () => {
         </div>
       </section>
 
-      {/* İletişim CTA */}
-      <section className="py-16 bg-blue-600 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold mb-6">Hukuki Destek İhtiyacınız mı Var?</h2>
-            <p className="text-xl mb-8 leading-relaxed">
-              Ceza hukuku konularında uzman avukatlarımızdan professional destek alın. 
-              Ücretsiz ön görüşme için hemen iletişime geçin.
-            </p>
+      {/* İletişim CTA - Güçlendirilmiş */}
+      <section className="py-16 bg-gradient-to-br from-blue-600 via-blue-700 to-teal-600 text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            {/* Ana CTA */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Ceza Davası İçin Profesyonel Hukuki Destek
+              </h2>
+              <p className="text-xl mb-2 leading-relaxed">
+                İnfaz süreci karmaşık ve stresli olabilir. <strong>20+ yıllık deneyimli</strong> ceza avukatlarımızdan 
+                ücretsiz ön görüşme alın.
+              </p>
+              <p className="text-lg opacity-90">
+                📞 7/24 İletişim | 🏛️ Tüm Mahkemelerde Temsil | ⚖️ Başarı Odaklı Çözümler
+              </p>
+            </div>
+
+            {/* Hizmet Kartları */}
+            <div className="grid md:grid-cols-3 gap-6 mb-10">
+              <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-6 text-center border border-white border-opacity-20">
+                <div className="text-4xl mb-3">📋</div>
+                <h3 className="font-bold text-lg mb-2">İnfaz Danışmanlığı</h3>
+                <p className="text-sm opacity-90">
+                  Koşullu salıverilme, denetimli serbestlik ve açık cezaevi başvuruları
+                </p>
+              </div>
+              
+              <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-6 text-center border border-white border-opacity-20">
+                <div className="text-4xl mb-3">⚖️</div>
+                <h3 className="font-bold text-lg mb-2">Ceza Davası Savunma</h3>
+                <p className="text-sm opacity-90">
+                  Soruşturma ve kovuşturma aşamalarında güçlü savunma stratejileri
+                </p>
+              </div>
+              
+              <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-6 text-center border border-white border-opacity-20">
+                <div className="text-4xl mb-3">📞</div>
+                <h3 className="font-bold text-lg mb-2">7/24 Acil Destek</h3>
+                <p className="text-sm opacity-90">
+                  Gözaltı, tutuklama ve acil durumlarda anında müdahale
+                </p>
+              </div>
+            </div>
+
+            {/* CTA Butonları */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 to="/iletisim"
-                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-colors inline-flex items-center justify-center"
+                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 inline-flex items-center justify-center shadow-lg"
               >
-                <Phone className="w-5 h-5 mr-2" />
-                Ücretsiz Görüşme
+                <Phone className="w-6 h-6 mr-2" />
+                Ücretsiz Ön Görüşme
+              </Link>
+              <Link 
+                to="/ekibimiz"
+                className="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-blue-600 transition-all inline-flex items-center justify-center"
+              >
+                👨‍⚖️ Avukat Ekibimiz
               </Link>
               <Link 
                 to="/hesaplama-araclari"
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors inline-flex items-center justify-center"
+                className="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-blue-600 transition-all inline-flex items-center justify-center"
               >
                 <ArrowLeft className="w-5 h-5 mr-2" />
-                Diğer Hesaplama Araçları
+                Diğer Araçlar
               </Link>
+            </div>
+
+            {/* Güven İşaretleri */}
+            <div className="mt-10 pt-8 border-t border-white border-opacity-20 text-center">
+              <div className="flex flex-wrap justify-center gap-8 text-sm opacity-90">
+                <div className="flex items-center">
+                  <CheckCircle className="w-5 h-5 mr-2" />
+                  <span>20+ Yıl Deneyim</span>
+                </div>
+                <div className="flex items-center">
+                  <CheckCircle className="w-5 h-5 mr-2" />
+                  <span>1000+ Başarılı Dava</span>
+                </div>
+                <div className="flex items-center">
+                  <CheckCircle className="w-5 h-5 mr-2" />
+                  <span>%98 Müvekkil Memnuniyeti</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
