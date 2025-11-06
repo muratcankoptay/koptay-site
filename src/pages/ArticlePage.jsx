@@ -226,7 +226,7 @@ const ArticlePage = () => {
             {/* Article Content */}
             <div className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:font-bold prose-h1:text-4xl prose-h2:text-3xl prose-h2:mt-8 prose-h2:mb-4 prose-h2:border-b prose-h2:border-gray-200 prose-h2:pb-2 prose-h3:text-2xl prose-h3:mt-6 prose-h3:mb-3 prose-p:leading-relaxed prose-p:mb-4 prose-ul:list-disc prose-ul:pl-6 prose-ol:list-decimal prose-ol:pl-6 prose-li:mb-2 prose-strong:font-bold prose-strong:text-gray-900 prose-blockquote:border-l-4 prose-blockquote:border-primary-500 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-700 prose-a:text-primary-600 prose-a:underline hover:prose-a:text-primary-700 prose-table:w-full prose-table:border-collapse prose-table:my-8 prose-thead:bg-gradient-to-r prose-thead:from-primary-600 prose-thead:to-primary-700 prose-th:text-white prose-th:font-semibold prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:border prose-th:border-primary-500 prose-td:px-4 prose-td:py-3 prose-td:border prose-td:border-gray-300 prose-tr:even:bg-gray-50 prose-tr:hover:bg-gray-100 prose-tr:transition-colors prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto">
               <div 
-                dangerouslySetInnerHTML={{ __html: marked.parse(article.content || '') }}
+                dangerouslySetInnerHTML={{ __html: marked.parse(article.content || '', { breaks: false, gfm: true }) }}
                 className="text-gray-700"
               />
             </div>
