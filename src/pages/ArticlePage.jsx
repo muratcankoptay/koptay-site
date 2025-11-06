@@ -222,7 +222,7 @@ const ArticlePage = () => {
         title={`${article.title} | Av. Koptay Hukuk Bürosu`}
         description={article.metaDescription || article.excerpt}
         keywords={article.metaKeywords || (article.tags ? article.tags.join(', ') : '')}
-        url={`https://koptayhukuk.com/makaleler/${article.slug}`}
+        url={`https://koptay.av.tr/makale/${article.slug}`}
         type="article"
         image={article.image}
         author={article.author}
@@ -230,6 +230,119 @@ const ArticlePage = () => {
         modifiedTime={article.updatedDate || article.publishDate}
         preloadImage={true}
       />
+
+      {/* JSON-LD Structured Data - Article Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": article.title,
+          "description": article.metaDescription || article.excerpt,
+          "image": article.image || "https://koptay.av.tr/images/default-article.jpg",
+          "author": {
+            "@type": "Person",
+            "name": article.author || "Av. Murat Can Koptay",
+            "url": "https://koptay.av.tr/ekibimiz"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Koptay Hukuk Bürosu",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://koptay.av.tr/logo.png",
+              "width": 250,
+              "height": 60
+            },
+            "url": "https://koptay.av.tr",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+90-530-711-18-64",
+              "contactType": "customer service",
+              "areaServed": "TR",
+              "availableLanguage": "Turkish"
+            }
+          },
+          "datePublished": article.publishDate,
+          "dateModified": article.updatedDate || article.publishDate,
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://koptay.av.tr/makale/${article.slug}`
+          },
+          "articleSection": article.category || "Hukuk",
+          "keywords": article.tags ? article.tags.join(", ") : "",
+          "inLanguage": "tr-TR",
+          "wordCount": article.content ? article.content.split(/\s+/).length : 0,
+          "timeRequired": article.readTime || "5 dakika"
+        })}
+      </script>
+
+      {/* JSON-LD Structured Data - BreadcrumbList Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Ana Sayfa",
+              "item": "https://koptay.av.tr/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Makaleler",
+              "item": "https://koptay.av.tr/makaleler"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": article.category || "Hukuk",
+              "item": `https://koptay.av.tr/makaleler?kategori=${encodeURIComponent(article.category || "")}`
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": article.title,
+              "item": `https://koptay.av.tr/makale/${article.slug}`
+            }
+          ]
+        })}
+      </script>
+
+      {/* JSON-LD Structured Data - Organization Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LegalService",
+          "name": "Koptay Hukuk Bürosu",
+          "alternateName": "Av. Murat Can Koptay",
+          "url": "https://koptay.av.tr",
+          "logo": "https://koptay.av.tr/logo.png",
+          "image": "https://koptay.av.tr/images/hero.jpg",
+          "description": "Ankara merkezli profesyonel hukuk bürosu. İş hukuku, ticaret hukuku, aile hukuku, ceza hukuku alanlarında 20+ yıl deneyim.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Ankara",
+            "addressCountry": "TR"
+          },
+          "telephone": "+90-530-711-18-64",
+          "email": "info@koptay.av.tr",
+          "priceRange": "$$",
+          "areaServed": {
+            "@type": "Country",
+            "name": "Türkiye"
+          },
+          "serviceArea": {
+            "@type": "GeoCircle",
+            "geoMidpoint": {
+              "@type": "GeoCoordinates",
+              "latitude": "39.9334",
+              "longitude": "32.8597"
+            }
+          }
+        })}
+      </script>
 
       <div className="pt-24 pb-12">
         <div className="container mx-auto px-4">
