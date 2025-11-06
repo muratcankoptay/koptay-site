@@ -88,7 +88,7 @@ body {
 }
 
 .prose thead {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: linear-gradient(135deg, rgb(84, 140, 141) 0%, rgb(69, 115, 116) 100%);
 }
 
 .prose th {
@@ -96,7 +96,7 @@ body {
   font-weight: 600;
   padding: 16px 20px;
   text-align: left;
-  border: 1px solid #2563eb;
+  border: 1px solid rgb(69, 115, 116);
   font-size: 0.9rem;
   letter-spacing: 0.3px;
 }
