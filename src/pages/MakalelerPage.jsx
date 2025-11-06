@@ -13,12 +13,34 @@ const MakalelerPage = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await api.getArticles()
+        // Strapi cold start için timeout ekle (15 saniye)
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Timeout')), 15000)
+        )
+        
+        const fetchPromise = api.getArticles()
+        
+        const response = await Promise.race([fetchPromise, timeoutPromise])
+        
         if (response.success) {
           setArticles(response.data)
         }
       } catch (error) {
         console.error('Error fetching articles:', error)
+        
+        // Timeout durumunda kullanıcıya bilgi ver
+        if (error.message === 'Timeout') {
+          console.warn('⚠️ Strapi cold start - Tekrar deneniyor...')
+          // Tekrar dene
+          try {
+            const retryResponse = await api.getArticles()
+            if (retryResponse.success) {
+              setArticles(retryResponse.data)
+            }
+          } catch (retryError) {
+            console.error('Retry failed:', retryError)
+          }
+        }
       } finally {
         setLoading(false)
       }
@@ -99,9 +121,42 @@ const MakalelerPage = () => {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           {loading ? (
-            <div className="text-center py-20">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-lawPrimary border-t-transparent"></div>
-              <p className="mt-4 text-gray-600">Makaleler yükleniyor...</p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Skeleton Loading - 6 cards */}
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="bg-white border border-gray-200 rounded-2xl p-6 shadow-lg animate-pulse">
+                  {/* Image skeleton */}
+                  <div className="mb-6 rounded-xl bg-gray-200 h-48"></div>
+                  
+                  {/* Date/Time skeleton */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="h-4 bg-gray-200 rounded w-24"></div>
+                    <div className="h-4 bg-gray-200 rounded w-16"></div>
+                  </div>
+                  
+                  {/* Category skeleton */}
+                  <div className="h-6 bg-gray-200 rounded w-32 mb-4"></div>
+                  
+                  {/* Title skeleton */}
+                  <div className="space-y-2 mb-4">
+                    <div className="h-6 bg-gray-200 rounded w-full"></div>
+                    <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+                  </div>
+                  
+                  {/* Excerpt skeleton */}
+                  <div className="space-y-2 mb-6">
+                    <div className="h-4 bg-gray-200 rounded w-full"></div>
+                    <div className="h-4 bg-gray-200 rounded w-full"></div>
+                    <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                  </div>
+                  
+                  {/* Footer skeleton */}
+                  <div className="flex items-center justify-between">
+                    <div className="h-4 bg-gray-200 rounded w-24"></div>
+                    <div className="h-4 bg-gray-200 rounded w-28"></div>
+                  </div>
+                </div>
+              ))}
             </div>
           ) : filteredArticles.length === 0 ? (
             <div className="text-center py-20">
