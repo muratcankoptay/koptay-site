@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Calendar, Clock, ArrowRight, User } from 'lucide-react'
 import { formatDate } from '../utils/api'
+import { optimizeImage } from '../utils/imageOptimizer'
 
 const ArticleCard = ({ article, index = 0 }) => {
   const [isVisible, setIsVisible] = useState(false)
@@ -48,9 +49,11 @@ const ArticleCard = ({ article, index = 0 }) => {
       <div className="relative h-48 bg-gradient-to-br from-primary-500 to-primary-700 overflow-hidden">
         {article.image ? (
           <img
-            src={article.image}
+            src={optimizeImage(article.image, 640, 75)}
             alt={article.title}
             className="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
             onError={(e) => {
               // Fallback to gradient background if image fails to load
               e.target.style.display = 'none'

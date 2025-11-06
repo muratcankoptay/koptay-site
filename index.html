@@ -7,23 +7,56 @@
     <title>KOPTAY HUKUK</title>
     <meta name="description" content="Profesyonel hukuki danışmanlık ve avukatlık hizmetleri. Deneyimli avukat kadromuzla yanınızdayız." />
     
+    <!-- Critical CSS - Inline for faster FCP -->
+    <style>
+      *{margin:0;padding:0;box-sizing:border-box}
+      html{scroll-behavior:smooth}
+      body{font-family:'Open Sans',sans-serif;line-height:1.6;color:#1f2937;background:#fff}
+      .animate-spin{animation:spin 1s linear infinite}
+      @keyframes spin{to{transform:rotate(360deg)}}
+      .rounded-full{border-radius:9999px}
+      .border-b-2{border-bottom-width:2px}
+      .border-primary-600{border-color:rgb(84,140,141)}
+      .min-h-screen{min-height:100vh}
+      .flex{display:flex}
+      .items-center{align-items:center}
+      .justify-center{justify-content:center}
+      .h-16{height:4rem}
+      .w-16{width:4rem}
+    </style>
+    
+    <!-- DNS Prefetch for faster DNS resolution -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://passionate-basket-17f9c03fdf.strapiapp.com">
+    <link rel="dns-prefetch" href="https://passionate-basket-17f9c03fdf.media.strapiapp.com">
+    <link rel="dns-prefetch" href="https://wsrv.nl">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    
     <!-- Preconnect to critical domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://passionate-basket-17f9c03fdf.strapiapp.com">
     <link rel="preconnect" href="https://passionate-basket-17f9c03fdf.media.strapiapp.com">
+    <link rel="preconnect" href="https://wsrv.nl">
     
     <!-- Optimized font loading with display=swap -->
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8DQ21Q8GF9"></script>
+    <!-- Defer Google Analytics to not block rendering -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-8DQ21Q8GF9');
+      window.addEventListener('load', function() {
+        // Load Google Analytics after page load
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-8DQ21Q8GF9';
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8DQ21Q8GF9');
+      });
     </script>
   </head>
   <body>

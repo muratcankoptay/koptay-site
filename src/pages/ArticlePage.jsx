@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { Calendar, Clock, User, ArrowLeft, Share2, Facebook, Twitter, Linkedin } from 'lucide-react'
 import { marked } from 'marked'
 import { api, formatDate } from '../utils/api'
+import { optimizeImage, generateSrcSet, generateSizes } from '../utils/imageOptimizer'
 import SEO from '../components/SEO'
 import ArticleCard from '../components/ArticleCard'
 
@@ -308,7 +309,9 @@ const ArticlePage = () => {
             {article.image && (
               <div className="mb-8 relative overflow-hidden rounded-xl bg-gray-100">
                 <img
-                  src={article.image}
+                  src={optimizeImage(article.image, 1280, 85)}
+                  srcSet={generateSrcSet(article.image)}
+                  sizes={generateSizes()}
                   alt={article.title}
                   className="w-full h-64 md:h-96 object-cover rounded-xl"
                   width="1024"
@@ -317,7 +320,7 @@ const ArticlePage = () => {
                   fetchpriority="high"
                   decoding="async"
                   onError={(e) => {
-                    e.target.style.display = 'none'
+                    e.target.src = article.image // Fallback to original
                   }}
                 />
               </div>
