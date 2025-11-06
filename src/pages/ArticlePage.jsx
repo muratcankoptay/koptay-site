@@ -223,6 +223,7 @@ const ArticlePage = () => {
         author={article.author}
         publishedTime={article.publishDate}
         modifiedTime={article.updatedDate || article.publishDate}
+        preloadImage={true}
       />
 
       <div className="pt-24 pb-12">
@@ -305,11 +306,14 @@ const ArticlePage = () => {
 
             {/* Article Image */}
             {article.image && (
-              <div className="mb-8">
+              <div className="mb-8 relative overflow-hidden rounded-xl bg-gray-100">
                 <img
                   src={article.image}
                   alt={article.title}
                   className="w-full h-64 md:h-96 object-cover rounded-xl"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
                   onError={(e) => {
                     e.target.style.display = 'none'
                   }}

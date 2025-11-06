@@ -9,7 +9,8 @@ const SEO = ({
   type = 'website',
   author = null,
   publishedTime = null,
-  modifiedTime = null
+  modifiedTime = null,
+  preloadImage = false
 }) => {
   // Create structured data based on type
   let structuredData = {
@@ -104,6 +105,16 @@ const SEO = ({
       
       {/* Canonical URL */}
       <link rel="canonical" href={url} />
+      
+      {/* Preload critical image for LCP optimization */}
+      {preloadImage && image && (
+        <link 
+          rel="preload" 
+          as="image" 
+          href={image}
+          fetchpriority="high"
+        />
+      )}
       
       {/* Structured Data */}
       <script type="application/ld+json">
