@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://koptay-site.vercel.app/sitemap.xml
+Sitemap: https://koptay.av.tr/sitemap.xml
 
 # Allow search engines to crawl the site
 User-agent: Googlebot
