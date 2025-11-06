@@ -311,6 +311,8 @@ const ArticlePage = () => {
                   src={article.image}
                   alt={article.title}
                   className="w-full h-64 md:h-96 object-cover rounded-xl"
+                  width="1024"
+                  height="690"
                   loading="eager"
                   fetchpriority="high"
                   decoding="async"
