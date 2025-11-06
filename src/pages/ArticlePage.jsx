@@ -14,15 +14,90 @@ marked.setOptions({
   mangle: false
 })
 
-// Function to clean up content - remove single line breaks, keep only paragraph breaks
+// Function to clean up content - remove single line breaks in paragraphs only
 const cleanContent = (content) => {
   if (!content) return ''
   
-  // Replace single line breaks with space, but keep double line breaks (paragraph breaks)
-  return content
-    .replace(/([^\n])\n([^\n])/g, '$1 $2') // Single line break -> space
-    .replace(/\n{3,}/g, '\n\n') // Multiple line breaks -> double line break
-    .trim()
+  // Split content into lines
+  const lines = content.split('\n')
+  const result = []
+  let inCodeBlock = false
+  let inTable = false
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i]
+    const trimmedLine = line.trim()
+    
+    // Check for code blocks
+    if (trimmedLine.startsWith('```')) {
+      inCodeBlock = !inCodeBlock
+      result.push(line)
+      continue
+    }
+    
+    // If in code block, keep as is
+    if (inCodeBlock) {
+      result.push(line)
+      continue
+    }
+    
+    // Check for tables (lines with |)
+    if (trimmedLine.includes('|')) {
+      inTable = true
+      result.push(line)
+      continue
+    } else if (inTable && trimmedLine === '') {
+      inTable = false
+      result.push(line)
+      continue
+    } else if (inTable) {
+      result.push(line)
+      continue
+    }
+    
+    // Check for headings, lists, or special markdown
+    if (
+      trimmedLine.startsWith('#') ||      // Headings
+      trimmedLine.startsWith('*') ||      // Lists
+      trimmedLine.startsWith('-') ||      // Lists or horizontal rule
+      trimmedLine.startsWith('+') ||      // Lists
+      trimmedLine.match(/^\d+\./) ||      // Numbered lists
+      trimmedLine.startsWith('>') ||      // Blockquotes
+      trimmedLine === '' ||               // Empty lines
+      trimmedLine.startsWith('![')        // Images
+    ) {
+      result.push(line)
+      continue
+    }
+    
+    // For regular text lines, check if next line should be merged
+    if (i < lines.length - 1) {
+      const nextLine = lines[i + 1].trim()
+      
+      // Don't merge if next line is special markdown or empty
+      if (
+        nextLine === '' ||
+        nextLine.startsWith('#') ||
+        nextLine.startsWith('*') ||
+        nextLine.startsWith('-') ||
+        nextLine.startsWith('+') ||
+        nextLine.match(/^\d+\./) ||
+        nextLine.startsWith('>') ||
+        nextLine.includes('|') ||
+        nextLine.startsWith('```')
+      ) {
+        result.push(line)
+      } else {
+        // Merge with next line
+        result.push(line + ' ' + nextLine)
+        i++ // Skip next line since we merged it
+      }
+    } else {
+      result.push(line)
+    }
+  }
+  
+  return result.join('\n').replace(/\n{3,}/g, '\n\n').trim()
 }
 
 const ArticlePage = () => {
