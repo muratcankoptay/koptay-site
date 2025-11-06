@@ -75,3 +75,75 @@ body {
 .btn-secondary {
   @apply bg-white text-lawPrimary border-2 border-lawPrimary px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-gray-50 hover:shadow-md;
 }
+
+/* Article Content Styling - Professional Table Design */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.prose thead {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+}
+
+.prose th {
+  color: white;
+  font-weight: 600;
+  padding: 16px 20px;
+  text-align: left;
+  border: 1px solid #1e3a8a;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+}
+
+.prose td {
+  padding: 14px 20px;
+  border: 1px solid #e5e7eb;
+  background: white;
+}
+
+.prose tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.prose tbody tr:hover {
+  background-color: #f3f4f6;
+  transition: background-color 0.2s ease;
+}
+
+/* Right align numeric columns */
+.prose td:nth-child(2),
+.prose td:nth-child(3),
+.prose td:nth-child(4) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.prose th:nth-child(2),
+.prose th:nth-child(3),
+.prose th:nth-child(4) {
+  text-align: right;
+}
+
+/* Blockquote styling */
+.prose blockquote {
+  border-left: 4px solid #3b82f6;
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #4b5563;
+  background: #f0f9ff;
+  padding: 1rem 1.5rem;
+  border-radius: 0 8px 8px 0;
+}
+
+/* Strong emphasis */
+.prose strong {
+  color: #111827;
+  font-weight: 700;
+}
