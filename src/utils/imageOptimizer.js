@@ -1,10 +1,10 @@
 /**
  * Image Optimization Utility
- * Converts Strapi images to optimized formats using external services
+ * Uses Vercel's built-in image optimization for better performance
  */
 
 /**
- * Optimize image URL using wsrv.nl (free CDN with WebP conversion)
+ * Optimize image URL using Vercel Image Optimization
  * @param {string} url - Original image URL
  * @param {number} width - Target width
  * @param {number} quality - Quality (1-100)
@@ -14,12 +14,12 @@ export const optimizeImage = (url, width = 1024, quality = 80) => {
   if (!url) return url
   
   // Skip if already optimized or local
-  if (url.includes('wsrv.nl') || url.startsWith('/')) return url
+  if (url.includes('/_vercel/image') || url.startsWith('/')) return url
   
-  // Use wsrv.nl for WebP conversion and optimization
-  // Format: https://wsrv.nl/?url=ORIGINAL_URL&w=WIDTH&q=QUALITY&output=webp
+  // Use Vercel's Image Optimization API
+  // Format: /_vercel/image?url=ENCODED_URL&w=WIDTH&q=QUALITY
   const encodedUrl = encodeURIComponent(url)
-  return `https://wsrv.nl/?url=${encodedUrl}&w=${width}&q=${quality}&output=webp&il`
+  return `/_vercel/image?url=${encodedUrl}&w=${width}&q=${quality}`
 }
 
 /**

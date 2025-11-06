@@ -114,20 +114,24 @@ const ArticlePage = () => {
         setLoading(true)
         setError(null)
         
-        const response = await api.getArticle(slug)
-        if (response.success) {
-          setArticle(response.data)
+        // Parallel fetch for better performance
+        const [articleResponse, allArticlesResponse] = await Promise.all([
+          api.getArticle(slug),
+          api.getArticles()
+        ])
+        
+        if (articleResponse.success) {
+          setArticle(articleResponse.data)
           
-          // Fetch related articles
-          const allArticlesResponse = await api.getArticles()
+          // Filter related articles
           if (allArticlesResponse.success) {
             const related = allArticlesResponse.data
-              .filter(a => a.slug !== slug && a.category === response.data.category)
+              .filter(a => a.slug !== slug && a.category === articleResponse.data.category)
               .slice(0, 3)
             setRelatedArticles(related)
           }
         } else {
-          setError(response.error || 'Makale bulunamadı')
+          setError(articleResponse.error || 'Makale bulunamadı')
         }
       } catch (err) {
         setError('Makale yüklenirken bir hata oluştu')

@@ -4,5 +4,41 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
+  ],
+  "images": {
+    "domains": [
+      "passionate-basket-17f9c03fdf.media.strapiapp.com",
+      "passionate-basket-17f9c03fdf.strapiapp.com"
+    ],
+    "formats": ["image/avif", "image/webp"],
+    "minimumCacheTTL": 31536000
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
   ]
 }

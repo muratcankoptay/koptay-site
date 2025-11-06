@@ -276,17 +276,32 @@ const mockArticles = [
   }
 ]
 
-// Simulate API delay
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+// Simple in-memory cache
+const cache = {
+  articles: null,
+  articlesTimestamp: 0,
+  CACHE_DURATION: 5 * 60 * 1000 // 5 minutes
+}
 
 export const api = {
   // Get all articles
   getArticles: async () => {
-    await delay(500); // Simulate API delay
+    // Check cache first
+    const now = Date.now()
+    if (cache.articles && (now - cache.articlesTimestamp) < cache.CACHE_DURATION) {
+      return {
+        success: true,
+        data: cache.articles
+      }
+    }
     
     // Try Strapi first, fallback to mock data
     const strapiArticles = await getArticlesFromStrapi()
     const articles = strapiArticles || mockArticles
+    
+    // Update cache
+    cache.articles = articles
+    cache.articlesTimestamp = now
     
     return {
       success: true,
@@ -296,7 +311,6 @@ export const api = {
 
   // Get single article by slug
   getArticle: async (slug) => {
-    await delay(300);
     
     // Try Strapi first
     try {
