@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#548c8d" />
+    <link rel="manifest" href="/manifest.json" />
     <title>KOPTAY HUKUK</title>
     <meta name="description" content="Profesyonel hukuki danışmanlık ve avukatlık hizmetleri. Deneyimli avukat kadromuzla yanınızdayız." />
     
@@ -30,18 +32,17 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="dns-prefetch" href="https://passionate-basket-17f9c03fdf.strapiapp.com">
     <link rel="dns-prefetch" href="https://passionate-basket-17f9c03fdf.media.strapiapp.com">
-    <link rel="dns-prefetch" href="https://wsrv.nl">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     
-    <!-- Preconnect to critical domains -->
+    <!-- Preconnect to critical domains (HIGHEST PRIORITY) -->
+    <link rel="preconnect" href="https://passionate-basket-17f9c03fdf.strapiapp.com" crossorigin>
+    <link rel="preconnect" href="https://passionate-basket-17f9c03fdf.media.strapiapp.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://passionate-basket-17f9c03fdf.strapiapp.com">
-    <link rel="preconnect" href="https://passionate-basket-17f9c03fdf.media.strapiapp.com">
-    <link rel="preconnect" href="https://wsrv.nl">
     
-    <!-- Optimized font loading with display=swap -->
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Optimized font loading with display=swap and preload -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"></noscript>
     
     <!-- Defer Google Analytics to not block rendering -->
     <script>
@@ -57,6 +58,21 @@
         gtag('js', new Date());
         gtag('config', 'G-8DQ21Q8GF9');
       });
+    </script>
+    
+    <!-- Prefetch Strapi API for faster navigation -->
+    <script>
+      // Warmup API connection
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          const link = document.createElement('link');
+          link.rel = 'prefetch';
+          link.href = 'https://passionate-basket-17f9c03fdf.strapiapp.com/api/articles?populate=*';
+          link.as = 'fetch';
+          link.crossOrigin = 'anonymous';
+          document.head.appendChild(link);
+        });
+      }
     </script>
   </head>
   <body>
