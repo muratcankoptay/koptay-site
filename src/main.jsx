@@ -5,16 +5,23 @@ import { HelmetProvider } from 'react-helmet-async'
 import App from './App.jsx'
 import './index.css'
 
-// Register Service Worker for caching
+// Unregister any existing service workers to prevent caching issues
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(registration => {
-        console.log('SW registered:', registration);
-      })
-      .catch(error => {
-        console.log('SW registration failed:', error);
-      });
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    registrations.forEach((registration) => {
+      registration.unregister();
+      console.log('Service Worker unregistered');
+    });
+  });
+}
+
+// Clear all caches on load to prevent stale cached assets
+if ('caches' in window) {
+  caches.keys().then((keys) => {
+    keys.forEach((key) => {
+      caches.delete(key);
+      console.log('Cache cleared:', key);
+    });
   });
 }
 

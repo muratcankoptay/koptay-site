@@ -1,87 +1,106 @@
-// Service Worker for Aggressive Caching
-const CACHE_NAME = 'koptay-v1';
-const RUNTIME_CACHE = 'koptay-runtime-v1';
+// Service Worker for adaptive caching
+const CACHE_VERSION = 'v4';
+const STATIC_CACHE = `koptay-static-${CACHE_VERSION}`;
+const RUNTIME_CACHE = `koptay-runtime-${CACHE_VERSION}`;
 
-// Assets to cache on install
-const PRECACHE_URLS = [
-  '/',
-  '/index.html',
-  '/assets/index.css',
-  '/assets/index.js'
-];
+// Assets to precache on install (avoid hashed assets here)
+const PRECACHE_URLS = ['/manifest.json'];
 
-// Install event - precache assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(PRECACHE_URLS))
+    caches.open(STATIC_CACHE)
+      .then((cache) => cache.addAll(PRECACHE_URLS))
       .then(() => self.skipWaiting())
   );
 });
 
-// Activate event - clean old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
+    caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME && cacheName !== RUNTIME_CACHE) {
+        cacheNames.map((cacheName) => {
+          if (![STATIC_CACHE, RUNTIME_CACHE].includes(cacheName)) {
             return caches.delete(cacheName);
           }
+          return null;
         })
       );
     }).then(() => self.clients.claim())
   );
 });
 
-// Fetch event - cache with network fallback
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Skip non-GET requests
   if (request.method !== 'GET') return;
-
-  // Skip Chrome extensions
   if (url.protocol === 'chrome-extension:') return;
 
-  // API requests - Network first, cache fallback
-  if (url.hostname.includes('strapiapp.com')) {
+  // Handle navigation requests with network-first strategy to avoid stale HTML
+  const acceptHeader = request.headers.get('accept') || '';
+  const isHTMLRequest = request.mode === 'navigate' || acceptHeader.includes('text/html');
+
+  if (isHTMLRequest) {
     event.respondWith(
-      fetch(request)
-        .then(response => {
-          if (response && response.status === 200) {
-            const responseClone = response.clone();
-            caches.open(RUNTIME_CACHE).then(cache => {
-              cache.put(request, responseClone);
-            });
-          }
-          return response;
-        })
-        .catch(() => {
-          return caches.match(request);
-        })
+      fetch(request, { cache: 'no-store' })
+        .catch(() => new Response('Offline', { status: 503, statusText: 'Offline' }))
     );
     return;
   }
 
-  // Static assets - Cache first, network fallback
-  event.respondWith(
-    caches.match(request)
-      .then(cachedResponse => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        return fetch(request).then(response => {
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
+  // Strapi API - network first
+  if (url.hostname.includes('strapiapp.com')) {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response && response.status === 200) {
+            const copy = response.clone();
+            caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy));
           }
-          const responseClone = response.clone();
-          caches.open(RUNTIME_CACHE).then(cache => {
-            cache.put(request, responseClone);
-          });
+          return response;
+        })
+        .catch(() => caches.match(request))
+    );
+    return;
+  }
+
+  // Hashed static assets - cache first
+  if (url.pathname.startsWith('/assets/')) {
+    event.respondWith(
+      caches.match(request).then((cached) => {
+        if (cached) {
+          return cached;
+        }
+        return fetch(request).then((response) => {
+          const contentType = response.headers.get('content-type') || '';
+          if (response && response.status === 200 && !contentType.includes('text/html')) {
+            const copy = response.clone();
+            caches.open(STATIC_CACHE).then((cache) => cache.put(request, copy));
+          }
           return response;
         });
       })
+    );
+    return;
+  }
+
+  // Default: try network, fall back to cache
+  event.respondWith(
+    fetch(request)
+      .then((response) => {
+        const contentType = response.headers.get('content-type') || '';
+        if (response && response.status === 200 && !contentType.includes('text/html')) {
+          const copy = response.clone();
+          caches.open(RUNTIME_CACHE).then((cache) => cache.put(request, copy));
+        }
+        return response;
+      })
+      .catch(() => caches.match(request))
   );
 });
