@@ -74,9 +74,18 @@
         });
       }
     </script>
+    
+    <!-- Resource Hints for better performance -->
+    <link rel="preload" href="/src/main.jsx" as="script" crossorigin>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Loading indicator for better perceived performance -->
+      <div style="display:flex;align-items:center;justify-content:center;min-height:100vh">
+        <div style="width:4rem;height:4rem;border:4px solid #f3f4f6;border-top-color:#548c8d;border-radius:50%;animation:spin 1s linear infinite"></div>
+      </div>
+      <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

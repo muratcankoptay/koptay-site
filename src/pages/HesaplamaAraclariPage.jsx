@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Calculator, TrendingUp, Car, HeartHandshake, Building, Users, ArrowRight } from 'lucide-react'
+import { Calculator, TrendingUp, Car, HeartHandshake, Building, Users, ArrowRight, Scale } from 'lucide-react'
 import SEO from '../components/SEO'
 
 const HesaplamaAraclariPage = () => {
@@ -38,6 +38,14 @@ const HesaplamaAraclariPage = () => {
       icon: Calculator,
       color: 'bg-blue-100 text-blue-600',
       link: '/hesaplama-araclari/infaz-yatar'
+    },
+    {
+      id: 'vekalet-ucreti',
+      title: 'Vekalet Ücreti Hesaplama',
+      description: '2026 AAÜT\'ye göre güncel vekalet ücreti hesaplama (maktu ve nispi)',
+      icon: Scale,
+      color: 'bg-indigo-100 text-indigo-600',
+      link: '/hesaplama-araclari/vekalet-ucreti'
     },
     {
       id: 'tazminat',

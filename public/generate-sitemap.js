@@ -24,6 +24,7 @@ const staticPages = [
   { url: '/iletisim', changefreq: 'monthly', priority: '0.7' },
   { url: '/hesaplama-araclari', changefreq: 'monthly', priority: '0.8' },
   { url: '/hesaplama-araclari/infaz-yatar', changefreq: 'weekly', priority: '0.9' },
+  { url: '/hesaplama-araclari/vekalet-ucreti', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/tazminat-hesaplama', changefreq: 'weekly', priority: '0.8' },
   { url: '/muvekkil-paneli', changefreq: 'monthly', priority: '0.6' }
 ];

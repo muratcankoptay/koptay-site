@@ -29,7 +29,8 @@ export default defineConfig({
           'ui-vendor': ['lucide-react'],
           // Heavy libraries - only load when needed
           'chart-vendor': ['chart.js'],
-          'pdf-vendor': ['jspdf']
+          'pdf-vendor': ['jspdf'],
+          'html2canvas-vendor': ['html2canvas']
         }
       }
     },
@@ -39,11 +40,18 @@ export default defineConfig({
       compress: {
         drop_console: true, // Remove console.logs in production
         drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug']
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
+        passes: 2 // Multiple passes for better compression
       },
       format: {
         comments: false // Remove comments
+      },
+      mangle: {
+        safari10: true // Better Safari compatibility
       }
-    }
+    },
+    cssCodeSplit: true,
+    assetsInlineLimit: 4096, // Inline assets smaller than 4kb
+    reportCompressedSize: false // Faster builds
   }
 })

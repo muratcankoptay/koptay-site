@@ -3,8 +3,8 @@ import SEO from '../components/SEO'
 import { ExternalLink, Shield, FileText, Bell, CreditCard, Lock } from 'lucide-react'
 
 const MuvekkilPaneliPage = () => {
-  // Harici panel URL'i - Burayı güncelleyeceksiniz
-  const PANEL_URL = 'https://panel.koptay.av.tr' // veya 'https://muvekkilpanel.koptay.av.tr'
+  // Harici panel URL'i
+  const PANEL_URL = 'https://muvekkil-frontend.fly.dev/login'
 
   // Otomatik yönlendirme (isteğe bağlı - 5 saniye sonra)
   useEffect(() => {

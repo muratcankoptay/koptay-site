@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import App from './App.jsx'
 import './index.css'
+import { initWebVitals } from './utils/webVitals'
 
 // Unregister any existing service workers to prevent caching issues
 if ('serviceWorker' in navigator) {
@@ -23,6 +24,11 @@ if ('caches' in window) {
       console.log('Cache cleared:', key);
     });
   });
+}
+
+// Initialize Web Vitals monitoring
+if (typeof window !== 'undefined') {
+  initWebVitals();
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
