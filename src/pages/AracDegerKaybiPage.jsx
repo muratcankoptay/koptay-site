@@ -372,7 +372,70 @@ export default function AracDegerKaybiPage() {
 
             {/* ADIM 4: Rapor */}
             {currentStep === 4 && sonuc && (
-              <RaporEkrani sonuc={sonuc} formData={formData} />
+              <>
+                <RaporEkrani sonuc={sonuc} formData={formData} />
+                
+                {/* SEO İçerik Bölümü */}
+                <div className="mt-12 max-w-4xl mx-auto">
+                  <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Araç Değer Kaybı Nedir ve Nasıl Hesaplanır?</h2>
+                    
+                    <div className="prose prose-gray max-w-none">
+                      <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">2025 Araç Değer Kaybı Hesaplama Formülü</h3>
+                      <p className="text-gray-700 leading-relaxed mb-4">
+                        Trafik kazası sonrası araç değer kaybı, 2025 Sigorta Genel Şartları'na göre <strong>Baz Katsayı %19</strong> ile hesaplanır. 
+                        Formül: <strong>Baz Değer Kaybı = Araç Rayiç Değeri × 0.19</strong>. Toplam değer kaybı için hasar boyutu (A1-A4) 
+                        ve kilometre katsayısı ile çarpılır.
+                      </p>
+
+                      <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">A1, A2, A3, A4 Hasar Kodları</h3>
+                      <ul className="space-y-2 mb-4">
+                        <li className="text-gray-700">
+                          <strong>A1 (Büyük Hasar):</strong> Katsayı 0.90 - Aracın %20 ve üzeri hasar
+                        </li>
+                        <li className="text-gray-700">
+                          <strong>A2 (Orta Hasar):</strong> Katsayı 0.75 - Aracın %8-20 arası hasar
+                        </li>
+                        <li className="text-gray-700">
+                          <strong>A3 (Küçük Hasar):</strong> Katsayı 0.50 - Aracın %2-8 arası hasar
+                        </li>
+                        <li className="text-gray-700">
+                          <strong>A4 (Basit Hasar):</strong> Katsayı 0.25 - Aracın %2'den az hasar
+                        </li>
+                      </ul>
+
+                      <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Kilometre Katsayısı Tablosu</h3>
+                      <p className="text-gray-700 leading-relaxed mb-4">
+                        Aracın kilometresine göre değer kaybı katsayısı değişir: 0-14.999 km (%90), 
+                        15-29.999 km (%80), 30-44.999 km (%60), 45-59.999 km (%40), 60-74.999 km (%30), 
+                        75-149.999 km (%20), 150.000 km ve üzeri (%10).
+                      </p>
+
+                      <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Araç Değer Kaybı Tazminatı Nasıl Alınır?</h3>
+                      <p className="text-gray-700 leading-relaxed mb-4">
+                        Trafik kazası sonrası kusurlu taraftan veya sigorta şirketinden araç değer kaybı tazminatı talep edilebilir. 
+                        Bilirkişi raporu ile hasar tespit edilir, mahkeme veya sulh yoluyla tazminat alınır. 
+                        Yargıtay kararlarına göre maksimum değer kaybı aracın rayiç değerinin %35'i kadardır.
+                      </p>
+
+                      <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Bilirkişi Raporu ve Yasal Süreç</h3>
+                      <p className="text-gray-700 leading-relaxed mb-4">
+                        Araç değer kaybı hesaplaması için mahkeme tarafından atanan bilirkişi, 
+                        aracın kaza öncesi ve sonrası değerini tespit eder. 2025 formülüne göre yapılan hesaplama, 
+                        Yargıtay içtihatları ve sigorta mevzuatı çerçevesinde değerlendirilir.
+                      </p>
+
+                      <div className="bg-red-50 border-l-4 border-red-500 p-4 mt-6 rounded">
+                        <p className="text-sm text-red-800">
+                          <strong>Önemli:</strong> Bu araç değer kaybı hesaplama aracı bilgilendirme amaçlıdır. 
+                          Kesin hesaplama için bilirkişi raporu ve hukuki danışmanlık alınız. 
+                          Koptay Hukuk Bürosu olarak araç değer kaybı tazminat davalarında uzman avukat desteği sunuyoruz.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
             )}
 
             {/* Navigation Buttons */}
@@ -859,69 +922,6 @@ const RaporEkrani = ({ sonuc, formData }) => {
           </div>
         )}
       </div>
-
-      {/* SEO İçerik Bölümü */}
-      {currentStep === 4 && (
-        <div className="mt-12 max-w-4xl mx-auto">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Araç Değer Kaybı Nedir ve Nasıl Hesaplanır?</h2>
-            
-            <div className="prose prose-gray max-w-none">
-              <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">2025 Araç Değer Kaybı Hesaplama Formülü</h3>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Trafik kazası sonrası araç değer kaybı, 2025 Sigorta Genel Şartları'na göre <strong>Baz Katsayı %19</strong> ile hesaplanır. 
-                Formül: <strong>Baz Değer Kaybı = Araç Rayiç Değeri × 0.19</strong>. Toplam değer kaybı için hasar boyutu (A1-A4) 
-                ve kilometre katsayısı ile çarpılır.
-              </p>
-
-              <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">A1, A2, A3, A4 Hasar Kodları</h3>
-              <ul className="space-y-2 mb-4">
-                <li className="text-gray-700">
-                  <strong>A1 (Büyük Hasar):</strong> Katsayı 0.90 - Aracın %20 ve üzeri hasar
-                </li>
-                <li className="text-gray-700">
-                  <strong>A2 (Orta Hasar):</strong> Katsayı 0.75 - Aracın %8-20 arası hasar
-                </li>
-                <li className="text-gray-700">
-                  <strong>A3 (Küçük Hasar):</strong> Katsayı 0.50 - Aracın %2-8 arası hasar
-                </li>
-                <li className="text-gray-700">
-                  <strong>A4 (Basit Hasar):</strong> Katsayı 0.25 - Aracın %2'den az hasar
-                </li>
-              </ul>
-
-              <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Kilometre Katsayısı Tablosu</h3>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Aracın kilometresine göre değer kaybı katsayısı değişir: 0-14.999 km (%90), 
-                15-29.999 km (%80), 30-44.999 km (%60), 45-59.999 km (%40), 60-74.999 km (%30), 
-                75-149.999 km (%20), 150.000 km ve üzeri (%10).
-              </p>
-
-              <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Araç Değer Kaybı Tazminatı Nasıl Alınır?</h3>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Trafik kazası sonrası kusurlu taraftan veya sigorta şirketinden araç değer kaybı tazminatı talep edilebilir. 
-                Bilirkişi raporu ile hasar tespit edilir, mahkeme veya sulh yoluyla tazminat alınır. 
-                Yargıtay kararlarına göre maksimum değer kaybı aracın rayiç değerinin %35'i kadardır.
-              </p>
-
-              <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Bilirkişi Raporu ve Yasal Süreç</h3>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Araç değer kaybı hesaplaması için mahkeme tarafından atanan bilirkişi, 
-                aracın kaza öncesi ve sonrası değerini tespit eder. 2025 formülüne göre yapılan hesaplama, 
-                Yargıtay içtihatları ve sigorta mevzuatı çerçevesinde değerlendirilir.
-              </p>
-
-              <div className="bg-red-50 border-l-4 border-red-500 p-4 mt-6 rounded">
-                <p className="text-sm text-red-800">
-                  <strong>Önemli:</strong> Bu araç değer kaybı hesaplama aracı bilgilendirme amaçlıdır. 
-                  Kesin hesaplama için bilirkişi raporu ve hukuki danışmanlık alınız. 
-                  Koptay Hukuk Bürosu olarak araç değer kaybı tazminat davalarında uzman avukat desteği sunuyoruz.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>      {/* Hasar Detayları */}
       {sonuc.hasarDetaylari.length > 0 && (
         <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
