@@ -219,7 +219,7 @@ const ArticlePage = () => {
   return (
     <>
       <SEO
-        title={`${article.title} | Av. Koptay Hukuk Bürosu`}
+        title={`${article.title} | Koptay Hukuk Bürosu`}
         description={article.metaDescription || article.excerpt}
         keywords={article.metaKeywords || (article.tags ? article.tags.join(', ') : '')}
         url={`https://koptay.av.tr/makale/${article.slug}`}

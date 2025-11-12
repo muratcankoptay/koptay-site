@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async'
 
 const SEO = ({ 
-  title = 'Av. Koptay Hukuk Bürosu - Profesyonel Hukuki Danışmanlık',
-  description = 'Av. Koptay Hukuk Bürosu olarak 15+ yıllık deneyimimizle İş Hukuku, Ticaret Hukuku, Aile Hukuku ve daha birçok alanda profesyonel hukuki hizmet sunuyoruz.',
+  title = 'Koptay Hukuk Bürosu - Profesyonel Hukuki Danışmanlık',
+  description = 'Koptay Hukuk Bürosu olarak 15+ yıllık deneyimimizle İş Hukuku, Ticaret Hukuku, Aile Hukuku ve daha birçok alanda profesyonel hukuki hizmet sunuyoruz.',
   keywords = 'avukat, hukuk bürosu, iş hukuku, ticaret hukuku, aile hukuku, ceza hukuku, gayrimenkul hukuku, hukuki danışmanlık, İstanbul avukat',
   image = '/images/hero.jpg',
   url = 'https://koptayhukuk.com',
@@ -82,7 +82,7 @@ const SEO = ({
       <meta property="og:image" content={image} />
       <meta property="og:url" content={url} />
       <meta property="og:type" content={type} />
-      <meta property="og:site_name" content="Av. Koptay Hukuk Bürosu" />
+      <meta property="og:site_name" content="Koptay Hukuk Bürosu" />
       <meta property="og:locale" content="tr_TR" />
       
       {/* Twitter Card Tags */}
