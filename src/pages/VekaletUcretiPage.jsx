@@ -46,6 +46,71 @@ export default function VekaletUcretiPage() {
         description="2026 Avukatlık Asgari Ücret Tarifesi'ne göre vekalet ücreti hesaplama aracı. Hem maktu hem nispi ücretler için güncel hesaplama yapın."
         keywords="vekalet ücreti hesaplama, avukatlık ücreti, AAÜT 2026, nispi ücret, maktu ücret, avukat ücreti hesaplama"
       />
+      
+      {/* Schema.org JSON-LD for WebApplication */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Vekalet Ücreti Hesaplama Aracı",
+          "description": "2026 Avukatlık Asgari Ücret Tarifesi'ne göre vekalet ücreti hesaplama aracı",
+          "url": "https://koptay.av.tr/hesaplama-araclari/vekalet-ucreti",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Any",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "TRY"
+          },
+          "provider": {
+            "@type": "LegalService",
+            "name": "Koptay Hukuk Bürosu",
+            "url": "https://koptay.av.tr"
+          },
+          "featureList": [
+            "Nispi ücret hesaplama",
+            "Maktu ücret hesaplama", 
+            "2026 AAÜT tarifesi",
+            "65+ mahkeme türü"
+          ],
+          "datePublished": "2025-11-10",
+          "dateModified": "2025-11-10"
+        })}
+      </script>
+      
+      {/* FAQ Schema for better SERP features */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "2026 vekalet ücreti tarifesi nedir?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "4 Kasım 2025 tarihinde yayımlanan 2026 Avukatlık Asgari Ücret Tarifesi, hem maktu hem nispi ücretlerde güncellemeler içerir. Nispi ücretler %16'dan başlayıp %1'e kadar azalır, maktu ücretler ise mahkeme türüne göre 9.000 TL ile 120.000 TL arasında değişir."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Nispi ücret nasıl hesaplanır?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nispi ücret, dava konusunun parasal değerine göre kademeli olarak hesaplanır. İlk 600.000 TL için %16, sonraki 600.000 TL için %15 şeklinde 10 farklı kademe uygulanır."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Maktu ücret ne demektir?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Maktu ücret, para ile değerlendirilemeyen davalarda uygulanan sabit ücrettir. Mahkeme türüne göre belirlenir ve boşanma, ceza davaları gibi işlerde kullanılır."
+              }
+            }
+          ]
+        })}
+      </script>
 
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 py-8 px-4">
         <div className="max-w-6xl mx-auto">
@@ -383,6 +448,106 @@ export default function VekaletUcretiPage() {
                   </ul>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* SSS Bölümü - SEO için */}
+          <div className="mt-8 bg-white rounded-2xl shadow-xl p-6 md:p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              Sık Sorulan Sorular
+            </h2>
+            <div className="space-y-6">
+              <div className="border-l-4 border-blue-500 pl-4">
+                <h3 className="font-bold text-gray-900 mb-2">
+                  Vekalet ücreti hesaplaması nasıl yapılır?
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  Vekalet ücreti, davanın türüne göre iki şekilde hesaplanır: Para konulu davalarda 
+                  <strong> nispi ücret</strong> (dava değerine göre kademeli), para ile değerlendirilemeyen 
+                  davalarda <strong> maktu ücret</strong> (mahkeme türüne göre sabit) uygulanır.
+                </p>
+              </div>
+
+              <div className="border-l-4 border-green-500 pl-4">
+                <h3 className="font-bold text-gray-900 mb-2">
+                  2026 AAÜT ile 2025 arasındaki fark nedir?
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  2026 tarifesinde maktu ücretlerde ortalama %30-40 artış olmuştur. Nispi ücretlerde 
+                  ise yeni bir kademe (%13) eklenmiş ve eşik tutarlar yaklaşık %50 oranında yükseltilmiştir.
+                </p>
+              </div>
+
+              <div className="border-l-4 border-purple-500 pl-4">
+                <h3 className="font-bold text-gray-900 mb-2">
+                  Hesaplanan ücret kesin midir?
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  Hayır, bu hesaplama <strong>asgari ücretleri</strong> gösterir. Avukat ile müvekkil 
+                  arasında daha yüksek ücret kararlaştırılabilir. Asgari ücretin altında sözleşme yapılamaz.
+                </p>
+              </div>
+
+              <div className="border-l-4 border-orange-500 pl-4">
+                <h3 className="font-bold text-gray-900 mb-2">
+                  Hangi davalarda nispi ücret uygulanır?
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  Alacak davaları, tazminat davaları, icra takipleri gibi <strong>para konulu</strong> 
+                  tüm davalarda nispi ücret hesaplanır. Dava değeri TL cinsinden belirlenir ve 
+                  kademeli oranlara göre hesaplama yapılır.
+                </p>
+              </div>
+
+              <div className="border-l-4 border-red-500 pl-4">
+                <h3 className="font-bold text-gray-900 mb-2">
+                  Hangi davalarda maktu ücret uygulanır?
+                </h3>
+                <p className="text-gray-600 text-sm">
+                  Boşanma, ceza davaları, idarî davalar gibi <strong>para ile değerlendirilemeyen</strong> 
+                  davalarda maktu ücret uygulanır. Ücret, davanın görüleceği mahkeme türüne göre belirlenir.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Anahtar Kelime Zengin İçerik */}
+          <div className="mt-8 bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl shadow-xl p-6 md:p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Vekalet Ücreti Hesaplama Rehberi
+            </h2>
+            <div className="prose prose-blue max-w-none text-gray-700 space-y-4 text-sm">
+              <p>
+                <strong>Vekalet ücreti hesaplama</strong> işlemi, Türkiye Barolar Birliği tarafından 
+                belirlenen Avukatlık Asgari Ücret Tarifesi (AAÜT) çerçevesinde yapılır. 2026 yılı için 
+                4 Kasım 2025 tarihinde güncellenen tarife, hem <strong>nispi ücret hesaplama</strong> 
+                hem de <strong>maktu ücret</strong> sistemlerini içermektedir.
+              </p>
+              
+              <p>
+                <strong>Avukatlık ücreti hesaplama</strong> yaparken dikkat edilmesi gereken en önemli 
+                nokta, davanın türünü doğru belirlemektir. Para konulu davalarda (alacak, tazminat, 
+                icra takibi) nispi ücret; para ile değerlendirilemeyen davalarda (boşanma, ceza, idare) 
+                maktu ücret sistemi uygulanır.
+              </p>
+
+              <div className="bg-white rounded-xl p-5 border-2 border-blue-100">
+                <h3 className="font-bold text-blue-900 mb-3">2026 Nispi Ücret Kademeleri</h3>
+                <ul className="space-y-2 text-sm">
+                  <li>• İlk 600.000 TL için <strong>%16 oran</strong></li>
+                  <li>• Sonraki 600.000 TL için <strong>%15 oran</strong></li>
+                  <li>• Sonraki 1.200.000 TL için <strong>%14 oran</strong></li>
+                  <li>• Sonraki 1.200.000 TL için <strong>%13 oran</strong> (yeni!)</li>
+                  <li>• Ve devamında azalan oranlarda hesaplama</li>
+                </ul>
+              </div>
+
+              <p>
+                <strong>Avukat ücreti</strong> hesaplarken unutulmamalıdır ki, burada bahsedilen ücretler 
+                <strong> asgari tutarlardır</strong>. Avukat ve müvekkil arasında yapılacak sözleşmede 
+                bu tutarlardan daha yüksek ücret kararlaştırılabilir, ancak daha düşük ücret 
+                belirlenmesi mümkün değildir.
+              </p>
             </div>
           </div>
         </div>
