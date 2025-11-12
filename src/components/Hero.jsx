@@ -74,7 +74,7 @@ const Hero = () => {
             }`} style={{ transitionDelay: '600ms' }}>
               <div className="bg-white text-lawGray p-8 h-40 flex flex-col justify-center transition-all duration-300 hover:opacity-90 shadow-lg">
                 <p className="text-2xl md:text-3xl font-light mb-2">Güvenilir</p>
-                <p className="font-serif text-sm uppercase tracking-wide">Hukuki Danışmanlık</p>
+                <p className="font-serif text-sm uppercase tracking-wide">Avukatlık Hizmeti</p>
               </div>
             </div>
             <div className={`text-center transition-all duration-700 ${

@@ -73,8 +73,8 @@ const IletisimPage = () => {
     <>
       <SEO 
         title="İletişim - Koptay Hukuk Bürosu"
-        description="Ankara'da hukuki danışmanlık için bizimle iletişime geçin. Uzman avukat kadromuzla ücretsiz ön görüşme imkanı."
-        keywords="avukat ankara, hukuk bürosu ankara, hukuki danışmanlık, ücretsiz görüşme, aziziye mahallesi avukat"
+        description="Ankara'da avukatlık hizmeti için bizimle iletişime geçin. Uzman avukat kadromuzla ücretsiz ön görüşme imkanı."
+        keywords="avukat ankara, hukuk bürosu ankara, ücretsiz ön görüşme, aziziye mahallesi avukat"
         url="/iletisim"
       />
 
@@ -85,7 +85,7 @@ const IletisimPage = () => {
             İletişim
           </h1>
           <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
-            Hukuki danışmanlık ihtiyaçlarınız için bizimle iletişime geçin
+            Hukuki sorunlarınız için ücretsiz ön görüşme talebinde bulunun
           </p>
         </div>
       </section>
@@ -223,7 +223,7 @@ const IletisimPage = () => {
                     required
                     rows={6}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawPrimary focus:border-transparent resize-none"
-                    placeholder="Hukuki danışmanlık ihtiyacınızı detaylı olarak açıklayın..."
+                    placeholder="Hukuki sorunuzu veya ücretsiz ön görüşme talebinizi detaylı olarak açıklayın..."
                   />
                 </div>
 

@@ -428,8 +428,8 @@ export default function AracDegerKaybiPage() {
                       <div className="bg-red-50 border-l-4 border-red-500 p-4 mt-6 rounded">
                         <p className="text-sm text-red-800">
                           <strong>Önemli:</strong> Bu araç değer kaybı hesaplama aracı bilgilendirme amaçlıdır. 
-                          Kesin hesaplama için bilirkişi raporu ve hukuki danışmanlık alınız. 
-                          Koptay Hukuk Bürosu olarak araç değer kaybı tazminat davalarında uzman avukat desteği sunuyoruz.
+                          Kesin hesaplama için bilirkişi raporu gereklidir. 
+                          Koptay Hukuk Bürosu olarak araç değer kaybı tazminat davalarında uzman avukatlık hizmeti sunuyoruz.
                         </p>
                       </div>
                     </div>

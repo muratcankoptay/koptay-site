@@ -312,7 +312,7 @@ const HesaplamaAraclariPage = () => {
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
               <p className="text-yellow-800 text-sm">
                 <strong>Not:</strong> Bedeni hasar hesaplamaları karmaşık olup, her vaka özeldir. 
-                Bu hesaplama sadece tahmini bir değer verir. Kesin hesaplama için hukuki danışmanlık alınız.
+                Bu hesaplama sadece tahmini bir değer verir. Kesin değerlendirme için ücretsiz ön görüşme talebinde bulunabilirsiniz.
               </p>
             </div>
             

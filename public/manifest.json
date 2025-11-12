@@ -1,7 +1,7 @@
 {
   "name": "Koptay Hukuk Bürosu",
   "short_name": "Koptay Hukuk",
-  "description": "Profesyonel hukuki danışmanlık ve avukatlık hizmetleri",
+  "description": "Profesyonel avukatlık hizmetleri ve ücretsiz ön görüşme",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

@@ -83,7 +83,7 @@ const Home = () => {
       id: 3,
       name: 'Mehmet Özkan',
       position: 'Emlak Uzmanı',
-      content: 'Gayrimenkul işlemlerimde güvenilir hukuki danışmanlık arıyordum. Av. Koptay\'ın uzman ekibi sayesinde tüm işlemlerim sorunsuz tamamlandı.',
+      content: 'Gayrimenkul işlemlerimde güvenilir avukatlık desteği arıyordum. Koptay Hukuk Bürosu\'nun uzman ekibi sayesinde tüm işlemlerim sorunsuz tamamlandı.',
       rating: 5
     }
   ]
@@ -343,10 +343,10 @@ const Home = () => {
       <section className="py-20 bg-lawDark">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-light text-white mb-6 font-serif">
-            Ücretsiz Hukuki Danışmanlık
+            Ücretsiz Ön Görüşme
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-            Hukuki sorunlarınız için uzman kadromuzla ücretsiz ön görüşme yapın. 
+            Hukuki sorunlarınız için uzman avukat kadromuzla ücretsiz ön görüşme yapın. 
             Size en uygun çözümü birlikte bulalım.
           </p>
           

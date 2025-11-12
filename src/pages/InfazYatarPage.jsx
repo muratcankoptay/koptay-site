@@ -1023,7 +1023,7 @@ const InfazYatarPage = () => {
                     to="/iletisim"
                     className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold text-center transition-colors"
                   >
-                    📞 Ücretsiz Hukuki Danışmanlık
+                    📞 Ücretsiz Ön Görüşme
                   </Link>
                   <Link 
                     to="/makaleler"
