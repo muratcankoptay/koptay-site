@@ -7,12 +7,7 @@ const STRAPI_BASE_URL = (import.meta.env.VITE_STRAPI_URL || 'https://koptay-law-
 const getArticlesFromStrapi = async () => {
   try {
     console.log('Fetching articles from Strapi...')
-    const response = await fetch(`${STRAPI_BASE_URL}/api/articles?populate=*&_=${Date.now()}`, {
-      cache: 'no-cache',
-      headers: {
-        'Cache-Control': 'no-cache, no-store, must-revalidate'
-      }
-    })
+    const response = await fetch(`${STRAPI_BASE_URL}/api/articles?populate=*&_=${Date.now()}`)
     if (response.ok) {
       const data = await response.json()
       return data.data.map(article => ({
