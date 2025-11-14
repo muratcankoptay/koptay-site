@@ -82,15 +82,31 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://koptay.av.tr/makale/arac-deger-kaybi-nedir-nasil-hesaplanir</loc>
-    <lastmod>2025-11-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://koptay.av.tr/makale/2026-avukatlik-asgari-ucret-tarifesi-detayli-analiz-ve-uygulama-rehberi</loc>
     <lastmod>2025-11-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Koptay Hukuk Bürosu</news:name>
+        <news:language>tr</news:language>
+      </news:publication>
+      <news:publication_date>2025-11-06</news:publication_date>
+      <news:title>2026 avukatlik asgari ucret tarifesi detayli analiz ve uygulama rehberi</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/makale/arac-deger-kaybi-nedir-nasil-hesaplanir</loc>
+    <lastmod>2025-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Koptay Hukuk Bürosu</news:name>
+        <news:language>tr</news:language>
+      </news:publication>
+      <news:publication_date>2025-11-14</news:publication_date>
+      <news:title>arac deger kaybi nedir nasil hesaplanir</news:title>
+    </news:news>
   </url>
 </urlset>

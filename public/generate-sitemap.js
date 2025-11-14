@@ -91,6 +91,14 @@ async function generateSitemap() {
     <lastmod>${lastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Koptay Hukuk Bürosu</news:name>
+        <news:language>tr</news:language>
+      </news:publication>
+      <news:publication_date>${lastmod}</news:publication_date>
+      <news:title>${article.slug.replace(/-/g, ' ')}</news:title>
+    </news:news>
   </url>
 `;
   });
