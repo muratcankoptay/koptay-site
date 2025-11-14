@@ -265,7 +265,7 @@ const InfazYatarPage = () => {
     
     doc.setFontSize(12)
     doc.setFont(undefined, 'normal')
-    doc.text('Koptay Hukuk Bürosu - İnfaz Savcısı Seviyesinde Detaylı Hesaplama', 14, 30)
+    doc.text('Koptay Hukuk Bürosu - Detaylı İnfaz Hesaplama Raporu', 14, 30)
     doc.text(`Oluşturulma Tarihi: ${new Date().toLocaleDateString('tr-TR')} ${new Date().toLocaleTimeString('tr-TR')}`, 14, 38)
     
     // Draw line
@@ -285,6 +285,7 @@ const InfazYatarPage = () => {
       `Suç Türü: ${result.sucTuru || 'Belirtilmemiş'}`,
       `Toplam Ceza Süresi: ${formData.years || 0} yıl, ${formData.months || 0} ay, ${formData.days || 0} gün`,
       `Toplam Ceza (Gün): ${result.toplamCezaGun || 0} gün`,
+      `Suç Tarihi: ${formData.crimeDate || '-'}`,
       `Mahkumiyet Tarihi: ${formData.convictionDate || '-'}`,
       `İnfaz Başlangıç: ${formData.startDate || '-'}`,
       `Mahsup Günler: ${result.mahsupGun || 0} gün`
@@ -405,7 +406,7 @@ const InfazYatarPage = () => {
     y = 280
     doc.setFontSize(8)
     doc.setFont(undefined, 'italic')
-    doc.text('Koptay Hukuk Bürosu | www.koptay.com | İnfaz Savcısı Seviyesinde Detaylı Hesaplama', 14, y)
+    doc.text('Koptay Hukuk Bürosu | www.koptay.av.tr | Detaylı İnfaz Hesaplama', 14, y)
     doc.text(`Rapor No: ${Date.now().toString().slice(-8)} | Sayfa 1/1`, 14, y + 6)
     
     const fileName = `infaz_raporu_${new Date().toISOString().split('T')[0]}.pdf`
@@ -1126,7 +1127,7 @@ const InfazYatarPage = () => {
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-2">
                     <Scale className="w-5 h-5 text-blue-600" />
-                    <span className="text-sm font-medium text-gray-700">İnfaz Savcısı Seviyesinde Detaylı Hesaplama</span>
+                    <span className="text-sm font-medium text-gray-700">Gelişmiş İnfaz Hesaplama Aracı</span>
                   </div>
                   <div className="flex items-center space-x-2 text-xs text-gray-500">
                     <CheckCircle className="w-4 h-4 text-green-500" />
@@ -1484,6 +1485,36 @@ const InfazYatarPage = () => {
                     <p className="text-xs text-gray-500 mt-1">
                       Kararın kesinleşme tarihini giriniz. Bu tarih, hangi yasal düzenlemenin uygulanacağını belirler.
                     </p>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Suç Tarihi *
+                    </label>
+                    <input
+                      type="date"
+                      name="crimeDate"
+                      value={formData.crimeDate}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      Suçun işlendiği tarihi giriniz. Bu tarih, 30 Mart 2020 değişikliğinden yararlanma durumunu belirler.
+                    </p>
+                    {formData.crimeDate && new Date(formData.crimeDate) < new Date('2020-03-31') && (
+                      <div className="mt-2 p-3 bg-green-50 border border-green-200 rounded-lg">
+                        <p className="text-sm text-green-800">
+                          ✅ <strong>30 Mart 2020 öncesi suç:</strong> Daha avantajlı infaz rejiminden yararlanabilir.
+                        </p>
+                      </div>
+                    )}
+                    {formData.crimeDate && new Date(formData.crimeDate) >= new Date('2020-03-31') && (
+                      <div className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                        <p className="text-sm text-amber-800">
+                          ⚠️ <strong>30 Mart 2020 sonrası suç:</strong> Yeni infaz rejimi uygulanır.
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   {/* KİŞİSEL BİLGİLER BÖLÜMÜ */}
