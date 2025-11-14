@@ -688,6 +688,7 @@ const HasarForm = ({ hasarNo, hasar, onHasarChange, onParcaToggle, opsiyonel = f
                 <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">Lokal Boyalı</th>
                 <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">Boyalı</th>
                 <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">Değişen</th>
+                <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700">İşlem</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -704,7 +705,7 @@ const HasarForm = ({ hasarNo, hasar, onHasarChange, onParcaToggle, opsiyonel = f
                         name={`${hasarNo}-${parca.id}`}
                         checked={islemTuru === 'lokalBoya'}
                         onChange={() => onParcaToggle(hasarNo, parca.id, 'lokalBoya')}
-                        className="w-4 h-4 text-red-600 focus:ring-red-500 cursor-pointer"
+                        className="w-4 h-4 text-yellow-500 focus:ring-yellow-500 cursor-pointer"
                       />
                     </td>
                     <td className="px-4 py-3 text-center">
@@ -722,8 +723,22 @@ const HasarForm = ({ hasarNo, hasar, onHasarChange, onParcaToggle, opsiyonel = f
                         name={`${hasarNo}-${parca.id}`}
                         checked={islemTuru === 'degisen'}
                         onChange={() => onParcaToggle(hasarNo, parca.id, 'degisen')}
-                        className="w-4 h-4 text-red-600 focus:ring-red-500 cursor-pointer"
+                        className="w-4 h-4 text-gray-800 focus:ring-gray-700 cursor-pointer"
                       />
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      {seciliParca && (
+                        <button
+                          type="button"
+                          onClick={() => onParcaToggle(hasarNo, parca.id, islemTuru)}
+                          className="text-red-600 hover:text-red-800 hover:bg-red-50 p-1 rounded transition-colors"
+                          title="Seçimi kaldır"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      )}
                     </td>
                   </tr>
                 );
@@ -731,6 +746,9 @@ const HasarForm = ({ hasarNo, hasar, onHasarChange, onParcaToggle, opsiyonel = f
             </tbody>
           </table>
         </div>
+        <p className="text-xs text-gray-500 mt-2">
+          💡 Yanlışlıkla seçtiğiniz bir parçayı kaldırmak için sağdaki ❌ butonuna tıklayın
+        </p>
       </div>
     </div>
   );
