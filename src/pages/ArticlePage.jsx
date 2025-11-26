@@ -344,6 +344,60 @@ const ArticlePage = () => {
         })}
       </script>
 
+      {/* JSON-LD Structured Data - FAQPage Schema */}
+      {article.tags && article.tags.length > 0 && (
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": article.tags.map((tag, index) => ({
+              "@type": "Question",
+              "name": `${article.title}: ${tag}`,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": `${article.title} ile ilgili "${tag}" konusu hakkında detaylı bilgi için ${article.author} ile iletişime geçebilirsiniz.`
+              }
+            }))
+          })}
+        </script>
+      )}
+
+      {/* FAQ Schema for Sigorta Tahkim Komisyonu Article */}
+      {article.slug === 'sigorta-tahkim-komisyonu-basvurusu-ve-sureci' && (
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Sigorta Tahkim Komisyonu başvurusu ne kadar sürer?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Sigorta Tahkim Komisyonu'ndaki yargılama süreci, dosyanın hakem heyetine tevdi edilmesinden itibaren en geç 4 ay içinde sonuçlandırılmak zorundadır. İtiraz süreçleriyle birlikte ortalama 4-6 ay sürmektedir."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Sigorta Tahkim Komisyonuna başvurmadan önce ne yapılmalı?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Tahkim Komisyonuna başvurmadan önce, uyuşmazlık konusuyla ilgili sigorta şirketine yazılı olarak başvurmak ve talebin reddedildiğini veya 15 gün içinde cevap verilmediğini belgelemek yasal bir zorunluluktur."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Sigorta Tahkim kararları kesin midir?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Belirli bir parasal sınırın (her yıl güncellenir, örn: 15.000 TL) altındaki kararlar kesindir. Bu tutarın üzerindeki kararlara karşı bir defaya mahsus itiraz edilebilir ve çok yüksek tutarlı davalarda Temyiz yolu açıktır."
+                }
+              }
+            ]
+          })}
+        </script>
+      )}
+
       <div className="pt-24 pb-12">
         <div className="container mx-auto px-4">
           {/* Back Button */}
