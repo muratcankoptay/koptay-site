@@ -50,7 +50,11 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-2 mb-6">
-              <Scale className="w-8 h-8 text-primary-400" />
+              <img 
+                src="/logo.svg" 
+                alt="Koptay Hukuk Bürosu Logo" 
+                className="w-10 h-10"
+              />
               <span className="text-2xl font-bold font-serif">Koptay Hukuk</span>
             </div>
             <p className="text-gray-400 mb-6 leading-relaxed">

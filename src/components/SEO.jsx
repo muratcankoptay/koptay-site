@@ -5,7 +5,7 @@ const SEO = ({
   description = 'Koptay Hukuk Bürosu olarak 15+ yıllık deneyimimizle İş Hukuku, Ticaret Hukuku, Aile Hukuku ve daha birçok alanda profesyonel avukatlık hizmeti sunuyoruz.',
   keywords = 'avukat, hukuk bürosu, iş hukuku, ticaret hukuku, aile hukuku, ceza hukuku, gayrimenkul hukuku, ücretsiz ön görüşme, ankara avukat',
   image = '/images/hero.jpg',
-  url = 'https://koptayhukuk.com',
+  url = 'https://koptay.av.tr',
   type = 'website',
   author = null,
   publishedTime = null,
@@ -35,7 +35,7 @@ const SEO = ({
         "name": "Koptay Hukuk Bürosu",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://koptayhukuk.com/images/logo.png"
+          "url": "https://koptay.av.tr/logo.svg"
         }
       },
       "datePublished": publishedTime,

@@ -47,9 +47,14 @@ const Nav = () => {
         <div className="flex justify-between items-center gap-4">
           <Link 
             to="/" 
-            className="flex items-center"
+            className="flex items-center gap-3"
             onClick={closeMenu}
           >
+            <img 
+              src="/logo.svg" 
+              alt="Koptay Hukuk Bürosu Logo" 
+              className="h-12 w-12 md:h-14 md:w-14"
+            />
             <div>
               <h1 className={`text-2xl md:text-3xl font-light transition-colors duration-300 ${
                 shouldUseDarkMode ? "text-lawDark" : "text-white"
