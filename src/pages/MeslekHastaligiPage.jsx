@@ -1,395 +1,389 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Chart } from 'chart.js/auto';
-import { calculateCompensation, ACTIVE_AGE_LIMIT } from '../utils/meslekHastaligi';
 import { Helmet } from 'react-helmet-async';
+import { Chart } from 'chart.js/auto';
 
 const MeslekHastaligiPage = () => {
-  const [formData, setFormData] = useState({
-    birthDate: '',
-    gender: 'male',
-    incidentDate: '',
-    jobLeaveDate: '',
-    pastSalary: '',
-    futureSalary: '',
-    minimumWage: 17002, // Default 2024 net minimum wage approx
-    disabilityRates: [''],
-    workerFaultRate: 0,
-    employerFaultRate: 100,
-    thirdPartyFaultRate: 0,
-    isSgkConnected: false,
-    sgkPsd: 0
-  });
+    // State for inputs
+    const [gender, setGender] = useState('M');
+    const [dob, setDob] = useState('');
+    const [eventDate, setEventDate] = useState(new Date().toISOString().split('T')[0]);
+    const [wage, setWage] = useState(17002);
+    const [disability, setDisability] = useState(10);
+    const [workerFault, setWorkerFault] = useState(0);
+    const [psd, setPsd] = useState(0);
 
-  const [result, setResult] = useState(null);
-  const [showWarning, setShowWarning] = useState(false);
-  const chartRef = useRef(null);
-  const chartInstance = useRef(null);
+    // State for results
+    const [results, setResults] = useState(null);
 
-  useEffect(() => {
-    if (formData.incidentDate && formData.jobLeaveDate) {
-      const incident = new Date(formData.incidentDate);
-      const leave = new Date(formData.jobLeaveDate);
-      const diffTime = Math.abs(incident - leave);
-      const diffYears = diffTime / (1000 * 60 * 60 * 24 * 365.25);
-      
-      // Warning if Diagnosis Date (Incident) is more than 10 years after Job Leave Date
-      // Usually liability period starts from leave date. If diagnosis is much later, it might be time-barred.
-      // Prompt: "Eğer fark > 10 yıl ise ... ekrana Kırmızı Uyarı Kutusu çıkar"
-      // Assuming "fark" means Incident Date - Job Leave Date > 10 Years.
-      if (incident > leave && diffYears > 10) {
-        setShowWarning(true);
-      } else {
-        setShowWarning(false);
-      }
-    }
-  }, [formData.incidentDate, formData.jobLeaveDate]);
+    // Refs
+    const chartRef = useRef(null);
+    const chartInstance = useRef(null);
 
-  useEffect(() => {
-    if (result && chartRef.current) {
-      if (chartInstance.current) {
-        chartInstance.current.destroy();
-      }
-
-      const ctx = chartRef.current.getContext('2d');
-      chartInstance.current = new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels: [
-            'Elinize Geçecek Net Tutar',
-            'Kusur Nedeniyle Kesilen',
-            'SGK Tarafından Karşılanan (PSD)'
-          ],
-          datasets: [{
-            data: [
-              result.finalCompensation,
-              result.faultDeduction,
-              result.psdDeduction
-            ],
-            backgroundColor: [
-              '#0d9488', // Teal-600
-              '#ef4444', // Red-500
-              '#f59e0b'  // Amber-500
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'bottom',
-            },
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                  let label = context.label || '';
-                  if (label) {
-                    label += ': ';
-                  }
-                  if (context.parsed !== null) {
-                    label += new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(context.parsed);
-                  }
-                  return label;
-                }
-              }
-            }
-          }
-        }
-      });
-    }
-  }, [result]);
-
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
-
-  const handleRateChange = (index, value) => {
-    const newRates = [...formData.disabilityRates];
-    newRates[index] = value;
-    setFormData(prev => ({ ...prev, disabilityRates: newRates }));
-  };
-
-  const addRate = () => {
-    setFormData(prev => ({ ...prev, disabilityRates: [...prev.disabilityRates, ''] }));
-  };
-
-  const removeRate = (index) => {
-    const newRates = formData.disabilityRates.filter((_, i) => i !== index);
-    setFormData(prev => ({ ...prev, disabilityRates: newRates }));
-  };
-
-  const handleCalculate = (e) => {
-    e.preventDefault();
-    
-    // Validation
-    const totalFault = parseFloat(formData.workerFaultRate) + parseFloat(formData.employerFaultRate) + parseFloat(formData.thirdPartyFaultRate);
-    if (Math.abs(totalFault - 100) > 0.1) {
-      alert("Kusur oranları toplamı 100 olmalıdır!");
-      return;
-    }
-
-    const rates = formData.disabilityRates.map(r => parseFloat(r)).filter(r => !isNaN(r));
-    if (rates.some(r => r < 0 || r > 100)) {
-      alert("Maluliyet oranları 0-100 arasında olmalıdır.");
-      return;
-    }
-
-    const calculationData = {
-      ...formData,
-      pastSalary: parseFloat(formData.pastSalary),
-      futureSalary: parseFloat(formData.futureSalary),
-      minimumWage: parseFloat(formData.minimumWage),
-      disabilityRates: rates,
-      workerFaultRate: parseFloat(formData.workerFaultRate),
-      employerFaultRate: parseFloat(formData.employerFaultRate),
-      thirdPartyFaultRate: parseFloat(formData.thirdPartyFaultRate),
-      sgkPsd: parseFloat(formData.sgkPsd)
+    // TRH2010 Data (User's version)
+    const TRH2010 = {
+        18: [58.8, 63.6], 19: [57.9, 62.6], 20: [56.9, 61.6], 21: [56.0, 60.7], 22: [55.0, 59.7],
+        23: [54.1, 58.7], 24: [53.1, 57.7], 25: [52.2, 56.8], 26: [51.2, 55.8], 27: [50.3, 54.8],
+        28: [49.3, 53.9], 29: [48.4, 52.9], 30: [47.5, 51.9], 31: [46.5, 51.0], 32: [45.6, 50.0],
+        33: [44.7, 49.1], 34: [43.7, 48.1], 35: [42.8, 47.2], 36: [41.9, 46.2], 37: [40.9, 45.3],
+        38: [40.0, 44.3], 39: [39.1, 43.4], 40: [38.2, 42.4], 41: [37.3, 41.5], 42: [36.4, 40.5],
+        43: [35.5, 39.6], 44: [34.6, 38.7], 45: [33.7, 37.7], 46: [32.8, 36.8], 47: [31.9, 35.9],
+        48: [31.0, 35.0], 49: [30.1, 34.0], 50: [29.3, 33.1], 51: [28.4, 32.2], 52: [27.6, 31.3],
+        53: [26.7, 30.4], 54: [25.9, 29.5], 55: [25.1, 28.6], 56: [24.3, 27.7], 57: [23.5, 26.9],
+        58: [22.7, 26.0], 59: [21.9, 25.1], 60: [21.1, 24.3], 61: [20.4, 23.4], 62: [19.6, 22.6],
+        63: [18.9, 21.8], 64: [18.2, 21.0], 65: [17.5, 20.2], 66: [16.8, 19.4], 67: [16.1, 18.6]
     };
 
-    const res = calculateCompensation(calculationData);
-    setResult(res);
-  };
+    // Initialize DOB default
+    useEffect(() => {
+        const d = new Date();
+        d.setFullYear(d.getFullYear() - 35);
+        setDob(d.toISOString().split('T')[0]);
+    }, []);
 
-  return (
-    <div className="min-h-screen bg-slate-50 pt-32 pb-12 px-4 sm:px-6 lg:px-8 font-sans text-slate-900">
-      <Helmet>
-        <title>Meslek Hastalığı Tazminat Hesaplama | Koptay Hukuk</title>
-        <meta name="description" content="Meslek hastalığı tazminat hesaplama aracı. TRH-2010 yaşam tablosu ve Yargıtay içtihatlarına uygun hesaplama." />
-      </Helmet>
+    const calculateCompensation = () => {
+        const dobDate = new Date(dob);
+        const eventDateObj = new Date(eventDate);
+        const wageVal = parseFloat(wage) || 0;
+        const disabilityRate = parseFloat(disability) / 100;
+        const workerFaultVal = parseFloat(workerFault) / 100;
+        const psdVal = parseFloat(psd) || 0;
 
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-10">
-          <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">
-            Meslek Hastalığı Tazminat Hesaplama Aracı
-          </h1>
-          <p className="mt-4 text-lg text-slate-600">
-            Yargıtay içtihatlarına ve TRH-2010 yaşam tablosuna uygun, aktüeryal hesaplama yapan dijital bilirkişi.
-          </p>
-        </div>
+        if (dobDate >= eventDateObj) {
+            alert("Hata: Doğum tarihi olay tarihinden büyük olamaz.");
+            return;
+        }
 
-        <div className="bg-white shadow-xl rounded-2xl overflow-hidden border border-slate-200">
-          <div className="p-8">
-            <form onSubmit={handleCalculate} className="space-y-8">
-              
-              {/* Kişisel Bilgiler */}
-              <section>
-                <h2 className="text-xl font-semibold text-teal-700 mb-4 border-b border-teal-100 pb-2">
-                  1. Kişisel Bilgiler ve Tarihler
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Doğum Tarihi</label>
-                    <input type="date" name="birthDate" required className="w-full rounded-md border-slate-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" onChange={handleInputChange} />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Cinsiyet</label>
-                    <select name="gender" className="w-full rounded-md border-slate-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" onChange={handleInputChange}>
-                      <option value="male">Erkek</option>
-                      <option value="female">Kadın</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Tanı / Olay Tarihi</label>
-                    <input type="date" name="incidentDate" required className="w-full rounded-md border-slate-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" onChange={handleInputChange} />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">İşten Ayrılış Tarihi</label>
-                    <input type="date" name="jobLeaveDate" required className="w-full rounded-md border-slate-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" onChange={handleInputChange} />
-                  </div>
-                </div>
-                
-                {showWarning && (
-                  <div className="mt-4 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-r-md">
-                    <p className="font-bold">Dikkat: Yükümlülük süresi aşılmıştır.</p>
-                    <p className="text-sm">Tazminat hakkınız için Yüksek Sağlık Kurulu onayı gerekebilir. (İşten ayrılış ile tanı tarihi arasında 10 yıldan fazla süre var.)</p>
-                  </div>
-                )}
-              </section>
+        const ageAtEvent = eventDateObj.getFullYear() - dobDate.getFullYear();
+        
+        let remainingLife = 0;
+        const genderIndex = gender === 'M' ? 0 : 1;
+        
+        if (TRH2010[ageAtEvent]) {
+            remainingLife = TRH2010[ageAtEvent][genderIndex];
+        } else {
+            const maxAge = gender === 'M' ? 76 : 81;
+            remainingLife = Math.max(0, maxAge - ageAtEvent);
+        }
 
-              {/* Maaş Bilgileri */}
-              <section>
-                <h2 className="text-xl font-semibold text-teal-700 mb-4 border-b border-teal-100 pb-2">
-                  2. Kazanç Bilgileri
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Geçmiş Dönem Aylık Net Maaş</label>
-                    <div className="relative rounded-md shadow-sm">
-                      <input type="number" name="pastSalary" required min="0" className="w-full rounded-md border-slate-300 pl-3 pr-12 focus:border-teal-500 focus:ring-teal-500" placeholder="0.00" onChange={handleInputChange} />
-                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                        <span className="text-slate-500 sm:text-sm">TL</span>
-                      </div>
+        const retirementAge = 60;
+        let activeYears = 0;
+        let passiveYears = 0;
+
+        if (ageAtEvent < retirementAge) {
+            const yearsToRetire = retirementAge - ageAtEvent;
+            if (remainingLife > yearsToRetire) {
+                activeYears = yearsToRetire;
+                passiveYears = remainingLife - yearsToRetire;
+            } else {
+                activeYears = remainingLife;
+                passiveYears = 0;
+            }
+        } else {
+            activeYears = 0;
+            passiveYears = remainingLife;
+        }
+
+        const yearlyWage = wageVal * 12;
+        const grossActiveLoss = yearlyWage * activeYears * disabilityRate;
+        const grossPassiveLoss = yearlyWage * passiveYears * disabilityRate;
+        
+        const totalLoss = grossActiveLoss + grossPassiveLoss;
+        const faultDeduction = totalLoss * workerFaultVal;
+        
+        let finalNet = totalLoss - faultDeduction - psdVal;
+        if (finalNet < 0) finalNet = 0;
+
+        setResults({
+            ageAtEvent,
+            remainingLife,
+            activeYears,
+            passiveYears,
+            grossActiveLoss,
+            grossPassiveLoss,
+            totalLoss,
+            workerFaultRate: workerFaultVal,
+            faultDeduction,
+            psd: psdVal,
+            finalNet
+        });
+    };
+
+    // Chart Effect
+    useEffect(() => {
+        if (results && chartRef.current) {
+            if (chartInstance.current) {
+                chartInstance.current.destroy();
+            }
+
+            const ctx = chartRef.current.getContext('2d');
+            chartInstance.current = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Net Tazminat', 'Kusur İndirimi', 'SGK Mahsup'],
+                    datasets: [{
+                        data: [results.finalNet, results.faultDeduction, results.psd],
+                        backgroundColor: [
+                            '#0f766e', // Teal (Net)
+                            '#ef4444', // Red (Fault)
+                            '#3b82f6'  // Blue (SGK)
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { size: 10 } }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(context.raw);
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }, [results]);
+
+    const fmt = (num) => new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(num);
+
+    return (
+        <div className="min-h-screen bg-slate-50 pt-32 pb-12 px-4 font-sans text-slate-800">
+            <Helmet>
+                <title>Meslek Hastalığı Tazminat Hesaplama Aracı | TRH-2010 Esaslı</title>
+            </Helmet>
+            
+            <style>{`
+                .chart-container {
+                    position: relative;
+                    width: 100%;
+                    height: 300px;
+                }
+                @media print {
+                    .no-print { display: none !important; }
+                    .print-show { display: block !important; }
+                    body { background: white; color: black; }
+                    .shadow-xl { box-shadow: none; border: 1px solid #ccc; }
+                    /* Hide site nav and footer if possible, but they are outside this component */
+                    nav, footer { display: none !important; } 
+                    /* Reset padding for print */
+                    .pt-32 { padding-top: 0 !important; }
+                }
+            `}</style>
+
+            {/* User's Header adapted as Toolbar */}
+            <div className="container mx-auto px-4 py-4 flex justify-between items-center bg-white border-b border-slate-200 rounded-xl shadow-sm mb-8">
+                <div className="flex items-center gap-3">
+                    <div className="bg-teal-700 text-white p-2 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 3.659c0 3.074-1.8 5.523-3.99 6.197-2.296-.705-4.002-3.125-4.002-6.197 0-3.074 1.8-5.523 4.002-6.197C12.99 5.125 14.8 7.574 14.8 10.659M9 17h6m-6 3h6m-6-6h6" />
+                        </svg>
                     </div>
-                    <p className="text-xs text-slate-500 mt-1">Olay tarihinden bugüne kadar olan dönem için.</p>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Son Net Maaş (Aktif Dönem)</label>
-                    <div className="relative rounded-md shadow-sm">
-                      <input type="number" name="futureSalary" required min="0" className="w-full rounded-md border-slate-300 pl-3 pr-12 focus:border-teal-500 focus:ring-teal-500" placeholder="0.00" onChange={handleInputChange} />
-                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                        <span className="text-slate-500 sm:text-sm">TL</span>
-                      </div>
+                    <div>
+                        <h1 className="text-xl font-bold text-slate-800 tracking-tight">Meslek Hastalığı Tazminat Hesaplayıcı</h1>
+                        <p className="text-xs text-slate-500">TRH-2010 Tablosu & Yargıtay İçtihatlarına Uygun Projeksiyon</p>
                     </div>
-                    <p className="text-xs text-slate-500 mt-1">Bugünden 60 yaşına kadar olan dönem için.</p>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Asgari Ücret (Pasif Dönem)</label>
-                    <div className="relative rounded-md shadow-sm">
-                      <input type="number" name="minimumWage" required min="0" value={formData.minimumWage} className="w-full rounded-md border-slate-300 pl-3 pr-12 focus:border-teal-500 focus:ring-teal-500" onChange={handleInputChange} />
-                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                        <span className="text-slate-500 sm:text-sm">TL</span>
-                      </div>
-                    </div>
-                    <p className="text-xs text-slate-500 mt-1">60 yaşından ölüme kadar olan dönem için.</p>
-                  </div>
                 </div>
-              </section>
-
-              {/* Maluliyet ve Kusur */}
-              <section>
-                <h2 className="text-xl font-semibold text-teal-700 mb-4 border-b border-teal-100 pb-2">
-                  3. Maluliyet ve Kusur Oranları
-                </h2>
-                
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Maluliyet Oranları (%)</label>
-                  {formData.disabilityRates.map((rate, index) => (
-                    <div key={index} className="flex items-center gap-2 mb-2">
-                      <input 
-                        type="number" 
-                        min="0" 
-                        max="100" 
-                        value={rate} 
-                        onChange={(e) => handleRateChange(index, e.target.value)}
-                        className="w-32 rounded-md border-slate-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" 
-                        placeholder="%" 
-                        required
-                      />
-                      {formData.disabilityRates.length > 1 && (
-                        <button type="button" onClick={() => removeRate(index)} className="text-red-600 hover:text-red-800 text-sm">Sil</button>
-                      )}
-                    </div>
-                  ))}
-                  <button type="button" onClick={addRate} className="text-sm text-teal-600 hover:text-teal-800 font-medium">+ Başka Oran Ekle (Balthazard)</button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">İşçi Kusur Oranı (%)</label>
-                    <input type="number" name="workerFaultRate" min="0" max="100" value={formData.workerFaultRate} onChange={handleInputChange} className="w-full rounded-md border-slate-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">İşveren Kusur Oranı (%)</label>
-                    <input type="number" name="employerFaultRate" min="0" max="100" value={formData.employerFaultRate} onChange={handleInputChange} className="w-full rounded-md border-slate-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">3. Kişi Kusur Oranı (%)</label>
-                    <input type="number" name="thirdPartyFaultRate" min="0" max="100" value={formData.thirdPartyFaultRate} onChange={handleInputChange} className="w-full rounded-md border-slate-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" />
-                  </div>
-                </div>
-                <p className="text-xs text-slate-500 mt-2">Not: Kusur oranları toplamı 100 olmalıdır.</p>
-              </section>
-
-              {/* SGK Bilgileri */}
-              <section>
-                <h2 className="text-xl font-semibold text-teal-700 mb-4 border-b border-teal-100 pb-2">
-                  4. SGK Ödemeleri
-                </h2>
-                <div className="flex items-center mb-4">
-                  <input type="checkbox" id="isSgkConnected" name="isSgkConnected" checked={formData.isSgkConnected} onChange={handleInputChange} className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-slate-300 rounded" />
-                  <label htmlFor="isSgkConnected" className="ml-2 block text-sm text-slate-900">
-                    SGK Sürekli İş Göremezlik Geliri Bağladı mı?
-                  </label>
-                </div>
-                
-                {formData.isSgkConnected && (
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">İlk Peşin Sermaye Değeri (PSD)</label>
-                    <div className="relative rounded-md shadow-sm max-w-xs">
-                      <input type="number" name="sgkPsd" min="0" value={formData.sgkPsd} onChange={handleInputChange} className="w-full rounded-md border-slate-300 pl-3 pr-12 focus:border-teal-500 focus:ring-teal-500" />
-                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                        <span className="text-slate-500 sm:text-sm">TL</span>
-                      </div>
-                    </div>
-                    <p className="text-xs text-slate-500 mt-1">Sadece işverenin kusuruna isabet eden kısım (Rücu edilebilir) düşülecektir.</p>
-                  </div>
-                )}
-              </section>
-
-              <div className="pt-6">
-                <button type="submit" className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200">
-                  HESAPLA
+                <button onClick={() => window.print()} className="hidden md:flex items-center gap-2 text-sm text-teal-700 font-medium hover:bg-teal-50 px-3 py-2 rounded transition no-print">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                    </svg>
+                    Yazdır / PDF
                 </button>
-              </div>
-            </form>
-          </div>
+            </div>
+
+            <div className="container mx-auto max-w-6xl">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    
+                    {/* INPUT PANEL */}
+                    <div className="lg:col-span-4 space-y-6 no-print">
+                        <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100">
+                            <h2 className="text-lg font-bold text-slate-700 mb-4 border-b pb-2">1. Kişisel Veriler & Olay</h2>
+                            
+                            <div className="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label className="block text-xs font-semibold text-slate-500 mb-1">Cinsiyet</label>
+                                    <select value={gender} onChange={(e) => setGender(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none">
+                                        <option value="M">Erkek</option>
+                                        <option value="F">Kadın</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-semibold text-slate-500 mb-1">Doğum Tarihi</label>
+                                    <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                                </div>
+                            </div>
+
+                            <div className="mb-4">
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">Meslek Hastalığı Tespit Tarihi</label>
+                                <input type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                            </div>
+
+                            <div className="mb-4">
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">Aylık Net Kazanç (TL)</label>
+                                <div className="relative">
+                                    <input type="number" value={wage} onChange={(e) => setWage(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded pl-3 pr-10 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" placeholder="Örn: 25000" />
+                                    <span className="absolute right-3 top-2 text-slate-400 text-sm">₺</span>
+                                </div>
+                                <p className="text-[10px] text-slate-400 mt-1">*Çıplak net ücret giriniz.</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100">
+                            <h2 className="text-lg font-bold text-slate-700 mb-4 border-b pb-2">2. Maluliyet ve Kusur</h2>
+                            
+                            <div className="mb-4">
+                                <div className="flex justify-between">
+                                    <label className="block text-xs font-semibold text-slate-500 mb-1">Maluliyet Oranı (%)</label>
+                                    <span className="text-xs font-bold text-teal-700">%{disability}</span>
+                                </div>
+                                <input type="range" min="0" max="100" value={disability} onChange={(e) => setDisability(e.target.value)} className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600" />
+                                <p className="text-[10px] text-slate-400 mt-1">SGK Sağlık Kurulu tarafından belirlenen oran.</p>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label className="block text-xs font-semibold text-slate-500 mb-1">İşçi Kusuru (%)</label>
+                                    <input type="number" value={workerFault} max="100" onChange={(e) => {
+                                        let val = parseInt(e.target.value) || 0;
+                                        if(val > 100) val = 100;
+                                        setWorkerFault(val);
+                                    }} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-semibold text-slate-500 mb-1">İşveren Kusuru (%)</label>
+                                    <input type="number" value={100 - workerFault} readOnly className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                                </div>
+                            </div>
+                            <p className="text-[10px] text-red-400 mb-4">*İşveren kusuru otomatik hesaplanır (100 - İşçi).</p>
+
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">SGK Tarafından Bağlanan PSD (TL)</label>
+                                <input type="number" value={psd} onChange={(e) => setPsd(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                                <p className="text-[10px] text-slate-400 mt-1">Rücu edilebilir Peşin Sermaye Değeri (İndirim kalemi).</p>
+                            </div>
+                        </div>
+
+                        <button onClick={calculateCompensation} className="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 px-4 rounded-xl shadow-md transition duration-200 flex items-center justify-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 3.659c0 3.074-1.8 5.523-3.99 6.197-2.296-.705-4.002-3.125-4.002-6.197 0-3.074 1.8-5.523 4.002-6.197C12.99 5.125 14.8 7.574 14.8 10.659M9 17h6m-6 3h6m-6-6h6" />
+                            </svg>
+                            HESAPLA
+                        </button>
+                    </div>
+
+                    {/* REPORT PANEL */}
+                    <div className="lg:col-span-8 space-y-6" id="reportArea">
+                        
+                        {/* Summary Cards */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div className="bg-white p-4 rounded-xl shadow border-l-4 border-blue-500">
+                                <p className="text-xs text-slate-500 font-semibold uppercase">Olay Tarihi Yaşı</p>
+                                <p className="text-xl font-bold text-slate-800">{results ? results.ageAtEvent : '-'}</p>
+                            </div>
+                            <div className="bg-white p-4 rounded-xl shadow border-l-4 border-indigo-500">
+                                <p className="text-xs text-slate-500 font-semibold uppercase">TRH-2010 Bakiye</p>
+                                <p className="text-xl font-bold text-slate-800">{results ? results.remainingLife.toFixed(2) + ' Yıl' : '-'}</p>
+                            </div>
+                            <div className="bg-white p-4 rounded-xl shadow border-l-4 border-amber-500">
+                                <p className="text-xs text-slate-500 font-semibold uppercase">Aktif Dönem</p>
+                                <p className="text-xl font-bold text-slate-800">{results ? results.activeYears.toFixed(2) + ' Yıl' : '-'}</p>
+                            </div>
+                            <div className="bg-white p-4 rounded-xl shadow border-l-4 border-teal-500">
+                                <p className="text-xs text-slate-500 font-semibold uppercase">Pasif Dönem</p>
+                                <p className="text-xl font-bold text-slate-800">{results ? results.passiveYears.toFixed(2) + ' Yıl' : '-'}</p>
+                            </div>
+                        </div>
+
+                        {/* Main Result Card */}
+                        <div className="bg-white rounded-xl shadow-xl overflow-hidden border border-slate-200">
+                            <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                                <h3 className="font-bold text-slate-700">Tazminat Hesap Özeti</h3>
+                                <span className="text-xs bg-teal-100 text-teal-800 px-2 py-1 rounded">Bilirkişi Formatı</span>
+                            </div>
+                            
+                            <div className="p-6">
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-sm text-left">
+                                        <thead className="text-xs text-slate-500 uppercase bg-slate-50 border-b">
+                                            <tr>
+                                                <th className="px-4 py-3">Hesap Kalemi</th>
+                                                <th className="px-4 py-3 text-right">Detay / Oran</th>
+                                                <th className="px-4 py-3 text-right">Tutar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-100">
+                                            <tr>
+                                                <td className="px-4 py-3 font-medium text-slate-700">Brüt Zarar (Aktif Dönem)</td>
+                                                <td className="px-4 py-3 text-right text-slate-500">60 Yaşına Kadar</td>
+                                                <td className="px-4 py-3 text-right font-mono">{results ? fmt(results.grossActiveLoss) : '0,00 ₺'}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="px-4 py-3 font-medium text-slate-700">Brüt Zarar (Pasif Dönem)</td>
+                                                <td className="px-4 py-3 text-right text-slate-500">Ölüm Tarihine Kadar</td>
+                                                <td className="px-4 py-3 text-right font-mono">{results ? fmt(results.grossPassiveLoss) : '0,00 ₺'}</td>
+                                            </tr>
+                                            <tr className="bg-slate-50">
+                                                <td className="px-4 py-3 font-bold text-slate-800">TOPLAM ZARAR</td>
+                                                <td className="px-4 py-3 text-right"></td>
+                                                <td className="px-4 py-3 text-right font-mono font-bold">{results ? fmt(results.totalLoss) : '0,00 ₺'}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="px-4 py-3 text-red-600">(-) İşçi Kusuru İndirimi</td>
+                                                <td className="px-4 py-3 text-right text-red-500">%{results ? (results.workerFaultRate * 100).toFixed(0) : '0'}</td>
+                                                <td className="px-4 py-3 text-right font-mono text-red-600">{results ? '-' + fmt(results.faultDeduction) : '0,00 ₺'}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="px-4 py-3 text-blue-600">(-) SGK Peşin Sermaye Değeri (PSD)</td>
+                                                <td className="px-4 py-3 text-right text-blue-500">Rücu Edilebilir</td>
+                                                <td className="px-4 py-3 text-right font-mono text-blue-600">{results ? '-' + fmt(results.psd) : '0,00 ₺'}</td>
+                                            </tr>
+                                            <tr className="bg-teal-50 border-t-2 border-teal-100">
+                                                <td className="px-4 py-4 font-bold text-teal-900 text-lg">NET ÖDENECEK TAZMİNAT</td>
+                                                <td className="px-4 py-4"></td>
+                                                <td className="px-4 py-4 text-right font-bold text-teal-700 text-xl font-mono">{results ? fmt(results.finalNet) : '0,00 ₺'}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Explanation / Chart Area */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 no-print">
+                            <div className="bg-white p-6 rounded-xl shadow border border-slate-100">
+                                <h4 className="font-bold text-slate-700 mb-4 text-sm">Oransal Dağılım</h4>
+                                <div className="chart-container">
+                                    <canvas ref={chartRef}></canvas>
+                                </div>
+                            </div>
+                            <div className="bg-white p-6 rounded-xl shadow border border-slate-100">
+                                <h4 className="font-bold text-slate-700 mb-2 text-sm">Hukuki Notlar</h4>
+                                <ul className="text-xs text-slate-600 space-y-3 list-disc pl-4">
+                                    <li><strong>TRH-2010:</strong> Hesaplamada Yargıtay'ın zorunlu kıldığı güncel yaşam tablosu kullanılmıştır.</li>
+                                    <li><strong>Aktif/Pasif Ayrımı:</strong> 60 yaş "Ekonomik Bütünleşme Yaşı" kabul edilmiştir. Pasif dönemde asgari geçim indirimi (AGİ) hariç tutar üzerinden hesaplama yapılması esastır, burada net ücret üzerinden projeksiyon yapılmıştır.</li>
+                                    <li><strong>Kusur Oranı:</strong> Müterafik kusur (TBK m.52) uyarınca işçinin kusuru toplam zarardan düşülmüştür.</li>
+                                    <li><strong>Mükerrer Ödeme:</strong> SGK tarafından bağlanan gelirin ilk peşin sermaye değeri, sebepsiz zenginleşmeyi önlemek (TBK m.55) için mahsup edilmiştir.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
-
-        {/* Sonuç Ekranı */}
-        {result && (
-          <div className="mt-10 bg-white shadow-xl rounded-2xl overflow-hidden border border-slate-200 animate-fade-in-up">
-            <div className="bg-teal-700 px-8 py-4">
-              <h2 className="text-2xl font-bold text-white">Hesaplama Sonucu</h2>
-            </div>
-            <div className="p-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                
-                {/* Sol Kolon: Detaylar */}
-                <div className="space-y-6">
-                  <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
-                    <h3 className="font-semibold text-slate-800 mb-3">Aktüeryal Veriler</h3>
-                    <ul className="space-y-2 text-sm text-slate-600">
-                      <li className="flex justify-between"><span>TRH-2010 Bakiye Ömür:</span> <span className="font-medium text-slate-900">{result.remainingLife.toFixed(2)} Yıl</span></li>
-                      <li className="flex justify-between"><span>Geçmiş Dönem Süresi:</span> <span className="font-medium text-slate-900">{result.pastDurationYears.toFixed(2)} Yıl</span></li>
-                      <li className="flex justify-between"><span>Gelecek Aktif Dönem:</span> <span className="font-medium text-slate-900">{result.futureActiveDurationYears.toFixed(2)} Yıl</span></li>
-                      <li className="flex justify-between"><span>Gelecek Pasif Dönem:</span> <span className="font-medium text-slate-900">{result.futurePassiveDurationYears.toFixed(2)} Yıl</span></li>
-                      <li className="flex justify-between"><span>Toplam Maluliyet Oranı:</span> <span className="font-medium text-slate-900">%{result.disabilityRate.toFixed(2)}</span></li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
-                    <h3 className="font-semibold text-slate-800 mb-3">Tazminat Dökümü</h3>
-                    <ul className="space-y-2 text-sm text-slate-600">
-                      <li className="flex justify-between"><span>Ham Tazminat Toplamı:</span> <span className="font-medium text-slate-900">{new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(result.totalGrossCompensation)}</span></li>
-                      <li className="flex justify-between text-red-600"><span>(-) Kusur İndirimi (%{formData.workerFaultRate}):</span> <span>-{new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(result.faultDeduction)}</span></li>
-                      <li className="flex justify-between text-amber-600"><span>(-) SGK PSD Mahsubu:</span> <span>-{new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(result.psdDeduction)}</span></li>
-                    </ul>
-                    <div className="mt-4 pt-4 border-t border-slate-200 flex justify-between items-center">
-                      <span className="text-lg font-bold text-slate-800">NET ÖDENECEK:</span>
-                      <span className="text-2xl font-bold text-teal-700">{new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(result.finalCompensation)}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="group relative inline-block">
-                    <span className="text-xs text-slate-400 cursor-help border-b border-dotted border-slate-400">Manevi Tazminat Hakkında Bilgi</span>
-                    <div className="invisible group-hover:visible absolute z-10 w-64 bg-slate-800 text-white text-xs rounded p-2 bottom-full left-0 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      Bu hesaplama aracı sadece Maddi Tazminat içindir. Manevi tazminat, hakimin takdir yetkisinde olup, olayın özelliği, tarafların sıfatı ve ekonomik durumlarına göre belirlenir, matematiksel olarak hesaplanamaz.
-                    </div>
-                  </div>
-                </div>
-
-                {/* Sağ Kolon: Grafik */}
-                <div className="flex flex-col items-center justify-center">
-                  <h3 className="font-semibold text-slate-800 mb-4">Tazminat Dağılımı</h3>
-                  <div className="w-full max-w-xs">
-                    <canvas ref={chartRef}></canvas>
-                  </div>
-                  <div className="mt-6 text-center text-xs text-slate-500">
-                    <p>Grafik, toplam hesaplanan zararın dağılımını göstermektedir.</p>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+    );
 };
 
 export default MeslekHastaligiPage;
