@@ -158,10 +158,68 @@ const MeslekHastaligiPage = () => {
 
     const fmt = (num) => new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(num);
 
+    // JSON-LD Schemas
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Meslek Hastalığı Tazminat Hesaplama Aracı",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "TRY"
+        },
+        "description": "TRH-2010 yaşam tablosu ve Yargıtay içtihatlarına uygun, meslek hastalığı maddi tazminat hesaplama aracı.",
+        "featureList": "TRH-2010 Yaşam Tablosu, Aktif/Pasif Dönem Hesabı, Kusur İndirimi, SGK PSD Mahsubu"
+    };
+
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Meslek hastalığı ile iş kazası arasındaki fark nedir?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "İş kazası anlık bir olay iken, meslek hastalığı tekrarlanan sebeplerle veya işin yürütüm şartları yüzünden zamanla ortaya çıkan, süreklilik arz eden bir süreçtir."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "İşten ayrıldıktan yıllar sonra meslek hastalığı davası açabilir miyim?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Evet. Yükümlülük süresi (genellikle 10 yıl) dolsa bile, tıbbi illiyet bağı kurulabiliyorsa Yüksek Sağlık Kurulu onayı ile meslek hastalığı sayılabilir ve dava açılabilir."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Tazminat hesabında hangi yaşam tablosu kullanılır?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yargıtay kararları uyarınca PMF-1931 yerine, daha güncel olan TRH-2010 (Türkiye Hayat Tablosu) kullanılmaktadır."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Emekli olduktan sonraki dönem için tazminat alabilir miyim?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Evet. Yargıtay'a göre emeklilik döneminde de (Pasif Dönem) efor kaybı devam ettiği için, genellikle asgari ücret üzerinden tazminat hesaplanır."
+                }
+            }
+        ]
+    };
+
     return (
         <div className="min-h-screen bg-slate-50 pt-32 pb-12 px-4 font-sans text-slate-800">
             <Helmet>
                 <title>Meslek Hastalığı Tazminat Hesaplama Aracı | TRH-2010 Esaslı</title>
+                <meta name="description" content="Meslek hastalığı tazminat hesaplama aracı ile TRH-2010 tablosuna göre maddi tazminatınızı hesaplayın. Yükümlülük süresi, maluliyet oranı ve Yargıtay içtihatlarına uygun detaylı rapor." />
+                <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+                <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
             </Helmet>
             
             <style>{`
@@ -380,6 +438,112 @@ const MeslekHastaligiPage = () => {
                         </div>
 
                     </div>
+                </div>
+
+                {/* Detailed Content & FAQ Section */}
+                <div className="mt-16 max-w-5xl mx-auto space-y-12 no-print">
+                    
+                    {/* Expert Report Content */}
+                    <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 prose prose-slate max-w-none">
+                        <h2 className="text-2xl font-bold text-slate-800 border-b pb-4 mb-6">Mesleki Hastalık Tazminat Hesaplamalarında Hukuki ve Aktüeryal Temeller</h2>
+                        
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 className="text-lg font-semibold text-teal-700">1. Meslek Hastalığının Doğası</h3>
+                                <p className="text-sm text-slate-600">
+                                    Meslek hastalıkları, iş kazalarından farklı olarak anlık bir travma değil, zamana yayılmış bir maruziyetin sonucudur. 
+                                    5510 sayılı Kanun’un 14. maddesine göre; sigortalının çalıştığı işin niteliğinden dolayı tekrarlanan bir sebeple 
+                                    veya işin yürütüm şartları yüzünden uğradığı geçici veya sürekli hastalık halleridir.
+                                </p>
+                            </div>
+                            <div>
+                                <h3 className="text-lg font-semibold text-teal-700">2. Yükümlülük Süresi ve Latent Dönem</h3>
+                                <p className="text-sm text-slate-600">
+                                    Hastalığın işten ayrıldıktan sonra ortaya çıkması durumunda "Yükümlülük Süresi" devreye girer. 
+                                    Genellikle 10 yıl olan bu süre aşılsa bile, tıbbi illiyet bağı kurulabiliyorsa Yüksek Sağlık Kurulu onayı ile 
+                                    hastalık "Meslek Hastalığı" sayılabilir.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="mt-8">
+                            <h3 className="text-lg font-semibold text-teal-700">3. Hesaplama Metodolojisi (TRH-2010)</h3>
+                            <p className="text-sm text-slate-600 mb-4">
+                                Yargıtay 10. Hukuk Dairesi ve Hukuk Genel Kurulu kararları uyarınca, tazminat hesaplamalarında PMF-1931 tablosu yerine, 
+                                Türkiye İstatistik Kurumu verilerine dayanan <strong>TRH-2010 (Türkiye Hayat Tablosu)</strong> kullanılması zorunludur.
+                            </p>
+                            <ul className="list-disc pl-5 text-sm text-slate-600 space-y-2">
+                                <li><strong>Aktif Dönem:</strong> 60 yaşına kadar olan çalışma çağıdır. Tam ücret üzerinden hesaplanır.</li>
+                                <li><strong>Pasif Dönem:</strong> 60 yaşından ölüme kadar olan dönemdir. Emekli de olsa efor kaybı devam ettiği için asgari ücret üzerinden hesaplanır.</li>
+                                <li><strong>Progresif Rant:</strong> Bilinmeyen devreler için %10 artırım ve %10 iskonto yöntemi uygulanır.</li>
+                            </ul>
+                        </div>
+
+                        <div className="mt-8 bg-slate-50 p-6 rounded-xl border-l-4 border-teal-500">
+                            <h3 className="text-lg font-semibold text-slate-800">Kritik Uyarı: SGK PSD Mahsubu</h3>
+                            <p className="text-sm text-slate-600 mt-2">
+                                Hukukumuzda "Zenginleşme Yasağı" gereği, işçi aynı zarar için iki kere tazminat alamaz. 
+                                Bu nedenle, SGK tarafından bağlanan Sürekli İş Göremezlik Gelirinin <strong>İlk Peşin Sermaye Değeri (PSD)</strong>, 
+                                işverenin kusuru oranında hesaplanan tazminattan düşülür. Bu veri girilmezse hesaplama hatalı (yüksek) çıkar.
+                            </p>
+                        </div>
+                    </section>
+
+                    {/* FAQ Section */}
+                    <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Sıkça Sorulan Sorular
+                        </h2>
+                        <div className="space-y-4">
+                            <details className="group bg-slate-50 rounded-lg">
+                                <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
+                                    <span>Meslek hastalığı ile iş kazası arasındaki fark nedir?</span>
+                                    <span className="transition group-open:rotate-180">
+                                        <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                    </span>
+                                </summary>
+                                <div className="text-slate-600 text-sm px-4 pb-4">
+                                    İş kazası anlık bir olay iken, meslek hastalığı tekrarlanan sebeplerle veya işin yürütüm şartları yüzünden zamanla ortaya çıkan, süreklilik arz eden bir süreçtir.
+                                </div>
+                            </details>
+                            <details className="group bg-slate-50 rounded-lg">
+                                <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
+                                    <span>İşten ayrıldıktan yıllar sonra dava açabilir miyim?</span>
+                                    <span className="transition group-open:rotate-180">
+                                        <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                    </span>
+                                </summary>
+                                <div className="text-slate-600 text-sm px-4 pb-4">
+                                    Evet. Yükümlülük süresi (genellikle 10 yıl) dolsa bile, tıbbi illiyet bağı kurulabiliyorsa Yüksek Sağlık Kurulu onayı ile meslek hastalığı sayılabilir. Zamanaşımı süresi (10 yıl) ise hastalığın kesin teşhis konulduğu tarihten itibaren başlar.
+                                </div>
+                            </details>
+                            <details className="group bg-slate-50 rounded-lg">
+                                <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
+                                    <span>Tazminat hesabında hangi yaşam tablosu kullanılır?</span>
+                                    <span className="transition group-open:rotate-180">
+                                        <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                    </span>
+                                </summary>
+                                <div className="text-slate-600 text-sm px-4 pb-4">
+                                    Yargıtay kararları uyarınca PMF-1931 yerine, daha güncel olan ve Türkiye İstatistik Kurumu verilerine dayanan TRH-2010 (Türkiye Hayat Tablosu) kullanılmaktadır.
+                                </div>
+                            </details>
+                            <details className="group bg-slate-50 rounded-lg">
+                                <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
+                                    <span>Emekli olduktan sonraki dönem için tazminat alabilir miyim?</span>
+                                    <span className="transition group-open:rotate-180">
+                                        <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                    </span>
+                                </summary>
+                                <div className="text-slate-600 text-sm px-4 pb-4">
+                                    Evet. Yargıtay'a göre emeklilik döneminde de (Pasif Dönem) efor kaybı devam ettiği için, genellikle asgari ücret üzerinden tazminat hesaplanır.
+                                </div>
+                            </details>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>
