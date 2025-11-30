@@ -155,7 +155,7 @@ const MeslekHastaligiPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 font-sans text-slate-900">
+    <div className="min-h-screen bg-slate-50 pt-32 pb-12 px-4 sm:px-6 lg:px-8 font-sans text-slate-900">
       <Helmet>
         <title>Meslek Hastalığı Tazminat Hesaplama | Koptay Hukuk</title>
         <meta name="description" content="Meslek hastalığı tazminat hesaplama aracı. TRH-2010 yaşam tablosu ve Yargıtay içtihatlarına uygun hesaplama." />
