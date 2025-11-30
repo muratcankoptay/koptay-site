@@ -713,12 +713,30 @@ const InfazYatarPage = () => {
               Ceza ve Güvenlik Tedbirlerinin İnfazı Hakkında Kanun'a göre 
               infaz süresi, koşullu salıverme ve denetimli serbestlik hesaplaması yapın.
             </p>
+            
+            {/* Hızlı Erişim CTA - Above the Fold */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a 
+                href="#hesaplama-formu" 
+                className="inline-flex items-center justify-center bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 shadow-xl"
+              >
+                <Calculator className="w-6 h-6 mr-3" />
+                Hemen Hesapla
+              </a>
+              <a 
+                href="#makale-icerigi" 
+                className="inline-flex items-center justify-center border-2 border-white text-white px-6 py-4 rounded-xl font-medium hover:bg-white hover:text-blue-600 transition-all"
+              >
+                <FileText className="w-5 h-5 mr-2" />
+                Detaylı Bilgi
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Makale İçeriği - SEO İçin */}
-      <section className="py-16 bg-white">
+      <section id="makale-icerigi" className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto prose prose-lg">
             <article>
@@ -732,6 +750,25 @@ const InfazYatarPage = () => {
                 <strong> koşullu salıverme</strong> ve <strong>denetimli serbestlik</strong> sisteminden 
                 yararlanabilir.
               </p>
+
+              {/* Hızlı CTA Banner */}
+              <div className="bg-gradient-to-r from-blue-600 to-teal-600 text-white p-6 rounded-xl my-8 not-prose">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center space-x-3">
+                    <Calculator className="w-10 h-10" />
+                    <div>
+                      <p className="font-bold text-lg">Hemen Hesapla!</p>
+                      <p className="text-sm opacity-90">Aşağıdaki aracı kullanarak infaz sürenizi hesaplayın</p>
+                    </div>
+                  </div>
+                  <a 
+                    href="#hesaplama-formu" 
+                    className="bg-white text-blue-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors shadow-lg"
+                  >
+                    Hesaplama Aracına Git →
+                  </a>
+                </div>
+              </div>
 
               <div className="bg-blue-50 border-l-4 border-blue-600 p-6 my-8 rounded-r-lg">
                 <p className="text-blue-900 font-medium">
