@@ -56,6 +56,14 @@ const HesaplamaAraclariPage = () => {
       link: '/hesaplama-araclari/tazminat-hesaplama'
     },
     {
+      id: 'meslek-hastaligi',
+      title: 'Meslek Hastalığı Tazminatı',
+      description: 'TRH-2010 tablosuna göre meslek hastalığı tazminat hesaplama',
+      icon: Users,
+      color: 'bg-teal-100 text-teal-600',
+      link: '/hesaplama-araclari/meslek-hastaligi'
+    },
+    {
       id: 'deger-kaybi',
       title: 'Değer Kaybı Hesaplama',
       description: 'Araç kazalarında değer kaybı tazminat hesaplama',
