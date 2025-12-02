@@ -159,86 +159,66 @@ const MeslekHastaligiPage = () => {
     const fmt = (num) => new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(num);
 
     // JSON-LD Schemas
-    const articleSchema = {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https://koptay.av.tr/hesaplama-araclari/meslek-hastaligi"
-        },
-        "headline": "Meslek Hastalığı Tazminatı: Hukuki Şartları, Süreç ve Hesaplama Yöntemi (2025 Uzman Rehberi)",
-        "description": "Meslek hastalığı tazminatı nedir? İşverenin kusur sorumluluğu, yükümlülük süresi, ispat yükü ve TRH-2010 yaşam tablosuna göre aktüeryal hesaplama yöntemlerini içeren kapsamlı hukuki bilirkişi rehberi.",
-        "image": "https://koptay.av.tr/uploads/meslek-hastaligi-tazminati-hesaplama.jpg",
-        "author": {
-            "@type": "Organization",
-            "name": "Koptay Hukuk ve Danışmanlık",
-            "url": "https://koptay.av.tr"
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "Koptay Hukuk",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://koptay.av.tr/logo.png"
-            }
-        },
-        "datePublished": "2024-12-02",
-        "dateModified": "2024-12-02",
-        "about": {
-            "@type": "Thing",
-            "name": "İş Hukuku ve Meslek Hastalıkları Tazminatı"
-        }
-    };
-
-    const softwareSchema = {
+    const jsonLd = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "Koptay Hukuk Meslek Hastalığı Tazminat Hesaplama Aracı",
+        "name": "Meslek Hastalığı Tazminat Hesaplama Aracı",
         "applicationCategory": "FinanceApplication",
-        "operatingSystem": "Web Browser",
-        "description": "TRH-2010 yaşam tablosu ve güncel Yargıtay kriterlerine göre meslek hastalığı maddi tazminatını hesaplayan çevrimiçi hukuki araç.",
-        "url": "https://koptay.av.tr/hesaplama-araclari/meslek-hastaligi",
+        "operatingSystem": "Web",
         "offers": {
             "@type": "Offer",
             "price": "0",
             "priceCurrency": "TRY"
-        }
+        },
+        "description": "TRH-2010 yaşam tablosu ve Yargıtay içtihatlarına uygun, meslek hastalığı maddi tazminat hesaplama aracı.",
+        "featureList": "TRH-2010 Yaşam Tablosu, Aktif/Pasif Dönem Hesabı, Kusur İndirimi, SGK PSD Mahsubu"
     };
 
     const faqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [{
-            "@type": "Question",
-            "name": "İşten ayrıldıktan yıllar sonra meslek hastalığı tazminatı alınır mı?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Evet. Her hastalığın bir 'yükümlülük süresi' vardır. Bu süre dolmuş olsa bile, hastalık ile iş arasındaki illiyet bağı tıbben ispatlanabilirse, Sosyal Sigorta Yüksek Sağlık Kurulu onayı ile dava açılabilir."
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Meslek hastalığı ile iş kazası arasındaki fark nedir?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "İş kazası anlık bir olay iken, meslek hastalığı tekrarlanan sebeplerle veya işin yürütüm şartları yüzünden zamanla ortaya çıkan, süreklilik arz eden bir süreçtir."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "İşten ayrıldıktan yıllar sonra meslek hastalığı davası açabilir miyim?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Evet. Yükümlülük süresi (genellikle 10 yıl) dolsa bile, tıbbi illiyet bağı kurulabiliyorsa Yüksek Sağlık Kurulu onayı ile meslek hastalığı sayılabilir ve dava açılabilir."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Tazminat hesabında hangi yaşam tablosu kullanılır?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yargıtay kararları uyarınca PMF-1931 yerine, daha güncel olan TRH-2010 (Türkiye Hayat Tablosu) kullanılmaktadır."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Emekli olduktan sonraki dönem için tazminat alabilir miyim?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Evet. Yargıtay'a göre emeklilik döneminde de (Pasif Dönem) efor kaybı devam ettiği için, genellikle asgari ücret üzerinden tazminat hesaplanır."
+                }
             }
-        }, {
-            "@type": "Question",
-            "name": "Meslek hastalığı tazminatında hangi yaşam tablosu kullanılır?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yargıtay'ın güncel kararları uyarınca, eski PMF-1931 tablosu yerine, beklenen yaşam süresini daha güncel verilerle belirleyen TRH-2010 (Türkiye Hayat Tablosu) kullanılması zorunludur."
-            }
-        }, {
-            "@type": "Question",
-            "name": "Meslek hastalığı zamanaşımı süresi ne zaman başlar?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Zamanaşımı süresi (10 yıl), işten ayrılma tarihinde değil; hastalığın kesin tıbbi teşhisinin konulduğu ve maluliyet oranının kesinleştiği tarihten itibaren başlar."
-            }
-        }]
+        ]
     };
 
     return (
         <div className="min-h-screen bg-slate-50 pt-32 pb-12 px-4 font-sans text-slate-800">
             <Helmet>
-                <title>Meslek Hastalığı Tazminatı Hesaplama ve Şartları (2025) | Koptay Hukuk</title>
-                <meta name="description" content="Meslek hastalığı tazminatı nedir? İşverenin kusur sorumluluğu, yükümlülük süresi ve TRH-2010 yaşam tablosuna göre aktüeryal hesaplama aracı." />
-                <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
-                <script type="application/ld+json">{JSON.stringify(softwareSchema)}</script>
+                <title>Meslek Hastalığı Tazminat Hesaplama Aracı | TRH-2010 Esaslı</title>
+                <meta name="description" content="Meslek hastalığı tazminat hesaplama aracı ile TRH-2010 tablosuna göre maddi tazminatınızı hesaplayın. Yükümlülük süresi, maluliyet oranı ve Yargıtay içtihatlarına uygun detaylı rapor." />
+                <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
                 <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
             </Helmet>
             
@@ -465,7 +445,7 @@ const MeslekHastaligiPage = () => {
                     
                     {/* Expert Report Content */}
                     <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 prose prose-slate max-w-none">
-                        <h2 className="text-2xl font-bold text-slate-800 border-b pb-4 mb-6">Meslek Hastalığı Tazminatı: Hukuki Şartları, Süreç ve Hesaplama Yöntemi (2025 Uzman Rehberi)</h2>
+                        <h2 className="text-2xl font-bold text-slate-800 border-b pb-4 mb-6">Mesleki Hastalık Tazminat Hesaplamalarında Hukuki ve Aktüeryal Temeller</h2>
                         
                         <div className="grid md:grid-cols-2 gap-8">
                             <div>
@@ -520,46 +500,46 @@ const MeslekHastaligiPage = () => {
                         <div className="space-y-4">
                             <details className="group bg-slate-50 rounded-lg">
                                 <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
-                                    <span>İşten ayrıldıktan yıllar sonra meslek hastalığı tazminatı alınır mı?</span>
+                                    <span>Meslek hastalığı ile iş kazası arasındaki fark nedir?</span>
                                     <span className="transition group-open:rotate-180">
                                         <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
                                     </span>
                                 </summary>
                                 <div className="text-slate-600 text-sm px-4 pb-4">
-                                    Evet. Her hastalığın bir 'yükümlülük süresi' vardır. Bu süre dolmuş olsa bile, hastalık ile iş arasındaki illiyet bağı tıbben ispatlanabilirse, Sosyal Sigorta Yüksek Sağlık Kurulu onayı ile dava açılabilir.
+                                    İş kazası anlık bir olay iken, meslek hastalığı tekrarlanan sebeplerle veya işin yürütüm şartları yüzünden zamanla ortaya çıkan, süreklilik arz eden bir süreçtir.
                                 </div>
                             </details>
                             <details className="group bg-slate-50 rounded-lg">
                                 <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
-                                    <span>Hangi yaşam tablosu (TRH-2010 mu PMF-1931 mi) kullanılır?</span>
+                                    <span>İşten ayrıldıktan yıllar sonra dava açabilir miyim?</span>
                                     <span className="transition group-open:rotate-180">
                                         <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
                                     </span>
                                 </summary>
                                 <div className="text-slate-600 text-sm px-4 pb-4">
-                                    Yargıtay'ın yerleşik içtihatlarına göre, tazminat hesaplamalarında güncel ve ülkemiz verilerine dayanan TRH-2010 Yaşam Tablosu kullanılmalıdır.
+                                    Evet. Yükümlülük süresi (genellikle 10 yıl) dolsa bile, tıbbi illiyet bağı kurulabiliyorsa Yüksek Sağlık Kurulu onayı ile meslek hastalığı sayılabilir. Zamanaşımı süresi (10 yıl) ise hastalığın kesin teşhis konulduğu tarihten itibaren başlar.
                                 </div>
                             </details>
                             <details className="group bg-slate-50 rounded-lg">
                                 <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
-                                    <span>Zamanaşımı süresi ne zaman başlar?</span>
+                                    <span>Tazminat hesabında hangi yaşam tablosu kullanılır?</span>
                                     <span className="transition group-open:rotate-180">
                                         <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
                                     </span>
                                 </summary>
                                 <div className="text-slate-600 text-sm px-4 pb-4">
-                                    Zamanaşımı, hastalığın öğrenildiği tarihten değil, maluliyet oranının kesin olarak tespit edildiği (rapor tarihinden) itibaren başlar ve süre 10 yıldır.
+                                    Yargıtay kararları uyarınca PMF-1931 yerine, daha güncel olan ve Türkiye İstatistik Kurumu verilerine dayanan TRH-2010 (Türkiye Hayat Tablosu) kullanılmaktadır.
                                 </div>
                             </details>
                             <details className="group bg-slate-50 rounded-lg">
                                 <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
-                                    <span>Manevi tazminat neye göre belirlenir?</span>
+                                    <span>Emekli olduktan sonraki dönem için tazminat alabilir miyim?</span>
                                     <span className="transition group-open:rotate-180">
                                         <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
                                     </span>
                                 </summary>
                                 <div className="text-slate-600 text-sm px-4 pb-4">
-                                    Manevi tazminat; işçinin çektiği acı, maluliyet oranı, kusur durumu ve tarafların ekonomik sosyal durumuna göre hakim tarafından takdir edilir.
+                                    Evet. Yargıtay'a göre emeklilik döneminde de (Pasif Dönem) efor kaybı devam ettiği için, genellikle asgari ücret üzerinden tazminat hesaplanır.
                                 </div>
                             </details>
                         </div>
