@@ -398,6 +398,38 @@ const ArticlePage = () => {
         </script>
       )}
 
+      {/* FAQ Schema for Meslek Hastalığı Article */}
+      {article.slug === 'meslek-hastaligi-tazminati-hesaplama-ve-sartlari' && (
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{
+                "@type": "Question",
+                "name": "İşten ayrıldıktan yıllar sonra meslek hastalığı tazminatı alınır mı?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Evet. Her hastalığın bir 'yükümlülük süresi' vardır. Bu süre dolmuş olsa bile, hastalık ile iş arasındaki illiyet bağı tıbben ispatlanabilirse, Sosyal Sigorta Yüksek Sağlık Kurulu onayı ile dava açılabilir."
+                }
+            }, {
+                "@type": "Question",
+                "name": "Meslek hastalığı tazminatında hangi yaşam tablosu kullanılır?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yargıtay'ın güncel kararları uyarınca, eski PMF-1931 tablosu yerine, beklenen yaşam süresini daha güncel verilerle belirleyen TRH-2010 (Türkiye Hayat Tablosu) kullanılmaktadır."
+                }
+            }, {
+                "@type": "Question",
+                "name": "Meslek hastalığı zamanaşımı süresi ne zaman başlar?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Zamanaşımı süresi (10 yıl), işten ayrılma tarihinde değil; hastalığın kesin tıbbi teşhisinin konulduğu ve maluliyet oranının kesinleştiği tarihten itibaren başlar."
+                }
+            }]
+          })}
+        </script>
+      )}
+
       <div className="pt-24 pb-12">
         <div className="container mx-auto px-4">
           {/* Back Button */}
