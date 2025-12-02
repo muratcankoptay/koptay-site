@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 
@@ -29,6 +29,20 @@ const PageLoader = () => (
 )
 
 function App() {
+  // Handle Global Loader removal
+  useEffect(() => {
+    const loader = document.getElementById('global-loader');
+    if (loader) {
+      // Small delay to ensure smooth transition and prevent flash
+      setTimeout(() => {
+        loader.classList.add('loader-hidden');
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 500); // Match CSS transition duration
+      }, 100);
+    }
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Nav />

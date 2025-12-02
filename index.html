@@ -76,12 +76,19 @@
     </script>
   </head>
   <body>
+    <!-- Global Loader (Prevents FOUC and Vercel default screen) -->
+    <div id="global-loader" style="position:fixed;top:0;left:0;width:100%;height:100%;background-color:#ffffff;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.5s ease-out;">
+      <img src="/logo.svg" alt="Koptay Hukuk" style="width:150px;height:auto;margin-bottom:2rem;animation:pulse 2s infinite;">
+      <div style="width:3rem;height:3rem;border:3px solid #f3f4f6;border-top-color:#548c8d;border-radius:50%;animation:spin 1s linear infinite;"></div>
+    </div>
+    <style>
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1); } }
+      .loader-hidden { opacity: 0; pointer-events: none; }
+    </style>
+
     <div id="root">
-      <!-- Loading indicator for better perceived performance -->
-      <div style="display:flex;align-items:center;justify-content:center;min-height:100vh">
-        <div style="width:4rem;height:4rem;border:4px solid #f3f4f6;border-top-color:#548c8d;border-radius:50%;animation:spin 1s linear infinite"></div>
-      </div>
-      <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+      <!-- Fallback content if JS is disabled or fails -->
     </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
