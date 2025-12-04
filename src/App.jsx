@@ -3,6 +3,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import WhatsAppButton from './components/WhatsAppButton'
+import CookieConsent from './components/CookieConsent'
 
 // Critical pages - load immediately
 import Home from './pages/Home'
@@ -21,6 +22,7 @@ const MeslekHastaligiPage = lazy(() => import('./pages/MeslekHastaligiPage'))
 const MakalelerPage = lazy(() => import('./pages/MakalelerPage'))
 const IletisimPage = lazy(() => import('./pages/IletisimPage'))
 const MuvekkilPaneliPage = lazy(() => import('./pages/MuvekkilPaneliPage'))
+const KvkkPage = lazy(() => import('./pages/KvkkPage'))
 
 // Loading component
 const PageLoader = () => (
@@ -65,11 +67,13 @@ function App() {
             <Route path="/makale/:slug" element={<ArticlePage />} />
             <Route path="/iletisim" element={<IletisimPage />} />
             <Route path="/muvekkil-paneli" element={<MuvekkilPaneliPage />} />
+            <Route path="/kvkk" element={<KvkkPage />} />
           </Routes>
         </Suspense>
       </main>
       <Footer />
       <WhatsAppButton />
+      <CookieConsent />
     </div>
   )
 }
