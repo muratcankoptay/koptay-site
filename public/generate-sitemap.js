@@ -33,24 +33,26 @@ const staticPages = [
 
 async function fetchArticles() {
   try {
-    console.log('📡 Fetching articles from Strapi...');
-    const response = await fetch(`${STRAPI_URL}/api/articles?populate=*`);
+    console.log('📂 Reading articles from local JSON file...');
+    const articlesPath = path.join(__dirname, '../articles.json');
     
-    if (!response.ok) {
-      console.error('❌ Strapi fetch failed:', response.status);
+    if (!fs.existsSync(articlesPath)) {
+      console.error('❌ articles.json not found at:', articlesPath);
       return [];
     }
+
+    const fileContent = fs.readFileSync(articlesPath, 'utf-8');
+    const data = JSON.parse(fileContent);
     
-    const data = await response.json();
-    console.log(`✅ Found ${data.data.length} articles`);
+    console.log(`✅ Found ${data.data.length} articles in local file`);
     
     return data.data.map(article => ({
       slug: article.slug,
-      updatedAt: article.updatedAt,
+      updatedAt: article.updatedAt || article.publishedAt || new Date().toISOString(),
       category: article.category
     }));
   } catch (error) {
-    console.error('❌ Error fetching articles:', error.message);
+    console.error('❌ Error reading articles:', error.message);
     return [];
   }
 }
