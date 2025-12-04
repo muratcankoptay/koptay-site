@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { lazy, Suspense, useEffect } from 'react'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
+import WhatsAppButton from './components/WhatsAppButton'
 
 // Critical pages - load immediately
 import Home from './pages/Home'
@@ -68,6 +69,7 @@ function App() {
         </Suspense>
       </main>
       <Footer />
+      <WhatsAppButton />
     </div>
   )
 }
