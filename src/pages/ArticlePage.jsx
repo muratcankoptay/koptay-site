@@ -561,7 +561,7 @@ const ArticlePage = () => {
               Bu Konuda Hukuki Desteğe İhtiyacınız mı Var?
             </h3>
             <p className="text-xl mb-6 text-blue-100">
-              Uzman avukat kadromuzla ücretsiz ön görüşme için hemen iletişime geçin.
+              Uzman avukat kadromuzla görüşmek için hemen iletişime geçin.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button 
@@ -573,7 +573,7 @@ const ArticlePage = () => {
                 }}
                 className="bg-lawSecondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-lawPrimary transition-colors"
               >
-                Ücretsiz Görüşme
+                İletişime Geç
               </button>
               <a 
                 href={`tel:${import.meta.env.VITE_PHONE || '+90 530 711 18 64'}`}

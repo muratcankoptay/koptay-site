@@ -96,7 +96,7 @@ const Nav = () => {
                 : "bg-lawSecondary text-white hover:bg-lawPrimary"
             }`}
           >
-            Ücretsiz Görüşme
+            İletişime Geç
           </Link>
 
           <button
@@ -131,7 +131,7 @@ const Nav = () => {
                 onClick={closeMenu}
                 className="block w-full text-center bg-lawSecondary text-white px-6 py-3 font-medium uppercase transition-colors duration-300 hover:bg-lawPrimary mt-4 rounded"
               >
-                Ücretsiz Görüşme
+                İletişime Geç
               </Link>
             </div>
           </div>

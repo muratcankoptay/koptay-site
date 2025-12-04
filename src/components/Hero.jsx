@@ -51,7 +51,7 @@ const Hero = () => {
                   onClick={scrollToContact}
                   className="bg-lawSecondary px-8 py-4 font-sans font-medium text-white uppercase tracking-wide hover:bg-lawPrimary transition-all duration-300 transform hover:scale-105"
                 >
-                  Ücretsiz Görüşme
+                  İletişime Geç
                 </button>
                 <button 
                   onClick={scrollToServices}

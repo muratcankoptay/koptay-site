@@ -222,7 +222,7 @@ const Services = () => {
               }}
               className="bg-lawSecondary text-white px-8 py-4 font-sans font-medium uppercase tracking-wide hover:bg-lawPrimary hover:text-white transition-all duration-300"
             >
-              Ücretsiz Görüşme
+              İletişime Geç
             </button>
             <a 
               href={`tel:${import.meta.env.VITE_PHONE || '+90 530 711 18 64'}`}
