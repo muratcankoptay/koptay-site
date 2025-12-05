@@ -1,386 +1,553 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { TrendingUp, Home, ChevronRight, Info, Phone, ArrowLeft, Shield } from 'lucide-react'
-import SEO from '../components/SEO'
+import React, { useState, useEffect, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Chart } from 'chart.js/auto';
 
 const TazminatHesaplamaPage = () => {
-  const [formData, setFormData] = useState({
-    netMaas: '',
-    calismaYili: '',
-    yas: '',
-    maddiHasar: '',
-    kazaTipi: 'is-kazasi'
-  })
-  
-  const [result, setResult] = useState(null)
-  const [isCalculating, setIsCalculating] = useState(false)
+    // State for inputs
+    const [gender, setGender] = useState('M');
+    const [dob, setDob] = useState('');
+    const [eventDate, setEventDate] = useState(new Date().toISOString().split('T')[0]);
+    const [wage, setWage] = useState(17002);
+    const [disability, setDisability] = useState(10);
+    const [workerFault, setWorkerFault] = useState(0);
+    const [psd, setPsd] = useState(0);
 
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+    // State for results
+    const [results, setResults] = useState(null);
 
-  const calculateTazminat = () => {
-    setIsCalculating(true)
-    
-    setTimeout(() => {
-      const netMaas = parseFloat(formData.netMaas) || 0
-      const calismaYili = parseInt(formData.calismaYili) || 0
-      const yas = parseInt(formData.yas) || 0
-      const maddiHasar = parseFloat(formData.maddiHasar) || 0
-      
-      if (netMaas > 0 && calismaYili > 0 && yas > 0) {
-        // Basit tazminat hesaplama örneği
-        const emeklilikYasi = 65
-        const kalanCalismaYili = Math.max(0, emeklilikYasi - yas)
-        const yillikGelir = netMaas * 12
-        const gelirKaybi = yillikGelir * Math.min(kalanCalismaYili, 20) * 0.7 // %70 oranında
-        const maneviTazminat = netMaas * 24 // 24 aylık maaş
-        const toplamTazminat = gelirKaybi + maneviTazminat + maddiHasar
+    // Refs
+    const chartRef = useRef(null);
+    const chartInstance = useRef(null);
+
+    // TRH2010 Data (User's version)
+    const TRH2010 = {
+        18: [58.8, 63.6], 19: [57.9, 62.6], 20: [56.9, 61.6], 21: [56.0, 60.7], 22: [55.0, 59.7],
+        23: [54.1, 58.7], 24: [53.1, 57.7], 25: [52.2, 56.8], 26: [51.2, 55.8], 27: [50.3, 54.8],
+        28: [49.3, 53.9], 29: [48.4, 52.9], 30: [47.5, 51.9], 31: [46.5, 51.0], 32: [45.6, 50.0],
+        33: [44.7, 49.1], 34: [43.7, 48.1], 35: [42.8, 47.2], 36: [41.9, 46.2], 37: [40.9, 45.3],
+        38: [40.0, 44.3], 39: [39.1, 43.4], 40: [38.2, 42.4], 41: [37.3, 41.5], 42: [36.4, 40.5],
+        43: [35.5, 39.6], 44: [34.6, 38.7], 45: [33.7, 37.7], 46: [32.8, 36.8], 47: [31.9, 35.9],
+        48: [31.0, 35.0], 49: [30.1, 34.0], 50: [29.3, 33.1], 51: [28.4, 32.2], 52: [27.6, 31.3],
+        53: [26.7, 30.4], 54: [25.9, 29.5], 55: [25.1, 28.6], 56: [24.3, 27.7], 57: [23.5, 26.9],
+        58: [22.7, 26.0], 59: [21.9, 25.1], 60: [21.1, 24.3], 61: [20.4, 23.4], 62: [19.6, 22.6],
+        63: [18.9, 21.8], 64: [18.2, 21.0], 65: [17.5, 20.2], 66: [16.8, 19.4], 67: [16.1, 18.6]
+    };
+
+    // Initialize DOB default
+    useEffect(() => {
+        const d = new Date();
+        d.setFullYear(d.getFullYear() - 35);
+        setDob(d.toISOString().split('T')[0]);
+    }, []);
+
+    const calculateCompensation = () => {
+        const dobDate = new Date(dob);
+        const eventDateObj = new Date(eventDate);
+        const wageVal = parseFloat(wage) || 0;
+        const disabilityRate = parseFloat(disability) / 100;
+        const workerFaultVal = parseFloat(workerFault) / 100;
+        const psdVal = parseFloat(psd) || 0;
+
+        if (dobDate >= eventDateObj) {
+            alert("Hata: Doğum tarihi olay tarihinden büyük olamaz.");
+            return;
+        }
+
+        const ageAtEvent = eventDateObj.getFullYear() - dobDate.getFullYear();
         
-        setResult({
-          gelirKaybi: gelirKaybi.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' }),
-          maneviTazminat: maneviTazminat.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' }),
-          maddiHasar: maddiHasar.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' }),
-          toplamTazminat: toplamTazminat.toLocaleString('tr-TR', { style: 'currency', currency: 'TRY' }),
-          kalanCalismaYili: kalanCalismaYili
-        })
-      }
-      setIsCalculating(false)
-    }, 1000)
-  }
+        let remainingLife = 0;
+        const genderIndex = gender === 'M' ? 0 : 1;
+        
+        if (TRH2010[ageAtEvent]) {
+            remainingLife = TRH2010[ageAtEvent][genderIndex];
+        } else {
+            const maxAge = gender === 'M' ? 76 : 81;
+            remainingLife = Math.max(0, maxAge - ageAtEvent);
+        }
 
-  const clearForm = () => {
-    setFormData({
-      netMaas: '',
-      calismaYili: '',
-      yas: '',
-      maddiHasar: '',
-      kazaTipi: 'is-kazasi'
-    })
-    setResult(null)
-  }
+        const retirementAge = 60;
+        let activeYears = 0;
+        let passiveYears = 0;
 
-  return (
-    <>
-      <SEO 
-        title="Tazminat Hesaplama - İş Kazası ve Meslek Hastalığı Tazminat Hesaplama | Koptay Hukuk"
-        description="İş kazası ve meslek hastalığı tazminat hesaplama aracı. Ücretsiz tazminat hesaplama ile haklarınızı öğrenin. Uzman avukat desteği ile güvenilir hesaplama."
-        keywords="tazminat hesaplama, iş kazası tazminat, meslek hastalığı tazminat, tazminat miktarı hesaplama, işçi tazminat hesaplama, avukat tazminat"
-        url="/hesaplama-araclari/tazminat-hesaplama"
-      />
+        if (ageAtEvent < retirementAge) {
+            const yearsToRetire = retirementAge - ageAtEvent;
+            if (remainingLife > yearsToRetire) {
+                activeYears = yearsToRetire;
+                passiveYears = remainingLife - yearsToRetire;
+            } else {
+                activeYears = remainingLife;
+                passiveYears = 0;
+            }
+        } else {
+            activeYears = 0;
+            passiveYears = remainingLife;
+        }
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-green-600 to-green-800 text-white py-20 mt-20">
-        <div className="container mx-auto px-4">
-          {/* Breadcrumb */}
-          <nav className="flex items-center space-x-2 text-green-100 mb-8">
-            <Link to="/" className="hover:text-white transition-colors">
-              <Home className="w-4 h-4" />
-            </Link>
-            <ChevronRight className="w-4 h-4" />
-            <Link to="/hesaplama-araclari" className="hover:text-white transition-colors">
-              Hesaplama Araçları
-            </Link>
-            <ChevronRight className="w-4 h-4" />
-            <span className="text-white">Tazminat Hesaplama</span>
-          </nav>
+        const yearlyWage = wageVal * 12;
+        const grossActiveLoss = yearlyWage * activeYears * disabilityRate;
+        const grossPassiveLoss = yearlyWage * passiveYears * disabilityRate;
+        
+        const totalLoss = grossActiveLoss + grossPassiveLoss;
+        const faultDeduction = totalLoss * workerFaultVal;
+        
+        let finalNet = totalLoss - faultDeduction - psdVal;
+        if (finalNet < 0) finalNet = 0;
 
-          <div className="max-w-4xl">
-            <TrendingUp className="w-16 h-16 mb-6" />
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif">
-              Tazminat Hesaplama
-            </h1>
-            <p className="text-xl mb-8 max-w-3xl leading-relaxed">
-              İş kazası ve meslek hastalığı tazminat hesaplama aracımızla, 
-              hak ettiğiniz tazminat miktarını öğrenin. Ücretsiz ve güvenilir hesaplama.
-            </p>
-          </div>
-        </div>
-      </section>
+        setResults({
+            ageAtEvent,
+            remainingLife,
+            activeYears,
+            passiveYears,
+            grossActiveLoss,
+            grossPassiveLoss,
+            totalLoss,
+            workerFaultRate: workerFaultVal,
+            faultDeduction,
+            psd: psdVal,
+            finalNet
+        });
+    };
 
-      {/* Bilgilendirme Bölümü */}
-      <section className="py-16 bg-green-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <div className="flex items-start space-x-4 mb-6">
-                <Info className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Tazminat Hesaplama Nedir?</h2>
-                  <div className="prose max-w-none text-gray-700 space-y-4">
-                    <p>
-                      İş kazası veya meslek hastalığı nedeniyle çalışma gücünü kaybeden işçilerin, 
-                      gelir kaybı ve manevi zararları için talep edebileceği tazminat miktarının hesaplanmasıdır.
-                    </p>
-                    
-                    <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Tazminat Türleri:</h3>
-                    <ul className="list-disc list-inside space-y-2">
-                      <li><strong>Gelir Kaybı Tazminatı:</strong> Çalışamama nedeniyle kaybedilen gelir</li>
-                      <li><strong>Manevi Tazminat:</strong> Yaşanan acı, üzüntü ve sıkıntılar için</li>
-                      <li><strong>Maddi Hasar:</strong> Tedavi giderleri ve diğer masraflar</li>
-                      <li><strong>Destekten Yoksun Kalma:</strong> Vefat halinde aile mensupları için</li>
-                    </ul>
+    // Chart Effect
+    useEffect(() => {
+        if (results && chartRef.current) {
+            if (chartInstance.current) {
+                chartInstance.current.destroy();
+            }
 
-                    <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Hesaplama Faktörleri:</h3>
-                    <ul className="list-disc list-inside space-y-2">
-                      <li>İşçinin yaşı ve emekliliğe kalan süre</li>
-                      <li>Aylık net maaş tutarı</li>
-                      <li>Çalışma gücü kaybı oranı</li>
-                      <li>Çalışma yılı ve deneyim</li>
-                      <li>Maddi hasar ve tedavi giderleri</li>
-                    </ul>
-
-                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-6">
-                      <p className="text-yellow-800 text-sm">
-                        <strong>Önemli:</strong> Her dava kendine özgüdür. Bu hesaplama genel bir fikir vermek içindir. 
-                        Kesin tazminat miktarı mahkeme kararı ile belirlenir.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Hesaplama Formu */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12">
-              {/* Form */}
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Hesaplama Formu</h2>
-                
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Kaza Tipi *
-                    </label>
-                    <select
-                      name="kazaTipi"
-                      value={formData.kazaTipi}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    >
-                      <option value="is-kazasi">İş Kazası</option>
-                      <option value="meslek-hastaligi">Meslek Hastalığı</option>
-                      <option value="yol-kazasi">İşe Gidiş-Geliş Kazası</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Aylık Net Maaş (TL) *
-                    </label>
-                    <input
-                      type="number"
-                      name="netMaas"
-                      value={formData.netMaas}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="Örn: 15000"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Çalışma Yılı *
-                    </label>
-                    <input
-                      type="number"
-                      name="calismaYili"
-                      value={formData.calismaYili}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="Örn: 10"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Yaş *
-                    </label>
-                    <input
-                      type="number"
-                      name="yas"
-                      value={formData.yas}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="Örn: 35"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Maddi Hasar/Tedavi Giderleri (TL)
-                    </label>
-                    <input
-                      type="number"
-                      name="maddiHasar"
-                      value={formData.maddiHasar}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="Örn: 25000"
-                    />
-                  </div>
-
-                  <div className="flex space-x-4">
-                    <button
-                      onClick={calculateTazminat}
-                      disabled={isCalculating}
-                      className="flex-1 bg-green-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-green-700 transition-colors disabled:opacity-50"
-                    >
-                      {isCalculating ? 'Hesaplanıyor...' : 'Hesapla'}
-                    </button>
-                    
-                    <button
-                      onClick={clearForm}
-                      className="px-6 py-4 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
-                    >
-                      Temizle
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Sonuç */}
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Tahmini Tazminat</h2>
-                
-                {result ? (
-                  <div className="space-y-4">
-                    <div className="bg-green-50 rounded-lg p-4">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-gray-600">Gelir Kaybı:</span>
-                        <span className="font-semibold text-gray-900">{result.gelirKaybi}</span>
-                      </div>
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-gray-600">Manevi Tazminat:</span>
-                        <span className="font-semibold text-blue-600">{result.maneviTazminat}</span>
-                      </div>
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-gray-600">Maddi Hasar:</span>
-                        <span className="font-semibold text-red-600">{result.maddiHasar}</span>
-                      </div>
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-gray-600">Kalan Çalışma Yılı:</span>
-                        <span className="font-semibold text-gray-900">{result.kalanCalismaYili} yıl</span>
-                      </div>
-                      <hr className="my-3" />
-                      <div className="flex justify-between items-center">
-                        <span className="text-lg font-semibold text-gray-900">Toplam Tazminat:</span>
-                        <span className="text-xl font-bold text-green-600">{result.toplamTazminat}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-                      <div className="flex items-start space-x-2">
-                        <Shield className="w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0" />
-                        <div>
-                          <p className="text-orange-800 text-sm font-medium mb-1">Önemli Uyarı</p>
-                          <p className="text-orange-700 text-sm">
-                            Bu hesaplama tahminidir. Gerçek tazminat miktarı mahkeme kararı, 
-                            çalışma gücü kaybı raporu ve diğer faktörlere göre değişebilir.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="text-center text-gray-500 py-12">
-                    <TrendingUp className="w-16 h-16 mx-auto mb-4 opacity-30" />
-                    <p>Tazminat hesaplama yapmak için formu doldurun</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SSS Bölümü */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Sıkça Sorulan Sorular</h2>
-            
-            <div className="space-y-6">
-              {[
-                {
-                  question: "Tazminat davası açmak için süre sınırı var mı?",
-                  answer: "İş kazası ve meslek hastalığı tazminat davaları için 10 yıllık zamanaşımı süresi vardır. Bu süre kaza tarihinden itibaren başlar."
+            const ctx = chartRef.current.getContext('2d');
+            chartInstance.current = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Net Tazminat', 'Kusur İndirimi', 'SGK Mahsup'],
+                    datasets: [{
+                        data: [results.finalNet, results.faultDeduction, results.psd],
+                        backgroundColor: [
+                            '#0f766e', // Teal (Net)
+                            '#ef4444', // Red (Fault)
+                            '#3b82f6'  // Blue (SGK)
+                        ],
+                        borderWidth: 0
+                    }]
                 },
-                {
-                  question: "SGK'dan aldığım ödemeler tazminattan düşülür mü?",
-                  answer: "SGK'dan alınan geçici iş göremezlik ödeneği ve sürekli iş göremezlik geliri, tazminat miktarından mahsup edilebilir."
-                },
-                {
-                  question: "Manevi tazminat miktarı nasıl belirlenir?",
-                  answer: "Manevi tazminat, kişinin yaşadığı acı ve üzüntü dikkate alınarak mahkeme tarafından belirlenir. Genellikle 24-36 aylık maaş tutarı kadar olur."
-                },
-                {
-                  question: "İşverenin kusuru nasıl belirlenir?",
-                  answer: "İş güvenliği tedbirlerinin alınmaması, eğitim verilmemesi gibi durumlar işverenin kusuru olarak değerlendirilir. Kusur oranı tazminat miktarını etkiler."
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { size: 10 } }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(context.raw);
+                                    return label;
+                                }
+                            }
+                        }
+                    }
                 }
-              ].map((faq, index) => (
-                <div key={index} className="bg-white rounded-lg p-6 shadow-sm">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
-                  <p className="text-gray-700">{faq.answer}</p>
+            });
+        }
+    }, [results]);
+
+    const fmt = (num) => new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(num);
+
+    // JSON-LD Schemas
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "İş Kazası ve Meslek Hastalığı Tazminat Hesaplama Aracı",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "TRY"
+        },
+        "description": "TRH-2010 yaşam tablosu ve Yargıtay içtihatlarına uygun, iş kazası ve meslek hastalığı maddi tazminat hesaplama aracı.",
+        "featureList": "TRH-2010 Yaşam Tablosu, Aktif/Pasif Dönem Hesabı, Kusur İndirimi, SGK PSD Mahsubu"
+    };
+
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Meslek hastalığı ile iş kazası arasındaki fark nedir?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "İş kazası anlık bir olay iken, meslek hastalığı tekrarlanan sebeplerle veya işin yürütüm şartları yüzünden zamanla ortaya çıkan, süreklilik arz eden bir süreçtir."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "İşten ayrıldıktan yıllar sonra meslek hastalığı davası açabilir miyim?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Evet. Yükümlülük süresi (genellikle 10 yıl) dolsa bile, tıbbi illiyet bağı kurulabiliyorsa Yüksek Sağlık Kurulu onayı ile meslek hastalığı sayılabilir ve dava açılabilir."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Tazminat hesabında hangi yaşam tablosu kullanılır?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yargıtay kararları uyarınca PMF-1931 yerine, daha güncel olan TRH-2010 (Türkiye Hayat Tablosu) kullanılmaktadır."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Emekli olduktan sonraki dönem için tazminat alabilir miyim?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Evet. Yargıtay'a göre emeklilik döneminde de (Pasif Dönem) efor kaybı devam ettiği için, genellikle asgari ücret üzerinden tazminat hesaplanır."
+                }
+            }
+        ]
+    };
+
+    return (
+        <div className="min-h-screen bg-slate-50 pt-32 pb-12 px-4 font-sans text-slate-800">
+            <Helmet>
+                <title>Tazminat Hesaplama Aracı | İş Kazası ve Meslek Hastalığı</title>
+                <meta name="description" content="İş kazası ve meslek hastalığı tazminat hesaplama aracı. TRH-2010 tablosuna göre maddi tazminatınızı hesaplayın. Maluliyet oranı ve kusur durumu ile detaylı rapor." />
+                <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+                <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+            </Helmet>
+            
+            <style>{`
+                .chart-container {
+                    position: relative;
+                    width: 100%;
+                    height: 300px;
+                }
+                @media print {
+                    .no-print { display: none !important; }
+                    .print-show { display: block !important; }
+                    body { background: white; color: black; }
+                    .shadow-xl { box-shadow: none; border: 1px solid #ccc; }
+                    /* Hide site nav and footer if possible, but they are outside this component */
+                    nav, footer { display: none !important; } 
+                    /* Reset padding for print */
+                    .pt-32 { padding-top: 0 !important; }
+                }
+            `}</style>
+
+            {/* User's Header adapted as Toolbar */}
+            <div className="container mx-auto px-4 py-4 flex justify-between items-center bg-white border-b border-slate-200 rounded-xl shadow-sm mb-8">
+                <div className="flex items-center gap-3">
+                    <div className="bg-teal-700 text-white p-2 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 3.659c0 3.074-1.8 5.523-3.99 6.197-2.296-.705-4.002-3.125-4.002-6.197 0-3.074 1.8-5.523 4.002-6.197C12.99 5.125 14.8 7.574 14.8 10.659M9 17h6m-6 3h6m-6-6h6" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 className="text-xl font-bold text-slate-800 tracking-tight">İş Kazası ve Meslek Hastalığı Tazminat Hesaplayıcı</h1>
+                        <p className="text-xs text-slate-500">TRH-2010 Tablosu & Yargıtay İçtihatlarına Uygun Projeksiyon</p>
+                    </div>
                 </div>
-              ))}
+                <button onClick={() => window.print()} className="hidden md:flex items-center gap-2 text-sm text-teal-700 font-medium hover:bg-teal-50 px-3 py-2 rounded transition no-print">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                    </svg>
+                    Yazdır / PDF
+                </button>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* CTA Bölümü */}
-      <section className="py-16 bg-green-600 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Tazminat Davanız İçin Uzman Destek</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
-            İş kazası ve meslek hastalığı tazminat davalarında deneyimli avukatlarımızdan 
-            ücretsiz ön görüşme alabilirsiniz.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="tel:+905307111864"
-              className="inline-flex items-center bg-white text-green-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-            >
-              <Phone className="w-5 h-5 mr-2" />
-              Hemen Ara
-            </a>
-            <Link 
-              to="/iletisim"
-              className="inline-flex items-center border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors"
-            >
-              İletişime Geç
-            </Link>
-          </div>
-        </div>
-      </section>
+            <div className="container mx-auto max-w-6xl">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    
+                    {/* INPUT PANEL */}
+                    <div className="lg:col-span-4 space-y-6 no-print">
+                        <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100">
+                            <h2 className="text-lg font-bold text-slate-700 mb-4 border-b pb-2">1. Kişisel Veriler & Olay</h2>
+                            
+                            <div className="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label className="block text-xs font-semibold text-slate-500 mb-1">Cinsiyet</label>
+                                    <select value={gender} onChange={(e) => setGender(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none">
+                                        <option value="M">Erkek</option>
+                                        <option value="F">Kadın</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-semibold text-slate-500 mb-1">Doğum Tarihi</label>
+                                    <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                                </div>
+                            </div>
 
-      {/* Geri Dön */}
-      <section className="py-8 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <Link 
-            to="/hesaplama-araclari"
-            className="inline-flex items-center text-green-600 hover:text-green-800 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Tüm Hesaplama Araçlarına Dön
-          </Link>
-        </div>
-      </section>
-    </>
-  )
-}
+                            <div className="mb-4">
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">Kaza / Tespit Tarihi</label>
+                                <input type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                            </div>
 
-export default TazminatHesaplamaPage
+                            <div className="mb-4">
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">Aylık Net Kazanç (TL)</label>
+                                <div className="relative">
+                                    <input type="number" value={wage} onChange={(e) => setWage(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded pl-3 pr-10 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" placeholder="Örn: 25000" />
+                                    <span className="absolute right-3 top-2 text-slate-400 text-sm">₺</span>
+                                </div>
+                                <p className="text-[10px] text-slate-400 mt-1">*Çıplak net ücret giriniz.</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100">
+                            <h2 className="text-lg font-bold text-slate-700 mb-4 border-b pb-2">2. Maluliyet ve Kusur</h2>
+                            
+                            <div className="mb-4">
+                                <div className="flex justify-between">
+                                    <label className="block text-xs font-semibold text-slate-500 mb-1">Maluliyet Oranı (%)</label>
+                                    <span className="text-xs font-bold text-teal-700">%{disability}</span>
+                                </div>
+                                <input type="range" min="0" max="100" value={disability} onChange={(e) => setDisability(e.target.value)} className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600" />
+                                <p className="text-[10px] text-slate-400 mt-1">SGK Sağlık Kurulu tarafından belirlenen oran.</p>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label className="block text-xs font-semibold text-slate-500 mb-1">İşçi Kusuru (%)</label>
+                                    <input type="number" value={workerFault} max="100" onChange={(e) => {
+                                        let val = parseInt(e.target.value) || 0;
+                                        if(val > 100) val = 100;
+                                        setWorkerFault(val);
+                                    }} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-semibold text-slate-500 mb-1">İşveren Kusuru (%)</label>
+                                    <input type="number" value={100 - workerFault} readOnly className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                                </div>
+                            </div>
+                            <p className="text-[10px] text-red-400 mb-4">*İşveren kusuru otomatik hesaplanır (100 - İşçi).</p>
+
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">SGK Tarafından Bağlanan PSD (TL)</label>
+                                <input type="number" value={psd} onChange={(e) => setPsd(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                                <p className="text-[10px] text-slate-400 mt-1">Rücu edilebilir Peşin Sermaye Değeri (İndirim kalemi).</p>
+                            </div>
+                        </div>
+
+                        <button onClick={calculateCompensation} className="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 px-4 rounded-xl shadow-md transition duration-200 flex items-center justify-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 3.659c0 3.074-1.8 5.523-3.99 6.197-2.296-.705-4.002-3.125-4.002-6.197 0-3.074 1.8-5.523 4.002-6.197C12.99 5.125 14.8 7.574 14.8 10.659M9 17h6m-6 3h6m-6-6h6" />
+                            </svg>
+                            HESAPLA
+                        </button>
+                    </div>
+
+                    {/* REPORT PANEL */}
+                    <div className="lg:col-span-8 space-y-6" id="reportArea">
+                        
+                        {/* Summary Cards */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div className="bg-white p-4 rounded-xl shadow border-l-4 border-blue-500">
+                                <p className="text-xs text-slate-500 font-semibold uppercase">Olay Tarihi Yaşı</p>
+                                <p className="text-xl font-bold text-slate-800">{results ? results.ageAtEvent : '-'}</p>
+                            </div>
+                            <div className="bg-white p-4 rounded-xl shadow border-l-4 border-indigo-500">
+                                <p className="text-xs text-slate-500 font-semibold uppercase">TRH-2010 Bakiye</p>
+                                <p className="text-xl font-bold text-slate-800">{results ? results.remainingLife.toFixed(2) + ' Yıl' : '-'}</p>
+                            </div>
+                            <div className="bg-white p-4 rounded-xl shadow border-l-4 border-amber-500">
+                                <p className="text-xs text-slate-500 font-semibold uppercase">Aktif Dönem</p>
+                                <p className="text-xl font-bold text-slate-800">{results ? results.activeYears.toFixed(2) + ' Yıl' : '-'}</p>
+                            </div>
+                            <div className="bg-white p-4 rounded-xl shadow border-l-4 border-teal-500">
+                                <p className="text-xs text-slate-500 font-semibold uppercase">Pasif Dönem</p>
+                                <p className="text-xl font-bold text-slate-800">{results ? results.passiveYears.toFixed(2) + ' Yıl' : '-'}</p>
+                            </div>
+                        </div>
+
+                        {/* Main Result Card */}
+                        <div className="bg-white rounded-xl shadow-xl overflow-hidden border border-slate-200">
+                            <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                                <h3 className="font-bold text-slate-700">Tazminat Hesap Özeti</h3>
+                                <span className="text-xs bg-teal-100 text-teal-800 px-2 py-1 rounded">Bilirkişi Formatı</span>
+                            </div>
+                            
+                            <div className="p-6">
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-sm text-left">
+                                        <thead className="text-xs text-slate-500 uppercase bg-slate-50 border-b">
+                                            <tr>
+                                                <th className="px-4 py-3">Hesap Kalemi</th>
+                                                <th className="px-4 py-3 text-right">Detay / Oran</th>
+                                                <th className="px-4 py-3 text-right">Tutar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-100">
+                                            <tr>
+                                                <td className="px-4 py-3 font-medium text-slate-700">Brüt Zarar (Aktif Dönem)</td>
+                                                <td className="px-4 py-3 text-right text-slate-500">60 Yaşına Kadar</td>
+                                                <td className="px-4 py-3 text-right font-mono">{results ? fmt(results.grossActiveLoss) : '0,00 ₺'}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="px-4 py-3 font-medium text-slate-700">Brüt Zarar (Pasif Dönem)</td>
+                                                <td className="px-4 py-3 text-right text-slate-500">Ölüm Tarihine Kadar</td>
+                                                <td className="px-4 py-3 text-right font-mono">{results ? fmt(results.grossPassiveLoss) : '0,00 ₺'}</td>
+                                            </tr>
+                                            <tr className="bg-slate-50">
+                                                <td className="px-4 py-3 font-bold text-slate-800">TOPLAM ZARAR</td>
+                                                <td className="px-4 py-3 text-right"></td>
+                                                <td className="px-4 py-3 text-right font-mono font-bold">{results ? fmt(results.totalLoss) : '0,00 ₺'}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="px-4 py-3 text-red-600">(-) İşçi Kusuru İndirimi</td>
+                                                <td className="px-4 py-3 text-right text-red-500">%{results ? (results.workerFaultRate * 100).toFixed(0) : '0'}</td>
+                                                <td className="px-4 py-3 text-right font-mono text-red-600">{results ? '-' + fmt(results.faultDeduction) : '0,00 ₺'}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="px-4 py-3 text-blue-600">(-) SGK Peşin Sermaye Değeri (PSD)</td>
+                                                <td className="px-4 py-3 text-right text-blue-500">Rücu Edilebilir</td>
+                                                <td className="px-4 py-3 text-right font-mono text-blue-600">{results ? '-' + fmt(results.psd) : '0,00 ₺'}</td>
+                                            </tr>
+                                            <tr className="bg-teal-50 border-t-2 border-teal-100">
+                                                <td className="px-4 py-4 font-bold text-teal-900 text-lg">NET ÖDENECEK TAZMİNAT</td>
+                                                <td className="px-4 py-4"></td>
+                                                <td className="px-4 py-4 text-right font-bold text-teal-700 text-xl font-mono">{results ? fmt(results.finalNet) : '0,00 ₺'}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Explanation / Chart Area */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 no-print">
+                            <div className="bg-white p-6 rounded-xl shadow border border-slate-100">
+                                <h4 className="font-bold text-slate-700 mb-4 text-sm">Oransal Dağılım</h4>
+                                <div className="chart-container">
+                                    <canvas ref={chartRef}></canvas>
+                                </div>
+                            </div>
+                            <div className="bg-white p-6 rounded-xl shadow border border-slate-100">
+                                <h4 className="font-bold text-slate-700 mb-2 text-sm">Hukuki Notlar</h4>
+                                <ul className="text-xs text-slate-600 space-y-3 list-disc pl-4">
+                                    <li><strong>TRH-2010:</strong> Hesaplamada Yargıtay'ın zorunlu kıldığı güncel yaşam tablosu kullanılmıştır.</li>
+                                    <li><strong>Aktif/Pasif Ayrımı:</strong> 60 yaş "Ekonomik Bütünleşme Yaşı" kabul edilmiştir. Pasif dönemde asgari geçim indirimi (AGİ) hariç tutar üzerinden hesaplama yapılması esastır, burada net ücret üzerinden projeksiyon yapılmıştır.</li>
+                                    <li><strong>Kusur Oranı:</strong> Müterafik kusur (TBK m.52) uyarınca işçinin kusuru toplam zarardan düşülmüştür.</li>
+                                    <li><strong>Mükerrer Ödeme:</strong> SGK tarafından bağlanan gelirin ilk peşin sermaye değeri, sebepsiz zenginleşmeyi önlemek (TBK m.55) için mahsup edilmiştir.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* Detailed Content & FAQ Section */}
+                <div className="mt-16 max-w-5xl mx-auto space-y-12 no-print">
+                    
+                    {/* Expert Report Content */}
+                    <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 prose prose-slate max-w-none">
+                        <h2 className="text-2xl font-bold text-slate-800 border-b pb-4 mb-6">İş Kazası ve Meslek Hastalığı Tazminat Hesaplamalarında Hukuki ve Aktüeryal Temeller</h2>
+                        
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 className="text-lg font-semibold text-teal-700">1. Meslek Hastalığının Doğası</h3>
+                                <p className="text-sm text-slate-600">
+                                    Meslek hastalıkları, iş kazalarından farklı olarak anlık bir travma değil, zamana yayılmış bir maruziyetin sonucudur. 
+                                    5510 sayılı Kanun’un 14. maddesine göre; sigortalının çalıştığı işin niteliğinden dolayı tekrarlanan bir sebeple 
+                                    veya işin yürütüm şartları yüzünden uğradığı geçici veya sürekli hastalık halleridir.
+                                </p>
+                            </div>
+                            <div>
+                                <h3 className="text-lg font-semibold text-teal-700">2. Yükümlülük Süresi ve Latent Dönem</h3>
+                                <p className="text-sm text-slate-600">
+                                    Hastalığın işten ayrıldıktan sonra ortaya çıkması durumunda "Yükümlülük Süresi" devreye girer. 
+                                    Genellikle 10 yıl olan bu süre aşılsa bile, tıbbi illiyet bağı kurulabiliyorsa Yüksek Sağlık Kurulu onayı ile 
+                                    hastalık "Meslek Hastalığı" sayılabilir.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="mt-8">
+                            <h3 className="text-lg font-semibold text-teal-700">3. Hesaplama Metodolojisi (TRH-2010)</h3>
+                            <p className="text-sm text-slate-600 mb-4">
+                                Yargıtay 10. Hukuk Dairesi ve Hukuk Genel Kurulu kararları uyarınca, tazminat hesaplamalarında PMF-1931 tablosu yerine, 
+                                Türkiye İstatistik Kurumu verilerine dayanan <strong>TRH-2010 (Türkiye Hayat Tablosu)</strong> kullanılması zorunludur.
+                            </p>
+                            <ul className="list-disc pl-5 text-sm text-slate-600 space-y-2">
+                                <li><strong>Aktif Dönem:</strong> 60 yaşına kadar olan çalışma çağıdır. Tam ücret üzerinden hesaplanır.</li>
+                                <li><strong>Pasif Dönem:</strong> 60 yaşından ölüme kadar olan dönemdir. Emekli de olsa efor kaybı devam ettiği için asgari ücret üzerinden hesaplanır.</li>
+                                <li><strong>Progresif Rant:</strong> Bilinmeyen devreler için %10 artırım ve %10 iskonto yöntemi uygulanır.</li>
+                            </ul>
+                        </div>
+
+                        <div className="mt-8 bg-slate-50 p-6 rounded-xl border-l-4 border-teal-500">
+                            <h3 className="text-lg font-semibold text-slate-800">Kritik Uyarı: SGK PSD Mahsubu</h3>
+                            <p className="text-sm text-slate-600 mt-2">
+                                Hukukumuzda "Zenginleşme Yasağı" gereği, işçi aynı zarar için iki kere tazminat alamaz. 
+                                Bu nedenle, SGK tarafından bağlanan Sürekli İş Göremezlik Gelirinin <strong>İlk Peşin Sermaye Değeri (PSD)</strong>, 
+                                işverenin kusuru oranında hesaplanan tazminattan düşülür. Bu veri girilmezse hesaplama hatalı (yüksek) çıkar.
+                            </p>
+                        </div>
+                    </section>
+
+                    {/* FAQ Section */}
+                    <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                        <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Sıkça Sorulan Sorular
+                        </h2>
+                        <div className="space-y-4">
+                            <details className="group bg-slate-50 rounded-lg">
+                                <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
+                                    <span>Meslek hastalığı ile iş kazası arasındaki fark nedir?</span>
+                                    <span className="transition group-open:rotate-180">
+                                        <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                    </span>
+                                </summary>
+                                <div className="text-slate-600 text-sm px-4 pb-4">
+                                    İş kazası anlık bir olay iken, meslek hastalığı tekrarlanan sebeplerle veya işin yürütüm şartları yüzünden zamanla ortaya çıkan, süreklilik arz eden bir süreçtir.
+                                </div>
+                            </details>
+                            <details className="group bg-slate-50 rounded-lg">
+                                <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
+                                    <span>İşten ayrıldıktan yıllar sonra dava açabilir miyim?</span>
+                                    <span className="transition group-open:rotate-180">
+                                        <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                    </span>
+                                </summary>
+                                <div className="text-slate-600 text-sm px-4 pb-4">
+                                    Evet. Yükümlülük süresi (genellikle 10 yıl) dolsa bile, tıbbi illiyet bağı kurulabiliyorsa Yüksek Sağlık Kurulu onayı ile meslek hastalığı sayılabilir. Zamanaşımı süresi (10 yıl) ise hastalığın kesin teşhis konulduğu tarihten itibaren başlar.
+                                </div>
+                            </details>
+                            <details className="group bg-slate-50 rounded-lg">
+                                <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
+                                    <span>Tazminat hesabında hangi yaşam tablosu kullanılır?</span>
+                                    <span className="transition group-open:rotate-180">
+                                        <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                    </span>
+                                </summary>
+                                <div className="text-slate-600 text-sm px-4 pb-4">
+                                    Yargıtay kararları uyarınca PMF-1931 yerine, daha güncel olan ve Türkiye İstatistik Kurumu verilerine dayanan TRH-2010 (Türkiye Hayat Tablosu) kullanılmaktadır.
+                                </div>
+                            </details>
+                            <details className="group bg-slate-50 rounded-lg">
+                                <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
+                                    <span>Emekli olduktan sonraki dönem için tazminat alabilir miyim?</span>
+                                    <span className="transition group-open:rotate-180">
+                                        <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                    </span>
+                                </summary>
+                                <div className="text-slate-600 text-sm px-4 pb-4">
+                                    Evet. Yargıtay'a göre emeklilik döneminde de (Pasif Dönem) efor kaybı devam ettiği için, genellikle asgari ücret üzerinden tazminat hesaplanır.
+                                </div>
+                            </details>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default TazminatHesaplamaPage;
