@@ -64,6 +64,14 @@ const HesaplamaAraclariPage = () => {
       link: '/hesaplama-araclari/meslek-hastaligi'
     },
     {
+      id: 'iscilik-alacaklari',
+      title: 'İşçilik Alacakları Hesaplama',
+      description: 'Kıdem, İhbar, Yıllık İzin ve Fazla Mesai alacaklarınızı hesaplayın',
+      icon: Building,
+      color: 'bg-orange-100 text-orange-600',
+      link: '/hesaplama-araclari/iscilik-alacaklari'
+    },
+    {
       id: 'deger-kaybi',
       title: 'Değer Kaybı Hesaplama',
       description: 'Araç kazalarında değer kaybı tazminat hesaplama',
