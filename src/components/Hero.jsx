@@ -34,7 +34,7 @@ const Hero = () => {
       >
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="max-w-4xl">
-            <div className={`transition-all duration-1000 ${
+            <div className={`transition-all duration-700 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}>
               {/* Main Tagline - Bick Law Style */}

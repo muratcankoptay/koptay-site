@@ -53,6 +53,8 @@ const Nav = () => {
             <img 
               src="/logo.svg" 
               alt="Koptay Hukuk Bürosu Logo" 
+              width="56"
+              height="56"
               className="h-12 w-12 md:h-14 md:w-14"
             />
             <div>
