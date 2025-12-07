@@ -80,6 +80,14 @@ const HesaplamaAraclariPage = () => {
       link: '/hesaplama-araclari/deger-kaybi'
     },
     {
+      id: 'trafik-kazasi',
+      title: 'Trafik Kazası Aktüerya',
+      description: 'Araç Değer Kaybı ve Bedeni Tazminat (TRH-2010) Hesaplama',
+      icon: Car,
+      color: 'bg-slate-100 text-slate-600',
+      link: '/hesaplama-araclari/trafik-kazasi'
+    },
+    {
       id: 'bedeni-hasar',
       title: 'Bedeni Hasar Hesaplama',
       description: 'Trafik kazalarında bedeni hasar tazminat hesaplama',

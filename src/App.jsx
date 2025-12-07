@@ -20,6 +20,7 @@ const VekaletUcretiPage = lazy(() => import('./pages/VekaletUcretiPage'))
 const AracDegerKaybiPage = lazy(() => import('./pages/AracDegerKaybiPage'))
 const MeslekHastaligiPage = lazy(() => import('./pages/MeslekHastaligiPage'))
 const IscilikAlacaklariPage = lazy(() => import('./pages/IscilikAlacaklariPage'))
+const TrafikKazasiPage = lazy(() => import('./pages/TrafikKazasiPage'))
 const MakalelerPage = lazy(() => import('./pages/MakalelerPage'))
 const IletisimPage = lazy(() => import('./pages/IletisimPage'))
 const MuvekkilPaneliPage = lazy(() => import('./pages/MuvekkilPaneliPage'))
@@ -64,6 +65,7 @@ function App() {
             <Route path="/hesaplama-araclari/deger-kaybi" element={<AracDegerKaybiPage />} />
             <Route path="/hesaplama-araclari/meslek-hastaligi" element={<MeslekHastaligiPage />} />
             <Route path="/hesaplama-araclari/iscilik-alacaklari" element={<IscilikAlacaklariPage />} />
+            <Route path="/hesaplama-araclari/trafik-kazasi" element={<TrafikKazasiPage />} />
             <Route path="/makaleler" element={<ArticlesPage />} />
             <Route path="/makaleler/:slug" element={<ArticlePage />} />
             <Route path="/makale/:slug" element={<ArticlePage />} />
