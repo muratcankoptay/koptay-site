@@ -4,6 +4,7 @@ import { Calendar, Clock, User, ArrowLeft, Share2, Facebook, Twitter, Linkedin }
 import { marked } from 'marked'
 import { api, formatDate } from '../utils/api'
 import { optimizeImage, generateSrcSet, generateSizes } from '../utils/imageOptimizer'
+import { getCustomArticleSchema, hasCustomSchema } from '../utils/articleSchemas'
 import SEO from '../components/SEO'
 import ArticleCard from '../components/ArticleCard'
 
@@ -231,17 +232,25 @@ const ArticlePage = () => {
         preloadImage={true}
       />
 
-      {/* JSON-LD Structured Data - Article Schema */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Article",
-          "headline": article.title,
-          "description": article.metaDescription || article.excerpt,
-          "image": article.image || "https://koptay.av.tr/images/default-article.jpg",
-          "author": {
-            "@type": "Person",
-            "name": article.author || "Av. Murat Can Koptay",
+      {/* Custom JSON-LD Schema (if available for this article) */}
+      {hasCustomSchema(article.slug) && (
+        <script type="application/ld+json">
+          {JSON.stringify(getCustomArticleSchema(article.slug))}
+        </script>
+      )}
+
+      {/* Default JSON-LD Structured Data - Article Schema */}
+      {!hasCustomSchema(article.slug) && (
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": article.title,
+            "description": article.metaDescription || article.excerpt,
+            "image": article.image || "https://koptay.av.tr/images/default-article.jpg",
+            "author": {
+              "@type": "Person",
+              "name": article.author || "Av. Murat Can Koptay",
             "url": "https://koptay.av.tr/ekibimiz"
           },
           "publisher": {
@@ -274,7 +283,8 @@ const ArticlePage = () => {
           "wordCount": article.content ? article.content.split(/\s+/).length : 0,
           "timeRequired": article.readTime || "5 dakika"
         })}
-      </script>
+        </script>
+      )}
 
       {/* JSON-LD Structured Data - BreadcrumbList Schema */}
       <script type="application/ld+json">
