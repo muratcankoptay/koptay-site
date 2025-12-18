@@ -8,7 +8,7 @@
     <link>https://koptay.av.tr</link>
     <description>Hukuk alanındaki güncel gelişmeler, yargıtay kararları ve uzman görüşlerimiz</description>
     <language>tr-TR</language>
-    <lastBuildDate>Sun, 30 Nov 2025 10:55:45 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 18 Dec 2025 21:40:41 GMT</lastBuildDate>
     <atom:link href="https://koptay.av.tr/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://koptay.av.tr/logo.png</url>
@@ -16,6 +16,114 @@
       <link>https://koptay.av.tr</link>
     </image>
 
+    <item>
+      <title>Meslek Hastalığı Tazminatı: Hukuki Şartları, Süreç ve Hesaplama Yöntemi (2025 Uzman Rehberi)</title>
+      <link>https://koptay.av.tr/makale/meslek-hastaligi-tazminati-hesaplama-ve-sartlari</link>
+      <guid isPermaLink="true">https://koptay.av.tr/makale/meslek-hastaligi-tazminati-hesaplama-ve-sartlari</guid>
+      <description>İşten ayrıldıktan yıllar sonra ortaya çıkan hastalıklar tazminat konusu olabilir mi? Meslek hastalığı tazminatının hukuki şartlarını, yükümlülük süresini, işverenin kusur sorumluluğunu ve TRH-2010 yaşam tablolarına göre yapılan bilirkişi hesaplama yöntemlerini detaylıca inceledik.</description>
+      <content:encoded><![CDATA[# Meslek Hastalığı Tazminatı: Hukuki Mahiyeti, Şartları ve Hesaplama Yöntemi (2025 Kapsamlı Rehber)
+
+İş hukukunun en teknik ve belki de en dramatik alanlarından biri meslek hastalıklarıdır. İş kazaları anlık, gürültülü ve görünür travmalardır; ancak meslek hastalıkları sessiz, derinden ilerleyen ve çoğu zaman işçi işten ayrıldıktan yıllar sonra ortaya çıkan süreçlerdir.
+
+Bir maden işçisinin ciğerlerinin tozla dolması (Silikozis/Pnömokonyoz) veya bir ofis çalışanının boyun fıtığı olması yıllar alabilir. Bu "zaman farkı", hukuki süreçte **yükümlülük süresi**, **illiyet bağı** ve **zamanaşımı** gibi karmaşık kavramları gündeme getirir.
+
+Bu kapsamlı rehberde meslek hastalığının hukuki niteliğini, işverenin sorumluluğunun sınırlarını ve tazminatın (aktüeryal) hesaplanma yöntemlerini analiz ettik.
+
+---
+
+## 1. Meslek Hastalığının Hukuki Tanımı ve Unsurları
+
+5510 sayılı Sosyal Sigortalar ve Genel Sağlık Sigortası Kanunu’nun 14. maddesi meslek hastalığını şöyle tanımlar:
+> *"Sigortalının çalıştığı veya yaptığı işin niteliğinden dolayı tekrarlanan bir sebeple veya işin yürütüm şartları yüzünden uğradığı geçici veya sürekli hastalık, bedensel veya ruhsal engellilik halleridir."*
+
+Hukuki açıdan bir hastalığın "meslek hastalığı" sayılabilmesi için üç temel unsurun birleşmesi gerekir:
+1.  **Tekrarlama/Süreklilik:** Hastalık aniden değil, zamanla ve tekrarlayan sebeplerle oluşmalıdır. (İş kazasından farkı budur).
+2.  **İlliyet Bağı (Nedensellik):** Hastalık ile yapılan iş arasında doğrudan, kopmayan bir sebep-sonuç ilişkisi bulunmalıdır.
+3.  **Tıbbi Tespit:** Yetkili sağlık kurullarınca (Meslek Hastalıkları Hastanesi vb.) hastalığın işten kaynaklandığının raporlanması gerekir.
+
+---
+
+## 2. İşverenin Hukuki Sorumluluğu: Kusur mu, Kusursuzluk mu?
+
+Meslek hastalığı tazminat davalarının hukuki dayanağı, **6098 sayılı Türk Borçlar Kanunu'nun 417. maddesidir.** Bu madde işverene **"Gözetme Borcu"** yükler. İşveren, işyerinde iş sağlığı ve güvenliğini sağlamak için gerekli her türlü tedbiri almak zorundadır.
+
+### Sorumluluğun Niteliği
+Yargıtay'ın yerleşik içtihatlarına göre, işverenin meslek hastalığından doğan sorumluluğu kural olarak **"Kusur Sorumluluğu"**dur. Yani işveren, mevzuatın emrettiği önlemleri (maske vermek, havalandırma kurmak, periyodik muayene yapmak vb.) almamışsa kusurludur ve zararı tazmin eder.
+
+Ancak Yargıtay son dönemde, özellikle %100 kaçınılmazlık (teknik imkansızlık) durumlarında dahi işvereni sorumlu tutan **"Kusursuz Sorumluluğa"** yaklaşan kararlar da vermektedir. Temel ilke şudur: *"İşveren, teknolojinin gerektirdiği en üst düzey önlemleri alsa bile, işçinin zarar görmemesi için gözetim borcu devam eder."*
+
+---
+
+## 3. İspat Yükü ve "Karma Sistem"
+
+Türkiye'de meslek hastalıklarının tespitinde "Karma Sistem" uygulanır. Bu ayrım, davanın seyri açısından kritiktir:
+
+* **Liste Sistemi (Karine):** Sosyal Sigorta Sağlık İşlemleri Yönetmeliği ekindeki listelerde yer alan bir hastalığa, o hastalığa sebep olan işi yaparken yakalanırsanız, illiyet bağı var sayılır (Karine). İşçi ispatla uğraşmaz, aksini işveren ispatlamalıdır.
+* **İspat Sistemi:** Hastalık listede yoksa veya yükümlülük süresi aşılmışsa, sigortalı hastalığın işten kaynaklandığını ispatlamak zorundadır.
+
+---
+
+## 4. Teknik Boyut: Yükümlülük Süresi ve "Latent" Dönem
+
+Meslek hastalıklarında hastalık hemen çıkmaz. Buna "Latent (Gizli) Dönem" denir.
+
+**Yükümlülük Süresi**, sigortalının işten fiilen ayrıldığı tarih ile hastalığın tıbben ortaya çıktığı tarih arasında geçen, hukuken kabul edilebilir azami süredir. (Örneğin: Pnömokonyoz için 10 yıl).
+
+**Süre Dolduysa Ne Olur?**
+Yargıtay ve doktrine göre yükümlülük süresi kesin bir hak düşürücü süre değildir. Eğer tıbbi olarak iş ile hastalık arasındaki bağ ispatlanabiliyorsa, **Sosyal Sigorta Yüksek Sağlık Kurulu (YSK)** onayı ile süre aşılmış olsa bile dava açılabilir.
+
+---
+
+## 5. Tazminat Türleri ve Aktüeryal Hesaplama Yöntemi
+
+Meslek hastalığına yakalanan işçi, işverenden iki tür tazminat talep edebilir:
+
+### A. Maddi Tazminat (İş Göremezlik Tazminatı)
+Bu tazminat, işçinin meslekte kazanma gücünü kaybetmesi nedeniyle uğradığı ve ömrü boyunca uğrayacağı gelir kaybının karşılığıdır. Hesaplama, bilirkişilerce **aktüeryal (matematiksel/istatistiksel)** yöntemlerle yapılır.
+
+**Hesaplamada Kullanılan Kritik Parametreler:**
+1.  **Maluliyet Oranı:** SGK veya Adli Tıp tarafından belirlenen, işçinin mesleğini yapamama yüzdesidir.
+2.  **Gerçek Ücret:** Bordro ücreti değil, işçinin kıdemine ve ustalığına göre alması gereken gerçek (emsal) ücret esas alınır.
+3.  **Yaşam Tablosu (TRH-2010):** Eskiden kullanılan PMF-1931 tablosu artık Yargıtay tarafından kabul edilmemektedir. Tazminat hesabında, işçinin bakiye ömrünü belirlemek için TÜİK verilerine dayalı **TRH-2010 (Türkiye Hayat Tablosu)** kullanılmak zorundadır.
+4.  **Pasif Dönem Hesabı:** Hesaplama sadece emekliliğe kadar değil (aktif dönem), işçinin vefatına kadar (pasif dönem) devam eder.
+
+### B. Manevi Tazminat
+İşçinin yaşadığı elem, ızdırap ve ruhsal çöküntü için ödenir. Manevi tazminatın bir formülü yoktur; olayın oluş şekli, tarafların kusur durumu ve maluliyet oranına göre Hakim tarafından takdir edilir.
+
+### C. Zenginleşme Yasağı ve PSD İndirimi
+Hukukumuzda "aynı zarardan iki kere tazminat alınmaz" ilkesi vardır. İşçiye SGK tarafından **"Sürekli İş Göremezlik Geliri"** bağlanmışsa, bu gelirin Peşin Sermaye Değeri'nin (PSD) rücu edilebilir kısmı, hesaplanan maddi tazminattan düşülür (tenzil edilir).
+
+---
+
+## 🧮 Meslek Hastalığı Tazminat Hesaplama Aracı
+
+Yukarıda anlattığımız TRH-2010 tablosu, aktif/pasif dönem ayrımı ve PSD tenzili gibi teknik detaylar karmaşık görünebilir.
+
+Bu karmaşık aktüeryal hesaplamayı, güncel Yargıtay kriterlerine ve hukuk algoritmalarına uygun olarak yapan aracımızı kullanarak tahmini tazminatınızı öğrenebilirsiniz.
+
+> **Hemen Hesapla:**
+> Meslek hastalığı tazminatınızı bilirkişi mantığıyla hesaplamak için **[Koptay Hukuk Meslek Hastalığı Tazminat Hesaplama Aracı](https://koptay.av.tr/hesaplama-araclari/meslek-hastaligi)** sayfamızı ziyaret edebilirsiniz.
+
+---
+
+## 6. Zamanaşımı Süresi
+
+Meslek hastalığı tazminat davalarında zamanaşımı süresi, **10 yıldır** (TBK m. 146).
+
+**Süre Ne Zaman Başlar?**
+Burası hayati önem taşır. Süre, işten ayrılma tarihinde DEĞİL; hastalığın **kesin teşhisinin konulduğu** ve **maluliyet oranının (iş göremezlik derecesinin) kesinleştiği** tarihten itibaren başlar. Dolayısıyla işten ayrıldıktan 15 yıl sonra hastalık teşhis edilirse, 10 yıllık dava süresi o gün başlar.
+
+## Sonuç ve Hukuki Destek
+
+Meslek hastalığı davaları; tıbbi raporların (Adli Tıp, YSK, Üniversite) hukuki prosedürlerle (İspat yükü, illiyet bağı) harmanlandığı, hesaplamaların ise aktüeryal bilimle yapıldığı çok disiplinli davalardır.
+
+Özellikle "maluliyet oranına itiraz", "kusur durumu" ve "hesaplamada doğru yaşam tablosunun kullanılması" gibi konularda yapılacak hatalar, ciddi hak kayıplarına neden olabilir.
+
+Sürecin en başından (hastane raporu aşaması) tazminatın tahsiline kadar alanında uzman bir avukattan yardım almanızda fayda bulunmaktadır.  ]]></content:encoded>
+      <dc:creator>Av. Murat Can Koptay</dc:creator>
+      <pubDate>Sun, 07 Dec 2025 07:14:35 GMT</pubDate>
+      <category>İş Hukuku</category>
+    </item>
     <item>
       <title>Sigorta Tahkim Komisyonu Nedir? Başvuru Nasıl Yapılır? (2025 Hızlı Çözüm Rehberi)</title>
       <link>https://koptay.av.tr/makale/sigorta-tahkim-komisyonu-basvurusu-ve-sureci</link>
@@ -99,10 +207,10 @@ Sigorta Tahkim Komisyonu, hızlı bir yol olsa da "basit" bir yol değildir. Old
 * Zamanaşımı sürelerinin doğru hesaplanması gerekir.
 * Bilirkişi raporlarındaki teknik hataların tespit edilip, süresi içinde itiraz edilmesi (ıslah dilekçesi verilmesi) hayati önem taşır.
 
-Hak kaybına uğramamanız adına, sigorta şirketine başvuru aşamasından paranın tahsiline kadar olan tüm sürecin uzman bir avukat tarafından yönetilmesi önemlidir.
+Hak kaybına uğramamanız adına, sigorta şirketine başvuru aşamasından paranın tahsiline kadar olan tüm sürecin uzman bir avukat tarafından yönetilmesi önemlidir.  
 ]]></content:encoded>
       <dc:creator>Av. Murat Can Koptay</dc:creator>
-      <pubDate>Wed, 26 Nov 2025 08:49:44 GMT</pubDate>
+      <pubDate>Sun, 07 Dec 2025 07:14:20 GMT</pubDate>
       <category>Sigorta Hukuku</category>
     </item>
     <item>
@@ -252,9 +360,9 @@ Hayır. Değer kaybı tazminatı almanız, aracınızın TRAMER kaydına "değer
 Evet, alabilirsiniz. Eğer %50 kusurluysanız, hesaplanan toplam değer kaybı zararınızın %50'sini karşı tarafın sigortasından talep edebilirsiniz.
 
 ### **3. Zincirleme kazada değer kaybı kimden istenir?**
-Zincirleme kazalarda kusur oranları çok önemlidir. Aracınıza çarpan ve kusurlu bulunan aracın (veya araçların) trafik sigortalarından, kusurları oranında değer kaybı talep edilir.]]></content:encoded>
+Zincirleme kazalarda kusur oranları çok önemlidir. Aracınıza çarpan ve kusurlu bulunan aracın (veya araçların) trafik sigortalarından, kusurları oranında değer kaybı talep edilir.   ]]></content:encoded>
       <dc:creator>Av. Murat Can Koptay</dc:creator>
-      <pubDate>Fri, 14 Nov 2025 09:41:26 GMT</pubDate>
+      <pubDate>Sun, 07 Dec 2025 07:14:00 GMT</pubDate>
       <category>Sigorta Hukuku</category>
     </item>
     <item>

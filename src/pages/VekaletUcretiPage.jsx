@@ -20,7 +20,8 @@ export default function VekaletUcretiPage() {
   const handleHesapla = () => {
     setHesaplaniyor(true);
     
-    setTimeout(() => {
+    // Use requestIdleCallback for better INP - don't block main thread
+    const doCalculation = () => {
       if (ucretTuru === 'nispi') {
         const deger = parseFloat(davaKonusuDeger);
         const hesaplama = calculateNispiUcret(deger);
@@ -30,7 +31,13 @@ export default function VekaletUcretiPage() {
         setSonuc(hesaplama);
       }
       setHesaplaniyor(false);
-    }, 500);
+    };
+    
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(doCalculation, { timeout: 300 });
+    } else {
+      setTimeout(doCalculation, 50);
+    }
   };
 
   const handleReset = () => {

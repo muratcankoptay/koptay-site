@@ -1,6 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Chart } from 'chart.js/auto';
+
+// Lazy load Chart.js only when needed
+let Chart = null;
+const loadChart = async () => {
+  if (!Chart) {
+    const module = await import('chart.js/auto');
+    Chart = module.Chart;
+  }
+  return Chart;
+};
 
 const TazminatHesaplamaPage = () => {
     // State for inputs
@@ -40,25 +49,27 @@ const TazminatHesaplamaPage = () => {
         setDob(d.toISOString().split('T')[0]);
     }, []);
 
-    const calculateCompensation = () => {
-        const dobDate = new Date(dob);
-        const eventDateObj = new Date(eventDate);
-        const wageVal = parseFloat(wage) || 0;
-        const disabilityRate = parseFloat(disability) / 100;
-        const workerFaultVal = parseFloat(workerFault) / 100;
-        const psdVal = parseFloat(psd) || 0;
+    // Optimized calculation - doesn't block main thread for better INP
+    const calculateCompensation = useCallback(() => {
+        const doCalculation = () => {
+            const dobDate = new Date(dob);
+            const eventDateObj = new Date(eventDate);
+            const wageVal = parseFloat(wage) || 0;
+            const disabilityRate = parseFloat(disability) / 100;
+            const workerFaultVal = parseFloat(workerFault) / 100;
+            const psdVal = parseFloat(psd) || 0;
 
-        if (dobDate >= eventDateObj) {
-            alert("Hata: Doğum tarihi olay tarihinden büyük olamaz.");
-            return;
-        }
+            if (dobDate >= eventDateObj) {
+                alert("Hata: Doğum tarihi olay tarihinden büyük olamaz.");
+                return;
+            }
 
-        const ageAtEvent = eventDateObj.getFullYear() - dobDate.getFullYear();
-        
-        let remainingLife = 0;
-        const genderIndex = gender === 'M' ? 0 : 1;
-        
-        if (TRH2010[ageAtEvent]) {
+            const ageAtEvent = eventDateObj.getFullYear() - dobDate.getFullYear();
+            
+            let remainingLife = 0;
+            const genderIndex = gender === 'M' ? 0 : 1;
+            
+            if (TRH2010[ageAtEvent]) {
             remainingLife = TRH2010[ageAtEvent][genderIndex];
         } else {
             const maxAge = gender === 'M' ? 76 : 81;
@@ -106,19 +117,30 @@ const TazminatHesaplamaPage = () => {
             psd: psdVal,
             finalNet
         });
-    };
+        };
+        
+        // Use requestIdleCallback for better INP score
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(doCalculation, { timeout: 500 });
+        } else {
+            setTimeout(doCalculation, 0);
+        }
+    }, [dob, eventDate, wage, disability, workerFault, psd, gender, TRH2010]);
 
-    // Chart Effect
+    // Chart Effect - Load Chart.js dynamically
     useEffect(() => {
         if (results && chartRef.current) {
-            if (chartInstance.current) {
-                chartInstance.current.destroy();
-            }
+            const initChart = async () => {
+                const ChartJS = await loadChart();
+                
+                if (chartInstance.current) {
+                    chartInstance.current.destroy();
+                }
 
-            const ctx = chartRef.current.getContext('2d');
-            chartInstance.current = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
+                const ctx = chartRef.current.getContext('2d');
+                chartInstance.current = new ChartJS(ctx, {
+                    type: 'doughnut',
+                    data: {
                     labels: ['Net Tazminat', 'Kusur İndirimi', 'SGK Mahsup'],
                     datasets: [{
                         data: [results.finalNet, results.faultDeduction, results.psd],
@@ -153,6 +175,9 @@ const TazminatHesaplamaPage = () => {
                     }
                 }
             });
+            };
+            
+            initChart();
         }
     }, [results]);
 

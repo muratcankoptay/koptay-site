@@ -1,14 +1,32 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, lazy, Suspense } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Calculator, Home, ChevronRight, Info, Phone, ArrowLeft, Clock, Calendar, AlertTriangle, FileText, Scale, CheckCircle, RefreshCw, Check } from 'lucide-react'
 import SEO from '../components/SEO'
-import { jsPDF } from 'jspdf'
-import Chart from 'chart.js/auto'
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.min.css'
 import { calculateInfaz, calculateInfazAdvanced, getCrimeTypeText, loadFromStorage, parseFromSearchParams, saveToStorage, serializeToSearchParams, autoDetectOffenseCategory, offenseCategoryLabel } from '../utils/infaz'
 import { calculateInfazGelismis, getSucTipiSeçenekleri, validateInfazInput } from '../utils/infazEnhanced'
 import { isGeminiConfigured, suggestCrimeType, analyzeLegalCase, assessRisks, suggestAlternativeScenarios } from '../services/geminiService'
+
+// Lazy load heavy libraries - only when needed
+let jsPDFInstance = null;
+let ChartInstance = null;
+
+const loadJsPDF = async () => {
+  if (!jsPDFInstance) {
+    const { jsPDF } = await import('jspdf');
+    jsPDFInstance = jsPDF;
+  }
+  return jsPDFInstance;
+};
+
+const loadChart = async () => {
+  if (!ChartInstance) {
+    const module = await import('chart.js/auto');
+    ChartInstance = module.default;
+  }
+  return ChartInstance;
+};
 
 const InfazYatarPage = () => {
   const defaults = useMemo(() => ({
@@ -254,8 +272,11 @@ const InfazYatarPage = () => {
     navigator.clipboard.writeText(url)
   }
 
-  const exportPDF = () => {
+  const exportPDF = async () => {
     if (!result) return
+    
+    // Dynamically load jsPDF only when needed
+    const jsPDF = await loadJsPDF();
     const doc = new jsPDF()
     
     // Header with logo area
@@ -435,46 +456,53 @@ const InfazYatarPage = () => {
     }
   }, [])
 
-  // Render result chart
+  // Render result chart - Load Chart.js dynamically
   useEffect(() => {
     if (!result) return
-    const ctx = chartRef.current?.getContext('2d')
-    if (!ctx) return
-    if (chartInstanceRef.current) {
-      chartInstanceRef.current.destroy()
-    }
     
-    // Calculate proper data for chart based on result type
-    let yatar, denetimli, toplam
-    if (advanced && result.yatar !== undefined) {
-      yatar = result.yatar
-      denetimli = result.denetimli || 0
-      toplam = yatar + denetimli
-    } else {
-      yatar = result.kosullu || 0
-      denetimli = Math.round((result.denetimliYears || 0) * 365)
-      toplam = yatar + denetimli
-    }
-    
-    chartInstanceRef.current = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Yatar', 'Denetimli', 'Toplam'],
-        datasets: [{
-          label: 'Süre (Gün)',
-          data: [yatar, denetimli, toplam],
-          backgroundColor: ['#007bff', '#28a745', '#ffc107']
-        }]
-      },
-      options: { 
-        responsive: true, 
-        scales: { y: { beginAtZero: true } },
-        plugins: {
-          legend: { display: true },
-          title: { display: true, text: 'İnfaz Süresi Dağılımı' }
-        }
+    const initChart = async () => {
+      const ctx = chartRef.current?.getContext('2d')
+      if (!ctx) return
+      if (chartInstanceRef.current) {
+        chartInstanceRef.current.destroy()
       }
-    })
+      
+      const Chart = await loadChart();
+      
+      // Calculate proper data for chart based on result type
+      let yatar, denetimli, toplam
+      if (advanced && result.yatar !== undefined) {
+        yatar = result.yatar
+        denetimli = result.denetimli || 0
+        toplam = yatar + denetimli
+      } else {
+        yatar = result.kosullu || 0
+        denetimli = Math.round((result.denetimliYears || 0) * 365)
+        toplam = yatar + denetimli
+      }
+      
+      chartInstanceRef.current = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Yatar', 'Denetimli', 'Toplam'],
+          datasets: [{
+            label: 'Süre (Gün)',
+            data: [yatar, denetimli, toplam],
+            backgroundColor: ['#007bff', '#28a745', '#ffc107']
+          }]
+        },
+        options: { 
+          responsive: true, 
+          scales: { y: { beginAtZero: true } },
+          plugins: {
+            legend: { display: true },
+            title: { display: true, text: 'İnfaz Süresi Dağılımı' }
+          }
+        }
+      })
+    };
+    
+    initChart();
   }, [result, advanced])
 
   const updateUrl = () => {

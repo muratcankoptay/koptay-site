@@ -23,14 +23,42 @@ export default defineConfig({
     sourcemap: false, // Disable sourcemaps in production for better performance
     rollupOptions: {
       output: {
-        manualChunks: {
+        manualChunks: (id) => {
           // Split vendor chunks for better caching
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['lucide-react'],
-          // Heavy libraries - only load when needed
-          'chart-vendor': ['chart.js'],
-          'pdf-vendor': ['jspdf'],
-          'html2canvas-vendor': ['html2canvas']
+          if (id.includes('node_modules')) {
+            // Core React - load immediately
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+              return 'react-vendor';
+            }
+            // Helmet for SEO
+            if (id.includes('react-helmet-async')) {
+              return 'react-vendor';
+            }
+            // UI icons - used everywhere
+            if (id.includes('lucide-react')) {
+              return 'ui-vendor';
+            }
+            // Heavy libraries - lazy load on demand
+            if (id.includes('chart.js') || id.includes('react-chartjs-2')) {
+              return 'chart-vendor';
+            }
+            if (id.includes('jspdf')) {
+              return 'pdf-vendor';
+            }
+            if (id.includes('html2canvas')) {
+              return 'html2canvas-vendor';
+            }
+            // Flatpickr - only for date pickers
+            if (id.includes('flatpickr')) {
+              return 'flatpickr-vendor';
+            }
+            // Google Generative AI - only for AI features
+            if (id.includes('@google/generative-ai')) {
+              return 'ai-vendor';
+            }
+            // All other node_modules
+            return 'vendor';
+          }
         }
       }
     },

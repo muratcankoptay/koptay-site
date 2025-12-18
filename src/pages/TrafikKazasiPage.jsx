@@ -1,14 +1,29 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
 import { FaCar, FaUserInjured, FaCalculator, FaPrint, FaInfoCircle, FaExclamationTriangle } from 'react-icons/fa';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+// Lazy load Chart.js components
+const ChartComponent = lazy(() => import('react-chartjs-2').then(mod => ({ default: mod.Doughnut })));
+
+// Register Chart.js only when component mounts
+let chartRegistered = false;
+const registerChart = async () => {
+    if (!chartRegistered) {
+        const chartModule = await import('chart.js');
+        chartModule.Chart.register(chartModule.ArcElement, chartModule.Tooltip, chartModule.Legend);
+        chartRegistered = true;
+    }
+};
 
 const TrafikKazasiPage = () => {
     const [activeTab, setActiveTab] = useState('vehicle');
     const [results, setResults] = useState(null);
+    const [chartReady, setChartReady] = useState(false);
+    
+    // Register Chart.js on mount
+    useEffect(() => {
+        registerChart().then(() => setChartReady(true));
+    }, []);
     
     // Constants
     const MIN_WAGE_NET_2025 = 17002;
@@ -448,7 +463,11 @@ const TrafikKazasiPage = () => {
                             <div className="bg-white p-5 rounded-xl shadow border border-slate-100">
                                 <h4 className="text-xs font-bold text-slate-500 uppercase mb-4">Maddi vs Bedeni Dağılım</h4>
                                 <div className="h-64 flex justify-center">
-                                    {results && <Doughnut data={chartData} options={{ maintainAspectRatio: false }} />}
+                                    {results && (
+                                        <Suspense fallback={<div className="flex items-center justify-center h-full text-slate-400">Grafik yükleniyor...</div>}>
+                                            <ChartComponent data={chartData} options={{ maintainAspectRatio: false }} />
+                                        </Suspense>
+                                    )}
                                 </div>
                             </div>
                             <div className="bg-white p-5 rounded-xl shadow border border-slate-100 text-xs text-slate-600 leading-relaxed">
