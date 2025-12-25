@@ -38,11 +38,40 @@ const Hero = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}>
               {/* Main Tagline - Bick Law Style */}
-              <div className="text-left mb-12">
+              <div className="text-left mb-8">
                 <h1 className="font-sans text-5xl md:text-6xl lg:text-7xl font-light text-white uppercase leading-none mb-4">
                   <span className="block">AVUKATLIK <span className="text-lawSecondary italic">&</span></span>
                   <span className="block">HUKUK HİZMETLERİ</span>
                 </h1>
+              </div>
+
+              {/* Phone & Hours Info */}
+              <div className="mb-8 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
+                <a 
+                  href="tel:+905307111864" 
+                  className="flex items-center gap-3 text-white hover:text-lawSecondary transition-colors group"
+                >
+                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-lawSecondary transition-colors">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-medium">0530 711 18 64</p>
+                    <p className="text-sm text-white/70">Ücretsiz Ön Görüşme</p>
+                  </div>
+                </a>
+                <div className="flex items-center gap-3 text-white/80">
+                  <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-sm">Hafta içi 09:00 - 18:00</p>
+                    <p className="text-xs text-white/60">Cumartesi randevu ile</p>
+                  </div>
+                </div>
               </div>
 
               {/* Action Buttons */}

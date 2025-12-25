@@ -1,13 +1,13 @@
 // API utility functions for the law firm website
+// ⚠️ STRAPI DEVRE DIŞI - Artık sadece local JSON kullanılıyor
+// Yeni makale eklemek için: articles.json dosyasını düzenleyin
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-const STRAPI_BASE_URL = (import.meta.env.VITE_STRAPI_URL || 'https://koptay-law-cms.strapiapp.com').replace(/\/$/, '');
 
-// Function to get articles from Strapi with fallback to mock data
-const getArticlesFromStrapi = async () => {
+// Makaleleri LOCAL JSON dosyasından yükle (Strapi yok, API isteği yok!)
+const getArticlesFromLocalJSON = async () => {
   try {
-    console.log('Fetching articles from Strapi...')
-    const response = await fetch(`${STRAPI_BASE_URL}/api/articles?populate=*&_=${Date.now()}`)
+    const response = await fetch('/articles.json')
     if (response.ok) {
       const data = await response.json()
       return data.data.map(article => ({
@@ -21,7 +21,7 @@ const getArticlesFromStrapi = async () => {
         author: article.author || 'Av. Murat Can Koptay',
         publishDate: article.publishedat?.split('T')[0] || article.publishedAt?.split('T')[0] || article.createdAt?.split('T')[0],
         updatedDate: article.updatedAt?.split('T')[0],
-        readTime: `${article.readTime || 5} dakika`,
+        readTime: typeof article.readTime === 'number' ? `${article.readTime} dakika` : (article.readTime || '5 dakika'),
         featured: article.featured || false,
         views: article.views || 0,
         metaDescription: article.seoDescription || article.excerpt,
@@ -31,11 +31,23 @@ const getArticlesFromStrapi = async () => {
       }))
     }
   } catch (error) {
-    console.error('Strapi connection failed, using mock data:', error)
+    console.warn('Local JSON yüklenemedi:', error)
+  }
+  return null
+}
+
+// Ana fonksiyon - Sadece local JSON'dan oku (Strapi tamamen devre dışı)
+const getArticlesFromStrapi = async () => {
+  console.log('📁 Makaleler articles.json dosyasından yükleniyor...')
+  const localArticles = await getArticlesFromLocalJSON()
+  
+  if (localArticles && localArticles.length > 0) {
+    console.log(`✅ ${localArticles.length} makale yüklendi`)
+    return localArticles
   }
   
   // Fallback to mock data
-  console.log('Using mock data as fallback')
+  console.log('📝 Mock veri kullanılıyor...')
   return getMockArticles()
 }
 
