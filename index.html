@@ -30,13 +30,9 @@
     <!-- DNS Prefetch for faster DNS resolution -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link rel="dns-prefetch" href="https://passionate-basket-17f9c03fdf.strapiapp.com">
-    <link rel="dns-prefetch" href="https://passionate-basket-17f9c03fdf.media.strapiapp.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     
     <!-- Preconnect to critical domains (HIGHEST PRIORITY) -->
-    <link rel="preconnect" href="https://passionate-basket-17f9c03fdf.strapiapp.com" crossorigin>
-    <link rel="preconnect" href="https://passionate-basket-17f9c03fdf.media.strapiapp.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -71,21 +67,6 @@
         gtag('js', new Date());
         gtag('config', 'G-8DQ21Q8GF9');
       });
-    </script>
-    
-    <!-- Prefetch Strapi API for faster navigation -->
-    <script>
-      // Warmup API connection
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => {
-          const link = document.createElement('link');
-          link.rel = 'prefetch';
-          link.href = 'https://passionate-basket-17f9c03fdf.strapiapp.com/api/articles?populate=*';
-          link.as = 'fetch';
-          link.crossOrigin = 'anonymous';
-          document.head.appendChild(link);
-        });
-      }
     </script>
   </head>
   <body>

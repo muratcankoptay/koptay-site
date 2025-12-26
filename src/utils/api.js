@@ -324,13 +324,14 @@ export const api = {
   // Get single article by slug
   getArticle: async (slug) => {
     
-    // Try Strapi first
+    // Local JSON'dan oku (Strapi devre dışı)
     try {
-      const response = await fetch(`${STRAPI_BASE_URL}/api/articles?filters[slug][$eq]=${slug}&populate=*`)
+      const response = await fetch('/articles.json')
       if (response.ok) {
         const data = await response.json()
-        if (data.data.length > 0) {
-          const article = data.data[0]
+        const article = data.data.find(a => a.slug === slug)
+        
+        if (article) {
           return {
             success: true,
             data: {
@@ -344,7 +345,7 @@ export const api = {
               author: article.author || 'Av. Murat Can Koptay',
               publishDate: article.publishedat?.split('T')[0] || article.publishedAt?.split('T')[0] || article.createdAt?.split('T')[0],
               updatedDate: article.updatedAt?.split('T')[0],
-              readTime: `${article.readTime || 5} dakika`,
+              readTime: typeof article.readTime === 'number' ? `${article.readTime} dakika` : (article.readTime || '5 dakika'),
               featured: article.featured || false,
               views: (article.views || 0) + 1,
               metaDescription: article.seoDescription || article.excerpt,
@@ -356,7 +357,7 @@ export const api = {
         }
       }
     } catch (error) {
-      console.error('Strapi connection failed, using mock data:', error)
+      console.error('Local JSON okunamadı:', error)
     }
     
     // Fallback to mock data

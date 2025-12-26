@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { lazy, Suspense, useEffect } from 'react'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
@@ -26,6 +26,15 @@ const IletisimPage = lazy(() => import('./pages/IletisimPage'))
 const MuvekkilPaneliPage = lazy(() => import('./pages/MuvekkilPaneliPage'))
 const KvkkPage = lazy(() => import('./pages/KvkkPage'))
 
+// Admin pages - lazy load
+const AdminLogin = lazy(() => import('./admin/AdminLogin'))
+const AdminLayout = lazy(() => import('./admin/AdminLayout'))
+const Dashboard = lazy(() => import('./admin/Dashboard'))
+const ArticleList = lazy(() => import('./admin/ArticleList'))
+const ArticleEditor = lazy(() => import('./admin/ArticleEditor'))
+const ImageManager = lazy(() => import('./admin/ImageManager'))
+const AdminProtectedRoute = lazy(() => import('./admin/AdminProtectedRoute'))
+
 // Loading component
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -33,7 +42,21 @@ const PageLoader = () => (
   </div>
 )
 
+// Admin Layout Wrapper
+const AdminLayoutWrapper = ({ children }) => (
+  <Suspense fallback={<PageLoader />}>
+    <AdminProtectedRoute>
+      <AdminLayout>
+        {children}
+      </AdminLayout>
+    </AdminProtectedRoute>
+  </Suspense>
+)
+
 function App() {
+  const location = useLocation()
+  const isAdminRoute = location.pathname.startsWith('/admin')
+
   // Handle Global Loader removal
   useEffect(() => {
     const loader = document.getElementById('global-loader');
@@ -47,6 +70,21 @@ function App() {
       }, 100);
     }
   }, []);
+
+  // Admin routes - no Nav/Footer
+  if (isAdminRoute) {
+    return (
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminLayoutWrapper><Dashboard /></AdminLayoutWrapper>} />
+          <Route path="/admin/makaleler" element={<AdminLayoutWrapper><ArticleList /></AdminLayoutWrapper>} />
+          <Route path="/admin/makale/:id" element={<AdminLayoutWrapper><ArticleEditor /></AdminLayoutWrapper>} />
+          <Route path="/admin/gorseller" element={<AdminLayoutWrapper><ImageManager /></AdminLayoutWrapper>} />
+        </Routes>
+      </Suspense>
+    )
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
