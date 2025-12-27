@@ -197,7 +197,7 @@ const ImageManager = () => {
             >
               <div className="aspect-square relative">
                 <img
-                  src={image.url.startsWith('http') ? image.url : `http://localhost:5173${image.url}`}
+                  src={image.url.startsWith('http') ? image.url : `http://localhost:3001${image.url}`}
                   alt={image.filename}
                   className="w-full h-full object-cover"
                 />
@@ -273,7 +273,7 @@ const ImageManager = () => {
             {deleteModal.image && (
               <div className="mb-6">
                 <img
-                  src={deleteModal.image.url.startsWith('http') ? deleteModal.image.url : `http://localhost:5173${deleteModal.image.url}`}
+                  src={deleteModal.image.url.startsWith('http') ? deleteModal.image.url : `http://localhost:3001${deleteModal.image.url}`}
                   alt={deleteModal.image.filename}
                   className="w-full h-32 object-cover rounded-lg"
                 />

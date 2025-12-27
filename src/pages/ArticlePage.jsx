@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Calendar, Clock, User, ArrowLeft, Share2, Facebook, Twitter, Linkedin } from 'lucide-react'
+import { Helmet } from 'react-helmet-async'
 import { marked } from 'marked'
 import { api, formatDate } from '../utils/api'
 import { optimizeImage, generateSrcSet, generateSizes } from '../utils/imageOptimizer'
@@ -232,213 +233,123 @@ const ArticlePage = () => {
         preloadImage={true}
       />
 
-      {/* Custom JSON-LD Schema (if available for this article) */}
-      {hasCustomSchema(article.slug) && (
-        <script type="application/ld+json">
-          {JSON.stringify(getCustomArticleSchema(article.slug))}
-        </script>
-      )}
+      {/* JSON-LD Structured Data Schemas */}
+      <Helmet>
+        {/* Custom JSON-LD Schema (if available for this article - includes BlogPosting + FAQPage) */}
+        {hasCustomSchema(article.slug) && (
+          <script type="application/ld+json">
+            {JSON.stringify(getCustomArticleSchema(article.slug))}
+          </script>
+        )}
 
-      {/* Default JSON-LD Structured Data - Article Schema */}
-      {!hasCustomSchema(article.slug) && (
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": article.title,
-            "description": article.metaDescription || article.excerpt,
-            "image": article.image || "https://koptay.av.tr/images/default-article.jpg",
-            "author": {
-              "@type": "Person",
-              "name": article.author || "Av. Murat Can Koptay",
-            "url": "https://koptay.av.tr/ekibimiz"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "Koptay Hukuk Bürosu",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://koptay.av.tr/logo.png",
-              "width": 250,
-              "height": 60
-            },
-            "url": "https://koptay.av.tr",
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "telephone": "+90-530-711-18-64",
-              "contactType": "customer service",
-              "areaServed": "TR",
-              "availableLanguage": "Turkish"
-            }
-          },
-          "datePublished": article.publishDate,
-          "dateModified": article.updatedDate || article.publishDate,
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": `https://koptay.av.tr/makale/${article.slug}`
-          },
-          "articleSection": article.category || "Hukuk",
-          "keywords": article.tags ? article.tags.join(", ") : "",
-          "inLanguage": "tr-TR",
-          "wordCount": article.content ? article.content.split(/\s+/).length : 0,
-          "timeRequired": article.readTime || "5 dakika"
-        })}
-        </script>
-      )}
-
-      {/* JSON-LD Structured Data - BreadcrumbList Schema */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Ana Sayfa",
-              "item": "https://koptay.av.tr/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Makaleler",
-              "item": "https://koptay.av.tr/makaleler"
-            },
-            {
-              "@type": "ListItem",
-              "position": 3,
-              "name": article.category || "Hukuk",
-              "item": `https://koptay.av.tr/makaleler?kategori=${encodeURIComponent(article.category || "")}`
-            },
-            {
-              "@type": "ListItem",
-              "position": 4,
-              "name": article.title,
-              "item": `https://koptay.av.tr/makale/${article.slug}`
-            }
-          ]
-        })}
-      </script>
-
-      {/* JSON-LD Structured Data - Organization Schema */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "LegalService",
-          "name": "Koptay Hukuk Bürosu",
-          "alternateName": "Av. Murat Can Koptay",
-          "url": "https://koptay.av.tr",
-          "logo": "https://koptay.av.tr/logo.png",
-          "image": "https://koptay.av.tr/images/hero.jpg",
-          "description": "Ankara merkezli profesyonel hukuk bürosu. İş hukuku, ticaret hukuku, aile hukuku, ceza hukuku alanlarında 20+ yıl deneyim.",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Ankara",
-            "addressCountry": "TR"
-          },
-          "telephone": "+90-530-711-18-64",
-          "email": "info@koptay.av.tr",
-          "priceRange": "$$",
-          "areaServed": {
-            "@type": "Country",
-            "name": "Türkiye"
-          },
-          "serviceArea": {
-            "@type": "GeoCircle",
-            "geoMidpoint": {
-              "@type": "GeoCoordinates",
-              "latitude": "39.9334",
-              "longitude": "32.8597"
-            }
-          }
-        })}
-      </script>
-
-      {/* JSON-LD Structured Data - FAQPage Schema */}
-      {article.tags && article.tags.length > 0 && (
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": article.tags.map((tag, index) => ({
-              "@type": "Question",
-              "name": `${article.title}: ${tag}`,
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": `${article.title} ile ilgili "${tag}" konusu hakkında detaylı bilgi için ${article.author} ile iletişime geçebilirsiniz.`
-              }
-            }))
-          })}
-        </script>
-      )}
-
-      {/* FAQ Schema for Sigorta Tahkim Komisyonu Article */}
-      {article.slug === 'sigorta-tahkim-komisyonu-basvurusu-ve-sureci' && (
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "Sigorta Tahkim Komisyonu başvurusu ne kadar sürer?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Sigorta Tahkim Komisyonu'ndaki yargılama süreci, dosyanın hakem heyetine tevdi edilmesinden itibaren en geç 4 ay içinde sonuçlandırılmak zorundadır. İtiraz süreçleriyle birlikte ortalama 4-6 ay sürmektedir."
+        {/* Default JSON-LD Structured Data - Article Schema */}
+        {!hasCustomSchema(article.slug) && (
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              "headline": article.title,
+              "description": article.metaDescription || article.excerpt,
+              "image": article.image || "https://koptay.av.tr/images/default-article.jpg",
+              "author": {
+                "@type": "Person",
+                "name": article.author || "Av. Murat Can Koptay",
+                "url": "https://koptay.av.tr/ekibimiz"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "Koptay Hukuk Bürosu",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://koptay.av.tr/logo.png",
+                  "width": 250,
+                  "height": 60
+                },
+                "url": "https://koptay.av.tr",
+                "contactPoint": {
+                  "@type": "ContactPoint",
+                  "telephone": "+90-530-711-18-64",
+                  "contactType": "customer service",
+                  "areaServed": "TR",
+                  "availableLanguage": "Turkish"
                 }
               },
+              "datePublished": article.publishDate,
+              "dateModified": article.updatedDate || article.publishDate,
+              "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": `https://koptay.av.tr/makale/${article.slug}`
+              },
+              "articleSection": article.category || "Hukuk",
+              "keywords": article.tags ? article.tags.join(", ") : "",
+              "inLanguage": "tr-TR",
+              "wordCount": article.content ? article.content.split(/\s+/).length : 0,
+              "timeRequired": article.readTime || "5 dakika"
+            })}
+          </script>
+        )}
+
+        {/* JSON-LD Structured Data - BreadcrumbList Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
               {
-                "@type": "Question",
-                "name": "Sigorta Tahkim Komisyonuna başvurmadan önce ne yapılmalı?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Tahkim Komisyonuna başvurmadan önce, uyuşmazlık konusuyla ilgili sigorta şirketine yazılı olarak başvurmak ve talebin reddedildiğini veya 15 gün içinde cevap verilmediğini belgelemek yasal bir zorunluluktur."
-                }
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Ana Sayfa",
+                "item": "https://koptay.av.tr/"
               },
               {
-                "@type": "Question",
-                "name": "Sigorta Tahkim kararları kesin midir?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Belirli bir parasal sınırın (her yıl güncellenir, örn: 15.000 TL) altındaki kararlar kesindir. Bu tutarın üzerindeki kararlara karşı bir defaya mahsus itiraz edilebilir ve çok yüksek tutarlı davalarda Temyiz yolu açıktır."
-                }
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Makaleler",
+                "item": "https://koptay.av.tr/makaleler"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": article.category || "Hukuk",
+                "item": `https://koptay.av.tr/makaleler?kategori=${encodeURIComponent(article.category || "")}`
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": article.title,
+                "item": `https://koptay.av.tr/makale/${article.slug}`
               }
             ]
           })}
         </script>
-      )}
 
-      {/* FAQ Schema for Meslek Hastalığı Article */}
-      {article.slug === 'meslek-hastaligi-tazminati-hesaplama-ve-sartlari' && (
+        {/* JSON-LD Structured Data - Organization/LegalService Schema */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [{
-                "@type": "Question",
-                "name": "İşten ayrıldıktan yıllar sonra meslek hastalığı tazminatı alınır mı?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Evet. Her hastalığın bir 'yükümlülük süresi' vardır. Bu süre dolmuş olsa bile, hastalık ile iş arasındaki illiyet bağı tıbben ispatlanabilirse, Sosyal Sigorta Yüksek Sağlık Kurulu onayı ile dava açılabilir."
-                }
-            }, {
-                "@type": "Question",
-                "name": "Meslek hastalığı tazminatında hangi yaşam tablosu kullanılır?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yargıtay'ın güncel kararları uyarınca, eski PMF-1931 tablosu yerine, beklenen yaşam süresini daha güncel verilerle belirleyen TRH-2010 (Türkiye Hayat Tablosu) kullanılmaktadır."
-                }
-            }, {
-                "@type": "Question",
-                "name": "Meslek hastalığı zamanaşımı süresi ne zaman başlar?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Zamanaşımı süresi (10 yıl), işten ayrılma tarihinde değil; hastalığın kesin tıbbi teşhisinin konulduğu ve maluliyet oranının kesinleştiği tarihten itibaren başlar."
-                }
-            }]
+            "@type": "LegalService",
+            "@id": "https://koptay.av.tr/#organization",
+            "name": "Koptay Hukuk Bürosu",
+            "alternateName": "Av. Murat Can Koptay",
+            "url": "https://koptay.av.tr",
+            "logo": "https://koptay.av.tr/logo.png",
+            "image": "https://koptay.av.tr/images/hero.jpg",
+            "description": "Ankara merkezli profesyonel hukuk bürosu. İş hukuku, ticaret hukuku, aile hukuku, ceza hukuku alanlarında 20+ yıl deneyim.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Ankara",
+              "addressCountry": "TR"
+            },
+            "telephone": "+90-530-711-18-64",
+            "email": "info@koptay.av.tr",
+            "priceRange": "$$",
+            "areaServed": {
+              "@type": "Country",
+              "name": "Türkiye"
+            }
           })}
         </script>
-      )}
+      </Helmet>
 
       <div className="pt-24 pb-12">
         <div className="container mx-auto px-4">

@@ -16,6 +16,9 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
+// Static dosya sunumu - görsellerin görüntülenmesi için
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+
 // Paths
 const ARTICLES_PATH = path.join(__dirname, 'articles.json');
 const PUBLIC_ARTICLES_PATH = path.join(__dirname, 'public', 'articles.json');
@@ -26,15 +29,52 @@ if (!fs.existsSync(IMAGES_PATH)) {
   fs.mkdirSync(IMAGES_PATH, { recursive: true });
 }
 
+// Dosya adını SEO-friendly slug'a çevir
+const slugifyFilename = (filename) => {
+  const ext = path.extname(filename);
+  const name = path.basename(filename, ext);
+  
+  // Türkçe karakterleri dönüştür ve slug oluştur
+  const slug = name
+    .toLowerCase()
+    .replace(/ğ/g, 'g')
+    .replace(/ü/g, 'u')
+    .replace(/ş/g, 's')
+    .replace(/ı/g, 'i')
+    .replace(/ö/g, 'o')
+    .replace(/ç/g, 'c')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+  
+  return slug + ext.toLowerCase();
+};
+
+// Aynı isimde dosya varsa numara ekle
+const getUniqueFilename = (filename) => {
+  let finalName = slugifyFilename(filename);
+  let counter = 1;
+  const ext = path.extname(finalName);
+  const baseName = path.basename(finalName, ext);
+  
+  while (fs.existsSync(path.join(IMAGES_PATH, finalName))) {
+    finalName = `${baseName}-${counter}${ext}`;
+    counter++;
+  }
+  
+  return finalName;
+};
+
 // Multer configuration for image uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, IMAGES_PATH);
   },
   filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const ext = path.extname(file.originalname);
-    cb(null, file.fieldname + '-' + uniqueSuffix + ext);
+    // Orijinal dosya adını SEO-friendly şekilde koru
+    const seoFilename = getUniqueFilename(file.originalname);
+    cb(null, seoFilename);
   }
 });
 
@@ -101,6 +141,10 @@ app.post('/api/articles', (req, res) => {
   const newId = Math.max(...articles.data.map(a => a.id), 0) + 1;
   const now = new Date().toISOString();
   
+  // Kullanıcının girdiği yayın tarihi veya bugün
+  const publishDate = req.body.publishedat || now.split('T')[0];
+  const publishDateTime = new Date(publishDate).toISOString();
+  
   const newArticle = {
     id: newId,
     documentId: req.body.slug || `article-${newId}`,
@@ -110,14 +154,14 @@ app.post('/api/articles', (req, res) => {
     content: req.body.content,
     category: req.body.category,
     author: req.body.author || 'Av. Murat Can Koptay',
-    createdAt: now,
+    createdAt: publishDateTime, // Yayın tarihini oluşturma tarihi olarak kullan
     updatedAt: now,
-    publishedAt: now,
+    publishedAt: publishDateTime,
     seoTitle: req.body.seoTitle,
     seoDescription: req.body.seoDescription,
     keywords: req.body.keywords,
     readTime: req.body.readTime || '5 dk',
-    publishedat: now.split('T')[0],
+    publishedat: publishDate, // YYYY-MM-DD formatında
     image: req.body.image || null
   };
   

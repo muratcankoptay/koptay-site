@@ -33,6 +33,9 @@ const ArticleEditor = () => {
   const [uploadingImage, setUploadingImage] = useState(false)
   const [notification, setNotification] = useState(null)
 
+  // Bugünün tarihini YYYY-MM-DD formatında al
+  const today = new Date().toISOString().split('T')[0]
+
   const [article, setArticle] = useState({
     title: '',
     slug: '',
@@ -44,7 +47,8 @@ const ArticleEditor = () => {
     seoDescription: '',
     keywords: '',
     readTime: '5 dk',
-    image: null
+    image: null,
+    publishedat: today // Yayın tarihi - düzenlenebilir
   })
 
   const categories = [
@@ -310,9 +314,27 @@ const ArticleEditor = () => {
               className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-lg"
               required
             />
-            <p className="mt-2 text-sm text-gray-500">
-              URL: /makale/<span className="font-mono text-amber-600">{article.slug || 'otomatik-olusturulacak'}</span>
-            </p>
+            
+            {/* Slug / URL alanı - düzenlenebilir */}
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                🔗 URL (Slug)
+              </label>
+              <div className="flex items-center gap-2">
+                <span className="text-gray-500 text-sm">/makale/</span>
+                <input
+                  type="text"
+                  name="slug"
+                  value={article.slug}
+                  onChange={handleChange}
+                  placeholder="url-slug-buraya"
+                  className="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 font-mono text-sm"
+                />
+              </div>
+              <p className="mt-1 text-xs text-gray-500">
+                Başlıktan otomatik oluşturulur, isterseniz değiştirebilirsiniz
+              </p>
+            </div>
           </div>
 
           {/* Excerpt */}
@@ -379,7 +401,7 @@ const ArticleEditor = () => {
             {article.image?.url ? (
               <div className="relative">
                 <img 
-                  src={article.image.url.startsWith('http') ? article.image.url : `http://localhost:5173${article.image.url}`}
+                  src={article.image.url.startsWith('http') ? article.image.url : `http://localhost:3001${article.image.url}`}
                   alt={article.title}
                   className="w-full h-48 object-cover rounded-lg"
                 />
@@ -474,6 +496,22 @@ const ArticleEditor = () => {
                 placeholder="5 dk"
                 className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-500"
               />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                📅 Yayın Tarihi
+              </label>
+              <input
+                type="date"
+                name="publishedat"
+                value={article.publishedat || ''}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-500"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Eski makaleleri orijinal tarihleriyle eklemek için kullanın
+              </p>
             </div>
           </div>
 
