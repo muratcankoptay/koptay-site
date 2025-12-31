@@ -939,6 +939,120 @@ export const articleSchemas = {
         ]
       }
     ]
+  },
+
+  // =====================================================
+  // Araç Değer Kaybı 2026 Güncel Başvuru Rehberi
+  // =====================================================
+  "arac-deger-kaybi-nedir-nasil-hesaplanir": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://koptay.av.tr/#organization",
+        "name": "Koptay Hukuk Bürosu",
+        "url": "https://koptay.av.tr",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://koptay.av.tr/logo.png",
+          "caption": "Koptay Hukuk Bürosu"
+        }
+      },
+      {
+        "@type": "Article",
+        "headline": "Araç Değer Kaybı Nedir? Nasıl Hesaplanır? (2026 Güncel Başvuru Rehberi)",
+        "description": "Araç değer kaybı hesaplama tablosu 2026. Kazalı aracın piyasa değeri ne kadar düşer? Kilometre ve yaş sınırı kalktı mı? Değer kaybı başvurusu ve tazminat alma süreci.",
+        "image": "https://koptay.av.tr/images/articles/arac-deger-kaybi-hesaplama-tablosu.jpg",
+        "datePublished": "2025-01-01T08:45:00+03:00",
+        "dateModified": "2025-12-31T20:45:00+03:00",
+        "author": {
+          "@type": "Person",
+          "name": "Av. Murat Can Koptay",
+          "url": "https://koptay.av.tr/ekibimiz"
+        },
+        "publisher": {
+          "@id": "https://koptay.av.tr/#organization"
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://koptay.av.tr/makale/arac-deger-kaybi-nedir-nasil-hesaplanir"
+        },
+        "keywords": "araç değer kaybı, değer kaybı hesaplama, trafik kazası tazminat, sigorta değer kaybı, ekspertiz raporu, değer kaybı başvurusu"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Araç değer kaybında kilometre sınırı var mı?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Anayasa Mahkemesi'nin verdiği iptal kararları sonrası, araç değer kaybı hesaplamasında 165.000 km sınırı gibi kesin engeller kaldırılmıştır. Kilometresi yüksek araçlar da değer kaybı alabilir, ancak aracın kilometresinin yüksek olması alınacak tazminat miktarını düşüren bir faktördür."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Hangi parçalar değer kaybı kapsamına girmez?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Aracın kaporta aksamı dışındaki plastik tampon, cam, far, silecek, jant ve lastik gibi değiştirilebilir parçalarda meydana gelen hasarlar genellikle değer kaybı hesaplamasına dahil edilmez. Değer kaybı, aracın iskeletindeki ve kaportasındaki boya/değişim işlemlerinden kaynaklanır."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Değer kaybı başvurusu nereye yapılır?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Değer kaybı tazminatı için öncelikle kazada kusurlu olan tarafın Trafik Sigortası (ZMSS) şirketine yazılı başvuru yapılmalıdır. Sigorta şirketi 15 gün içinde ödeme yapmazsa veya eksik ödeme yaparsa Sigorta Tahkim Komisyonu'na başvurulur."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Kazadan kaç yıl sonraya kadar değer kaybı istenebilir?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Araç değer kaybı taleplerinde zamanaşımı süresi, kazanın öğrenildiği tarihten itibaren 2 yıldır. Kaza üzerinden 2 yıl geçmemişse geriye dönük olarak tazminat talep edebilirsiniz."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "5 Adımda Araç Değer Kaybı Tazminatı Alma Süreci",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Ekspertiz Raporunun Temini",
+            "text": "Kazadan sonra aracınızdaki hasarı ve onarım işlemlerini gösteren ekspertiz raporunu ve kaza tespit tutanağını temin edin."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Değer Kaybı Hesaplaması",
+            "text": "Bağımsız bir eksperden veya uzman bir avukattan destek alarak, aracınızın 2. el piyasasındaki reel değer kaybını hesaplatın."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Sigorta Şirketine Başvuru",
+            "text": "Hazırladığınız talep dilekçesi, hesaplama raporu ve banka bilgilerinizle birlikte kusurlu tarafın sigorta şirketine başvurun."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "Tahkim Komisyonu Süreci",
+            "text": "Sigorta şirketi başvurunuzu reddederse veya düşük ödeme yaparsa, Sigorta Tahkim Komisyonu'na online veya fiziki olarak başvurun."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 5,
+            "name": "Ödemenin Tahsili",
+            "text": "Komisyonun hakem kararı kesinleştikten sonra, ilamlı icra takibi yoluyla veya sigorta şirketinin doğrudan ödemesiyle tazminatınızı alın."
+          }
+        ]
+      }
+    ]
   }
 };
 
