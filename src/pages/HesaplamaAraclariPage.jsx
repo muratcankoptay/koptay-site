@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Calculator, TrendingUp, Car, HeartHandshake, Building, Users, ArrowRight, Scale } from 'lucide-react'
+import { Calculator, TrendingUp, Car, HeartHandshake, Building, Users, ArrowRight, Scale, Banknote } from 'lucide-react'
 import SEO from '../components/SEO'
 
 const HesaplamaAraclariPage = () => {
@@ -70,6 +70,14 @@ const HesaplamaAraclariPage = () => {
       icon: Building,
       color: 'bg-orange-100 text-orange-600',
       link: '/hesaplama-araclari/iscilik-alacaklari'
+    },
+    {
+      id: 'ilave-tediye',
+      title: 'İlave Tediye Hesaplama',
+      description: '6772 Sayılı Kanun kapsamında kamu işçileri için ilave tediye (ikramiye) hesaplama',
+      icon: Banknote,
+      color: 'bg-emerald-100 text-emerald-600',
+      link: '/hesaplama-araclari/ilave-tediye'
     },
     {
       id: 'deger-kaybi',
