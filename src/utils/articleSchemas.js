@@ -23,12 +23,12 @@ export const articleSchemas = {
         }
       },
       {
-        "@type": "BlogPosting",
-        "headline": "TRAMER Kusur Oranına İtiraz: %100 Kusurlu Çıkarsanız Ne Yapmalısınız?",
-        "description": "Kaza sonrası %100 kusurlu mu bulundunuz? Hemen kabullenmeyin. SBM itiraz süreci, Sigorta Tahkim Komisyonu ve kusur oranını değiştirmek için yapmanız gerekenler bu rehberde.",
+        "@type": "Article",
+        "headline": "TRAMER Kusur Oranına İtiraz: %100 Kusurlu Çıkarsanız Ne Yapmalısınız? (Adım Adım Rehber)",
+        "description": "Kaza tespit tutanağında %100 kusurlu mu bulundunuz? SBM itiraz süresi, Sigorta Tahkim Komisyonu başvuru adımları ve kusur oranını değiştirmek için yapılması gerekenler.",
         "image": "https://koptay.av.tr/images/articles/tramer-kusur-orani-itiraz-kaza-tutanagi.jpg",
-        "datePublished": "2025-12-26T00:00:00+03:00",
-        "dateModified": "2025-12-26T20:15:30+03:00",
+        "datePublished": "2025-01-01T09:00:00+03:00",
+        "dateModified": "2025-12-31T19:45:00+03:00",
         "author": {
           "@type": "Person",
           "name": "Av. Murat Can Koptay",
@@ -41,42 +41,66 @@ export const articleSchemas = {
           "@type": "WebPage",
           "@id": "https://koptay.av.tr/makale/tramer-kusur-oranina-itiraz-rehberi-yuzde-100-kusurlu"
         },
-        "keywords": "tramer itiraz, kaza tespit tutanağı, sigorta tahkim komisyonu, trafik kazası kusur oranları, sbm itiraz, araç değer kaybı"
+        "keywords": "tramer itiraz, kusur oranı itiraz süresi, sbm itiraz, sigorta tahkim komisyonu, kaza tespit tutanağı, polis tutanağı itiraz"
       },
       {
         "@type": "FAQPage",
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "Polis tutanağına itiraz edebilir miyim?",
+            "name": "Kusur oranına itiraz süresi kaç gündür?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Evet, polis tarafından tutulan kaza tespit tutanağına karşı Sulh Ceza Hakimliği'ne başvurarak itiraz etme hakkınız bulunmaktadır."
+              "text": "Kaza tespit tutanağı sisteme girildikten ve kusur oranları belirlendikten sonra, sonucun tarafınıza bildirilmesinden itibaren 5 iş günü içinde SBM (sbm.org.tr) üzerinden itiraz etme hakkınız vardır."
             }
           },
           {
             "@type": "Question",
-            "name": "İtiraz için avukata ihtiyacım var mı?",
+            "name": "SBM itirazım reddedildi, ne yapmalıyım?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "SBM ve Sigorta Tahkim Komisyonu süreçlerini bireysel olarak yürütebilirsiniz. Ancak hukuki terimler ve süreç takibi karmaşık olabileceğinden, özellikle yüksek hasarlı kazalarda bir avukattan destek almak faydalı olabilir."
+              "text": "SBM üzerinden yapılan itirazda sigorta şirketleri anlaşamazsa veya itirazınız reddedilirse, bir sonraki ve en etkili adım Sigorta Tahkim Komisyonu'na başvurmaktır. Buradan çıkan karar mahkeme hükmündedir."
             }
           },
           {
             "@type": "Question",
-            "name": "Kazadan 1 yıl sonra itiraz edebilir miyim?",
+            "name": "Polis tutanağına nasıl itiraz edilir?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "SBM üzerinden online itiraz süresi 5 gün olsa da, yasal zamanaşımı süresi (genellikle 2 yıl) içerisinde Sigorta Tahkim Komisyonu'na başvurma veya dava açma hakkınız saklıdır."
+              "text": "Eğer kaza tutanağını polis veya jandarma tuttuysa, bu tutanağa karşı Sulh Ceza Hakimliği'ne başvurarak itiraz edebilirsiniz. Anlaşmalı tutanaklarda ise süreç SBM ve Tahkim üzerinden yürür."
             }
           },
           {
             "@type": "Question",
-            "name": "TRAMER itiraz süresi ne kadar?",
+            "name": "Kamera kaydı sonradan bulunursa kusur oranı değişir mi?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Kaza tespit tutanağı sisteme girildikten sonra SBM (Sigorta Bilgi ve Gözetim Merkezi) kusur oranlarını belirler. Sonuç size ulaştığı andan itibaren 5 iş günü içinde itiraz etme hakkınız vardır."
+              "text": "Evet. Kazaya ilişkin yeni bir delil (kamera kaydı, şahit ifadesi vb.) ortaya çıkarsa, 2 yıllık zamanaşımı süresi içinde Sigorta Tahkim Komisyonu'na başvurarak kusur oranının değiştirilmesini talep edebilirsiniz."
             }
+          }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "TRAMER Kusur Oranına İtiraz Adımları",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "SBM Üzerinden Kontrol",
+            "text": "sbm.org.tr adresindeki 'Kaza Tespit Tutanağı Sorgulama' ekranından raporunuzu ve belirlenen kusur oranını kontrol edin."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "5 Gün İçinde İtiraz",
+            "text": "Sonuç açıklandıktan sonraki 5 gün içinde, sistem üzerindeki 'İtiraz Et' butonunu kullanarak itiraz nedeninizi yazın ve varsa fotoğraf/video ekleyin."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Sigorta Tahkim Komisyonu Başvurusu",
+            "text": "SBM itirazından sonuç alamazsanız; başvuru formu, kaza raporu ve ruhsat fotokopisi ile Sigorta Tahkim Komisyonu'na başvurun."
           }
         ]
       }
