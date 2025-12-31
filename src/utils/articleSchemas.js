@@ -487,6 +487,110 @@ export const articleSchemas = {
         ]
       }
     ]
+  },
+
+  // =====================================================
+  // 2026 İlave Tediye Rehberi Makalesi
+  // =====================================================
+  "2026-ilave-tediye-hesaplama-ve-hukuki-nitelik-rehberi": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://koptay.av.tr/#organization",
+        "name": "Koptay Hukuk Bürosu",
+        "url": "https://koptay.av.tr",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://koptay.av.tr/logo.png",
+          "caption": "Koptay Hukuk Bürosu"
+        }
+      },
+      {
+        "@type": "Article",
+        "headline": "2026 İlave Tediye Rehberi: Kamu İşçileri İçin Hesaplama ve Ödeme Tarihleri",
+        "description": "2026 yılı ilave tediye ödemeleri ne kadar oldu? Kamu işçileri için 52 günlük tediye hesabı, 6772 sayılı Kanun detayları ve otomatik hesaplama aracı bu rehberde.",
+        "image": "https://koptay.av.tr/images/articles/2026-ilave-tediye-hesaplama-kamu-iscisi-bordro-1.jpg",
+        "author": {
+          "@type": "Person",
+          "name": "Av. Murat Can Koptay",
+          "url": "https://koptay.av.tr/ekibimiz"
+        },
+        "publisher": {
+          "@id": "https://koptay.av.tr/#organization"
+        },
+        "datePublished": "2026-01-01T08:00:00+03:00",
+        "dateModified": "2026-01-01T09:00:00+03:00",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://koptay.av.tr/makale/2026-ilave-tediye-hesaplama-ve-hukuki-nitelik-rehberi"
+        },
+        "keywords": "ilave tediye 2026, kamu işçisi tediye hesaplama, 6772 sayılı kanun, tediye ne zaman yatar, taşeron işçi tediye"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "2026 ilave tediye ne zaman yatar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "İlave tediye ödemeleri Cumhurbaşkanı Kararı ile belirlenir. Genellikle yılın ilk yarısında (Ocak-Nisan) ve ikinci yarısında (Temmuz-Aralık) olmak üzere 4 taksit halinde ödenmesi beklenmektedir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Taşeron işçiler (4/D) ilave tediye alabilir mi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Evet, 696 sayılı KHK ile kadroya geçen sürekli işçiler (4/D statüsü) 6772 sayılı Kanun kapsamında oldukları için yılda 52 günlük ilave tediye hakkına sahiptir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "İlave tediye hesaplamasına yol ve yemek ücreti dahil edilir mi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hayır. İlave tediye hesaplaması sadece 'çıplak brüt ücret' üzerinden yapılır. Yol, yemek, sosyal yardımlar ve fazla mesai ücretleri hesaplamaya dahil edilmez."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Belediye şirket işçileri tediye alabilir mi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yargıtay'ın güncel kararlarına göre, sermayesinin %50'sinden fazlası belediyeye ait olan şirketlerde çalışan işçiler de 6772 sayılı Kanun kapsamında ilave tediye hakkından yararlanabilir."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "2026 İlave Tediye Nasıl Hesaplanır?",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "text": "Aylık brüt çıplak ücretinizi 30'a bölerek günlük brüt yevmiyenizi bulun."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "text": "Bulduğunuz günlük tutarı, taksit günü sayısı olan 13 ile çarpın."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "text": "Çıkan brüt tutardan %15 oranında SGK ve İşsizlik primi düşün."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "text": "Kalan tutardan %15, %20 veya %27 oranındaki Gelir Vergisini ve Damga Vergisini keserek net tutara ulaşın."
+          }
+        ]
+      }
+    ]
   }
 };
 

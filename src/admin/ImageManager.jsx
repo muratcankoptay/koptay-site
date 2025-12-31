@@ -11,7 +11,7 @@ import {
   X
 } from 'lucide-react'
 
-const API_URL = 'http://localhost:3001/api'
+const API_URL = 'http://localhost:3002/api'
 
 const ImageManager = () => {
   const [images, setImages] = useState([])

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FileText, Image, PlusCircle, TrendingUp, Clock, Eye } from 'lucide-react'
 
-const API_URL = 'http://localhost:3001/api'
+const API_URL = 'http://localhost:3002/api'
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
