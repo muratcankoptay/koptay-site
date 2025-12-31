@@ -699,6 +699,114 @@ export const articleSchemas = {
         ]
       }
     ]
+  },
+
+  // =====================================================
+  // Meslek Hastalığı Tazminatı 2025 Uzman Rehberi
+  // =====================================================
+  "meslek-hastaligi-tazminati-hukuki-sartlari-surec-ve-hesaplama-yontemi-2025-uzman-rehberi": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://koptay.av.tr/#organization",
+        "name": "Koptay Hukuk Bürosu",
+        "url": "https://koptay.av.tr",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://koptay.av.tr/logo.png",
+          "caption": "Koptay Hukuk Bürosu"
+        }
+      },
+      {
+        "@type": "Article",
+        "headline": "Meslek Hastalığı Tazminatı: Hukuki Şartları, Süreç ve Hesaplama Yöntemi (2025 Uzman Rehberi)",
+        "description": "Meslek hastalığı nedir, şartları nelerdir? Maddi ve manevi tazminat davası nasıl açılır? 2025 yılı hesaplama kriterleri ve zamanaşımı süreleri hakkında uzman avukat rehberi.",
+        "image": "https://koptay.av.tr/images/articles/meslek-hastaligi-tazminati-dava-sureci.jpg",
+        "datePublished": "2025-01-01T09:00:00+03:00",
+        "dateModified": "2025-12-31T19:00:00+03:00",
+        "author": {
+          "@type": "Person",
+          "name": "Av. Murat Can Koptay",
+          "url": "https://koptay.av.tr/ekibimiz"
+        },
+        "publisher": {
+          "@id": "https://koptay.av.tr/#organization"
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://koptay.av.tr/makale/meslek-hastaligi-tazminati-hukuki-sartlari-surec-ve-hesaplama-yontemi-2025-uzman-rehberi"
+        },
+        "keywords": "meslek hastalığı tazminatı, iş kazası davası, bel fıtığı meslek hastalığı, SGK maluliyet, işçi tazminat hesaplama"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Bel fıtığı meslek hastalığı sayılır mı?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Evet, Yargıtay kararlarına göre; yapılan işin niteliği sürekli ağır yük kaldırmayı veya hareketsiz kalmayı gerektiriyorsa ve hastalık ile iş arasında illiyet bağı (neden-sonuç ilişkisi) tıbbi raporla kurulabiliyorsa, bel fıtığı meslek hastalığı olarak kabul edilir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Meslek hastalığı tazminat davası zamanaşımı süresi ne kadardır?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Meslek hastalıklarında zamanaşımı süresi kural olarak 10 yıldır. Bu süre, hastalığın meslek hastalığı olduğunun tıbbi raporla kesinleştiği (öğrenildiği) tarihten itibaren başlar."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Meslek hastalığı tespitini hangi hastaneler yapar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Meslek hastalığı tanısı koymaya yetkili hastaneler; Meslek Hastalıkları Hastaneleri, Devlet Üniversite Hastaneleri ve Eğitim ve Araştırma Hastaneleridir. Özel hastane raporları SGK ve mahkemeler nezdinde tek başına yeterli değildir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "İşveren meslek hastalığı nedeniyle işçiyi işten çıkarabilir mi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hayır. İşçinin meslek hastalığına yakalanması tek başına geçerli fesih nedeni (tazminatsız çıkış) sayılamaz. Aksine, işveren gözetim borcunu yerine getirmediği için işçiye kıdem tazminatı ve şartları oluşmuşsa kötü niyet tazminatı ödemek zorunda kalabilir."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "Adım Adım Meslek Hastalığı Tazminat Süreci",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Tıbbi Tespit Başvurusu",
+            "text": "Yetkili bir hastaneye (Meslek Hastalıkları veya Eğitim Araştırma Hastanesi) başvurarak hastalığın işle ilgili olduğuna dair tıbbi rapor alınır."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "SGK Bildirimi ve Tahkikat",
+            "text": "Alınan raporla birlikte Sosyal Güvenlik Kurumu'na (SGK) başvurulur. SGK müfettişleri iş yerinde inceleme yaparak hastalığın mesleki olup olmadığına karar verir."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Maluliyet Oranının Belirlenmesi",
+            "text": "SGK Sağlık Kurulu, işçinin meslekte kazanma gücü kayıp oranını (maluliyet oranı) belirler. %10 ve üzeri kayıplarda sürekli iş göremezlik geliri bağlanır."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "Arabuluculuk ve Dava",
+            "text": "İşverenle tazminat konusunda anlaşma sağlanamazsa önce zorunlu arabulucuya başvurulur, anlaşamama durumunda İş Mahkemesi'nde maddi ve manevi tazminat davası açılır."
+          }
+        ]
+      }
+    ]
   }
 };
 
