@@ -591,6 +591,114 @@ export const articleSchemas = {
         ]
       }
     ]
+  },
+
+  // =====================================================
+  // Trafik Kazası Maluliyet Heyet Raporu 2025 Rehberi
+  // =====================================================
+  "trafik-kazasi-sonrasi-maluliyet-heyet-raporu-nasil-ve-nereden-alinir-2025-rehberi": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://koptay.av.tr/#organization",
+        "name": "Koptay Hukuk Bürosu",
+        "url": "https://koptay.av.tr",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://koptay.av.tr/logo.png",
+          "caption": "Koptay Hukuk Bürosu"
+        }
+      },
+      {
+        "@type": "NewsArticle",
+        "headline": "Trafik Kazası Sonrası Maluliyet Heyet Raporu Nasıl ve Nereden Alınır? 2025 Rehberi",
+        "description": "Trafik kazası sonrası sigorta tazminatı almak için gerekli maluliyet (heyet) raporu nereden alınır? İyileşme süresi, gerekli evraklar ve yetkili hastaneler listesi bu rehberde.",
+        "image": "https://koptay.av.tr/images/articles/trafik-kazasi-heyet-raporu-nasil-alinir.jpg",
+        "datePublished": "2025-01-01T09:00:00+03:00",
+        "dateModified": "2025-12-31T18:30:00+03:00",
+        "author": {
+          "@type": "Person",
+          "name": "Av. Murat Can Koptay",
+          "url": "https://koptay.av.tr/ekibimiz"
+        },
+        "publisher": {
+          "@id": "https://koptay.av.tr/#organization"
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://koptay.av.tr/makale/trafik-kazasi-sonrasi-maluliyet-heyet-raporu-nasil-ve-nereden-alinir-2025-rehberi"
+        },
+        "keywords": "maluliyet raporu, heyet raporu, trafik kazası tazminat, engelli raporu, sigorta maluliyet"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Maluliyet raporu kazadan ne kadar süre sonra alınmalıdır?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Tıbbi olarak 'iyileşme süreci' (nekahat dönemi) tamamlanmadan alınan raporlar geçersiz sayılabilir veya düşük oranlı çıkabilir. Genellikle ortopedik yaralanmalarda kazadan en az 6 ay, nörolojik durumlarda ise 12 ay geçtikten sonra heyet raporuna başvurulması önerilir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Heyet raporu hangi hastanelerden alınır?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sigorta şirketleri ve mahkemeler nezdinde geçerli olması için raporun; tam teşekküllü Devlet Hastaneleri, Eğitim ve Araştırma Hastaneleri, Üniversite Hastanelerinin Adli Tıp Anabilim Dalları veya Adli Tıp Kurumu'ndan alınması gerekmektedir. Özel hastane raporları genellikle kabul edilmez."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Rapor almak için hangi evraklar gereklidir?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Başvuru için genellikle kaza tespit tutanağı, olay yeri fotoğrafları, ilk müdahale edildiği hastaneden alınan epikriz raporları, ameliyat notları, varsa MR/Röntgen görüntüleri ve kimlik belgesi gerekmektedir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Maluliyet raporu ücretli midir?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Eğer raporu bireysel olarak hastaneden talep ederseniz (engelli raporu vb. statüsünde değilse) hastane döner sermayesi tarafından belirlenen bir ücret talep edilebilir. Ancak dava aşamasında mahkeme sevki ile gidildiğinde ücret genellikle yargılama giderlerine dahil edilir."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "Adım Adım Trafik Kazası Maluliyet Raporu Alma Süreci",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Tedavi Sürecinin Tamamlanması",
+            "text": "Kazadan sonra kalıcı hasarın netleşmesi için tıbbi iyileşme sürecinin (ortalama 6-12 ay) tamamlanmasını bekleyin."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Evrakların Hazırlanması",
+            "text": "Epikriz raporları, kaza tutanağı, ameliyat notları ve kimlik belgenizi eksiksiz hazırlayın."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Yetkili Hastaneye Başvuru",
+            "text": "Sağlık Bakanlığı tarafından yetkilendirilmiş bir Eğitim Araştırma Hastanesi veya Üniversite Hastanesinin 'Sağlık Kurulu' (Heyet) birimine başvurun."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "Heyet Muayenesi",
+            "text": "Randevu gününde ilgili branş doktorlarına (Ortopedi, Nöroloji vb.) tek tek muayene olun ve son olarak Kurul karşısına çıkın."
+          }
+        ]
+      }
+    ]
   }
 };
 
