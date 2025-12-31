@@ -1053,6 +1053,114 @@ export const articleSchemas = {
         ]
       }
     ]
+  },
+
+  // =====================================================
+  // 2026 Avukatlık Asgari Ücret Tarifesi Rehberi
+  // =====================================================
+  "2026-avukatlik-asgari-ucret-tarifesi-detayli-analiz-ve-uygulama-rehberi": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://koptay.av.tr/#organization",
+        "name": "Koptay Hukuk Bürosu",
+        "url": "https://koptay.av.tr",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://koptay.av.tr/logo.png",
+          "caption": "Koptay Hukuk Bürosu"
+        }
+      },
+      {
+        "@type": "Article",
+        "headline": "2026 Avukatlık Asgari Ücret Tarifesi: Detaylı Analiz ve Uygulama Rehberi",
+        "description": "2026 yılı avukatlık asgari ücret tarifesi ne kadar oldu? Dava türlerine göre vekalet ücretleri, danışmanlık ücretleri ve icra takip ücretleri hakkında güncel rehber.",
+        "image": "https://koptay.av.tr/images/articles/2026-avukatlik-asgari-ucret-tarifesi.jpg",
+        "datePublished": "2026-01-01T00:00:00+03:00",
+        "dateModified": "2026-01-01T00:00:00+03:00",
+        "author": {
+          "@type": "Person",
+          "name": "Av. Murat Can Koptay",
+          "url": "https://koptay.av.tr/ekibimiz"
+        },
+        "publisher": {
+          "@id": "https://koptay.av.tr/#organization"
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://koptay.av.tr/makale/2026-avukatlik-asgari-ucret-tarifesi-detayli-analiz-ve-uygulama-rehberi"
+        },
+        "keywords": "avukatlık asgari ücret tarifesi 2026, vekalet ücreti hesaplama, avukat ücreti, dava masrafları, icra vekalet ücreti"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "2026 avukatlık asgari ücret tarifesi ne kadar arttı?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "2026 yılı Avukatlık Asgari Ücret Tarifesi, Türkiye Barolar Birliği tarafından belirlenerek Resmi Gazete'de yayımlanmıştır. Tarifede önceki yıla göre ortalama %35-40 oranında artış yapılmıştır."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Avukat ücretini kim öder?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Dava sonunda haklı çıkan tarafın avukatına, karşı tarafça 'nispi vekalet ücreti' ödenir. Ancak müvekkil ile avukat arasındaki sözleşmeye dayalı ücret (akdi vekalet ücreti) her halükarda müvekkil tarafından ödenir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Boşanma davası avukatlık ücreti 2026'da ne kadar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "2026 tarifesine göre anlaşmalı boşanma davaları için asgari ücret belirlenmiş olup, çekişmeli boşanma davalarında bu ücret daha yüksektir. Ayrıca nafaka, velayet ve mal paylaşımı gibi ek talepler ücrete eklenir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Avukat tarifenin altında ücret alabilir mi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hayır. Avukatlık Kanunu'na göre avukatlar, Türkiye Barolar Birliği tarafından belirlenen asgari ücret tarifesinin altında ücret kararlaştıramazlar. Bu kural hem avukatı hem de müvekkili koruma amacı taşır."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "Avukatlık Ücreti Nasıl Belirlenir?",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Dava Türünün Belirlenmesi",
+            "text": "Açılacak davanın türü (hukuk, ceza, idare, icra vb.) ve konusu belirlenerek ilgili tarife bölümüne bakılır."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Maktu veya Nispi Ücret Kontrolü",
+            "text": "Bazı davalar için sabit (maktu) ücret, bazıları için dava değerinin yüzdesi (nispi) ücret uygulanır. Hangi sistemin geçerli olduğu kontrol edilir."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Asgari Ücretin Hesaplanması",
+            "text": "Tarife üzerinden asgari ücret hesaplanır. Bu tutar, avukatın talep edebileceği en düşük ücrettir."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "Sözleşme ile Belirleme",
+            "text": "Avukat ve müvekkil, asgari ücretin altında kalmamak şartıyla karşılıklı anlaşarak ücreti belirler ve yazılı sözleşme imzalar."
+          }
+        ]
+      }
+    ]
   }
 };
 
