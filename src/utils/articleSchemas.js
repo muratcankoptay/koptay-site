@@ -831,6 +831,114 @@ export const articleSchemas = {
         ]
       }
     ]
+  },
+
+  // =====================================================
+  // Sigorta Tahkim Komisyonu Başvurusu 2026 Rehberi
+  // =====================================================
+  "sigorta-tahkim-komisyonu-basvurusu-ve-sureci": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://koptay.av.tr/#organization",
+        "name": "Koptay Hukuk Bürosu",
+        "url": "https://koptay.av.tr",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://koptay.av.tr/logo.png",
+          "caption": "Koptay Hukuk Bürosu"
+        }
+      },
+      {
+        "@type": "Article",
+        "headline": "Sigorta Tahkim Komisyonu Başvurusu ve Süreci: 2026 Güncel Rehber",
+        "description": "Sigorta şirketinden tazminatınızı alamadınız mı? Mahkemeden çok daha hızlı sonuçlanan Sigorta Tahkim Komisyonu başvuru süreci, ücretleri ve gerekli evraklar hakkında uzman avukat rehberi.",
+        "image": "https://koptay.av.tr/images/articles/sigorta-tahkim-komisyonu-basvuru-adimlari.jpg",
+        "datePublished": "2025-01-01T08:30:00+03:00",
+        "dateModified": "2025-12-31T20:15:00+03:00",
+        "author": {
+          "@type": "Person",
+          "name": "Av. Murat Can Koptay",
+          "url": "https://koptay.av.tr/ekibimiz"
+        },
+        "publisher": {
+          "@id": "https://koptay.av.tr/#organization"
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://koptay.av.tr/makale/sigorta-tahkim-komisyonu-basvurusu-ve-sureci"
+        },
+        "keywords": "sigorta tahkim komisyonu, tahkim başvurusu, sigorta tazminatı, hakem heyeti kararı, sigorta uyuşmazlığı, tahkim ücreti"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Sigorta Tahkim Komisyonu kararları kesin midir?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Belirli bir tutarın altındaki uyuşmazlıklarda (örneğin 2026 yılı için belirlenen alt sınır) Hakem Heyeti kararları kesindir. Bu tutarın üzerindeki kararlara karşı önce Komisyon nezdinde İtiraz Hakem Heyeti'ne, oradan da sonuç alınamazsa Temyiz (Yargıtay) yoluna gidilebilir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Tahkim başvurusu ne kadar sürede sonuçlanır?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sigorta Tahkim Komisyonu, mahkemelere göre çok daha hızlıdır. Kanunen dosya hakeme tevdi edildikten sonra en geç 4 ay içinde karar verilmesi gerekir. İtiraz süreçleri hariç ortalama 4-6 ay içinde sonuç alınmaktadır."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Başvuru ücreti ne kadardır?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Başvuru ücreti, uyuşmazlık konusu olan tazminat miktarına göre kademeli olarak değişir. Mahkeme harçlarına kıyasla çok daha düşük ve maktudur. Güncel 2026 tarifesi üzerinden hesaplanan ücret, başvuru sırasında Vakıfbank hesabına yatırılır."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Doğrudan komisyona başvurabilir miyim?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hayır. Komisyona başvurmadan önce mutlaka ilgili sigorta şirketine yazılı olarak başvurmanız ve talebinizin reddedildiğini belgelemeniz (veya 15 iş günü içinde cevap alamamanız) gerekmektedir. Bu 'dava şartı' niteliğindedir."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "Adım Adım Sigorta Tahkim Komisyonu Başvuru Süreci",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Sigorta Şirketine Başvuru",
+            "text": "Öncelikle ilgili sigorta şirketine yazılı (mail, iadeli taahhütlü posta veya KEP) başvuru yapın ve 15 iş günü bekleyin."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Evrakların Hazırlanması",
+            "text": "Olumsuz cevap aldıysanız; Başvuru Formu, sigortaya başvuru kanıtı, poliçe örneği, hasar evrakları ve kimlik fotokopisini hazırlayın."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Başvuru Ücretinin Yatırılması",
+            "text": "Uyuşmazlık tutarına göre hesaplanan başvuru ücretini Komisyonun banka hesabına yatırın ve dekontu saklayın."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "Dosyanın Gönderilmesi",
+            "text": "Tüm evrakları taratarak online sistem üzerinden (varsa) veya fiziki olarak İstanbul'daki Komisyon merkezine kargo/elden teslim yoluyla iletin."
+          }
+        ]
+      }
+    ]
   }
 };
 
