@@ -78,15 +78,29 @@ const Hero = () => {
               <div className="flex flex-col sm:flex-row justify-start space-y-4 sm:space-y-0 sm:space-x-6">
                 <button 
                   onClick={scrollToContact}
-                  className="bg-lawSecondary px-8 py-4 font-sans font-medium text-white uppercase tracking-wide hover:bg-lawPrimary transition-all duration-300 transform hover:scale-105"
+                  className="group relative bg-lawSecondary px-8 py-4 font-sans font-medium text-white uppercase tracking-wide overflow-hidden transition-all duration-300 transform hover:scale-[1.02]"
                 >
-                  İletişime Geç
+                  {/* Shine effect on hover */}
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
+                  <span className="relative flex items-center justify-center gap-2">
+                    <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    İletişime Geç
+                  </span>
                 </button>
                 <button 
                   onClick={scrollToServices}
-                  className="border-2 border-white px-8 py-4 font-sans font-medium text-white uppercase tracking-wide hover:bg-white hover:text-lawPrimary transition-all duration-300"
+                  className="group relative border-2 border-white px-8 py-4 font-sans font-medium text-white uppercase tracking-wide overflow-hidden transition-all duration-300"
                 >
-                  Hizmetlerimizi İncele
+                  {/* Background fill on hover */}
+                  <span className="absolute inset-0 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                  <span className="relative flex items-center justify-center gap-2 group-hover:text-lawPrimary transition-colors duration-300">
+                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                    Hizmetlerimizi İncele
+                  </span>
                 </button>
               </div>
             </div>
