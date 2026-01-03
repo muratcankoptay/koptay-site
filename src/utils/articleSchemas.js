@@ -1161,6 +1161,80 @@ export const articleSchemas = {
         ]
       }
     ]
+  },
+
+  // =====================================================
+  // İlave Tediye Alacak Tahsili ve Dava Süreci Makalesi
+  // =====================================================
+  "ilave-tediye-alacak-tahsili-ve-dava-sureci-2026": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "İlave Tediye Alacaklarının Tahsili ve Dava Süreci (2026)",
+        "description": "Kamu işçilerinin eksik ödenen ilave tediye alacakları için izlemesi gereken hukuki yollar, zamanaşımı süreleri ve arabuluculuk süreci.",
+        "image": [
+          "https://koptay.av.tr/uploads/ilave-tediye-hukuki-surec.jpg"
+        ],
+        "datePublished": "2026-01-03T16:00:00+03:00",
+        "dateModified": "2026-01-03T16:00:00+03:00",
+        "author": {
+          "@type": "Person",
+          "name": "Av. Murat Can Koptay",
+          "url": "https://koptay.av.tr/avukat/murat-can-koptay"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Koptay Hukuk Bürosu",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://koptay.av.tr/logo.svg"
+          }
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "İlave tediye alacaklarında zamanaşımı süresi ne kadardır?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "İlave tediye, İş Kanunu ve Borçlar Kanunu kapsamında ücret niteliğinde olduğundan 5 yıllık zamanaşımı süresine tabidir. Dava tarihinden geriye doğru 5 yıl içindeki alacaklar talep edilebilir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Doğrudan İş Mahkemesine dava açılabilir mi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hayır. 7036 sayılı İş Mahkemeleri Kanunu uyarınca, ücret alacaklarına ilişkin davalarda dava şartı olarak öncelikle arabuluculuğa başvurulması zorunludur."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "name": "İlave Tediye Alacakları İçin Hukuki Süreç",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Hukuki Değerlendirme",
+            "text": "Maaş bordrolarının ve hizmet dökümünün incelenerek alacak miktarının ve hukuki durumun tespit edilmesi."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Arabuluculuk Başvurusu",
+            "text": "Uyuşmazlığın çözümü için ilgili kuruma karşı zorunlu arabuluculuk sürecinin başlatılması."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Yargı Yolu",
+            "text": "Arabuluculuk sürecinde anlaşma sağlanamaması halinde, İş Mahkemesi nezdinde alacak davasının açılması."
+          }
+        ]
+      }
+    ]
   }
 };
 
