@@ -35,3 +35,7 @@ src/BickLawClone/
 *.zip
 Attached HTML and CSS Context.txt
 .vercel
+
+# Analytics data (geçici veriler)
+analytics-data.json
+analytics-data/
