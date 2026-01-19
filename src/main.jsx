@@ -5,6 +5,15 @@ import { HelmetProvider } from 'react-helmet-async'
 import App from './App.jsx'
 import './index.css'
 import { initWebVitals } from './utils/webVitals'
+import { initAnalytics } from './utils/analyticsTracker.js'
+
+// Gerçek zamanlı analytics tracking'i başlat (admin paneli hariç)
+if (!window.location.pathname.startsWith('/admin')) {
+  setTimeout(() => {
+    initAnalytics()
+    console.log('📊 Analytics tracking aktif - Google Analytics alternatifi çalışıyor')
+  }, 1000)
+}
 
 // Unregister any existing service workers to prevent caching issues
 if ('serviceWorker' in navigator) {

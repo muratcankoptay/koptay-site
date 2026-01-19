@@ -8,7 +8,12 @@ import {
   Home,
   Menu,
   X,
-  Settings
+  Settings,
+  BarChart3,
+  Users,
+  Globe,
+  Activity,
+  MessageSquare
 } from 'lucide-react'
 
 const AdminLayout = ({ children }) => {
@@ -23,9 +28,15 @@ const AdminLayout = ({ children }) => {
 
   const menuItems = [
     { path: '/admin', icon: Home, label: 'Dashboard', exact: true },
+    { path: '/admin/analytics', icon: BarChart3, label: 'Analytics' },
     { path: '/admin/makaleler', icon: FileText, label: 'Makaleler' },
     { path: '/admin/makale/yeni', icon: PlusCircle, label: 'Yeni Makale' },
     { path: '/admin/gorseller', icon: Image, label: 'Görseller' },
+    { path: '/admin/kullanicilar', icon: Users, label: 'Kullanıcılar' },
+    { path: '/admin/yorumlar', icon: MessageSquare, label: 'Yorumlar' },
+    { path: '/admin/seo', icon: Globe, label: 'SEO Yönetimi' },
+    { path: '/admin/aktivite', icon: Activity, label: 'Aktivite Log' },
+    { path: '/admin/ayarlar', icon: Settings, label: 'Ayarlar' },
   ]
 
   const isActive = (path, exact = false) => {
@@ -72,16 +83,7 @@ const AdminLayout = ({ children }) => {
         </nav>
 
         {/* Footer */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-700">
-          <a
-            href="/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition-colors mb-2"
-          >
-            <Home size={20} />
-            {sidebarOpen && <span>Siteyi Görüntüle</span>}
-          </a>
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-700 space-y-2">
           <button
             onClick={handleLogout}
             className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-red-900/30 hover:text-red-300 rounded-lg transition-colors"

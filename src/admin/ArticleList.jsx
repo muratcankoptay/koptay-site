@@ -11,8 +11,7 @@ import {
   Filter,
   AlertCircle
 } from 'lucide-react'
-
-const API_URL = 'http://localhost:3002/api'
+import API_CONFIG from '../config/api'
 
 const ArticleList = () => {
   const [articles, setArticles] = useState([])
@@ -28,11 +27,11 @@ const ArticleList = () => {
 
   const fetchArticles = async () => {
     try {
-      const res = await fetch(`${API_URL}/articles`)
-      const data = await res.json()
+      const data = await API_CONFIG.fetchAPI('/articles')
       setArticles(data.data || [])
     } catch (error) {
       console.error('Fetch error:', error)
+      setArticles([])
     } finally {
       setLoading(false)
     }
@@ -42,7 +41,7 @@ const ArticleList = () => {
     if (!deleteModal.article) return
 
     try {
-      const res = await fetch(`${API_URL}/articles/${deleteModal.article.id}`, {
+      const res = await fetch(`${API_CONFIG.ADMIN_API}/articles/${deleteModal.article.id}`, {
         method: 'DELETE'
       })
       

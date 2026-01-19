@@ -35,6 +35,12 @@ const ArticleList = lazy(() => import('./admin/ArticleList'))
 const ArticleEditor = lazy(() => import('./admin/ArticleEditor'))
 const ImageManager = lazy(() => import('./admin/ImageManager'))
 const AdminProtectedRoute = lazy(() => import('./admin/AdminProtectedRoute'))
+const Analytics = lazy(() => import('./admin/Analytics'))
+const Users = lazy(() => import('./admin/Users'))
+const SEOManager = lazy(() => import('./admin/SEOManager'))
+const ActivityLog = lazy(() => import('./admin/ActivityLog'))
+const Settings = lazy(() => import('./admin/Settings'))
+const Comments = lazy(() => import('./admin/Comments'))
 
 // Loading component
 const PageLoader = () => (
@@ -79,9 +85,15 @@ function App() {
         <Routes>
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminLayoutWrapper><Dashboard /></AdminLayoutWrapper>} />
+          <Route path="/admin/analytics" element={<AdminLayoutWrapper><Analytics /></AdminLayoutWrapper>} />
           <Route path="/admin/makaleler" element={<AdminLayoutWrapper><ArticleList /></AdminLayoutWrapper>} />
           <Route path="/admin/makale/:id" element={<AdminLayoutWrapper><ArticleEditor /></AdminLayoutWrapper>} />
           <Route path="/admin/gorseller" element={<AdminLayoutWrapper><ImageManager /></AdminLayoutWrapper>} />
+          <Route path="/admin/kullanicilar" element={<AdminLayoutWrapper><Users /></AdminLayoutWrapper>} />
+          <Route path="/admin/yorumlar" element={<AdminLayoutWrapper><Comments /></AdminLayoutWrapper>} />
+          <Route path="/admin/seo" element={<AdminLayoutWrapper><SEOManager /></AdminLayoutWrapper>} />
+          <Route path="/admin/aktivite" element={<AdminLayoutWrapper><ActivityLog /></AdminLayoutWrapper>} />
+          <Route path="/admin/ayarlar" element={<AdminLayoutWrapper><Settings /></AdminLayoutWrapper>} />
         </Routes>
       </Suspense>
     )
