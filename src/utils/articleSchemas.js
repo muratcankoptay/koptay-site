@@ -1235,6 +1235,72 @@ export const articleSchemas = {
         ]
       }
     ]
+  },
+
+  // =====================================================
+  // Araç Mahrumiyet Tazminatı Makalesi
+  // =====================================================
+  "arac-mahrumiyet-tazminati-hesaplama-sartlari-2026": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://koptay.av.tr/makale/arac-mahrumiyet-tazminati-hesaplama-sartlari-2026"
+        },
+        "headline": "Araç Mahrumiyet Tazminatı Nedir? Kaza Sonrası Araçsız Kalınan Günlerin Bedeli (2026)",
+        "description": "Trafik kazası sonrası aracın onarım süresince kullanılamamasından doğan zarar nasıl tazmin edilir? Araç mahrumiyet tazminatı hesaplama ve 2026 güncel kriterleri.",
+        "image": "https://koptay.av.tr/images/articles/kaza-sonrasi-arac-mahrumiyet-bedeli-2026.jpg",
+        "author": {
+          "@type": "Person",
+          "name": "Av. Murat Can Koptay",
+          "url": "https://koptay.av.tr/ekibimiz"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Koptay Hukuk Bürosu",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://koptay.av.tr/logo.png"
+          }
+        },
+        "datePublished": "2026-01-20",
+        "dateModified": "2026-01-20",
+        "articleSection": "Sigorta Hukuku",
+        "keywords": "araç mahrumiyet tazminatı, ikame araç bedeli, araç mahrumiyet tazminatı hesaplama, kaza sonrası araçsız kalma, trafik kazası tazminat",
+        "inLanguage": "tr-TR"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Araç mahrumiyet tazminatı sigorta şirketinden istenir mi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Standart trafik sigortası (ZMSS) genellikle bu zararı karşılamaz. Tazminat, kusurlu araç sürücüsü veya ruhsat sahibinden talep edilir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "İkame araç faturası sunmak zorunlu mu?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hayır, Yargıtay'ın güncel kararlarına göre aracın serviste kaldığı sürenin tespiti tazminat için yeterlidir; fatura sunma zorunluluğu yoktur."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Araç mahrumiyet tazminatı zamanaşımı süresi ne kadardır?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kaza tarihinden itibaren 2 yıllık zamanaşımı süresi bulunmaktadır."
+            }
+          }
+        ]
+      }
+    ]
   }
 };
 
