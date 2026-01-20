@@ -236,7 +236,7 @@ const MakalelerPage = () => {
             Hukuki Danışmanlığa İhtiyacınız mı Var?
           </h3>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Uzman avukat kadromuzla ücretsiz ön görüşme için hemen iletişime geçin.
+            Uzman avukat kadromuzla görüşmek için hemen iletişime geçin.
           </p>
           <Link 
             to="/iletisim"

@@ -202,7 +202,7 @@ const FloatingContact = () => {
           <div className="px-5 py-3 bg-gray-50 border-t border-gray-100">
             <div className="flex items-center justify-between text-xs text-gray-500">
               <span>Pzt-Cuma: 09:00 - 18:00</span>
-              <span className="text-lawSecondary font-medium">Ücretsiz Ön Görüşme</span>
+              <span className="text-lawSecondary font-medium">Profesyonel Hizmet</span>
             </div>
           </div>
         </div>

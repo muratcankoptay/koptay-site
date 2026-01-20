@@ -130,7 +130,7 @@ export default function AracDegerKaybiPage() {
     <>
       <SEO
         title="Araç Değer Kaybı Hesaplama 2025 | Bilirkişi Raporu Uyumlu | Koptay Hukuk"
-        description="Trafik kazası sonrası araç değer kaybı hesaplama aracı. 2025 Sigorta Genel Şartları formülü (Baz Katsayı %19), A1-A4 hasar sınıflandırması, Yargıtay içtihatlarına uygun detaylı hesaplama. Ücretsiz araç değer kaybı hesaplayıcı."
+        description="Trafik kazası sonrası araç değer kaybı hesaplama aracı. 2025 Sigorta Genel Şartları formülü (Baz Katsayı %19), A1-A4 hasar sınıflandırması, Yargıtay içtihatlarına uygun detaylı hesaplama. Profesyonel araç değer kaybı hesaplayıcı."
         keywords="araç değer kaybı hesaplama, araç değer kaybı 2025, trafik kazası değer kaybı, araç hasar değer kaybı, bilirkişi raporu araç değer kaybı, sigorta değer kaybı hesaplama, araç ekspertiz değer kaybı, A1 A2 A3 A4 hasar, yargıtay araç değer kaybı, araç değer kaybı formülü, trafik sigortası değer kaybı, kasko değer kaybı, araç değer kaybı tazminat"
         url="/hesaplama-araclari/arac-deger-kaybi"
       />

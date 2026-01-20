@@ -73,8 +73,8 @@ const IletisimPage = () => {
     <>
       <SEO 
         title="İletişim - Koptay Hukuk Bürosu"
-        description="Ankara'da avukatlık hizmeti için bizimle iletişime geçin. Uzman avukat kadromuzla ücretsiz ön görüşme imkanı."
-        keywords="avukat ankara, hukuk bürosu ankara, ücretsiz ön görüşme, aziziye mahallesi avukat"
+        description="Ankara'da avukatlık hizmeti için bizimle iletişime geçin. Uzman avukat kadromuzla yanınızdayız."
+        keywords="avukat ankara, hukuk bürosu ankara, profesyonel hizmet, aziziye mahallesi avukat"
         url="/iletisim"
       />
 
@@ -85,7 +85,7 @@ const IletisimPage = () => {
             İletişim
           </h1>
           <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
-            Hukuki sorunlarınız için ücretsiz ön görüşme talebinde bulunun
+            Hukuki sorunlarınız için bizimle iletişime geçin
           </p>
         </div>
       </section>
@@ -223,7 +223,7 @@ const IletisimPage = () => {
                     required
                     rows={6}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawPrimary focus:border-transparent resize-none"
-                    placeholder="Hukuki sorunuzu veya ücretsiz ön görüşme talebinizi detaylı olarak açıklayın..."
+                    placeholder="Hukuki sorunuzu detaylı olarak açıklayın..."
                   />
                 </div>
 
@@ -318,9 +318,9 @@ const IletisimPage = () => {
                 <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-xl">
                   <Award className="w-6 h-6 text-lawPrimary mt-1" />
                   <div>
-                    <h3 className="font-serif text-xl text-lawDark mb-2">Ücretsiz Ön Görüşme</h3>
+                    <h3 className="font-serif text-xl text-lawDark mb-2">Profesyonel Değerlendirme</h3>
                     <p className="text-gray-700">
-                      İlk görüşmeleriniz ücretsizdir. Hukuki sorunlarınızı değerlendirip size en iyi çözümü sunuyoruz.
+                      Hukuki sorunlarınızı değerlendirip size en iyi çözümü sunuyoruz.
                     </p>
                   </div>
                 </div>

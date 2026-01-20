@@ -344,7 +344,7 @@ const HesaplamaAraclariPage = () => {
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
               <p className="text-yellow-800 text-sm">
                 <strong>Not:</strong> Bedeni hasar hesaplamaları karmaşık olup, her vaka özeldir. 
-                Bu hesaplama sadece tahmini bir değer verir. Kesin değerlendirme için ücretsiz ön görüşme talebinde bulunabilirsiniz.
+                Bu hesaplama sadece tahmini bir değer verir. Kesin değerlendirme için bizimle iletişime geçebilirsiniz.
               </p>
             </div>
             
@@ -374,7 +374,7 @@ const HesaplamaAraclariPage = () => {
     <>
       <SEO 
         title="Hesaplama Araçları - Koptay Hukuk Bürosu"
-        description="İnfaz yatar, tazminat, değer kaybı ve bedeni hasar hesaplama araçları. Ücretsiz hukuki hesaplama araçları ile haklarınızı öğrenin."
+        description="İnfaz yatar, tazminat, değer kaybı ve bedeni hasar hesaplama araçları. Profesyonel hukuki hesaplama araçları ile haklarınızı öğrenin."
         keywords="infaz yatar hesaplama, tazminat hesaplama, değer kaybı hesaplama, bedeni hasar hesaplama, hukuki hesaplama araçları"
         url="/hesaplama-araclari"
       />
@@ -388,7 +388,7 @@ const HesaplamaAraclariPage = () => {
           </h1>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
             Hukuki süreçlerinizde ihtiyaç duyabileceğiniz hesaplamaları kolayca yapın. 
-            Ücretsiz hesaplama araçlarımızla haklarınızı öğrenin.
+            Gelişmiş hesaplama araçlarımızla haklarınızı öğrenin.
           </p>
         </div>
       </section>
@@ -443,7 +443,7 @@ const HesaplamaAraclariPage = () => {
             </p>
             <p className="text-gray-700">
               Kesin hesaplamalar ve hukuki süreçler için mutlaka uzman avukat desteği alınız. 
-              Ücretsiz ön görüşme için bizimle iletişime geçebilirsiniz.
+              Detaylı bilgi için bizimle iletişime geçebilirsiniz.
             </p>
           </div>
         </div>

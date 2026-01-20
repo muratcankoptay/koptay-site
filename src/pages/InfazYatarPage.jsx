@@ -534,7 +534,7 @@ const InfazYatarPage = () => {
     <>
       <SEO 
         title="İnfaz Yatar Hesaplama: Cezaevinde Ne Kadar Kalınır? 2025 Güncel Rehber"
-        description="İnfaz yatar hesaplama rehberi: Cezaevinde ne kadar kalınır, koşullu salıverilme tarihi nasıl hesaplanır? Ücretsiz infaz hesaplama aracı ve adım adım rehber. CGTİK m.107 hükümlerine göre."
+        description="İnfaz yatar hesaplama rehberi: Cezaevinde ne kadar kalınır, koşullu salıverilme tarihi nasıl hesaplanır? Gelişmiş infaz hesaplama aracı ve adım adım rehber. CGTİK m.107 hükümlerine göre."
         keywords="infaz yatar hesaplama, cezaevinde ne kadar kalınır, infaz süresi hesaplama, koşullu salıverilme hesaplama, denetimli serbestlik, CGTİK m.107, infaz hesaplayıcısı, ceza süresi hesaplama, tahliye tarihi hesaplama"
         url="/hesaplama-araclari/infaz-yatar"
         canonical="https://koptay.com/hesaplama-araclari/infaz-yatar"
@@ -546,7 +546,7 @@ const InfazYatarPage = () => {
           "@context": "https://schema.org",
           "@type": "Article",
           "headline": "İnfaz Yatar Hesaplama: Cezaevinde Ne Kadar Kalınır? 2025 Güncel Rehber",
-          "description": "İnfaz yatar hesaplama rehberi: Cezaevinde ne kadar kalınır, koşullu salıverilme tarihi nasıl hesaplanır? Detaylı rehber ve ücretsiz hesaplama aracı.",
+          "description": "İnfaz yatar hesaplama rehberi: Cezaevinde ne kadar kalınır, koşullu salıverilme tarihi nasıl hesaplanır? Detaylı rehber ve gelişmiş hesaplama aracı.",
           "image": "https://koptay.com/images/infaz-yatar-hesaplama.jpg",
           "author": {
             "@type": "Organization",
@@ -1089,7 +1089,7 @@ const InfazYatarPage = () => {
                     to="/iletisim"
                     className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold text-center transition-colors"
                   >
-                    📞 Ücretsiz Ön Görüşme
+                    📞 İletişime Geçin
                   </Link>
                   <Link 
                     to="/makaleler"
@@ -2255,7 +2255,7 @@ const InfazYatarPage = () => {
               </h2>
               <p className="text-xl mb-2 leading-relaxed">
                 İnfaz süreci karmaşık ve stresli olabilir. <strong>20+ yıllık deneyimli</strong> ceza avukatlarımızdan 
-                ücretsiz ön görüşme alın.
+                hukuki danışmanlık alın.
               </p>
               <p className="text-lg opacity-90">
                 📞 7/24 İletişim | 🏛️ Tüm Mahkemelerde Temsil | ⚖️ Başarı Odaklı Çözümler
@@ -2296,7 +2296,7 @@ const InfazYatarPage = () => {
                 className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 inline-flex items-center justify-center shadow-lg"
               >
                 <Phone className="w-6 h-6 mr-2" />
-                Ücretsiz Ön Görüşme
+                Hemen Arayın
               </Link>
               <Link 
                 to="/ekibimiz"

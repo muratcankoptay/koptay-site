@@ -58,7 +58,7 @@ const Hero = () => {
                   </div>
                   <div>
                     <p className="text-2xl font-medium">0530 711 18 64</p>
-                    <p className="text-sm text-white/70">Ücretsiz Ön Görüşme</p>
+                    <p className="text-sm text-white/70">Hemen Arayın</p>
                   </div>
                 </a>
                 <div className="flex items-center gap-3 text-white/80">

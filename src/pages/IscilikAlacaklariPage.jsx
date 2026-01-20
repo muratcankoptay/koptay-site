@@ -157,7 +157,7 @@ const IscilikAlacaklariPage = () => {
         <div className="min-h-screen bg-gray-50 pt-32 pb-12 px-4 sm:px-6 lg:px-8">
             <Helmet>
                 <title>İşçilik Alacakları Hesaplama - Kıdem, İhbar, İzin, Mesai | Koptay Hukuk</title>
-                <meta name="description" content="Kıdem tazminatı, ihbar tazminatı, yıllık izin ücreti ve fazla mesai alacaklarınızı güncel oranlarla hesaplayın. Ücretsiz işçilik alacakları hesaplama aracı." />
+                <meta name="description" content="Kıdem tazminatı, ihbar tazminatı, yıllık izin ücreti ve fazla mesai alacaklarınızı güncel oranlarla hesaplayın. Profesyonel işçilik alacakları hesaplama aracı." />
             </Helmet>
 
             <div className="max-w-4xl mx-auto">

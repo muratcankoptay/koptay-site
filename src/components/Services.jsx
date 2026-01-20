@@ -210,7 +210,7 @@ const Services = () => {
             Hukuki Danışmanlığa İhtiyacınız mı Var?
           </h3>
           <p className="text-xl mb-8 font-sans max-w-2xl mx-auto">
-            Uzman avukat kadromuzla ücretsiz ön görüşme için hemen iletişime geçin.
+            Uzman avukat kadromuzla görüşmek için hemen iletişime geçin.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button 

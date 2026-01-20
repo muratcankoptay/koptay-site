@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async'
 
 const SEO = ({ 
-  title = 'Koptay Hukuk Bürosu - Ücretsiz Ön Görüşme',
+  title = 'Koptay Hukuk Bürosu - Profesyonel Avukatlık Hizmetleri',
   description = 'Koptay Hukuk Bürosu olarak 15+ yıllık deneyimimizle İş Hukuku, Ticaret Hukuku, Aile Hukuku ve daha birçok alanda profesyonel avukatlık hizmeti sunuyoruz.',
-  keywords = 'avukat, hukuk bürosu, iş hukuku, ticaret hukuku, aile hukuku, ceza hukuku, gayrimenkul hukuku, ücretsiz ön görüşme, ankara avukat',
+  keywords = 'avukat, hukuk bürosu, iş hukuku, ticaret hukuku, aile hukuku, ceza hukuku, gayrimenkul hukuku, ankara avukat, hukuki danışmanlık',
   image = '/images/hero.jpg',
   url = 'https://koptay.av.tr',
   type = 'website',
