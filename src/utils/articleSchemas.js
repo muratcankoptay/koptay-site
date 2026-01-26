@@ -1301,6 +1301,83 @@ export const articleSchemas = {
         ]
       }
     ]
+  },
+
+  // =====================================================
+  // Pert Araç Rayiç Değer Tespiti ve Tahkim İtiraz Rehberi 2026
+  // =====================================================
+  "pert-arac-rayic-deger-tespiti-tahkim-itiraz-rehberi-2026": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://koptay.av.tr/#organization",
+        "name": "Koptay Hukuk Bürosu",
+        "url": "https://koptay.av.tr",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://koptay.av.tr/logo.png",
+          "caption": "Koptay Hukuk Bürosu"
+        }
+      },
+      {
+        "@type": "Article",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://koptay.av.tr/makale/pert-arac-rayic-deger-tespiti-tahkim-itiraz-rehberi-2026"
+        },
+        "headline": "Pert Araçlarda Rayiç Değer Uyuşmazlığı Rehberi: 2026 Güncel Piyasa ve Tahkim Süreci",
+        "description": "2026 perspektifinde pert araç uyuşmazlıkları: Sigorta şirketlerinin düşük rayiç bedel tekliflerine karşı tam tazminat alma yolları, sovtaj (hurda) yönetimi ve Sigorta Tahkim Komisyonu başvuru rehberi.",
+        "image": "https://koptay.av.tr/images/articles/pert-arac-rayic-deger-uyusmazligi-2026.jpg",
+        "author": {
+          "@type": "Person",
+          "name": "Av. Murat Can Koptay",
+          "url": "https://koptay.av.tr/ekibimiz"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Koptay Hukuk Bürosu",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://koptay.av.tr/logo.png"
+          }
+        },
+        "datePublished": "2026-01-26",
+        "dateModified": "2026-01-26",
+        "articleSection": "Sigorta Hukuku",
+        "keywords": "pert araç rayiç değer, sigorta tahkim başvurusu 2026, araç değer tespiti uyuşmazlığı, pert araç tazminatı itiraz, kasko pert ödemesi hesaplama, sovtaj bedeli nedir, bakiye pert bedeli davası, araç mahrumiyeti tazminatı",
+        "inLanguage": "tr-TR"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Sigorta şirketinin pert araç teklifi neden gerçek piyasa değerinin altında kalır?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sigorta şirketleri genellikle TSB Kasko Değer Listesi'ni baz alır. 2026 yılındaki %11,2'lik piyasa artışları nedeniyle bu listeler güncel ilanların gerisinde kalmaktadır."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pert araçta sovtaj mahsubuna itiraz edebilir miyim?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Evet. Sigortalı aracı sigorta şirketine terk ederek piyasa değerinin tamamını talep edebilir. Sigortalı hurda satmaya zorlanamaz."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "2026 yılı Sigorta Tahkim başvuru ücreti ne kadardır?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "85.001 TL ve üzerindeki uyuşmazlıklarda talep edilen tutarın %1,8'i oranında başvuru ücreti yatırılmaktadır."
+            }
+          }
+        ]
+      }
+    ]
   }
 };
 
