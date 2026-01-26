@@ -1,0 +1,30 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "team": "Our Team",
+    "tools": "Calculators",
+    "articles": "Articles",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Legal Consulting",
+    "subtitle": "Professional legal services",
+    "cta": "Book Appointment"
+  },
+  "common": {
+    "readMore": "Read More",
+    "contactUs": "Contact Us",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address"
+  },
+  "language": {
+    "tr": "Türkçe",
+    "en": "English",
+    "ar": "العربية",
+    "uk": "Українська",
+    "ru": "Русский",
+    "select": "Select Language"
+  }
+}
