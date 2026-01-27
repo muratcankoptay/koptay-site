@@ -18,12 +18,14 @@ import {
   HeartHandshake,
   BookOpen,
   Clock,
-  User
+  User,
+  Eye
 } from 'lucide-react'
 
 import SEO from '../components/SEO'
 import Hero from '../components/Hero'
 import { api, formatDate } from '../utils/api'
+import { getAllArticleViews } from '../services/articleViewsService'
 
 const Home = () => {
   const [featuredArticles, setFeaturedArticles] = useState([])
@@ -32,15 +34,26 @@ const Home = () => {
   useEffect(() => {
     const fetchFeaturedArticles = async () => {
       try {
-        const response = await api.getArticles()
-        if (response.success) {
+        // Paralel olarak makaleleri ve view sayılarını çek
+        const [articlesResponse, viewsData] = await Promise.all([
+          api.getArticles(),
+          getAllArticleViews()
+        ])
+        
+        if (articlesResponse.success) {
+          // View sayılarını makalelere ekle
+          const articlesWithViews = articlesResponse.data.map(article => ({
+            ...article,
+            views: viewsData[article.slug] || article.views || 0
+          }))
+          
           // Get featured articles or first 3 articles
-          const featured = response.data
+          const featured = articlesWithViews
             .filter(article => article.featured)
             .slice(0, 3)
           
           // If no featured articles, get first 3
-          const articles = featured.length > 0 ? featured : response.data.slice(0, 3)
+          const articles = featured.length > 0 ? featured : articlesWithViews.slice(0, 3)
           setFeaturedArticles(articles)
         }
       } catch (error) {
@@ -267,8 +280,9 @@ const Home = () => {
 
                     {/* View Count & Read More */}
                     <div className="flex items-center justify-between">
-                      <div className="text-sm text-gray-500">
-                        {article.views} görüntülenme
+                      <div className="flex items-center text-sm text-gray-500">
+                        <Eye className="w-4 h-4 mr-1" />
+                        {article.views?.toLocaleString('tr-TR') || 0} görüntülenme
                       </div>
                       <Link
                         to={`/makaleler/${article.slug}`}

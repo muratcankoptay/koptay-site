@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Search, Filter, BookOpen, TrendingUp, Clock, Eye } from 'lucide-react'
 import { api } from '../utils/api'
+import { getAllArticleViews } from '../services/articleViewsService'
 import SEO from '../components/SEO'
 import ArticleCard from '../components/ArticleCard'
 
@@ -12,6 +13,7 @@ const ArticlesPage = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('Tümü')
   const [sortBy, setSortBy] = useState('latest')
+  const [articleViews, setArticleViews] = useState({})
 
   const categories = [
     'Tümü',
@@ -31,22 +33,35 @@ const ArticlesPage = () => {
   ]
 
   useEffect(() => {
-    const fetchArticles = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true)
-        const response = await api.getArticles()
-        if (response.success) {
-          setArticles(response.data)
-          setFilteredArticles(response.data)
+        
+        // Paralel olarak makaleleri ve view sayılarını çek
+        const [articlesResponse, viewsData] = await Promise.all([
+          api.getArticles(),
+          getAllArticleViews()
+        ])
+        
+        if (articlesResponse.success) {
+          // View sayılarını makalelere ekle
+          const articlesWithViews = articlesResponse.data.map(article => ({
+            ...article,
+            views: viewsData[article.slug] || article.views || 0
+          }))
+          setArticles(articlesWithViews)
+          setFilteredArticles(articlesWithViews)
         }
+        
+        setArticleViews(viewsData)
       } catch (error) {
-        console.error('Error fetching articles:', error)
+        console.error('Error fetching data:', error)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchArticles()
+    fetchData()
   }, [])
 
   useEffect(() => {

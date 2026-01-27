@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Calendar, Clock, User, ArrowLeft, Share2, Facebook, Twitter, Linkedin } from 'lucide-react'
+import { Calendar, Clock, User, ArrowLeft, Share2, Facebook, Twitter, Linkedin, Eye } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { marked } from 'marked'
 import { api, formatDate } from '../utils/api'
 import { optimizeImage, generateSrcSet, generateSizes } from '../utils/imageOptimizer'
 import { getCustomArticleSchema, hasCustomSchema } from '../utils/articleSchemas'
+import { incrementArticleViews, getArticleViews } from '../services/articleViewsService'
 import SEO from '../components/SEO'
 import ArticleCard from '../components/ArticleCard'
 
@@ -109,6 +110,22 @@ const ArticlePage = () => {
   const [relatedArticles, setRelatedArticles] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [viewCount, setViewCount] = useState(0)
+
+  // Görüntülenme sayısını artır (sayfa yüklendiğinde bir kez)
+  useEffect(() => {
+    if (slug) {
+      // Görüntülenmeyi artır ve yeni sayıyı al
+      incrementArticleViews(slug).then(newViews => {
+        if (newViews !== null) {
+          setViewCount(newViews)
+        } else {
+          // Zaten sayıldıysa mevcut sayıyı getir
+          getArticleViews(slug).then(views => setViewCount(views))
+        }
+      })
+    }
+  }, [slug])
 
   useEffect(() => {
     const fetchArticle = async () => {

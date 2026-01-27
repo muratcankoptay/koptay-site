@@ -4,7 +4,7 @@ import { ExternalLink, Shield, FileText, Bell, CreditCard, Lock } from 'lucide-r
 
 const MuvekkilPaneliPage = () => {
   // Harici panel URL'i
-  const PANEL_URL = 'https://muvekkil-frontend.fly.dev/login'
+  const PANEL_URL = 'https://muvekkil-paneli.vercel.app/login'
 
   // Otomatik yönlendirme (isteğe bağlı - 5 saniye sonra)
   useEffect(() => {
