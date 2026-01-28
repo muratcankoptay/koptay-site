@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Search, Filter, BookOpen, TrendingUp, Clock, Eye } from 'lucide-react'
+import { Search, Filter, BookOpen } from 'lucide-react'
 import { api } from '../utils/api'
-import { getAllArticleViews } from '../services/articleViewsService'
 import SEO from '../components/SEO'
 import ArticleCard from '../components/ArticleCard'
 
@@ -13,7 +12,6 @@ const ArticlesPage = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('Tümü')
   const [sortBy, setSortBy] = useState('latest')
-  const [articleViews, setArticleViews] = useState({})
 
   const categories = [
     'Tümü',
@@ -27,9 +25,7 @@ const ArticlesPage = () => {
 
   const sortOptions = [
     { value: 'latest', label: 'En Yeni' },
-    { value: 'oldest', label: 'En Eski' },
-    { value: 'mostViewed', label: 'En Çok Görüntülenen' },
-    { value: 'readTime', label: 'Okuma Süresine Göre' }
+    { value: 'oldest', label: 'En Eski' }
   ]
 
   useEffect(() => {
@@ -37,23 +33,12 @@ const ArticlesPage = () => {
       try {
         setLoading(true)
         
-        // Paralel olarak makaleleri ve view sayılarını çek
-        const [articlesResponse, viewsData] = await Promise.all([
-          api.getArticles(),
-          getAllArticleViews()
-        ])
+        const articlesResponse = await api.getArticles()
         
         if (articlesResponse.success) {
-          // View sayılarını makalelere ekle
-          const articlesWithViews = articlesResponse.data.map(article => ({
-            ...article,
-            views: viewsData[article.slug] || article.views || 0
-          }))
-          setArticles(articlesWithViews)
-          setFilteredArticles(articlesWithViews)
+          setArticles(articlesResponse.data)
+          setFilteredArticles(articlesResponse.data)
         }
-        
-        setArticleViews(viewsData)
       } catch (error) {
         console.error('Error fetching data:', error)
       } finally {
@@ -89,16 +74,6 @@ const ArticlesPage = () => {
       case 'oldest':
         filtered.sort((a, b) => new Date(a.publishDate) - new Date(b.publishDate))
         break
-      case 'mostViewed':
-        filtered.sort((a, b) => b.views - a.views)
-        break
-      case 'readTime':
-        filtered.sort((a, b) => {
-          const aTime = parseInt(a.readTime.split(' ')[0])
-          const bTime = parseInt(b.readTime.split(' ')[0])
-          return aTime - bTime
-        })
-        break
       default:
         break
     }
@@ -118,20 +93,6 @@ const ArticlesPage = () => {
     return colors[category] || 'bg-gray-100 text-gray-800 border-gray-200'
   }
 
-  const getStats = () => {
-    const totalViews = articles.reduce((sum, article) => sum + article.views, 0)
-    const avgReadTime = articles.length > 0 
-      ? Math.round(articles.reduce((sum, article) => {
-          const time = parseInt(article.readTime.split(' ')[0])
-          return sum + time
-        }, 0) / articles.length)
-      : 0
-
-    return { totalViews, avgReadTime, totalArticles: articles.length }
-  }
-
-  const stats = getStats()
-
   return (
     <>
       <SEO 
@@ -147,25 +108,9 @@ const ArticlesPage = () => {
             <h1 className="text-5xl md:text-6xl font-light mb-6 font-serif">
               Hukuki Makaleler
             </h1>
-            <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed mb-8">
+            <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
               Güncel hukuki gelişmeler, uzman görüşleri ve pratik rehberlerle bilgili kalın
             </p>
-            
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2">{stats.totalArticles}</div>
-                <div className="text-sm opacity-80">Toplam Makale</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2">{stats.totalViews.toLocaleString()}</div>
-                <div className="text-sm opacity-80">Toplam Görüntülenme</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2">{stats.avgReadTime} dk</div>
-                <div className="text-sm opacity-80">Ortalama Okuma Süresi</div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -295,7 +240,6 @@ const ArticlesPage = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.slice(1).map((category) => {
               const categoryArticles = articles.filter(article => article.category === category)
-              const totalViews = categoryArticles.reduce((sum, article) => sum + article.views, 0)
               
               return (
                 <div
@@ -303,17 +247,8 @@ const ArticlesPage = () => {
                   className={`p-6 rounded-xl border-2 hover:shadow-lg transition-all cursor-pointer ${getCategoryColor(category)}`}
                   onClick={() => setSelectedCategory(category)}
                 >
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold">{category}</h3>
-                    <TrendingUp className="w-5 h-5" />
-                  </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span>{categoryArticles.length} makale</span>
-                    <div className="flex items-center">
-                      <Eye className="w-4 h-4 mr-1" />
-                      <span>{totalViews.toLocaleString()}</span>
-                    </div>
-                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{category}</h3>
+                  <span className="text-sm">{categoryArticles.length} makale</span>
                 </div>
               )
             })}
