@@ -380,13 +380,13 @@ const HesaplamaAraclariPage = () => {
       />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-lawPrimary to-lawSecondary text-white py-20 mt-20">
+      <section className="page-hero py-16">
         <div className="container mx-auto px-4 text-center">
-          <Calculator className="w-16 h-16 mx-auto mb-6" />
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif">
+          <Calculator className="w-12 h-12 mx-auto mb-4" />
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 font-serif">
             Hesaplama Araçları
           </h1>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
+          <p className="text-xl max-w-3xl mx-auto">
             Hukuki süreçlerinizde ihtiyaç duyabileceğiniz hesaplamaları kolayca yapın. 
             Gelişmiş hesaplama araçlarımızla haklarınızı öğrenin.
           </p>

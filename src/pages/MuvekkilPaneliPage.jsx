@@ -51,20 +51,20 @@ const MuvekkilPaneliPage = () => {
       />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-lawPrimary to-lawSecondary text-white py-20">
+      <section className="page-hero py-16">
         <div className="container mx-auto px-4 text-center">
-          <div className="flex justify-center mb-6">
-            <Shield className="w-20 h-20 text-white opacity-90" />
+          <div className="flex justify-center mb-4">
+            <Shield className="w-16 h-16 text-white opacity-90" />
           </div>
-          <h1 className="text-4xl md:text-6xl font-light mb-6 font-serif">
+          <h1 className="text-4xl md:text-6xl font-light mb-4 font-serif">
             Müvekkil Paneli
           </h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed mb-8">
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed mb-6">
             Davalarınızı takip edin, belgelerinizi görüntüleyin ve hukuki süreçlerinizi yönetin
           </p>
           
           {/* Ana Giriş Butonu */}
-          <div className="flex flex-col items-center gap-4 mt-10">
+          <div className="flex flex-col items-center gap-4 mt-6">
             <button
               onClick={handlePanelAccess}
               className="group bg-white text-lawPrimary px-10 py-4 rounded-lg font-semibold text-lg hover:bg-lawSecondary hover:text-white transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:scale-105 flex items-center gap-3"

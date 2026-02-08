@@ -82,6 +82,15 @@ body {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
 }
 
+/* Page Hero Section - Sabit yükseklik için */
+.page-hero {
+  @apply bg-gradient-to-br from-lawPrimary to-lawSecondary text-white;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Button hover effects */
 .btn-primary {
   @apply bg-lawPrimary text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-lawSecondary hover:shadow-lg transform hover:-translate-y-0.5;

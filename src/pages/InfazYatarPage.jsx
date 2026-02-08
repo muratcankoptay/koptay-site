@@ -717,10 +717,10 @@ const InfazYatarPage = () => {
       </script>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20 mt-20">
+      <section className="page-hero py-12">
         <div className="container mx-auto px-4">
           {/* Breadcrumb */}
-          <nav className="flex items-center space-x-2 text-blue-100 mb-8">
+          <nav className="flex items-center space-x-2 text-white/70 mb-6">
             <Link to="/" className="hover:text-white transition-colors">
               <Home className="w-4 h-4" />
             </Link>
@@ -733,27 +733,27 @@ const InfazYatarPage = () => {
           </nav>
 
           <div className="max-w-4xl">
-            <Clock className="w-16 h-16 mb-6" />
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 font-serif">
+            <Clock className="w-12 h-12 mb-4" />
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 font-serif">
               İnfaz Süresi Hesaplama
             </h1>
-            <p className="text-xl mb-8 max-w-3xl leading-relaxed">
+            <p className="text-xl max-w-3xl leading-relaxed">
               Ceza ve Güvenlik Tedbirlerinin İnfazı Hakkında Kanun'a göre 
               infaz süresi, koşullu salıverme ve denetimli serbestlik hesaplaması yapın.
             </p>
             
             {/* Hızlı Erişim CTA - Above the Fold */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 mt-6">
               <a 
                 href="#hesaplama-formu" 
-                className="inline-flex items-center justify-center bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 shadow-xl"
+                className="inline-flex items-center justify-center bg-white text-lawPrimary px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 shadow-xl"
               >
                 <Calculator className="w-6 h-6 mr-3" />
                 Hemen Hesapla
               </a>
               <a 
                 href="#makale-icerigi" 
-                className="inline-flex items-center justify-center border-2 border-white text-white px-6 py-4 rounded-xl font-medium hover:bg-white hover:text-blue-600 transition-all"
+                className="inline-flex items-center justify-center border-2 border-white text-white px-6 py-4 rounded-xl font-medium hover:bg-white hover:text-lawPrimary transition-all"
               >
                 <FileText className="w-5 h-5 mr-2" />
                 Detaylı Bilgi

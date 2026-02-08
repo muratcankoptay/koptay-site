@@ -70,7 +70,7 @@ const MakalelerPage = () => {
       />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-lawPrimary to-lawSecondary text-white py-20">
+      <section className="page-hero py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-light mb-6 font-serif">
             Makaleler

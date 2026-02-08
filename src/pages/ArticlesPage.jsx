@@ -102,9 +102,9 @@ const ArticlesPage = () => {
       />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-lawPrimary to-lawSecondary py-20">
+      <section className="page-hero py-16">
         <div className="container mx-auto px-4">
-          <div className="text-center text-white">
+          <div className="text-center">
             <h1 className="text-5xl md:text-6xl font-light mb-6 font-serif">
               Hukuki Makaleler
             </h1>
