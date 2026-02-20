@@ -1378,6 +1378,78 @@ export const articleSchemas = {
         ]
       }
     ]
+  },
+
+  // =====================================================
+  // Trafik Kazasında Taksirle Yaralama Suçu Makalesi
+  // =====================================================
+  "trafik-kazasinda-taksirle-yaralama-sucu-hapis-cezasi-rehberi": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://koptay.av.tr/#organization",
+        "name": "Koptay Hukuk Bürosu",
+        "url": "https://koptay.av.tr",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://koptay.av.tr/logo.png",
+          "caption": "Koptay Hukuk Bürosu"
+        }
+      },
+      {
+        "@type": "Article",
+        "headline": "Trafik Kazasında Taksirle Yaralama Suçu: Hapis Cezası Alır mıyım? (2026 Rehberi)",
+        "description": "2026 güncel yargı kararlarıyla trafik kazasında taksirle yaralama suçu, hapis cezası riski ve uzlaştırma süreçleri hakkında kapsamlı avukat rehberi.",
+        "image": "https://koptay.av.tr/images/articles/trafik-kazasi-sonrasi-hapis-cezasi-alir-miyim.jpg",
+        "datePublished": "2026-02-20T09:00:00+03:00",
+        "dateModified": "2026-02-20T09:00:00+03:00",
+        "author": {
+          "@type": "Person",
+          "name": "Av. Murat Can Koptay",
+          "url": "https://koptay.av.tr/ekibimiz"
+        },
+        "publisher": {
+          "@id": "https://koptay.av.tr/#organization"
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://koptay.av.tr/makale/trafik-kazasinda-taksirle-yaralama-sucu-hapis-cezasi-rehberi"
+        },
+        "keywords": "taksirle yaralama, trafik kazası ceza davası, TCK 89, hapis cezası, uzlaştırma, bilinçli taksir, trafik kazası avukatı, adli tıp raporu",
+        "articleSection": "Ceza Hukuku",
+        "inLanguage": "tr-TR"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Trafik kazasında taksirle yaralama suçunda hapis cezası alır mıyım?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sabıkası temiz olan ve bilinçli taksir (alkol, kırmızı ışık ihlali vb.) durumu bulunmayan sürücüler için hapis cezası genellikle adli para cezasına çevrilir veya Hükmün Açıklanmasının Geri Bırakılması (HAGB) kararı verilir."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Karşı taraf şikayetinden vazgeçerse trafik kazası davası düşer mi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Eğer yaralanma basit tıbbi müdahale (BTM) ile giderilebilecek seviyedeyse şikayetten vazgeçme davayı düşürür. Ancak hayati tehlike veya kemik kırılması gibi ağır durumlarda kamu davası devam eder."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Trafik kazası ceza davasında uzlaştırma nedir?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Taksirle yaralama suçları uzlaştırma kapsamındadır. Mağdur ile maddi veya manevi bir edim karşılığında uzlaşılması durumunda dava açılmaz veya açılmış olan dava düşer, adli sicil kaydı oluşmaz."
+            }
+          }
+        ]
+      }
+    ]
   }
 };
 
