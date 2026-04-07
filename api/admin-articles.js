@@ -127,12 +127,23 @@ export default async function handler(req, res) {
   // GET: Makaleleri oku (auth gerekmez - public veri)
   if (req.method === 'GET') {
     try {
+      // 1. GitHub API ile oku (token varsa)
       if (GITHUB_TOKEN && GITHUB_REPO) {
         const { articles } = await getArticlesFromGitHub();
         return res.status(200).json(articles);
       }
 
-      // Yoksa public URL'den oku
+      // 2. GitHub raw URL'den oku (token gerekmez, public repo)
+      const repo = GITHUB_REPO || 'muratcankoptay/koptay-site';
+      const branch = process.env.GITHUB_BRANCH || 'main';
+      const rawUrl = `https://raw.githubusercontent.com/${repo}/${branch}/articles.json`;
+      const rawRes = await fetch(rawUrl);
+      if (rawRes.ok) {
+        const data = await rawRes.json();
+        return res.status(200).json(data);
+      }
+
+      // 3. Vercel deployment URL'den oku
       const siteUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
       if (siteUrl) {
         const response = await fetch(`${siteUrl}/articles.json`);

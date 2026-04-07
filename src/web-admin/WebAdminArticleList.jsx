@@ -12,6 +12,7 @@ const WebAdminArticleList = () => {
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [categoryFilter, setCategoryFilter] = useState('')
+  const [statusFilter, setStatusFilter] = useState('')
   const [deleteModal, setDeleteModal] = useState({ open: false, article: null })
   const [deleting, setDeleting] = useState(false)
   const navigate = useNavigate()
@@ -76,11 +77,15 @@ const WebAdminArticleList = () => {
 
   const categories = [...new Set(articles.map(a => a.category).filter(Boolean))]
 
+  const publishedCount = articles.filter(a => a.status === 'published' || !a.status).length
+  const draftCount = articles.filter(a => a.status === 'draft').length
+
   const filteredArticles = articles.filter(article => {
     const matchesSearch = article.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          article.excerpt?.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesCategory = !categoryFilter || article.category === categoryFilter
-    return matchesSearch && matchesCategory
+    const matchesStatus = !statusFilter || (article.status || 'published') === statusFilter
+    return matchesSearch && matchesCategory && matchesStatus
   })
 
   if (loading) {
@@ -97,7 +102,7 @@ const WebAdminArticleList = () => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Makaleler</h1>
-          <p className="text-gray-500 text-sm mt-0.5">{articles.length} makale mevcut</p>
+          <p className="text-gray-500 text-sm mt-0.5">{articles.length} makale • {publishedCount} yayında • {draftCount} taslak</p>
         </div>
         <Link
           to="/web-admin/makale/yeni"
@@ -121,6 +126,12 @@ const WebAdminArticleList = () => {
               className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
             />
           </div>
+          <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}
+            className="px-3 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 text-sm appearance-none bg-white">
+            <option value="">Tüm Durumlar</option>
+            <option value="published">Yayında ({publishedCount})</option>
+            <option value="draft">Taslak ({draftCount})</option>
+          </select>
           <div className="relative">
             <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
             <select
@@ -144,6 +155,7 @@ const WebAdminArticleList = () => {
             <thead>
               <tr className="border-b border-gray-100 bg-gray-50/50">
                 <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Makale</th>
+                <th className="text-center py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider hidden md:table-cell">Durum</th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider hidden md:table-cell">Kategori</th>
                 <th className="text-center py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider hidden lg:table-cell">SEO</th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider hidden sm:table-cell">Tarih</th>
@@ -171,6 +183,13 @@ const WebAdminArticleList = () => {
                           <p className="text-xs text-gray-400 truncate max-w-xs">/makale/{article.slug}</p>
                         </div>
                       </div>
+                    </td>
+                    <td className="py-3 px-4 hidden md:table-cell text-center">
+                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
+                        (article.status || 'published') === 'published' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
+                      }`}>
+                        {(article.status || 'published') === 'published' ? '● Yayında' : '○ Taslak'}
+                      </span>
                     </td>
                     <td className="py-3 px-4 hidden md:table-cell">
                       <span className="text-xs bg-gray-100 px-2.5 py-1 rounded-full text-gray-600">

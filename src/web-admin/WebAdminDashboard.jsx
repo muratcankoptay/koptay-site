@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { FileText, PlusCircle, Clock, Eye, TrendingUp, Globe, AlertTriangle } from 'lucide-react'
+import { FileText, PlusCircle, Clock, Eye, TrendingUp, Globe, AlertTriangle, Send, Archive } from 'lucide-react'
 
 const API_URL = '/api/admin-articles'
 
@@ -29,6 +29,8 @@ const WebAdminDashboard = () => {
   }
 
   const categories = [...new Set(articles.map(a => a.category).filter(Boolean))]
+  const publishedCount = articles.filter(a => a.status === 'published' || !a.status).length
+  const draftCount = articles.filter(a => a.status === 'draft').length
   const categoryCounts = categories.map(cat => ({
     name: cat,
     count: articles.filter(a => a.category === cat).length
@@ -68,7 +70,7 @@ const WebAdminDashboard = () => {
       )}
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
           <div className="flex items-center justify-between">
             <div>
@@ -84,11 +86,23 @@ const WebAdminDashboard = () => {
         <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Kategori</p>
-              <p className="text-3xl font-bold text-gray-800 mt-1">{categories.length}</p>
+              <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Yayında</p>
+              <p className="text-3xl font-bold text-green-600 mt-1">{publishedCount}</p>
             </div>
-            <div className="w-11 h-11 bg-indigo-50 rounded-xl flex items-center justify-center">
-              <TrendingUp className="text-indigo-600" size={22} />
+            <div className="w-11 h-11 bg-green-50 rounded-xl flex items-center justify-center">
+              <Send className="text-green-600" size={22} />
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Taslak</p>
+              <p className="text-3xl font-bold text-amber-600 mt-1">{draftCount}</p>
+            </div>
+            <div className="w-11 h-11 bg-amber-50 rounded-xl flex items-center justify-center">
+              <Archive className="text-amber-600" size={22} />
             </div>
           </div>
         </div>
@@ -152,6 +166,9 @@ const WebAdminDashboard = () => {
                     <span className="flex items-center gap-1">
                       <Clock size={12} />
                       {new Date(article.publishedAt || article.createdAt).toLocaleDateString('tr-TR')}
+                    </span>
+                    <span className={`px-1.5 py-0.5 rounded-full ${(article.status || 'published') === 'published' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
+                      {(article.status || 'published') === 'published' ? 'Yayında' : 'Taslak'}
                     </span>
                     <span className="bg-gray-100 px-2 py-0.5 rounded-full">{article.category}</span>
                   </div>
