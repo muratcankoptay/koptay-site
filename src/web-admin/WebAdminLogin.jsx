@@ -32,7 +32,7 @@ const WebAdminLogin = () => {
         setError(data.error || 'Giriş başarısız')
       }
     } catch (err) {
-      setError('Sunucuya bağlanılamıyor. Netlify ortam değişkenlerini kontrol edin.')
+      setError('Sunucuya bağlanılamıyor. Vercel ortam değişkenlerini kontrol edin.')
     } finally {
       setLoading(false)
     }
@@ -110,7 +110,7 @@ const WebAdminLogin = () => {
 
           <div className="text-center">
             <p className="text-xs text-gray-400">
-              Bu panel Netlify üzerinde çalışır. Şifre ortam değişkenlerinden kontrol edilir.
+              Bu panel Vercel üzerinde çalışır. Şifre ortam değişkenlerinden kontrol edilir.
             </p>
           </div>
         </form>

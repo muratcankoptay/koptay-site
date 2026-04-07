@@ -1,5 +1,5 @@
 // Service Worker for adaptive caching
-const CACHE_VERSION = 'v4';
+const CACHE_VERSION = 'v5';
 const STATIC_CACHE = `koptay-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `koptay-runtime-${CACHE_VERSION}`;
 
