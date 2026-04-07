@@ -5,7 +5,7 @@ import {
   Clock, AlertCircle, CheckCircle, XCircle, Filter
 } from 'lucide-react'
 
-const API_URL = '/.netlify/functions/admin-articles'
+const API_URL = '/api/admin-articles'
 
 const WebAdminArticleList = () => {
   const [articles, setArticles] = useState([])

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Lock, AlertCircle, Globe, Shield } from 'lucide-react'
 
-const WEB_AUTH_API = '/.netlify/functions/admin-auth'
+const WEB_AUTH_API = '/api/admin-auth'
 
 const WebAdminLogin = () => {
   const [password, setPassword] = useState('')

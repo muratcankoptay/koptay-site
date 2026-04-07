@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FileText, PlusCircle, Clock, Eye, TrendingUp, Globe, AlertTriangle } from 'lucide-react'
 
-const API_URL = '/.netlify/functions/admin-articles'
+const API_URL = '/api/admin-articles'
 
 const WebAdminDashboard = () => {
   const [articles, setArticles] = useState([])

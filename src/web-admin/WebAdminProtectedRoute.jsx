@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 
-const WEB_AUTH_API = '/.netlify/functions/admin-auth'
+const WEB_AUTH_API = '/api/admin-auth'
 
 const WebAdminProtectedRoute = ({ children }) => {
   const [checking, setChecking] = useState(true)

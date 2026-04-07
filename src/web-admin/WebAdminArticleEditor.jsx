@@ -9,7 +9,7 @@ import {
   Image as ImageIcon, Code, Minus, Plus, HelpCircle, RefreshCw
 } from 'lucide-react'
 
-const API_URL = '/.netlify/functions/admin-articles'
+const API_URL = '/api/admin-articles'
 
 marked.setOptions({ breaks: true, gfm: true })
 
