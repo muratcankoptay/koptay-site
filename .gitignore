@@ -39,3 +39,5 @@ Attached HTML and CSS Context.txt
 # Analytics data (geçici veriler)
 analytics-data.json
 analytics-data/
+# Local Netlify folder
+.netlify

@@ -27,6 +27,14 @@ const IletisimPage = lazy(() => import('./pages/IletisimPage'))
 const MuvekkilPaneliPage = lazy(() => import('./pages/MuvekkilPaneliPage'))
 const KvkkPage = lazy(() => import('./pages/KvkkPage'))
 
+// Web Admin pages - lazy load (Netlify-based)
+const WebAdminLogin = lazy(() => import('./web-admin/WebAdminLogin'))
+const WebAdminProtectedRoute = lazy(() => import('./web-admin/WebAdminProtectedRoute'))
+const WebAdminLayout = lazy(() => import('./web-admin/WebAdminLayout'))
+const WebAdminDashboard = lazy(() => import('./web-admin/WebAdminDashboard'))
+const WebAdminArticleList = lazy(() => import('./web-admin/WebAdminArticleList'))
+const WebAdminArticleEditor = lazy(() => import('./web-admin/WebAdminArticleEditor'))
+
 // Admin pages - lazy load
 const AdminLogin = lazy(() => import('./admin/AdminLogin'))
 const AdminLayout = lazy(() => import('./admin/AdminLayout'))
@@ -60,9 +68,21 @@ const AdminLayoutWrapper = ({ children }) => (
   </Suspense>
 )
 
+// Web Admin Layout Wrapper
+const WebAdminLayoutWrapper = ({ children }) => (
+  <Suspense fallback={<PageLoader />}>
+    <WebAdminProtectedRoute>
+      <WebAdminLayout>
+        {children}
+      </WebAdminLayout>
+    </WebAdminProtectedRoute>
+  </Suspense>
+)
+
 function App() {
   const location = useLocation()
   const isAdminRoute = location.pathname.startsWith('/admin')
+  const isWebAdminRoute = location.pathname.startsWith('/web-admin')
 
   // Handle Global Loader removal
   useEffect(() => {
@@ -77,6 +97,20 @@ function App() {
       }, 100);
     }
   }, []);
+
+  // Web Admin routes - Netlify-based admin panel
+  if (isWebAdminRoute) {
+    return (
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route path="/web-admin/login" element={<WebAdminLogin />} />
+          <Route path="/web-admin" element={<WebAdminLayoutWrapper><WebAdminDashboard /></WebAdminLayoutWrapper>} />
+          <Route path="/web-admin/makaleler" element={<WebAdminLayoutWrapper><WebAdminArticleList /></WebAdminLayoutWrapper>} />
+          <Route path="/web-admin/makale/:id" element={<WebAdminLayoutWrapper><WebAdminArticleEditor /></WebAdminLayoutWrapper>} />
+        </Routes>
+      </Suspense>
+    )
+  }
 
   // Admin routes - no Nav/Footer
   if (isAdminRoute) {
