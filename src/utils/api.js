@@ -1,49 +1,67 @@
 // API utility functions for the law firm website
-// ⚠️ STRAPI DEVRE DIŞI - Artık sadece local JSON kullanılıyor
-// Yeni makale eklemek için: articles.json dosyasını düzenleyin
+// Makaleler API endpoint'inden okunur, fallback olarak statik JSON kullanılır
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
-// Makaleleri LOCAL JSON dosyasından yükle (Strapi yok, API isteği yok!)
-const getArticlesFromLocalJSON = async () => {
+// Makale verisini normalize et
+const normalizeArticle = (article) => ({
+  id: article.id,
+  slug: article.slug,
+  title: article.title,
+  excerpt: article.excerpt,
+  content: article.content,
+  category: article.category,
+  tags: article.tags || [],
+  author: article.author || 'Av. Murat Can Koptay',
+  publishDate: article.publishedat?.split('T')[0] || article.publishedAt?.split('T')[0] || article.createdAt?.split('T')[0],
+  updatedDate: article.updatedAt?.split('T')[0],
+  readTime: typeof article.readTime === 'number' ? `${article.readTime} dakika` : (article.readTime || '5 dakika'),
+  featured: article.featured || false,
+  views: article.views || 0,
+  metaDescription: article.seoDescription || article.excerpt,
+  metaKeywords: article.keywords || '',
+  seoTitle: article.seoTitle || article.title,
+  image: article.image?.url || '/images/hero.jpg'
+})
+
+// Makaleleri API'dan yükle (her zaman güncel veri), fallback statik JSON
+const getArticlesFromAPI = async () => {
+  // 1. Önce API endpoint'ini dene (güncel GitHub verisi)
   try {
-    const response = await fetch('/articles.json')
+    const apiRes = await fetch('/api/admin-articles', { cache: 'no-store' })
+    if (apiRes.ok) {
+      const data = await apiRes.json()
+      if (data.data && data.data.length > 0) {
+        console.log(`✅ ${data.data.length} makale API'dan yüklendi`)
+        return data.data.map(normalizeArticle)
+      }
+    }
+  } catch (err) {
+    console.warn('API erişilemedi, statik JSON deneniyor...')
+  }
+
+  // 2. Fallback: Statik articles.json
+  try {
+    const response = await fetch('/articles.json', { cache: 'no-store' })
     if (response.ok) {
       const data = await response.json()
-      return data.data.map(article => ({
-        id: article.id,
-        slug: article.slug,
-        title: article.title,
-        excerpt: article.excerpt,
-        content: article.content,
-        category: article.category,
-        tags: article.tags || [],
-        author: article.author || 'Av. Murat Can Koptay',
-        publishDate: article.publishedat?.split('T')[0] || article.publishedAt?.split('T')[0] || article.createdAt?.split('T')[0],
-        updatedDate: article.updatedAt?.split('T')[0],
-        readTime: typeof article.readTime === 'number' ? `${article.readTime} dakika` : (article.readTime || '5 dakika'),
-        featured: article.featured || false,
-        views: article.views || 0,
-        metaDescription: article.seoDescription || article.excerpt,
-        metaKeywords: article.keywords || '',
-        seoTitle: article.seoTitle || article.title,
-        image: article.image?.url || '/images/hero.jpg'
-      }))
+      if (data.data && data.data.length > 0) {
+        console.log(`✅ ${data.data.length} makale statik JSON'dan yüklendi`)
+        return data.data.map(normalizeArticle)
+      }
     }
   } catch (error) {
-    console.warn('Local JSON yüklenemedi:', error)
+    console.warn('Statik JSON yüklenemedi:', error)
   }
   return null
 }
 
-// Ana fonksiyon - Sadece local JSON'dan oku (Strapi tamamen devre dışı)
+// Ana fonksiyon
 const getArticlesFromStrapi = async () => {
-  console.log('📁 Makaleler articles.json dosyasından yükleniyor...')
-  const localArticles = await getArticlesFromLocalJSON()
+  const articles = await getArticlesFromAPI()
   
-  if (localArticles && localArticles.length > 0) {
-    console.log(`✅ ${localArticles.length} makale yüklendi`)
-    return localArticles
+  if (articles && articles.length > 0) {
+    return articles
   }
   
   // Fallback to mock data
@@ -324,40 +342,28 @@ export const api = {
   // Get single article by slug
   getArticle: async (slug) => {
     
-    // Local JSON'dan oku (Strapi devre dışı)
-    try {
-      const response = await fetch('/articles.json')
-      if (response.ok) {
-        const data = await response.json()
-        const article = data.data.find(a => a.slug === slug)
-        
-        if (article) {
-          return {
-            success: true,
-            data: {
-              id: article.id,
-              slug: article.slug,
-              title: article.title,
-              excerpt: article.excerpt,
-              content: article.content,
-              category: article.category,
-              tags: article.tags || [],
-              author: article.author || 'Av. Murat Can Koptay',
-              publishDate: article.publishedat?.split('T')[0] || article.publishedAt?.split('T')[0] || article.createdAt?.split('T')[0],
-              updatedDate: article.updatedAt?.split('T')[0],
-              readTime: typeof article.readTime === 'number' ? `${article.readTime} dakika` : (article.readTime || '5 dakika'),
-              featured: article.featured || false,
-              views: (article.views || 0) + 1,
-              metaDescription: article.seoDescription || article.excerpt,
-              metaKeywords: article.keywords || '',
-              seoTitle: article.seoTitle || article.title,
-              image: article.image?.url || '/images/hero.jpg'
+    // API'dan oku (güncel veri)
+    const sources = [
+      () => fetch('/api/admin-articles', { cache: 'no-store' }),
+      () => fetch('/articles.json', { cache: 'no-store' })
+    ]
+
+    for (const fetchSource of sources) {
+      try {
+        const response = await fetchSource()
+        if (response.ok) {
+          const data = await response.json()
+          const article = data.data.find(a => a.slug === slug)
+          if (article) {
+            return {
+              success: true,
+              data: normalizeArticle({ ...article, views: (article.views || 0) + 1 })
             }
-          };
+          }
         }
+      } catch (error) {
+        continue
       }
-    } catch (error) {
-      console.error('Local JSON okunamadı:', error)
     }
     
     // Fallback to mock data

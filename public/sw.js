@@ -1,5 +1,5 @@
 // Service Worker for adaptive caching
-const CACHE_VERSION = 'v5';
+const CACHE_VERSION = 'v6';
 const STATIC_CACHE = `koptay-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `koptay-runtime-${CACHE_VERSION}`;
 
@@ -41,6 +41,11 @@ self.addEventListener('fetch', (event) => {
 
   if (request.method !== 'GET') return;
   if (url.protocol === 'chrome-extension:') return;
+
+  // API ve articles.json - her zaman network (önbellek yok)
+  if (url.pathname.startsWith('/api/') || url.pathname === '/articles.json') {
+    return;
+  }
 
   // Handle navigation requests with network-first strategy to avoid stale HTML
   const acceptHeader = request.headers.get('accept') || '';
