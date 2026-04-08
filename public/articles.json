@@ -1,39 +1,6 @@
 {
   "data": [
     {
-      "id": 29,
-      "documentId": "sdfsdfsdfasdfdsf",
-      "slug": "sdfsdfsdfasdfdsf",
-      "title": "SDFSDFSDFASDFDSF",
-      "excerpt": "FDADFASDFA",
-      "content": "FDSASDFSADFASDFASDFSADFSADFASFSADFA",
-      "category": "İş Hukuku",
-      "author": "Av. Murat Can Koptay",
-      "createdAt": "2026-04-08T00:00:00.000Z",
-      "updatedAt": "2026-04-08T14:10:34.635Z",
-      "publishedAt": "2026-04-08T00:00:00.000Z",
-      "seoTitle": "SDSFASDFSDAFASDF",
-      "seoDescription": "AFAFSDF",
-      "keywords": "DSFASDF",
-      "readTime": "1 dk",
-      "publishedat": "2026-04-08",
-      "image": null,
-      "focusKeyword": "AFDFSAF",
-      "ogTitle": "",
-      "ogDescription": "",
-      "ogImage": "",
-      "canonicalUrl": "",
-      "schemaType": "Article",
-      "faqItems": [
-        {
-          "question": "ASDFSAFD",
-          "answer": "AFDADFSADFSDAF"
-        }
-      ],
-      "noIndex": false,
-      "noFollow": false
-    },
-    {
       "id": 28,
       "documentId": "trafik-kazasinda-taksirle-yaralama-sucu-hapis-cezasi-rehberi",
       "slug": "trafik-kazasinda-taksirle-yaralama-sucu-hapis-cezasi-rehberi",
@@ -432,7 +399,7 @@
       "page": 1,
       "pageSize": 25,
       "pageCount": 1,
-      "total": 12
+      "total": 11
     }
   }
 }
