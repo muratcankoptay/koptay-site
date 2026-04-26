@@ -28,6 +28,7 @@ const staticPages = [
   { url: '/hesaplama-araclari/tazminat-hesaplama', changefreq: 'weekly', priority: '0.8' },
   { url: '/hesaplama-araclari/arac-deger-kaybi', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/deger-kaybi', changefreq: 'weekly', priority: '0.9' },
+  { url: '/hesaplama-araclari/dava-suresi', changefreq: 'weekly', priority: '0.9' },
   { url: '/muvekkil-paneli', changefreq: 'monthly', priority: '0.6' }
 ];
 

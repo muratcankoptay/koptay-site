@@ -5,81 +5,115 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://koptay.av.tr/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hakkimizda</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hizmetlerimiz</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/ekibimiz</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/makaleler</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/iletisim</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hesaplama-araclari</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hesaplama-araclari/infaz-yatar</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hesaplama-araclari/vekalet-ucreti</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hesaplama-araclari/tazminat-hesaplama</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hesaplama-araclari/arac-deger-kaybi</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hesaplama-araclari/deger-kaybi</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/hesaplama-araclari/dava-suresi</loc>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/muvekkil-paneli</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/makale/trafik-kazasinda-taksirle-yaralama-sucu-hapis-cezasi-rehberi</loc>
+    <lastmod>2026-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Koptay Hukuk Bürosu</news:name>
+        <news:language>tr</news:language>
+      </news:publication>
+      <news:publication_date>2026-02-20</news:publication_date>
+      <news:title>trafik kazasinda taksirle yaralama sucu hapis cezasi rehberi</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/makale/pert-arac-rayic-deger-tespiti-tahkim-itiraz-rehberi-2026</loc>
+    <lastmod>2026-01-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Koptay Hukuk Bürosu</news:name>
+        <news:language>tr</news:language>
+      </news:publication>
+      <news:publication_date>2026-01-26</news:publication_date>
+      <news:title>pert arac rayic deger tespiti tahkim itiraz rehberi 2026</news:title>
+    </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/arac-mahrumiyet-tazminati-hesaplama-sartlari-2026</loc>
@@ -97,7 +131,7 @@
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/ilave-tediye-alacak-tahsili-ve-dava-sureci-2026</loc>
-    <lastmod>2026-01-03</lastmod>
+    <lastmod>2026-02-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <news:news>
@@ -105,7 +139,7 @@
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
-      <news:publication_date>2026-01-03</news:publication_date>
+      <news:publication_date>2026-02-20</news:publication_date>
       <news:title>ilave tediye alacak tahsili ve dava sureci 2026</news:title>
     </news:news>
   </url>
@@ -205,6 +239,90 @@
       </news:publication>
       <news:publication_date>2025-12-26</news:publication_date>
       <news:title>sigorta tahkim komisyonu basvurusu ve sureci</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/makale/arac-deger-kaybi-kapsamli-rehber-2026</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Koptay Hukuk Bürosu</news:name>
+        <news:language>tr</news:language>
+      </news:publication>
+      <news:publication_date>2026-04-27</news:publication_date>
+      <news:title>arac deger kaybi kapsamli rehber 2026</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/makale/arac-deger-kaybi-davasi-nasil-acilir</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Koptay Hukuk Bürosu</news:name>
+        <news:language>tr</news:language>
+      </news:publication>
+      <news:publication_date>2026-04-27</news:publication_date>
+      <news:title>arac deger kaybi davasi nasil acilir</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/makale/arac-deger-kaybi-hesaplama-yontemi-kriterleri</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Koptay Hukuk Bürosu</news:name>
+        <news:language>tr</news:language>
+      </news:publication>
+      <news:publication_date>2026-04-27</news:publication_date>
+      <news:title>arac deger kaybi hesaplama yontemi kriterleri</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/makale/trafik-sigortasi-arac-deger-kaybi-sorumluluk</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Koptay Hukuk Bürosu</news:name>
+        <news:language>tr</news:language>
+      </news:publication>
+      <news:publication_date>2026-04-27</news:publication_date>
+      <news:title>trafik sigortasi arac deger kaybi sorumluluk</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/makale/pert-araclarda-deger-kaybi-mahrumiyet</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Koptay Hukuk Bürosu</news:name>
+        <news:language>tr</news:language>
+      </news:publication>
+      <news:publication_date>2026-04-27</news:publication_date>
+      <news:title>pert araclarda deger kaybi mahrumiyet</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/makale/arac-mahrumiyet-bedeli-ikame-arac-hakki</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Koptay Hukuk Bürosu</news:name>
+        <news:language>tr</news:language>
+      </news:publication>
+      <news:publication_date>2026-04-27</news:publication_date>
+      <news:title>arac mahrumiyet bedeli ikame arac hakki</news:title>
     </news:news>
   </url>
 </urlset>

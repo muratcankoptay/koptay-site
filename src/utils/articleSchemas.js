@@ -1450,6 +1450,239 @@ export const articleSchemas = {
         ]
       }
     ]
+  },
+
+  // =====================================================
+  // PILLAR: Araç Değer Kaybı Kapsamlı Rehber 2026
+  // =====================================================
+  "arac-deger-kaybi-kapsamli-rehber-2026": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://koptay.av.tr/#organization",
+        "name": "Koptay Hukuk Bürosu",
+        "url": "https://koptay.av.tr",
+        "logo": { "@type": "ImageObject", "url": "https://koptay.av.tr/logo.png", "caption": "Koptay Hukuk Bürosu" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Araç Değer Kaybı Tazminatı: A'dan Z'ye Kapsamlı Uzman Rehberi (2026 Güncel)",
+        "description": "Araç değer kaybı tazminatının yasal dayanakları, hesaplama yöntemi, sigorta süreci, dava aşamaları ve 25 sıkça sorulan sorunun yanıtı.",
+        "image": "https://koptay.av.tr/images/articles/arac-deger-kaybi-kapsamli-rehber.jpg",
+        "datePublished": "2026-04-27T10:00:00+03:00",
+        "dateModified": "2026-04-27T10:00:00+03:00",
+        "author": { "@type": "Person", "name": "Av. Murat Can Koptay", "url": "https://koptay.av.tr/ekibimiz" },
+        "publisher": { "@id": "https://koptay.av.tr/#organization" },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://koptay.av.tr/makale/arac-deger-kaybi-kapsamli-rehber-2026" },
+        "keywords": "araç değer kaybı, değer kaybı tazminatı, trafik kazası tazminat, araç değer kaybı hesaplama, değer kaybı davası, trafik sigortası değer kaybı, TRAMER kaydı"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Aracımı satmıyorum, değer kaybı talep edebilir miyim?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. Yargıtay'ın yerleşmiş içtihatlarına göre satış niyeti aranmaz. Aracın malvarlığındaki değer eksilmesi başlı başına tazmin edilmesi gereken bir zarardır." } },
+          { "@type": "Question", "name": "Kazada %30 kusurluyum, değer kaybı talep edebilir miyim?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. Hesaplanan değer kaybının kusursuz oranınız kadarı (yani %70'i) talep edilebilir. Karşı tarafın trafik sigortasından bu tutar tahsil edilebilir." } },
+          { "@type": "Question", "name": "Sigorta şirketi 'boya hasarı, değer kaybı yok' dedi, doğru mu?", "acceptedAnswer": { "@type": "Answer", "text": "Sadece boya hasarı varsa Yargıtay genel olarak değer kaybı kabul etmez. Ancak boyanın altında düzeltme, çekme, kaynak gibi sac işlem yapıldıysa kayıp oluşur. Servis ekspertiz raporu kritik delildir." } },
+          { "@type": "Question", "name": "Aracım yetkili serviste orijinal parça ile onarıldı, kayıp olur mu?", "acceptedAnswer": { "@type": "Answer", "text": "Evet, olur. Yetkili serviste onarım veya orijinal parça kullanımı, kazanın TRAMER'e işlenmesini engellemez. İkinci el piyasada hasar kaydı olan araç hâlâ daha düşük fiyata satılır." } },
+          { "@type": "Question", "name": "Araç değer kaybında zamanaşımı süresi nedir?", "acceptedAnswer": { "@type": "Answer", "text": "KTK m.109'a göre 2 yıl, her halde 10 yıldır. Eylem suç teşkil ediyorsa (taksirle yaralama gibi) ceza zamanaşımı 8 yıla kadar uzayabilir." } },
+          { "@type": "Question", "name": "Trafik sigortasının teminat limitini aşan tutarı kimden alırım?", "acceptedAnswer": { "@type": "Answer", "text": "Aşan kısım için doğrudan kusurlu sürücüye dava açılabilir. Sürücünün İhtiyari Mali Sorumluluk (İMSS) poliçesi varsa öncelikle ondan tahsil edilir." } },
+          { "@type": "Question", "name": "Aynı bölge ikinci kez hasar gördü, talep edebilir miyim?", "acceptedAnswer": { "@type": "Answer", "text": "Genelde hayır. Yargıtay aynı bölgede ikinci kazadan değer kaybı doğmayacağı yönünde içtihat geliştirmiştir; o bölge zaten kazalı kabul edilmektedir. Farklı bölgelerde yeni hasar varsa yeni kayıp doğar." } },
+          { "@type": "Question", "name": "15 yaşından eski araçlarda değer kaybı olur mu?", "acceptedAnswer": { "@type": "Answer", "text": "Genelde tartışmalıdır. Bilirkişi, aracın segmenti ve özel niteliklerine göre küçük bir miktar verebilir; çoğu davada talep reddedilir." } },
+          { "@type": "Question", "name": "Kasko ile aracımı tamir ettirdim, yine değer kaybı talep edebilir miyim?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. Kaskonuzla onarım yaptırmanız, karşı tarafın trafik sigortasından değer kaybı talep etmenize engel değildir. Halefiyet ilkesi gereği zaten kasko şirketi de rücu yoluyla bu kalemi alır." } },
+          { "@type": "Question", "name": "Çarp-kaç durumunda değer kaybı tahsil edilebilir mi?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. Güvence Hesabı bu tür hallerde devreye girer ve kusurlu olduğu belirsiz olan veya tespit edilemeyen kişiler için tazminat öder." } }
+        ]
+      }
+    ]
+  },
+
+  "arac-deger-kaybi-davasi-nasil-acilir": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://koptay.av.tr/#organization",
+        "name": "Koptay Hukuk Bürosu",
+        "url": "https://koptay.av.tr",
+        "logo": { "@type": "ImageObject", "url": "https://koptay.av.tr/logo.png", "caption": "Koptay Hukuk Bürosu" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Araç Değer Kaybı Davası Nasıl Açılır? Adım Adım 2026 Uzman Rehberi",
+        "description": "Araç değer kaybı davası nereye, nasıl açılır? Görevli ve yetkili mahkeme, dilekçe hazırlığı, deliller, bilirkişi süreci, masraflar ve süreler.",
+        "image": "https://koptay.av.tr/images/articles/arac-deger-kaybi-davasi-nasil-acilir.jpg",
+        "datePublished": "2026-04-27T10:00:00+03:00",
+        "dateModified": "2026-04-27T10:00:00+03:00",
+        "author": { "@type": "Person", "name": "Av. Murat Can Koptay", "url": "https://koptay.av.tr/ekibimiz" },
+        "publisher": { "@id": "https://koptay.av.tr/#organization" },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://koptay.av.tr/makale/arac-deger-kaybi-davasi-nasil-acilir" },
+        "keywords": "araç değer kaybı davası, değer kaybı dava nasıl açılır, görevli mahkeme, asliye hukuk mahkemesi, bilirkişi raporu, dava dilekçesi"
+      },
+      {
+        "@type": "HowTo",
+        "name": "Araç Değer Kaybı Davası Nasıl Açılır?",
+        "description": "Trafik kazası sonrası araç değer kaybı davasının açılma adımları.",
+        "totalTime": "P12M",
+        "step": [
+          { "@type": "HowToStep", "position": 1, "name": "Sigorta Şirketine Yazılı Başvuru", "text": "Kusurlu tarafın trafik sigortası şirketine KEP veya iadeli taahhütlü posta ile yazılı başvuru yapın. Tüm hasar belgelerini ve IBAN bilgisini ekleyin." },
+          { "@type": "HowToStep", "position": 2, "name": "15 İş Günü Bekleme", "text": "Sigorta şirketinin yasal cevap süresi 15 iş günüdür. Bu süre dolduktan sonra (cevap gelmezse zımni ret sayılır) bir sonraki adıma geçin." },
+          { "@type": "HowToStep", "position": 3, "name": "Tahkim mi Mahkeme mi Karar Verin", "text": "Düşük tutarlı, basit vakalar için Sigorta Tahkim Komisyonu (4-6 ay). Yüksek tutarlı veya karmaşık vakalar için Asliye Hukuk Mahkemesi tercih edilir." },
+          { "@type": "HowToStep", "position": 4, "name": "Dava Dilekçesini Hazırlayın", "text": "HMK m.119'a uygun dilekçe yazın: taraf bilgileri, dava değeri, olay özeti, hukuki sebepler (TBK 49-51, KTK 85-91), deliller listesi ve talep sonucu." },
+          { "@type": "HowToStep", "position": 5, "name": "Doğru Mahkemeye Başvurun", "text": "Görevli mahkeme Asliye Hukuk Mahkemesi'dir. Yetkili mahkeme: davalının yerleşim yeri, kazanın yeri veya aracın bulunduğu yer." },
+          { "@type": "HowToStep", "position": 6, "name": "Bilirkişi Sürecini Takip Edin", "text": "Mahkeme makine mühendisi veya sigorta eksperi bilirkişi atar. Rapora 2 hafta içinde itiraz hakkınız vardır; gerekirse alternatif rapor talep edilir." },
+          { "@type": "HowToStep", "position": 7, "name": "Kararın Kesinleşmesi ve İcra", "text": "Karar lehinize ise istinaf süresi (2 hafta) sonrası kesinleşir. Kesinleşen karar ilamlı icra ile tahsil edilir." }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Sigortayla anlaşamadım, doğrudan dava açabilir miyim?", "acceptedAnswer": { "@type": "Answer", "text": "Evet ama önce 15 iş günü cevap süresinin geçmesi tavsiye edilir." } },
+          { "@type": "Question", "name": "Görevli mahkeme hangisidir?", "acceptedAnswer": { "@type": "Answer", "text": "Trafik kazasından doğan tazminat davalarında görevli mahkeme Asliye Hukuk Mahkemesi'dir. Sulh Hukuk Mahkemesi görevli değildir." } },
+          { "@type": "Question", "name": "Hasım kim olmalı? Sürücü mü, sigorta mı?", "acceptedAnswer": { "@type": "Answer", "text": "Pratikte işleten + sürücü + sigorta şirketi birlikte davalı gösterilir. Müteselsil sorumluluk gereği davacı tutarın tamamını dilediği davalıdan tahsil edebilir." } },
+          { "@type": "Question", "name": "Dava ne kadar sürer?", "acceptedAnswer": { "@type": "Answer", "text": "Ortalama 12-18 ay (ilk derece). Karmaşık vakalarda 24 aya çıkabilir. İstinaf 6-12 ay daha eklenir." } },
+          { "@type": "Question", "name": "Avukat tutmadan dava açabilir miyim?", "acceptedAnswer": { "@type": "Answer", "text": "Hukuken mümkündür ancak tavsiye edilmez. Bilirkişi seçimi, rapor itirazı ve hesaplama denetimi teknik uzmanlık gerektirir." } }
+        ]
+      }
+    ]
+  },
+
+  "arac-deger-kaybi-hesaplama-yontemi-kriterleri": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://koptay.av.tr/#organization",
+        "name": "Koptay Hukuk Bürosu",
+        "url": "https://koptay.av.tr",
+        "logo": { "@type": "ImageObject", "url": "https://koptay.av.tr/logo.png", "caption": "Koptay Hukuk Bürosu" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Araç Değer Kaybı Hesaplama Yöntemi: Formül, Kıstaslar ve Örnek Senaryolar",
+        "description": "Araç değer kaybı tutarı nasıl hesaplanır? Yargıtay'ın kabul ettiği formül, hesaplamayı etkileyen faktörler, sigorta tablosu ile mahkeme yöntemi farkı, gerçek örnekler.",
+        "image": "https://koptay.av.tr/images/articles/arac-deger-kaybi-hesaplama-yontemi.jpg",
+        "datePublished": "2026-04-27T10:00:00+03:00",
+        "dateModified": "2026-04-27T10:00:00+03:00",
+        "author": { "@type": "Person", "name": "Av. Murat Can Koptay", "url": "https://koptay.av.tr/ekibimiz" },
+        "publisher": { "@id": "https://koptay.av.tr/#organization" },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://koptay.av.tr/makale/arac-deger-kaybi-hesaplama-yontemi-kriterleri" },
+        "keywords": "araç değer kaybı hesaplama, değer kaybı formül, değer kaybı kıstasları, bilirkişi raporu, sigorta tablosu, ikinci el rayiç değer"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Araç değer kaybı nasıl hesaplanır?", "acceptedAnswer": { "@type": "Answer", "text": "Aracın kaza tarihindeki hasarsız ikinci el rayiç değerinden, onarımdan sonraki ikinci el rayiç değerinin çıkarılmasıyla bulunur. Sonuç, karşı tarafın kusur oranıyla çarpılarak net tazminat tutarına ulaşılır." } },
+          { "@type": "Question", "name": "Sigorta tablosu mahkemede bağlayıcı mıdır?", "acceptedAnswer": { "@type": "Answer", "text": "Hayır. Yargıtay 17. Hukuk Dairesi mahkeme aşamasında bu tablonun mutlak bağlayıcı olmadığını, somut olayın özelliklerine göre objektif piyasa karşılaştırması yapılması gerektiğini kararlarında vurgulamıştır." } },
+          { "@type": "Question", "name": "Hesaplamada hangi tarih esas alınır?", "acceptedAnswer": { "@type": "Answer", "text": "Hem hasarsız hem onarılmış değerler kaza tarihindeki ikinci el piyasa değerlerine göre belirlenir." } },
+          { "@type": "Question", "name": "Bilirkişi raporu nasıl olmalıdır?", "acceptedAnswer": { "@type": "Answer", "text": "Rapor üç bölümden oluşmalıdır: tespit, değerlendirme (gerekçeli, emsal araç ilanlarıyla) ve sonuç (denetlenebilir hesap adımları)." } },
+          { "@type": "Question", "name": "Aracın yaşı kayıp tutarını nasıl etkiler?", "acceptedAnswer": { "@type": "Answer", "text": "Genelde 0-3 yaşta en yüksek (%5-15), 4-7 yaşta yüksek, 8-12 yaşta orta, 13-15 yaşta sınırlı. 15 yaşın üstünde genelde talep edilemez." } }
+        ]
+      }
+    ]
+  },
+
+  "trafik-sigortasi-arac-deger-kaybi-sorumluluk": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://koptay.av.tr/#organization",
+        "name": "Koptay Hukuk Bürosu",
+        "url": "https://koptay.av.tr",
+        "logo": { "@type": "ImageObject", "url": "https://koptay.av.tr/logo.png", "caption": "Koptay Hukuk Bürosu" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Trafik Sigortası ve Araç Değer Kaybı: Sigortanın Sorumluluğu ve Süreç Yönetimi (2026)",
+        "description": "Trafik sigortası şirketinden değer kaybı nasıl tahsil edilir? Başvuru süreci, 15 iş günü cevap kuralı, ret nedenleri, tahkim komisyonu ve 2026 teminat limitleri.",
+        "image": "https://koptay.av.tr/images/articles/trafik-sigortasi-arac-deger-kaybi.jpg",
+        "datePublished": "2026-04-27T10:00:00+03:00",
+        "dateModified": "2026-04-27T10:00:00+03:00",
+        "author": { "@type": "Person", "name": "Av. Murat Can Koptay", "url": "https://koptay.av.tr/ekibimiz" },
+        "publisher": { "@id": "https://koptay.av.tr/#organization" },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://koptay.av.tr/makale/trafik-sigortasi-arac-deger-kaybi-sorumluluk" },
+        "keywords": "trafik sigortası değer kaybı, sigorta başvurusu, sigorta tahkim komisyonu, KMSZS Genel Şartları, teminat limiti 2026"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Sigorta şirketi ne kadar sürede cevap vermek zorundadır?", "acceptedAnswer": { "@type": "Answer", "text": "KMSZS Genel Şartları'na göre eksiksiz başvuruyu aldıktan sonra 15 iş günü içinde yazılı cevap vermek zorundadır. Süre dolduktan sonra zımni ret sayılır ve temerrüt faizi işlemeye başlar." } },
+          { "@type": "Question", "name": "Sigorta başvurusu nasıl yapılır?", "acceptedAnswer": { "@type": "Answer", "text": "Başvuru KEP, noter ihtarnamesi veya iadeli taahhütlü posta ile yapılmalıdır; e-posta veya normal posta yeterli değildir." } },
+          { "@type": "Question", "name": "Sigorta talebi reddederse ne yapmalıyım?", "acceptedAnswer": { "@type": "Answer", "text": "İki yol vardır: Sigorta Tahkim Komisyonu (4-6 ayda sonuç) veya Asliye Hukuk Mahkemesi. Düşük tutarlı vakalarda tahkim, yüksek tutarlı veya karmaşık vakalarda mahkeme tercih edilir." } },
+          { "@type": "Question", "name": "Trafik sigortası teminat limiti ne kadar?", "acceptedAnswer": { "@type": "Answer", "text": "2026 yılı limitleri Hazine ve Maliye Bakanlığı tarafından her yıl güncellenir. Limitler policenin düzenlendiği tarihte geçerli olan limitlerdir." } },
+          { "@type": "Question", "name": "Sigorta şirketi 'aracınızı satmadınız, kayıp yok' derse?", "acceptedAnswer": { "@type": "Answer", "text": "Bu ret yasaya aykırıdır. Yargıtay'a göre satış niyeti aranmaz; aracın malvarlığındaki değer eksilmesi başlı başına bir zarardır." } }
+        ]
+      }
+    ]
+  },
+
+  "pert-araclarda-deger-kaybi-mahrumiyet": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://koptay.av.tr/#organization",
+        "name": "Koptay Hukuk Bürosu",
+        "url": "https://koptay.av.tr",
+        "logo": { "@type": "ImageObject", "url": "https://koptay.av.tr/logo.png", "caption": "Koptay Hukuk Bürosu" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Pert Araçlarda Değer Kaybı, Hurda ve Mahrumiyet Bedeli: 2026 Uzman Rehberi",
+        "description": "Pert araç ne demektir? Tam pert / kısmi pert ayrımı, sovtaj değeri hesabı, hurda tescili, pert araçta mahrumiyet süresi ve sigorta süreci.",
+        "image": "https://koptay.av.tr/images/articles/pert-araclarda-deger-kaybi.jpg",
+        "datePublished": "2026-04-27T10:00:00+03:00",
+        "dateModified": "2026-04-27T10:00:00+03:00",
+        "author": { "@type": "Person", "name": "Av. Murat Can Koptay", "url": "https://koptay.av.tr/ekibimiz" },
+        "publisher": { "@id": "https://koptay.av.tr/#organization" },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://koptay.av.tr/makale/pert-araclarda-deger-kaybi-mahrumiyet" },
+        "keywords": "pert araç, pert değer kaybı, sovtaj değeri, hurda tescili, tam pert, kısmi pert, ağır hasar"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Bir araç ne zaman pert sayılır?", "acceptedAnswer": { "@type": "Answer", "text": "Onarım maliyeti aracın hasarsız piyasa değerine yaklaşıyor veya onu aşıyorsa pert sayılır. Genelde onarım maliyetinin hasarsız değerin %70'ini aştığı vakalarda tam pert kararı verilir." } },
+          { "@type": "Question", "name": "Pert aracında tazminat nasıl hesaplanır?", "acceptedAnswer": { "@type": "Answer", "text": "Tam zarar tazminatı uygulanır: Hasarsız ikinci el rayiç değer eksi sovtaj (hurda) değeri." } },
+          { "@type": "Question", "name": "Sovtaj (hurda) değeri nasıl belirlenir?", "acceptedAnswer": { "@type": "Answer", "text": "Sigorta şirketi sovtajı internet üzerinden açık artırmaya çıkarır; en yüksek teklif sovtaj değeri sayılır. Eksperin tahmini de kullanılabilir." } },
+          { "@type": "Question", "name": "Pert kararına itiraz edebilir miyim?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. Bağımsız ekspertizden farklı bir rapor alınabilir, sigortaya itiraz edilebilir, tahkim/dava yoluyla pert kararının yerinde olup olmadığı tartışılabilir." } },
+          { "@type": "Question", "name": "Pert araçta mahrumiyet süresi ne kadar?", "acceptedAnswer": { "@type": "Answer", "text": "Aracın yenisinin alınabilmesi için makul süre olarak belirlenir. Sigorta süreci (15-30 iş günü) + yeni araç tedarik (30-60 gün) toplamında ortalama 45-90 gün." } }
+        ]
+      }
+    ]
+  },
+
+  "arac-mahrumiyet-bedeli-ikame-arac-hakki": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://koptay.av.tr/#organization",
+        "name": "Koptay Hukuk Bürosu",
+        "url": "https://koptay.av.tr",
+        "logo": { "@type": "ImageObject", "url": "https://koptay.av.tr/logo.png", "caption": "Koptay Hukuk Bürosu" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Araç Mahrumiyet Bedeli ve İkame Araç Hakkı: 2026 Detaylı Uzman Rehberi",
+        "description": "Aracınız serviste yatarken kullanım kaybınız nasıl tazmin edilir? Mahrumiyet bedeli, ikame araç hesabı, kazanç kaybı, ikinci aracı olanlar için durum.",
+        "image": "https://koptay.av.tr/images/articles/arac-mahrumiyet-bedeli-ikame-arac.jpg",
+        "datePublished": "2026-04-27T10:00:00+03:00",
+        "dateModified": "2026-04-27T10:00:00+03:00",
+        "author": { "@type": "Person", "name": "Av. Murat Can Koptay", "url": "https://koptay.av.tr/ekibimiz" },
+        "publisher": { "@id": "https://koptay.av.tr/#organization" },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://koptay.av.tr/makale/arac-mahrumiyet-bedeli-ikame-arac-hakki" },
+        "keywords": "araç mahrumiyet bedeli, ikame araç, kullanım kaybı, kazanç kaybı, kira bedeli"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Aracımı kiralamadım, mahrumiyet bedeli alabilir miyim?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. Soyut mahrumiyet ilkesi gereği fiili kiralama olmasa da kullanım imkânının kaybı tazmin edilir." } },
+          { "@type": "Question", "name": "Mahrumiyet süresi nasıl belirlenir?", "acceptedAnswer": { "@type": "Answer", "text": "Genelde servisin verdiği onarım süresi temel alınır. Haklı gecikmeler süreye eklenir." } },
+          { "@type": "Question", "name": "Mahrumiyet bedeli nasıl hesaplanır?", "acceptedAnswer": { "@type": "Answer", "text": "Eşdeğer bir aracın günlük kira bedeli ile mahrumiyet süresinin (gün) çarpımıdır." } },
+          { "@type": "Question", "name": "İkinci bir aracım var, mahrumiyet talep edebilir miyim?", "acceptedAnswer": { "@type": "Answer", "text": "Tartışmalı. İkinci aracın benzer niteliklere sahip olması ve sahibin günlük ihtiyaçlarını karşılayabilmesi durumunda talep kabul edilmeyebilir." } },
+          { "@type": "Question", "name": "Ticari aracımda kazanç kaybı talep edebilir miyim?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. Taksi, kamyon gibi ticari araçlarda mahrumiyetin yanı sıra kazanç kaybı da talep edilebilir." } }
+        ]
+      }
+    ]
   }
 };
 

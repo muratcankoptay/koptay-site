@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Calculator, TrendingUp, Car, HeartHandshake, Building, Users, ArrowRight, Scale, Banknote } from 'lucide-react'
+import { Calculator, TrendingUp, Car, HeartHandshake, Building, Users, ArrowRight, Scale, Banknote, Hourglass } from 'lucide-react'
 import SEO from '../components/SEO'
 
 const HesaplamaAraclariPage = () => {
@@ -46,6 +46,14 @@ const HesaplamaAraclariPage = () => {
       icon: Scale,
       color: 'bg-indigo-100 text-indigo-600',
       link: '/hesaplama-araclari/vekalet-ucreti'
+    },
+    {
+      id: 'dava-suresi',
+      title: 'Dava Süresi Hesaplama',
+      description: 'Zamanaşımı, hak düşürücü süre, istinaf-temyiz ve ortalama dava süresi hesaplama',
+      icon: Hourglass,
+      color: 'bg-amber-100 text-amber-600',
+      link: '/hesaplama-araclari/dava-suresi'
     },
     {
       id: 'tazminat',
