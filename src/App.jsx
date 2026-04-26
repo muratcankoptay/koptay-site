@@ -24,7 +24,8 @@ const IlaveTediyePage = lazy(() => import('./pages/IlaveTediyePage'))
 const TrafikKazasiPage = lazy(() => import('./pages/TrafikKazasiPage'))
 const MakalelerPage = lazy(() => import('./pages/MakalelerPage'))
 const IletisimPage = lazy(() => import('./pages/IletisimPage'))
-const MuvekkilPaneliPage = lazy(() => import('./pages/MuvekkilPaneliPage'))
+// const MuvekkilPaneliPage = lazy(() => import('./pages/MuvekkilPaneliPage')) // Geçici olarak gizlendi
+const KamulastirmaHaritasiPage = lazy(() => import('./pages/KamulastirmaHaritasiPage'))
 const KvkkPage = lazy(() => import('./pages/KvkkPage'))
 
 // Web Admin pages - lazy load (Netlify-based)
@@ -156,7 +157,8 @@ function App() {
             <Route path="/makaleler/:slug" element={<ArticlePage />} />
             <Route path="/makale/:slug" element={<ArticlePage />} />
             <Route path="/iletisim" element={<IletisimPage />} />
-            <Route path="/muvekkil-paneli" element={<MuvekkilPaneliPage />} />
+            {/* <Route path="/muvekkil-paneli" element={<MuvekkilPaneliPage />} /> */}{/* Geçici olarak gizlendi */}
+            <Route path="/kamulastirma-haritasi" element={<KamulastirmaHaritasiPage />} />
             <Route path="/kvkk" element={<KvkkPage />} />
           </Routes>
         </Suspense>

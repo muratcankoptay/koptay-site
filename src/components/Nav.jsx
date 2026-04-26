@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { Menu, X } from "lucide-react"
 
@@ -29,7 +29,8 @@ const Nav = () => {
     { name: "Ekibimiz", href: "/ekibimiz" },
     { name: "Hesaplama Araçları", href: "/hesaplama-araclari" },
     { name: "Makaleler", href: "/makaleler" },
-    { name: "Müvekkil Paneli", href: "/muvekkil-paneli" },
+    { name: "Kamulaştırma Haritası", href: "/kamulastirma-haritasi" },
+    // { name: "Müvekkil Paneli", href: "/muvekkil-paneli" }, // Geçici olarak gizlendi
     { name: "İletişim", href: "/iletisim" }
   ]
 
