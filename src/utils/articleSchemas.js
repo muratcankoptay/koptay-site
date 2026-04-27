@@ -628,102 +628,60 @@ export const articleSchemas = {
         "@id": "https://koptay.av.tr/#organization",
         "name": "Koptay Hukuk Bürosu",
         "url": "https://koptay.av.tr",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://koptay.av.tr/logo.png",
-          "caption": "Koptay Hukuk Bürosu"
-        }
+        "logo": { "@type": "ImageObject", "url": "https://koptay.av.tr/logo.png", "caption": "Koptay Hukuk Bürosu" }
       },
       {
-        "@type": "NewsArticle",
-        "headline": "Trafik Kazası Sonrası Maluliyet Heyet Raporu Nasıl ve Nereden Alınır? 2025 Rehberi",
-        "description": "Trafik kazası sonrası sigorta tazminatı almak için gerekli maluliyet (heyet) raporu nereden alınır? İyileşme süresi, gerekli evraklar ve yetkili hastaneler listesi bu rehberde.",
-        "image": "https://koptay.av.tr/images/articles/trafik-kazasi-heyet-raporu-nasil-alinir.jpg",
-        "datePublished": "2025-01-01T09:00:00+03:00",
-        "dateModified": "2025-12-31T18:30:00+03:00",
-        "author": {
-          "@type": "Person",
-          "name": "Av. Murat Can Koptay",
-          "url": "https://koptay.av.tr/ekibimiz"
-        },
-        "publisher": {
-          "@id": "https://koptay.av.tr/#organization"
-        },
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": "https://koptay.av.tr/makale/trafik-kazasi-sonrasi-maluliyet-heyet-raporu-nasil-ve-nereden-alinir-2025-rehberi"
-        },
-        "keywords": "maluliyet raporu, heyet raporu, trafik kazası tazminat, engelli raporu, sigorta maluliyet"
+        "@type": "BlogPosting",
+        "headline": "Trafik Kazası Sonrası Maluliyet (Heyet) Raporu Nasıl ve Nereden Alınır? Kapsamlı 2026 Uzman Rehberi",
+        "description": "Trafik kazası maluliyet raporu nereden ve nasıl alınır, 12 ay kuralı, yetkili hastaneler, oran-tazminat tabloları, itiraz süreci ve 18 sıkça sorulan soru. 2026 güncel uzman rehberi.",
+        "image": "https://koptay.av.tr/images/articles/trafik-kazasi-sonrasi-maluliyet-raporu-nasil-alinir.jpg",
+        "datePublished": "2025-11-20T10:00:00+03:00",
+        "dateModified": "2026-04-27T10:30:00+03:00",
+        "author": { "@type": "Person", "name": "Av. Murat Can Koptay", "url": "https://koptay.av.tr/ekibimiz" },
+        "publisher": { "@id": "https://koptay.av.tr/#organization" },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://koptay.av.tr/makale/trafik-kazasi-sonrasi-maluliyet-heyet-raporu-nasil-ve-nereden-alinir-2025-rehberi" },
+        "keywords": "trafik kazası maluliyet raporu, heyet raporu nasıl alınır, engelli sağlık kurulu raporu, sürekli sakatlık tazminatı, efor kaybı tazminatı, maluliyet oranı tespiti, balthazar formülü, TRH-2010, bedeni hasar tazminatı"
       },
       {
         "@type": "FAQPage",
         "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Maluliyet raporu kazadan ne kadar süre sonra alınmalıdır?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Tıbbi olarak 'iyileşme süreci' (nekahat dönemi) tamamlanmadan alınan raporlar geçersiz sayılabilir veya düşük oranlı çıkabilir. Genellikle ortopedik yaralanmalarda kazadan en az 6 ay, nörolojik durumlarda ise 12 ay geçtikten sonra heyet raporuna başvurulması önerilir."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Heyet raporu hangi hastanelerden alınır?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Sigorta şirketleri ve mahkemeler nezdinde geçerli olması için raporun; tam teşekküllü Devlet Hastaneleri, Eğitim ve Araştırma Hastaneleri, Üniversite Hastanelerinin Adli Tıp Anabilim Dalları veya Adli Tıp Kurumu'ndan alınması gerekmektedir. Özel hastane raporları genellikle kabul edilmez."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Rapor almak için hangi evraklar gereklidir?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Başvuru için genellikle kaza tespit tutanağı, olay yeri fotoğrafları, ilk müdahale edildiği hastaneden alınan epikriz raporları, ameliyat notları, varsa MR/Röntgen görüntüleri ve kimlik belgesi gerekmektedir."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Maluliyet raporu ücretli midir?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Eğer raporu bireysel olarak hastaneden talep ederseniz (engelli raporu vb. statüsünde değilse) hastane döner sermayesi tarafından belirlenen bir ücret talep edilebilir. Ancak dava aşamasında mahkeme sevki ile gidildiğinde ücret genellikle yargılama giderlerine dahil edilir."
-            }
-          }
+          { "@type": "Question", "name": "Heyet raporu ücretli midir?", "acceptedAnswer": { "@type": "Answer", "text": "Şahsi başvuruda hastane döner sermayesi tarafından belirlenen bir ücret alınır (genelde 500-1.500 TL aralığı, hastaneye göre değişir). Bu ücret dava sonunda haklı çıkmanız halinde karşı taraftan tahsil edilir." } },
+          { "@type": "Question", "name": "Maluliyet raporu ne kadar sürede çıkar?", "acceptedAnswer": { "@type": "Answer", "text": "Muayeneler tamamlandıktan sonra heyet kararının yazılması ve sisteme düşmesi 1-3 hafta sürer. Dosya yoğunluğuna göre değişir." } },
+          { "@type": "Question", "name": "Geçici raporla tazminat alınır mı?", "acceptedAnswer": { "@type": "Answer", "text": "Hayır. Sigorta şirketleri ve mahkemeler sürekli sakatlık tazminatı için sadece kalıcı maluliyet raporu kabul eder. Geçici iş göremezlik raporu yalnızca geçici iş gücü kaybı tazminatı için kullanılır." } },
+          { "@type": "Question", "name": "Özel hastaneden alınan rapor geçerli midir?", "acceptedAnswer": { "@type": "Answer", "text": "Genelde değildir. Sigorta şirketleri çoğunlukla reddeder. Mahkeme aşamasında Adli Tıp Kurumuna sevk edilirsiniz. Devlet eğitim-araştırma hastaneleri veya üniversite hastaneleri tercih edilmelidir." } },
+          { "@type": "Question", "name": "Maluliyet oranı %0 çıkarsa hiç tazminat alamaz mıyım?", "acceptedAnswer": { "@type": "Answer", "text": "Sürekli sakatlık tazminatı alamazsınız. Ancak: tedavi giderleri, geçici iş gücü kaybı, manevi tazminat hakkınız hâlâ vardır. Ayrıca rapora 30 gün içinde İl Sağlık Müdürlüğüne itiraz edebilirsiniz." } },
+          { "@type": "Question", "name": "Kazadan kaç gün sonra heyet raporu için başvurmalıyım?", "acceptedAnswer": { "@type": "Answer", "text": "Genelde 6-12 ay arası uygun zamandır. Kemik kırıklarında 6-12 ay, yumuşak doku hasarlarında 6 ay, sinir/omurilik/beyin yaralanmalarında 12-18 ay beklenmesi önerilir. Uzuv kaybı gibi istisnai durumlarda hemen başvurabilirsiniz." } },
+          { "@type": "Question", "name": "Aynı kazada birden çok yaralanma var, oranlar toplanır mı?", "acceptedAnswer": { "@type": "Answer", "text": "Hayır, basit toplam yapılmaz. Balthazar formülü ile birleşik oran hesaplanır. İki ayrı %30luk oran %60 değil, %51 çıkar. Formül: A + (100-A) × B/100." } },
+          { "@type": "Question", "name": "Sürekli iş gücü kaybı ile maluliyet aynı şey mi?", "acceptedAnswer": { "@type": "Answer", "text": "Hukuki ve tıbbi olarak benzer kavramlardır. Maluliyet oranı, sürekli iş gücü kaybının ölçüsüdür ve TBK m.54 kapsamında tazmin edilir." } },
+          { "@type": "Question", "name": "Bakıcı gideri ne zaman talep edilir?", "acceptedAnswer": { "@type": "Answer", "text": "Genelde maluliyet oranı %50 üzeri olan ve günlük yaşam aktivitelerinde başkasına bağımlı hale gelen kazazedeler için. Tutar bazen ana tazminatı da geçer." } },
+          { "@type": "Question", "name": "Çocuk kazazedede süreç farklı mı?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. 18 yaş altı için ÇÖZGER (Çocuklar İçin Özel Gereksinim Raporu) yönetmeliği uygulanır. Tazminat hesabında bakiye ömür ve aktif çalışma yılı çok daha uzundur, dolayısıyla tutar yüksek olur." } },
+          { "@type": "Question", "name": "Yaşlılarda (65+) maluliyet tazminatı alınır mı?", "acceptedAnswer": { "@type": "Answer", "text": "Alınır ama düşük çıkar. Pasif dönem ağırlıklı hesap yapılır." } },
+          { "@type": "Question", "name": "Sigorta şirketi avans öder mi?", "acceptedAnswer": { "@type": "Answer", "text": "Yaralanmalı kazalarda kısmi avans ödeme yükümlülüğü vardır. Kesin tutar belirlenmeden tedavi giderleri için kısmi ödeme talep edilebilir." } },
+          { "@type": "Question", "name": "Yabancı bir sürücü çarptıysa ne olur?", "acceptedAnswer": { "@type": "Answer", "text": "Yeşil Kart Bürosu süreci yönetir. Türkiye Sigortalar Birliği bünyesinde olan bu mekanizma, yabancı plakalı araçların sebep olduğu kazalarda zarar gören Türk vatandaşlarına tazminat öder." } },
+          { "@type": "Question", "name": "Çarp-kaç durumunda kim tazminat öder?", "acceptedAnswer": { "@type": "Answer", "text": "Güvence Hesabı. Türkiye Sigortalar Birliği bünyesinde işleyen bu fon, kusurlu sürücünün tespit edilemediği kazalarda devreye girer." } },
+          { "@type": "Question", "name": "Manevi tazminat nasıl belirlenir?", "acceptedAnswer": { "@type": "Answer", "text": "Hâkim takdir eder. Yaralanmanın ağırlığı, kazazedenin sosyal-ekonomik durumu, kusur dağılımı ve emsal kararlar dikkate alınır. Genelde 50.000-500.000 TL aralığında değişir; ağır vakalarda 1 milyon TL ve üstü mümkündür." } },
+          { "@type": "Question", "name": "Maluliyet raporuna nasıl itiraz edilir?", "acceptedAnswer": { "@type": "Answer", "text": "Raporun tebliğinden itibaren 30 gün içinde İl Sağlık Müdürlüğüne yazılı itiraz dilekçesi sunulur. İl Sağlık Müdürlüğü dosyayı farklı bir yetkili hastaneye (hakem hastane) sevk eder. Çelişki halinde üst hakem hastanesine gidilir." } },
+          { "@type": "Question", "name": "Trafik sigortasından tazminat almak için ne kadar süre var?", "acceptedAnswer": { "@type": "Answer", "text": "KTK m.109 uyarınca 2 yıl (öğrenmeden), her halde 10 yıl. Eylem suç teşkil ediyorsa (taksirle yaralama) ceza zamanaşımı 8 yıla kadar uzayabilir." } },
+          { "@type": "Question", "name": "Avukat tutmadan dava açabilir miyim?", "acceptedAnswer": { "@type": "Answer", "text": "Hukuken mümkündür ancak tavsiye edilmez. Aktüer hesaplama, bilirkişi süreci ve sigorta müzakeresi teknik uzmanlık gerektirir." } }
         ]
       },
       {
         "@type": "HowTo",
         "name": "Adım Adım Trafik Kazası Maluliyet Raporu Alma Süreci",
+        "totalTime": "P12M",
         "step": [
-          {
-            "@type": "HowToStep",
-            "position": 1,
-            "name": "Tedavi Sürecinin Tamamlanması",
-            "text": "Kazadan sonra kalıcı hasarın netleşmesi için tıbbi iyileşme sürecinin (ortalama 6-12 ay) tamamlanmasını bekleyin."
-          },
-          {
-            "@type": "HowToStep",
-            "position": 2,
-            "name": "Evrakların Hazırlanması",
-            "text": "Epikriz raporları, kaza tutanağı, ameliyat notları ve kimlik belgenizi eksiksiz hazırlayın."
-          },
-          {
-            "@type": "HowToStep",
-            "position": 3,
-            "name": "Yetkili Hastaneye Başvuru",
-            "text": "Sağlık Bakanlığı tarafından yetkilendirilmiş bir Eğitim Araştırma Hastanesi veya Üniversite Hastanesinin 'Sağlık Kurulu' (Heyet) birimine başvurun."
-          },
-          {
-            "@type": "HowToStep",
-            "position": 4,
-            "name": "Heyet Muayenesi",
-            "text": "Randevu gününde ilgili branş doktorlarına (Ortopedi, Nöroloji vb.) tek tek muayene olun ve son olarak Kurul karşısına çıkın."
-          }
+          { "@type": "HowToStep", "position": 1, "name": "Tedavi Sürecinin Tamamlanmasını Bekleyin", "text": "Kalıcı hasarın netleşmesi için tıbbi iyileşme sürecinin (ortalama 6-12 ay, sinir/beyin hasarında 12-18 ay) tamamlanmasını bekleyin. Erken alınan rapor düşük oranla bağlanmanıza yol açar." },
+          { "@type": "HowToStep", "position": 2, "name": "Belgelerinizi Hazırlayın", "text": "Kaza tespit tutanağı, hastane epikriz raporları, MR-BT-röntgen görüntüleri, ameliyat notları, reçete ve ilaç kayıtları, kimlik. Ne kadar tam olursa heyet kararı o kadar doğru olur." },
+          { "@type": "HowToStep", "position": 3, "name": "Yetkili Hastaneye Başvurun", "text": "Sağlık Bakanlığı yetkilendirilmiş Eğitim ve Araştırma Hastanesi, Üniversite Hastanesi veya Adli Tıp Kurumuna başvurun. Özel hastaneler genelde kabul edilmez." },
+          { "@type": "HowToStep", "position": 4, "name": "Branş Branş Muayene Olun", "text": "Hasarınıza göre Ortopedi, Nöroloji, Beyin Cerrahisi, Göz Hastalıkları, Psikiyatri gibi farklı branşlardan muayene olunur. Her branş kendi alanında oran teklifi verir." },
+          { "@type": "HowToStep", "position": 5, "name": "Heyet Karşısına Çıkın", "text": "Sağlık Kurulu (Heyet) toplantısında dosyanız bütün olarak değerlendirilir. Erişkinler İçin Engellilik Değerlendirilmesi Hakkında Yönetmelik cetveli esas alınarak nihai oran belirlenir." },
+          { "@type": "HowToStep", "position": 6, "name": "Raporu Alın ve Kontrol Edin", "text": "Rapor 1-3 hafta içinde e-Devlete düşer ve yazılı olarak teslim edilir. Oranı düşük bulursanız 30 gün içinde İl Sağlık Müdürlüğüne itiraz edebilirsiniz." },
+          { "@type": "HowToStep", "position": 7, "name": "Sigorta Şirketine Başvurun", "text": "Kusurlu tarafın trafik sigortası şirketine raporla birlikte resmi başvuru yapın. Sigorta 15 iş günü içinde cevap vermek zorundadır." }
         ]
       }
     ]
   },
+
 
   // =====================================================
   // Meslek Hastalığı Tazminatı 2025 Uzman Rehberi
