@@ -1,27 +1,32 @@
-# Git Push Komutları — SEO + Console Hata Düzeltmeleri
+# Git Push Komutları — Tüm SEO + Yeni Makale Değişiklikleri
 
-Bu dosya, yapılan tüm değişiklikleri Windows PowerShell veya Git Bash üzerinden GitHub'a push etmek için hazırlanmıştır.
+Bu dosya, biriken tüm değişiklikleri (SEO altyapısı + konsol fixleri + yeni "Fazla Mesai Alacağı" makalesi + iç linkleme) GitHub'a push etmek için.
 
-## Önemli: CRLF Sorunu
+## Önemli: CRLF / index.lock Sorunlarına Dikkat
 
-Linux mount'tan baktığımda 158 dosya "değişmiş" gözüküyor ama gerçekten değişen 23 dosya. Geri kalanı CRLF/LF satır sonu farkından gelen false positive. Aşağıdaki komutlar SADECE gerçek değişiklikleri stage'ler.
+1. PowerShell'de **çok satırlı** commit mesajı `>>` continuation bekler — kaçırılırsa lock takılır. Bu yüzden tek satırlı mesaj kullanıyoruz.
+2. Önceki başarısız commit'ten kalmış bir `.git/index.lock` varsa silinmeli (komut aşağıda).
+3. `git status` 130+ false-positive (CRLF) dosya gösterebilir; biz sadece kendi dosyalarımızı ekleyeceğiz.
 
-## Adım 1: Proje klasörüne git
+## Adım 1: Proje klasörüne git ve kilidi temizle
 
 ```powershell
 cd C:\Users\KOPTAY\Desktop\PROJELER\koptay-site
+Remove-Item .git\index.lock -Force -ErrorAction SilentlyContinue
 ```
 
-## Adım 2: Sadece bizim değiştirdiğimiz dosyaları stage'le
+## Adım 2: Sadece bizim dosyalarımızı stage'le
 
 ```powershell
-# Modified files (içerik gerçekten değişti)
+# 1) Modified files - SEO altyapısı
 git add index.html
 git add vercel.json
 git add package.json
 git add public/robots.txt
 git add public/generate-sitemap.js
 git add public/sitemap.xml
+git add public/articles.json
+git add articles.json
 git add src/components/CookieConsent.jsx
 git add src/components/LocalBusinessSchema.jsx
 git add src/components/ArticleSchema.jsx
@@ -38,88 +43,86 @@ git add src/pages/MeslekHastaligiPage.jsx
 git add src/pages/TazminatHesaplamaPage.jsx
 git add src/pages/TrafikKazasiPage.jsx
 
-# Konsol hata fixleri (yeni eklenenler)
+# 2) Modified files - Konsol hata fixleri
 git add src/utils/analytics.js
 git add src/utils/analyticsTracker.js
 git add src/services/articleViewsService.js
 
-# Yeni dosyalar
+# 3) Yeni dosyalar - SEO ve dokümantasyon
 git add scripts/prerender.js
 git add SEO_INCELEME_RAPORU.md
 git add SEO_UYGULAMA_OZET.md
 git add GIT_PUSH_KOMUTLARI.md
+git add YENI_MAKALE_FAZLA_MESAI.md
 
-# Yeni görseller (WebP/AVIF)
+# 4) Yeni görseller (WebP/AVIF)
 git add public/images/hero-bg-1.webp
 git add public/images/hero-bg-1.avif
 git add public/images/articles/*.webp
+
+# 5) Yeni makale görseli (eğer hazırladıysan ekle, hazırlamadıysan satırı atla)
+# git add public/images/articles/fazla-mesai-alacagi-hesaplama-2026.jpg
 ```
 
-## Adım 3: Stage edilenleri kontrol et
+## Adım 3: Stage'lenenleri doğrula
 
 ```powershell
 git status
 ```
 
-`Changes to be committed` listesi yukarıdaki ~45 dosyayı içermeli. `Changes not staged` kısmında 130+ dosya görebilirsiniz — onlar CRLF false-positive, **dokunmuyoruz**.
+Beklenti: "Changes to be committed" altında **40+ dosya**. CRLF false-positive'leri "Changes not staged" altında bırakılır, dokunulmaz.
 
-## Adım 4: Commit ve push
+## Adım 4: Commit ve push (TEK SATIR mesaj)
 
 ```powershell
-git commit -m "feat(seo): kapsamli SEO iyilestirmeleri ve console hata duzeltmeleri
-
-SEO altyapisi:
-- scripts/prerender.js: build sonrasi her route icin statik HTML uretir (35 sayfa)
-- LocalBusinessSchema: sahte rating/sosyal medya kaldirildi, gercek adres eklendi
-- 5 hesaplama sayfasina <SEO /> bileseni eklendi (TrafikKazasi, IlaveTediye, IscilikAlacaklari, MeslekHastaligi, TazminatHesaplama)
-- ArticlePage: seoTitle/seoDescription/keywords/publishedAt dogru alanlardan okunuyor
-- Hero gorseli WebP/AVIF + image-set fallback chain
-- 9 makale gorseli WebP versiyonu (-285 KB)
-- Tum gorsellere width/height + loading=lazy + alternativeText alt
-- Sitemap: image:image entries, kategori sayfalari, dogru lastmod (39 URL)
-- robots.txt: AI bot opt-out, /muvekkil-paneli engellendi
-- KVKK uyumlu analytics: Clarity ve GA artik consent sonrasi yukleniyor
-- vercel.json: cleanUrls, daha kati rewrite kurallari
-
-Konsol hata duzeltmeleri:
-- analytics.js / analyticsTracker.js: production'da no-op (DEV-only)
-- articleViewsService.js: localStorage fallback (Netlify endpoint disable)"
+git commit -m "feat(seo): kapsamli SEO iyilestirmesi, yeni 'Fazla Mesai Alacagi' makalesi ve console hata fixleri"
 
 git push origin main
 ```
 
 ## Adım 5: Vercel deploy takibi
 
-Push sonrası Vercel otomatik build başlatır. https://vercel.com/dashboard'dan takip edin (~2-3 dakika).
+Push'tan ~2-3 dakika sonra https://vercel.com/dashboard'tan deploy'un tamamlandığını kontrol et.
 
-## Adım 6: Doğrulama
-
-Build tamamlandıktan ~1 dk sonra:
+## Adım 6: Yayında doğrulama
 
 ```powershell
-# Yeni meta verisi gorunmeli (artik jenerik degil)
+# Yeni makale URL'si açılmalı (canlıda title gözükmeli)
+curl.exe -s https://koptay.av.tr/makale/fazla-mesai-alacagi-hesaplama-ispat-dava-sureci-2026 | Select-String "<title>"
+
+# Anasayfa title artık jenerik degil
 curl.exe -s https://koptay.av.tr/ | Select-String "<title>"
-# Bekleniyor: "Koptay Hukuk Burosu | Ankara Avukat..."
 
-# Bir makalenin OG tag'i de prerender edilmis olmali
-curl.exe -s https://koptay.av.tr/makale/trafik-kazasinda-taksirle-yaralama-sucu-hapis-cezasi-rehberi | Select-String "og:title"
+# Sitemap'te yeni makale gozukmeli
+curl.exe -s https://koptay.av.tr/sitemap.xml | Select-String "fazla-mesai"
 
-# Konsol hatalari gitmeli (Chrome DevTools'ta sayfayi yenile)
+# Hesaplama aracinda yeni CTA bandi gozukmeli (browser'da kontrol)
+# https://koptay.av.tr/hesaplama-araclari/iscilik-alacaklari
 ```
 
-## Bonus: CRLF sorunu kalici cozum (opsiyonel)
+## Adım 7: Google Search Console'a bilgi ver
+
+1. https://search.google.com/search-console adresine git
+2. `koptay.av.tr` mülkiyetini seç
+3. **Sitemaps** bölümünde "sitemap.xml" zaten eklenmişse "Yeniden Gönder"e tıkla
+4. **URL Inspection** kutusuna yeni makale URL'sini yapıştır → "Live test" → "Request Indexing"
+
+## Adım 8: Görseli sonra eklemek istersen
+
+Görseli `public/images/articles/fazla-mesai-alacagi-hesaplama-2026.jpg` olarak hazırlayıp ekledikten sonra:
 
 ```powershell
-git config core.autocrlf true
+git add public/images/articles/fazla-mesai-alacagi-hesaplama-2026.jpg
+git commit -m "feat: fazla mesai makalesi gorseli eklendi"
+git push origin main
 ```
 
-Bu ayarla bir daha tarihinizi kirletmezsiniz; yine de zaten commit yapilmis dosyalari etkilemez, sadece yeni edit'lerde devreye girer.
+## Sıkıntı çözümleri
 
-## Push Sonrasi Kontrol Listesi
+**"Everything up-to-date"** → Aslında stage edilmedi; Adım 2'deki `git add` komutlarını yapıştırmadın. Önce `git status` ile kontrol et.
 
-- [ ] Vercel deploy "Ready" oldu mu? (Dashboard'da yesil)
-- [ ] https://koptay.av.tr/ acildiginda title'da "Ankara Avukat" geciyor mu?
-- [ ] Bir makale URL'sini WhatsApp'ta paylas — onizleme cikiyor mu?
-- [ ] Chrome DevTools konsol temiz mi? (localhost:3003 ve Netlify hatalari gitmis olmali)
-- [ ] Google Search Console'a yeniden sitemap gonder: https://search.google.com/search-console
-- [ ] PageSpeed Insights testi: https://pagespeed.web.dev/?url=https%3A%2F%2Fkoptay.av.tr
+**"index.lock: File exists"** → `Remove-Item .git\index.lock -Force` çalıştır.
+
+**`>>` continuation** → Çok satırlı commit mesajı yapıştırırken PowerShell takılır. Önce `Esc` veya `Ctrl+C` ile iptal, sonra TEK SATIR mesajı kullan.
+
+**"pathspec did not match"** → O dosya yok, atla; diğer dosyalara geç.
