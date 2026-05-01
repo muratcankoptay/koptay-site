@@ -1,57 +1,46 @@
 import { Helmet } from 'react-helmet-async'
 
+/**
+ * LocalBusiness/Attorney structured data for Google Knowledge Panel & Local Pack.
+ *
+ * NOT: aggregateRating, sahte sosyal medya URL'leri ve placeholder adres
+ * kaldırılmıştır. Google'ın "fake review markup" yaptırımına yol açabilir.
+ * Gerçek müvekkil yorumları Google İşletme Profili (GBP) üzerinden toplandığında
+ * Google bunları kendi otomatik gösterir; schema'da elle yazılmamalıdır.
+ *
+ * Adres, telefon ve sosyal medya hesapları doğrulandıkça aşağıya eklenmelidir.
+ */
 const LocalBusinessSchema = () => {
   const schema = {
     "@context": "https://schema.org",
-    "@type": "LegalService",
+    "@type": "Attorney",
     "name": "Av. Murat Can Koptay - Koptay Hukuk Bürosu",
-    "image": "https://koptay.av.tr/logo.png",
-    "description": "Ankara merkezli hukuk bürosu. İş Hukuku, Ceza Hukuku, Aile Hukuku ve daha fazlası için profesyonel avukatlık hizmetleri.",
-    "@id": "https://koptay.av.tr",
+    "image": "https://koptay.av.tr/logo.svg",
+    "logo": "https://koptay.av.tr/logo.svg",
+    "description": "Ankara merkezli hukuk bürosu. İş Hukuku, Trafik Kazası, Aile Hukuku, Ceza Hukuku ve Tazminat Davaları alanlarında profesyonel avukatlık hizmetleri.",
+    "@id": "https://koptay.av.tr/#organization",
     "url": "https://koptay.av.tr",
     "telephone": "+905307111864",
     "email": "info@koptay.av.tr",
     "priceRange": "$$",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Adresiniz Buraya",
-      "addressLocality": "Ankara",
+      "streetAddress": "Aziziye Mah. Willy Brandt Sk. No:7/1",
+      "addressLocality": "Çankaya",
       "addressRegion": "Ankara",
-      "postalCode": "06xxx",
+      "postalCode": "06680",
       "addressCountry": "TR"
     },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 39.9334,
-      "longitude": 32.8597
-    },
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        "opens": "09:00",
-        "closes": "18:00"
-      }
+    "areaServed": [
+      { "@type": "City", "name": "Ankara" },
+      { "@type": "Country", "name": "Türkiye" }
     ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5",
-      "reviewCount": "10"
-    },
-    "sameAs": [
-      "https://www.facebook.com/yourpage",
-      "https://www.linkedin.com/in/yourprofile",
-      "https://www.instagram.com/yourpage"
-    ]
-  }
-
-  return (
-    <Helmet>
-      <script type="application/ld+json">
-        {JSON.stringify(schema)}
-      </script>
-    </Helmet>
-  )
-}
-
-export default LocalBusinessSchema
+    "knowsLanguage": ["tr", "en"],
+    "knowsAbout": [
+      "İş Hukuku",
+      "Ceza Hukuku",
+      "Aile Hukuku",
+      "Trafik Kazası Hukuku",
+      "Tazminat Hukuku",
+      "Ticaret Hukuku",
+      

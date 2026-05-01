@@ -218,9 +218,13 @@ const Home = () => {
                   <div className="relative h-48 bg-gradient-to-br from-lawPrimary to-lawSecondary overflow-hidden">
                     {article.image ? (
                       <img
-                        src={article.image}
-                        alt={article.title}
+                        src={typeof article.image === 'object' ? article.image.url : article.image}
+                        alt={(typeof article.image === 'object' && article.image.alternativeText) ? article.image.alternativeText : article.title}
                         className="w-full h-full object-cover"
+                        width="640"
+                        height="360"
+                        loading="lazy"
+                        decoding="async"
                         onError={(e) => {
                           e.target.style.display = 'none'
                         }}

@@ -16,8 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#548c8d" />
     <link rel="manifest" href="/manifest.json" />
-    <title>Koptay Hukuk Bürosu - Profesyonel Avukatlık Hizmetleri</title>
-    <meta name="description" content="Profesyonel avukatlık hizmetleri ve hukuki danışmanlık. Deneyimli avukat kadromuzla yanınızdayız." />
+    <title>Koptay Hukuk Bürosu | Ankara Avukat — İş, Trafik, Ceza, Aile Hukuku</title>
+    <meta name="description" content="Ankara'da iş hukuku, trafik kazası, ceza, aile ve tazminat davalarında profesyonel avukatlık hizmetleri. 6 ücretsiz hesaplama aracı ve uzman makaleler." />
     
     <!-- Critical CSS - Inline for faster FCP -->
     <style>
@@ -37,52 +37,69 @@
       .w-16{width:4rem}
     </style>
     
-    <!-- DNS Prefetch for faster DNS resolution -->
+    <!-- DNS Prefetch -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.clarity.ms">
     
-    <!-- Preconnect to critical domains (HIGHEST PRIORITY) -->
+    <!-- Preconnect to critical domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Preload Hero Image for LCP Optimization -->
-    <link rel="preload" as="image" href="/images/hero-bg-1.jpg" fetchpriority="high">
+    <!-- Preload Hero Image (WebP fallback'li) -->
+    <link rel="preload" as="image" href="/images/hero-bg-1.webp" type="image/webp" fetchpriority="high">
     <link rel="preload" as="image" href="/logo.svg" fetchpriority="high">
     
-    <!-- Optimized font loading with display=swap and preload -->
+    <!-- Optimized font loading -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"></noscript>
     
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
+    <!--
+      Analytics: KVKK / GDPR uyumlu — scriptler yalnizca kullanici cerez onayi verdikten sonra yuklenir.
+      window.__initAnalytics() fonksiyonu, ya sayfa yuklemesinde (consent zaten varsa) ya da
+      CookieConsent bileseni "Kabul Et" tiklandiginda cagrilir. Birden fazla cagrida idempotenttir.
+    -->
+    <script>
+      (function() {
+        var initialized = false;
+        window.__initAnalytics = function() {
+          if (initialized) return;
+          initialized = true;
+
+          (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
             t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "ugrdvpu2fw");
-    </script>
+          })(window, document, "clarity", "script", "ugrdvpu2fw");
 
-    <!-- Defer Google Analytics to not block rendering -->
-    <script>
-      window.addEventListener('load', function() {
-        // Load Google Analytics after page load
-        var script = document.createElement('script');
-        script.async = true;
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-8DQ21Q8GF9';
-        document.head.appendChild(script);
-        
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-8DQ21Q8GF9');
-      });
+          var gaScript = document.createElement('script');
+          gaScript.async = true;
+          gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-8DQ21Q8GF9';
+          document.head.appendChild(gaScript);
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', 'G-8DQ21Q8GF9', { 'anonymize_ip': true });
+        };
+
+        try {
+          var consent = localStorage.getItem('cookieConsent');
+          if (consent === 'true') {
+            if (document.readyState === 'complete') {
+              window.__initAnalytics();
+            } else {
+              window.addEventListener('load', function() { window.__initAnalytics(); });
+            }
+          }
+        } catch (e) { /* localStorage devre disi olabilir */ }
+      })();
     </script>
   </head>
   <body>
-    <!-- Global Loader (Prevents FOUC and Vercel default screen) -->
     <div id="global-loader" style="position:fixed;top:0;left:0;width:100%;height:100%;background-color:#ffffff;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.5s ease-out;">
-      <img src="/logo.svg" alt="Koptay Hukuk" style="width:150px;height:auto;margin-bottom:2rem;animation:pulse 2s infinite;">
+      <img src="/logo.svg" alt="Koptay Hukuk Burosu Logo" style="width:150px;height:auto;margin-bottom:2rem;animation:pulse 2s infinite;">
       <div style="width:3rem;height:3rem;border:3px solid #f3f4f6;border-top-color:#548c8d;border-radius:50%;animation:spin 1s linear infinite;"></div>
     </div>
     <style>
@@ -91,9 +108,7 @@
       .loader-hidden { opacity: 0; pointer-events: none; }
     </style>
 
-    <div id="root">
-      <!-- Fallback content if JS is disabled or fails -->
-    </div>
+    <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

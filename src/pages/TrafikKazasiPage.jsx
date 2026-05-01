@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { FaCar, FaUserInjured, FaCalculator, FaPrint, FaInfoCircle, FaExclamationTriangle } from 'react-icons/fa';
 
 // Lazy load Chart.js components
@@ -177,10 +178,13 @@ const TrafikKazasiPage = () => {
 
     return (
         <div className="min-h-screen bg-slate-50 pt-32 pb-12 px-4 sm:px-6 lg:px-8 font-sans">
-            <Helmet>
-                <title>Trafik Kazası Tazminat Hesaplama | Değer Kaybı & Aktüerya</title>
-                <meta name="description" content="Araç değer kaybı, ikame araç bedeli, sürekli sakatlık ve geçici iş göremezlik tazminatlarını hesaplayın. KTK m.85 ve TBK m.49 uyumlu aktüerya sistemi." />
-            </Helmet>
+            <SEO
+                title="Trafik Kazası Tazminat Hesaplama 2026 | Değer Kaybı & Aktüerya | Koptay Hukuk"
+                description="Araç değer kaybı, ikame araç bedeli, sürekli sakatlık ve geçici iş göremezlik tazminatlarını hesaplayın. KTK m.85 ve TBK m.49 uyumlu aktüerya sistemi. Ankara avukat — Koptay Hukuk Bürosu."
+                keywords="trafik kazası tazminat hesaplama, araç değer kaybı hesaplama, ikame araç bedeli, sürekli sakatlık tazminatı, geçici iş göremezlik, KTK 85, TBK 49, trafik kazası avukatı ankara"
+                url="https://koptay.av.tr/hesaplama-araclari/tazminat-hesaplama"
+                image="/images/articles/arac-deger-kaybi-kapsamli-rehber.jpg"
+            />
 
             <div className="max-w-7xl mx-auto">
                 {/* Header */}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 
 // Lazy load Chart.js only when needed
 let Chart = null;
@@ -240,9 +241,13 @@ const TazminatHesaplamaPage = () => {
 
     return (
         <div className="min-h-screen bg-slate-50 pt-32 pb-12 px-4 font-sans text-slate-800">
+            <SEO
+                title="Tazminat Hesaplama Aracı 2026 | İş Kazası & Meslek Hastalığı | Koptay Hukuk"
+                description="İş kazası ve meslek hastalığı tazminat hesaplama aracı. TRH-2010 tablosuna göre maddi tazminatınızı hesaplayın. Maluliyet oranı ve kusur durumu ile detaylı rapor. Ankara avukat — Koptay Hukuk Bürosu."
+                keywords="tazminat hesaplama, iş kazası tazminatı, meslek hastalığı tazminatı, TRH-2010, maluliyet oranı, kusur durumu, iş kazası avukatı ankara"
+                url="https://koptay.av.tr/hesaplama-araclari/tazminat-hesaplama"
+            />
             <Helmet>
-                <title>Tazminat Hesaplama Aracı | İş Kazası ve Meslek Hastalığı</title>
-                <meta name="description" content="İş kazası ve meslek hastalığı tazminat hesaplama aracı. TRH-2010 tablosuna göre maddi tazminatınızı hesaplayın. Maluliyet oranı ve kusur durumu ile detaylı rapor." />
                 <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
                 <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
             </Helmet>

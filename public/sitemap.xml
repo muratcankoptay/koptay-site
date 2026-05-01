@@ -5,324 +5,457 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://koptay.av.tr/</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hakkimizda</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hizmetlerimiz</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/ekibimiz</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/makaleler</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/iletisim</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hesaplama-araclari</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hesaplama-araclari/infaz-yatar</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hesaplama-araclari/vekalet-ucreti</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hesaplama-araclari/tazminat-hesaplama</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hesaplama-araclari/arac-deger-kaybi</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hesaplama-araclari/deger-kaybi</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/hesaplama-araclari/dava-suresi</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://koptay.av.tr/muvekkil-paneli</loc>
-    <lastmod>2026-04-26</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://koptay.av.tr/hesaplama-araclari/ilave-tediye</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/hesaplama-araclari/iscilik-alacaklari</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/hesaplama-araclari/meslek-hastaligi</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/hesaplama-araclari/trafik-kazasi</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/kvkk</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/makaleler?kategori=Ceza%20Hukuku</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/makaleler?kategori=Sigorta%20Hukuku</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/makaleler?kategori=%C4%B0%C5%9F%20Hukuku</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://koptay.av.tr/makaleler?kategori=Avukatl%C4%B1k%20%C3%9Ccretleri</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/trafik-kazasinda-taksirle-yaralama-sucu-hapis-cezasi-rehberi</loc>
     <lastmod>2026-02-20</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/trafik-kazasi-sonrasi-hapis-cezasi-alir-miyim.jpg</image:loc>
+      <image:title>Trafik Kazasında Taksirle Yaralama Suçu: Hapis Cezası Alır mıyım? (2026 Rehberi)</image:title>
+      <image:caption>Trafik Kazasında Taksirle Yaralama Suçu: Hapis Cezası Alır mıyım? (2026 Rehberi)</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
       <news:publication_date>2026-02-20</news:publication_date>
-      <news:title>trafik kazasinda taksirle yaralama sucu hapis cezasi rehberi</news:title>
+      <news:title>Trafik Kazasında Taksirle Yaralama Suçu: Hapis Cezası Alır mıyım? (2026 Rehberi)</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/pert-arac-rayic-deger-tespiti-tahkim-itiraz-rehberi-2026</loc>
     <lastmod>2026-01-26</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/pert-arac-rayic-deger-uyusmazligi-2026.jpg</image:loc>
+      <image:title>Pert Araçlarda Rayiç Değer Uyuşmazlığı Rehberi: 2026 Güncel Piyasa ve Tahkim Süreci</image:title>
+      <image:caption>Pert Araçlarda Rayiç Değer Uyuşmazlığı Rehberi: 2026 Güncel Piyasa ve Tahkim Süreci</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
       <news:publication_date>2026-01-26</news:publication_date>
-      <news:title>pert arac rayic deger tespiti tahkim itiraz rehberi 2026</news:title>
+      <news:title>Pert Araçlarda Rayiç Değer Uyuşmazlığı Rehberi: 2026 Güncel Piyasa ve Tahkim Süreci</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/arac-mahrumiyet-tazminati-hesaplama-sartlari-2026</loc>
     <lastmod>2026-01-20</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/kaza-sonrasi-arac-mahrumiyet-bedeli-2026.jpg</image:loc>
+      <image:title>Araç Mahrumiyet Tazminatı Nedir? Kaza Sonrası Araçsız Kaldığınız Günlerin Parasını Alın! (2026 Rehberi)</image:title>
+      <image:caption>Araç Mahrumiyet Tazminatı Nedir? Kaza Sonrası Araçsız Kaldığınız Günlerin Parasını Alın! (2026 Rehberi)</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
       <news:publication_date>2026-01-20</news:publication_date>
-      <news:title>arac mahrumiyet tazminati hesaplama sartlari 2026</news:title>
+      <news:title>Araç Mahrumiyet Tazminatı Nedir? Kaza Sonrası Araçsız Kaldığınız Günlerin Parasını Alın! (2026 Rehberi)</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/ilave-tediye-alacak-tahsili-ve-dava-sureci-2026</loc>
     <lastmod>2026-02-20</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/ilave-tediye-hukuki-surec.jpg</image:loc>
+      <image:title>İlave Tediye Alacaklarının Tahsili ve Dava Süreci: Geriye Dönük Haklar (2026)</image:title>
+      <image:caption>İlave Tediye Alacaklarının Tahsili ve Dava Süreci: Geriye Dönük Haklar (2026)</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
-      <news:publication_date>2026-02-20</news:publication_date>
-      <news:title>ilave tediye alacak tahsili ve dava sureci 2026</news:title>
+      <news:publication_date>2026-01-03</news:publication_date>
+      <news:title>İlave Tediye Alacaklarının Tahsili ve Dava Süreci: Geriye Dönük Haklar (2026)</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/2026-ilave-tediye-hesaplama-ve-hukuki-nitelik-rehberi</loc>
     <lastmod>2025-12-31</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/2026-ilave-tediye-hesaplama-kamu-iscisi-bordro-1.jpg</image:loc>
+      <image:title>2026 İlave Tediye Rehberi: Kamu İşçileri İçin Hesaplama ve Ödeme Tarihleri</image:title>
+      <image:caption>2026 İlave Tediye Rehberi: Kamu İşçileri İçin Hesaplama ve Ödeme Tarihleri</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
       <news:publication_date>2025-12-31</news:publication_date>
-      <news:title>2026 ilave tediye hesaplama ve hukuki nitelik rehberi</news:title>
+      <news:title>2026 İlave Tediye Rehberi: Kamu İşçileri İçin Hesaplama ve Ödeme Tarihleri</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/tramer-kusur-oranina-itiraz-rehberi-yuzde-100-kusurlu</loc>
-    <lastmod>2025-12-26</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/tramer-kusur-orani-itiraz-kaza-tutanagi.jpg</image:loc>
+      <image:title>TRAMER Kusur Oranına İtiraz ve Araç Değer Kaybı: %100 Kusurlu Çıkarsanız Ne Yapmalısınız? (2026 Güncel)</image:title>
+      <image:caption>TRAMER Kusur Oranına İtiraz: %100 Kusurlu Çıkarsanız Ne Yapmalısınız?</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
       <news:publication_date>2025-12-26</news:publication_date>
-      <news:title>tramer kusur oranina itiraz rehberi yuzde 100 kusurlu</news:title>
+      <news:title>TRAMER Kusur Oranına İtiraz ve Araç Değer Kaybı: %100 Kusurlu Çıkarsanız Ne Yapmalısınız? (2026 Güncel)</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/trafik-kazasi-sonrasi-maluliyet-heyet-raporu-nasil-ve-nereden-alinir-2025-rehberi</loc>
-    <lastmod>2025-12-31</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/trafik-kazasi-sonrasi-maluliyet-raporu-nasil-alinir.jpg</image:loc>
+      <image:title>Trafik Kazası Sonrası Maluliyet (Heyet) Raporu Nasıl ve Nereden Alınır? Kapsamlı 2026 Uzman Rehberi</image:title>
+      <image:caption>Trafik Kazası Sonrası Maluliyet (Heyet) Raporu Nasıl ve Nereden Alınır? (2025 Rehberi)</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
-      <news:publication_date>2025-12-31</news:publication_date>
-      <news:title>trafik kazasi sonrasi maluliyet heyet raporu nasil ve nereden alinir 2025 rehberi</news:title>
+      <news:publication_date>2025-11-20</news:publication_date>
+      <news:title>Trafik Kazası Sonrası Maluliyet (Heyet) Raporu Nasıl ve Nereden Alınır? Kapsamlı 2026 Uzman Rehberi</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/meslek-hastaligi-tazminati-hukuki-sartlari-surec-ve-hesaplama-yontemi-2025-uzman-rehberi</loc>
     <lastmod>2025-12-31</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/meslek-hastaligi-tazminati-hesaplama.jpg</image:loc>
+      <image:title>Meslek Hastalığı Tazminatı: Hukuki Şartları, Süreç ve Hesaplama Yöntemi (2026 Uzman Rehberi)</image:title>
+      <image:caption>Meslek Hastalığı Tazminatı: Hukuki Şartları, Süreç ve Hesaplama Yöntemi (2025 Uzman Rehberi)</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
-      <news:publication_date>2025-12-31</news:publication_date>
-      <news:title>meslek hastaligi tazminati hukuki sartlari surec ve hesaplama yontemi 2025 uzman rehberi</news:title>
+      <news:publication_date>2025-12-02</news:publication_date>
+      <news:title>Meslek Hastalığı Tazminatı: Hukuki Şartları, Süreç ve Hesaplama Yöntemi (2026 Uzman Rehberi)</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/2026-avukatlik-asgari-ucret-tarifesi-detayli-analiz-ve-uygulama-rehberi</loc>
     <lastmod>2025-11-06</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://passionate-basket-17f9c03fdf.media.strapiapp.com/Gemini_Generated_Image_f4kbh8f4kbh8f4kb_1_1_af2c7c98a0.jpg</image:loc>
+      <image:title>2026 Avukatlık Asgari Ücret Tarifesi: Detaylı Analiz, 2025 Karşılaştırması ve Uygulama Rehberi</image:title>
+      <image:caption>2026 Avukatlık Asgari Ücret Tarifesi: Detaylı Analiz, 2025 Karşılaştırması ve Uygulama Rehberi</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
       <news:publication_date>2025-11-06</news:publication_date>
-      <news:title>2026 avukatlik asgari ucret tarifesi detayli analiz ve uygulama rehberi</news:title>
+      <news:title>2026 Avukatlık Asgari Ücret Tarifesi: Detaylı Analiz, 2025 Karşılaştırması ve Uygulama Rehberi</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/arac-deger-kaybi-nedir-nasil-hesaplanir</loc>
     <lastmod>2025-11-14</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://passionate-basket-17f9c03fdf.media.strapiapp.com/arac_deger_kaybi_hesaplama_3fe103015c.jpg</image:loc>
+      <image:title>Araç Değer Kaybı Nedir, Nasıl Hesaplanır? (Güncel Hukuki Rehber)</image:title>
+      <image:caption>Araç Değer Kaybı Nedir, Nasıl Hesaplanır? (Güncel Hukuki Rehber)</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
       <news:publication_date>2025-11-14</news:publication_date>
-      <news:title>arac deger kaybi nedir nasil hesaplanir</news:title>
+      <news:title>Araç Değer Kaybı Nedir, Nasıl Hesaplanır? (Güncel Hukuki Rehber)</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/sigorta-tahkim-komisyonu-basvurusu-ve-sureci</loc>
     <lastmod>2025-12-26</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/sigorta-tahkim-komisyonu-basvurusu.jpg</image:loc>
+      <image:title>Sigorta Tahkim Komisyonu Nedir? Başvuru Nasıl Yapılır? (2025 Hızlı Çözüm Rehberi)</image:title>
+      <image:caption>Sigorta Tahkim Komisyonu Nedir? Başvuru Nasıl Yapılır? (2025 Hızlı Çözüm Rehberi)</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
-      <news:publication_date>2025-12-26</news:publication_date>
-      <news:title>sigorta tahkim komisyonu basvurusu ve sureci</news:title>
+      <news:publication_date>2025-11-26</news:publication_date>
+      <news:title>Sigorta Tahkim Komisyonu Nedir? Başvuru Nasıl Yapılır? (2025 Hızlı Çözüm Rehberi)</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/arac-deger-kaybi-kapsamli-rehber-2026</loc>
     <lastmod>2026-04-27</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/arac-deger-kaybi-kapsamli-rehber.jpg</image:loc>
+      <image:title>Araç Değer Kaybı Tazminatı: A&apos;dan Z&apos;ye Kapsamlı Uzman Rehberi (2026 Güncel)</image:title>
+      <image:caption>Araç Değer Kaybı Tazminatı Kapsamlı Rehber 2026</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
       <news:publication_date>2026-04-27</news:publication_date>
-      <news:title>arac deger kaybi kapsamli rehber 2026</news:title>
+      <news:title>Araç Değer Kaybı Tazminatı: A&apos;dan Z&apos;ye Kapsamlı Uzman Rehberi (2026 Güncel)</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/arac-deger-kaybi-davasi-nasil-acilir</loc>
     <lastmod>2026-04-27</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/arac-deger-kaybi-davasi-nasil-acilir.jpg</image:loc>
+      <image:title>Araç Değer Kaybı Davası Nasıl Açılır? Adım Adım 2026 Uzman Rehberi</image:title>
+      <image:caption>Araç Değer Kaybı Davası Nasıl Açılır</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
       <news:publication_date>2026-04-27</news:publication_date>
-      <news:title>arac deger kaybi davasi nasil acilir</news:title>
+      <news:title>Araç Değer Kaybı Davası Nasıl Açılır? Adım Adım 2026 Uzman Rehberi</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/arac-deger-kaybi-hesaplama-yontemi-kriterleri</loc>
     <lastmod>2026-04-27</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/arac-deger-kaybi-hesaplama-yontemi.jpg</image:loc>
+      <image:title>Araç Değer Kaybı Hesaplama Yöntemi: Formül, Kıstaslar ve Örnek Senaryolar</image:title>
+      <image:caption>Araç Değer Kaybı Hesaplama Yöntemi ve Formülleri</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
       <news:publication_date>2026-04-27</news:publication_date>
-      <news:title>arac deger kaybi hesaplama yontemi kriterleri</news:title>
+      <news:title>Araç Değer Kaybı Hesaplama Yöntemi: Formül, Kıstaslar ve Örnek Senaryolar</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/trafik-sigortasi-arac-deger-kaybi-sorumluluk</loc>
     <lastmod>2026-04-27</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/trafik-sigortasi-arac-deger-kaybi.jpg</image:loc>
+      <image:title>Trafik Sigortası ve Araç Değer Kaybı: Sigortanın Sorumluluğu ve Süreç Yönetimi (2026)</image:title>
+      <image:caption>Trafik Sigortası ve Araç Değer Kaybı Süreci</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
       <news:publication_date>2026-04-27</news:publication_date>
-      <news:title>trafik sigortasi arac deger kaybi sorumluluk</news:title>
+      <news:title>Trafik Sigortası ve Araç Değer Kaybı: Sigortanın Sorumluluğu ve Süreç Yönetimi (2026)</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/pert-araclarda-deger-kaybi-mahrumiyet</loc>
     <lastmod>2026-04-27</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/pert-araclarda-deger-kaybi.jpg</image:loc>
+      <image:title>Pert Araçlarda Değer Kaybı, Hurda ve Mahrumiyet Bedeli: 2026 Uzman Rehberi</image:title>
+      <image:caption>Pert Araçlarda Değer Kaybı ve Mahrumiyet Bedeli</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
       <news:publication_date>2026-04-27</news:publication_date>
-      <news:title>pert araclarda deger kaybi mahrumiyet</news:title>
+      <news:title>Pert Araçlarda Değer Kaybı, Hurda ve Mahrumiyet Bedeli: 2026 Uzman Rehberi</news:title>
     </news:news>
   </url>
   <url>
     <loc>https://koptay.av.tr/makale/arac-mahrumiyet-bedeli-ikame-arac-hakki</loc>
     <lastmod>2026-04-27</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://koptay.av.tr/images/articles/arac-mahrumiyet-bedeli-ikame-arac.jpg</image:loc>
+      <image:title>Araç Mahrumiyet Bedeli ve İkame Araç Hakkı: 2026 Detaylı Uzman Rehberi</image:title>
+      <image:caption>Araç Mahrumiyet Bedeli ve İkame Araç Hakkı</image:caption>
+    </image:image>
     <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
       <news:publication_date>2026-04-27</news:publication_date>
-      <news:title>arac mahrumiyet bedeli ikame arac hakki</news:title>
+      <news:title>Araç Mahrumiyet Bedeli ve İkame Araç Hakkı: 2026 Detaylı Uzman Rehberi</news:title>
     </news:news>
   </url>
 </urlset>

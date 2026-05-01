@@ -6,9 +6,13 @@ const TeamMember = ({ member }) => {
       {/* Fotoğraf */}
       <div className="relative overflow-hidden h-80 bg-gradient-to-br from-lawPrimary/10 to-lawSecondary/10">
         {member.image ? (
-          <img 
-            src={member.image} 
-            alt={member.name}
+          <img
+            src={member.image}
+            alt={`${member.name} - ${member.title || 'Avukat'} - Koptay Hukuk Bürosu`}
+            width="400"
+            height="500"
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500"
           />
         ) : (

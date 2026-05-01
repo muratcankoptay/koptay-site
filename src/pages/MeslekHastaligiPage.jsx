@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { Chart } from 'chart.js/auto';
 
 const MeslekHastaligiPage = () => {
@@ -215,9 +216,14 @@ const MeslekHastaligiPage = () => {
 
     return (
         <div className="min-h-screen bg-slate-50 pt-32 pb-12 px-4 font-sans text-slate-800">
+            <SEO
+                title="Meslek Hastalığı Tazminat Hesaplama 2026 | TRH-2010 Esaslı | Koptay Hukuk"
+                description="Meslek hastalığı tazminat hesaplama aracı ile TRH-2010 tablosuna göre maddi tazminatınızı hesaplayın. Yükümlülük süresi, maluliyet oranı ve Yargıtay içtihatlarına uygun detaylı rapor. Ankara avukat — Koptay Hukuk Bürosu."
+                keywords="meslek hastalığı tazminat hesaplama, TRH-2010, meslek hastalığı davası, maluliyet oranı, sürekli iş göremezlik, meslek hastalığı avukatı, ankara iş hukuku"
+                url="https://koptay.av.tr/hesaplama-araclari/meslek-hastaligi"
+                image="/images/articles/meslek-hastaligi-tazminati-hesaplama.jpg"
+            />
             <Helmet>
-                <title>Meslek Hastalığı Tazminat Hesaplama Aracı | TRH-2010 Esaslı</title>
-                <meta name="description" content="Meslek hastalığı tazminat hesaplama aracı ile TRH-2010 tablosuna göre maddi tazminatınızı hesaplayın. Yükümlülük süresi, maluliyet oranı ve Yargıtay içtihatlarına uygun detaylı rapor." />
                 <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
                 <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
             </Helmet>

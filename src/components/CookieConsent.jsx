@@ -5,13 +5,9 @@ const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if user has already consented
     const consent = localStorage.getItem('cookieConsent');
     if (!consent) {
-      // Show banner after a small delay
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 1000);
+      const timer = setTimeout(() => setIsVisible(true), 1000);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -19,10 +15,14 @@ const CookieConsent = () => {
   const handleAccept = () => {
     localStorage.setItem('cookieConsent', 'true');
     setIsVisible(false);
-    
-    // Here you would typically initialize your analytics scripts if they weren't already loaded
-    // or if you were blocking them until consent.
-    // For this implementation, we assume scripts are loaded but this banner fulfills the notification requirement.
+    if (typeof window.__initAnalytics === 'function') {
+      window.__initAnalytics();
+    }
+  };
+
+  const handleReject = () => {
+    localStorage.setItem('cookieConsent', 'false');
+    setIsVisible(false);
   };
 
   if (!isVisible) return null;
@@ -32,11 +32,17 @@ const CookieConsent = () => {
       <div className="container mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="text-sm text-gray-300 flex-1">
           <p>
-            Sizlere daha iyi hizmet sunabilmek adına sitemizde çerezler (cookies) kullanılmaktadır. 
+            Sizlere daha iyi hizmet sunabilmek için sitemizde analitik çerezler (Microsoft Clarity, Google Analytics) kullanmak istiyoruz.
             Detaylı bilgi için <Link to="/kvkk" className="text-primary-400 hover:text-primary-300 underline">KVKK ve Çerez Politikamızı</Link> inceleyebilirsiniz.
           </p>
         </div>
         <div className="flex items-center gap-3">
+          <button
+            onClick={handleReject}
+            className="bg-transparent hover:bg-gray-800 text-gray-300 hover:text-white px-5 py-2 rounded-lg text-sm font-medium border border-gray-600 transition-colors duration-200 whitespace-nowrap"
+          >
+            Reddet
+          </button>
           <button
             onClick={handleAccept}
             className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors duration-200 whitespace-nowrap"

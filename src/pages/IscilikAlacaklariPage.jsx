@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { 
     calculateSeverance, 
     calculateNoticePay, 
@@ -155,10 +156,12 @@ const IscilikAlacaklariPage = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 pt-32 pb-12 px-4 sm:px-6 lg:px-8">
-            <Helmet>
-                <title>İşçilik Alacakları Hesaplama - Kıdem, İhbar, İzin, Mesai | Koptay Hukuk</title>
-                <meta name="description" content="Kıdem tazminatı, ihbar tazminatı, yıllık izin ücreti ve fazla mesai alacaklarınızı güncel oranlarla hesaplayın. Profesyonel işçilik alacakları hesaplama aracı." />
-            </Helmet>
+            <SEO
+                title="İşçilik Alacakları Hesaplama 2026 — Kıdem, İhbar, İzin, Mesai | Koptay Hukuk"
+                description="Kıdem tazminatı, ihbar tazminatı, yıllık izin ücreti ve fazla mesai alacaklarınızı 2026 güncel oranlarla hesaplayın. Profesyonel işçilik alacakları hesaplama aracı. Ankara avukat — Koptay Hukuk Bürosu."
+                keywords="işçilik alacakları hesaplama, kıdem tazminatı hesaplama, ihbar tazminatı hesaplama, yıllık izin ücreti, fazla mesai hesaplama, iş hukuku avukatı ankara, işçi alacakları davası"
+                url="https://koptay.av.tr/hesaplama-araclari/iscilik-alacaklari"
+            />
 
             <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-10">

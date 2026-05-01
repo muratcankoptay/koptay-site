@@ -1,5 +1,6 @@
 // Dinamik Sitemap Oluşturucu
-// Strapi'den makaleleri çekip sitemap.xml'e yazar
+// articles.json'dan makaleleri okuyup sitemap.xml'e yazar.
+// SEO: image:image entries, gerçek updatedAt tarihleri, kategori sayfaları, hesaplama araçları kümesi.
 
 import fs from 'fs';
 import path from 'path';
@@ -8,11 +9,15 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Site URL'i - kendi domaininizi buraya yazın
 const SITE_URL = 'https://koptay.av.tr';
 
-// Strapi API URL
-const STRAPI_URL = 'https://passionate-basket-17f9c03fdf.strapiapp.com';
+// XML special characters'ı escape et
+const escapeXml = (str = '') => String(str)
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;')
+  .replace(/'/g, '&apos;');
 
 // Statik sayfalar
 const staticPages = [
@@ -25,18 +30,22 @@ const staticPages = [
   { url: '/hesaplama-araclari', changefreq: 'monthly', priority: '0.8' },
   { url: '/hesaplama-araclari/infaz-yatar', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/vekalet-ucreti', changefreq: 'weekly', priority: '0.9' },
-  { url: '/hesaplama-araclari/tazminat-hesaplama', changefreq: 'weekly', priority: '0.8' },
+  { url: '/hesaplama-araclari/tazminat-hesaplama', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/arac-deger-kaybi', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/deger-kaybi', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/dava-suresi', changefreq: 'weekly', priority: '0.9' },
-  { url: '/muvekkil-paneli', changefreq: 'monthly', priority: '0.6' }
+  { url: '/hesaplama-araclari/ilave-tediye', changefreq: 'weekly', priority: '0.9' },
+  { url: '/hesaplama-araclari/iscilik-alacaklari', changefreq: 'weekly', priority: '0.9' },
+  { url: '/hesaplama-araclari/meslek-hastaligi', changefreq: 'weekly', priority: '0.9' },
+  { url: '/hesaplama-araclari/trafik-kazasi', changefreq: 'weekly', priority: '0.9' },
+  { url: '/kvkk', changefreq: 'yearly', priority: '0.3' }
 ];
 
 async function fetchArticles() {
   try {
     console.log('📂 Reading articles from local JSON file...');
     const articlesPath = path.join(__dirname, '../articles.json');
-    
+
     if (!fs.existsSync(articlesPath)) {
       console.error('❌ articles.json not found at:', articlesPath);
       return [];
@@ -44,14 +53,26 @@ async function fetchArticles() {
 
     const fileContent = fs.readFileSync(articlesPath, 'utf-8');
     const data = JSON.parse(fileContent);
-    
+
     console.log(`✅ Found ${data.data.length} articles in local file`);
-    
-    return data.data.map(article => ({
-      slug: article.slug,
-      updatedAt: article.updatedAt || article.publishedAt || new Date().toISOString(),
-      category: article.category
-    }));
+
+    return data.data.map(article => {
+      const imageUrl = (article.image && typeof article.image === 'object')
+        ? article.image.url
+        : article.image;
+      const imageAlt = (article.image && typeof article.image === 'object' && article.image.alternativeText)
+        ? article.image.alternativeText
+        : article.title;
+      return {
+        slug: article.slug,
+        title: article.title,
+        updatedAt: article.updatedAt || article.publishedAt || new Date().toISOString(),
+        publishedAt: article.publishedAt || article.updatedAt,
+        category: article.category,
+        imageUrl: imageUrl ? (imageUrl.startsWith('http') ? imageUrl : `${SITE_URL}${imageUrl}`) : null,
+        imageAlt
+      };
+    });
   } catch (error) {
     console.error('❌ Error reading articles:', error.message);
     return [];
@@ -60,11 +81,10 @@ async function fetchArticles() {
 
 async function generateSitemap() {
   console.log('🚀 Starting sitemap generation...');
-  
-  // Makaleleri çek
+
   const articles = await fetchArticles();
-  
-  // Sitemap başlangıcı
+  const buildDate = new Date().toISOString().split('T')[0];
+
   let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
@@ -72,53 +92,73 @@ async function generateSitemap() {
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 `;
 
-  // Statik sayfalar ekle
+  // Statik sayfalar
   console.log('📄 Adding static pages...');
   staticPages.forEach(page => {
-    const lastmod = new Date().toISOString().split('T')[0];
     sitemap += `  <url>
     <loc>${SITE_URL}${page.url}</loc>
-    <lastmod>${lastmod}</lastmod>
+    <lastmod>${buildDate}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
   </url>
 `;
   });
 
-  // Makale sayfaları ekle
+  // Kategori sayfaları (her kategori için /makaleler?kategori=...)
+  console.log('🏷️  Adding category pages...');
+  const categories = [...new Set(articles.map(a => a.category).filter(Boolean))];
+  categories.forEach(cat => {
+    sitemap += `  <url>
+    <loc>${SITE_URL}/makaleler?kategori=${encodeURIComponent(cat)}</loc>
+    <lastmod>${buildDate}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+`;
+  });
+
+  // Makale sayfaları
   console.log('📚 Adding article pages...');
   articles.forEach(article => {
-    const lastmod = article.updatedAt ? article.updatedAt.split('T')[0] : new Date().toISOString().split('T')[0];
+    const lastmod = article.updatedAt ? article.updatedAt.split('T')[0] : buildDate;
+    const pubDate = article.publishedAt ? article.publishedAt.split('T')[0] : lastmod;
     sitemap += `  <url>
     <loc>${SITE_URL}/makale/${article.slug}</loc>
     <lastmod>${lastmod}</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <news:news>
+`;
+    if (article.imageUrl) {
+      sitemap += `    <image:image>
+      <image:loc>${escapeXml(article.imageUrl)}</image:loc>
+      <image:title>${escapeXml(article.title)}</image:title>
+      <image:caption>${escapeXml(article.imageAlt)}</image:caption>
+    </image:image>
+`;
+    }
+    sitemap += `    <news:news>
       <news:publication>
         <news:name>Koptay Hukuk Bürosu</news:name>
         <news:language>tr</news:language>
       </news:publication>
-      <news:publication_date>${lastmod}</news:publication_date>
-      <news:title>${article.slug.replace(/-/g, ' ')}</news:title>
+      <news:publication_date>${pubDate}</news:publication_date>
+      <news:title>${escapeXml(article.title)}</news:title>
     </news:news>
   </url>
 `;
   });
 
-  // Sitemap sonu
   sitemap += `</urlset>`;
 
-  // Dosyaya yaz
   const sitemapPath = path.join(__dirname, 'sitemap.xml');
   fs.writeFileSync(sitemapPath, sitemap, 'utf8');
-  
+
   console.log(`✅ Sitemap generated successfully!`);
-  console.log(`📊 Total URLs: ${staticPages.length + articles.length}`);
+  console.log(`📊 Total URLs: ${staticPages.length + categories.length + articles.length}`);
   console.log(`   - Static pages: ${staticPages.length}`);
+  console.log(`   - Category pages: ${categories.length}`);
   console.log(`   - Article pages: ${articles.length}`);
   console.log(`📁 File: ${sitemapPath}`);
 }
 
-// Script çalıştır
 generateSitemap().catch(console.error);

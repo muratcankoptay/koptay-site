@@ -175,9 +175,13 @@ const MakalelerPage = () => {
                 >
                   {article.image && (
                     <div className="mb-6 rounded-xl overflow-hidden">
-                      <img 
-                        src={article.image} 
-                        alt={article.title}
+                      <img
+                        src={typeof article.image === 'object' ? article.image.url : article.image}
+                        alt={(typeof article.image === 'object' && article.image.alternativeText) ? article.image.alternativeText : article.title}
+                        width="640"
+                        height="360"
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
                       />
                     </div>

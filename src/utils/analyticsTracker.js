@@ -1,8 +1,12 @@
 // Gerçek zamanlı analytics tracker
 // Google Analytics ve Microsoft Clarity alternatifi
+// NOT: Sadece development'ta çalışır; production'da Google Analytics + Clarity devrede.
+
+const ANALYTICS_ENABLED = import.meta.env.DEV
 
 class AnalyticsTracker {
   constructor() {
+    if (!ANALYTICS_ENABLED) return  // Production'da hiç başlatma
     this.apiUrl = 'http://localhost:3003/api/analytics'
     this.sessionId = this.getOrCreateSessionId()
     this.visitorId = this.getOrCreateVisitorId()

@@ -235,18 +235,30 @@ const ArticlePage = () => {
     return colors[category] || 'bg-gray-100 text-gray-800'
   }
 
+  // Image can be either a string URL or an object {url, alternativeText}
+  const articleImageUrl = (article.image && typeof article.image === 'object')
+    ? article.image.url
+    : article.image
+  const articleImageAlt = (article.image && typeof article.image === 'object' && article.image.alternativeText)
+    ? article.image.alternativeText
+    : article.title
+  // Build absolute URL for OG/Twitter image (required by social platforms)
+  const absoluteImageUrl = articleImageUrl
+    ? (articleImageUrl.startsWith('http') ? articleImageUrl : `https://koptay.av.tr${articleImageUrl}`)
+    : 'https://koptay.av.tr/images/hero-bg-1.jpg'
+
   return (
     <>
       <SEO
-        title={`${article.title} | Koptay Hukuk Bürosu`}
-        description={article.metaDescription || article.excerpt}
-        keywords={article.metaKeywords || (article.tags ? article.tags.join(', ') : '')}
+        title={article.seoTitle || `${article.title} | Koptay Hukuk Bürosu`}
+        description={article.seoDescription || article.metaDescription || article.excerpt}
+        keywords={article.keywords || article.metaKeywords || (article.tags ? article.tags.join(', ') : '')}
         url={`https://koptay.av.tr/makale/${article.slug}`}
         type="article"
-        image={article.image}
+        image={absoluteImageUrl}
         author={article.author}
-        publishedTime={article.publishDate}
-        modifiedTime={article.updatedDate || article.publishDate}
+        publishedTime={article.publishedAt || article.publishDate}
+        modifiedTime={article.updatedAt || article.updatedDate || article.publishedAt || article.publishDate}
         preloadImage={true}
       />
 
@@ -266,8 +278,8 @@ const ArticlePage = () => {
               "@context": "https://schema.org",
               "@type": "Article",
               "headline": article.title,
-              "description": article.metaDescription || article.excerpt,
-              "image": article.image || "https://koptay.av.tr/images/default-article.jpg",
+              "description": article.seoDescription || article.metaDescription || article.excerpt,
+              "image": absoluteImageUrl,
               "author": {
                 "@type": "Person",
                 "name": article.author || "Av. Murat Can Koptay",
@@ -278,7 +290,7 @@ const ArticlePage = () => {
                 "name": "Koptay Hukuk Bürosu",
                 "logo": {
                   "@type": "ImageObject",
-                  "url": "https://koptay.av.tr/logo.png",
+                  "url": "https://koptay.av.tr/logo.svg",
                   "width": 250,
                   "height": 60
                 },
@@ -291,14 +303,14 @@ const ArticlePage = () => {
                   "availableLanguage": "Turkish"
                 }
               },
-              "datePublished": article.publishDate,
-              "dateModified": article.updatedDate || article.publishDate,
+              "datePublished": article.publishedAt || article.publishDate,
+              "dateModified": article.updatedAt || article.updatedDate || article.publishedAt || article.publishDate,
               "mainEntityOfPage": {
                 "@type": "WebPage",
                 "@id": `https://koptay.av.tr/makale/${article.slug}`
               },
               "articleSection": article.category || "Hukuk",
-              "keywords": article.tags ? article.tags.join(", ") : "",
+              "keywords": article.keywords || (article.tags ? article.tags.join(", ") : ""),
               "inLanguage": "tr-TR",
               "wordCount": article.content ? article.content.split(/\s+/).length : 0,
               "timeRequired": article.readTime || "5 dakika"
@@ -404,7 +416,7 @@ const ArticlePage = () => {
                 </div>
                 <div className="flex items-center">
                   <Calendar className="w-5 h-5 mr-2" />
-                  <span>{formatDate(article.publishDate)}</span>
+                  <span>{formatDate(article.publishedAt || article.publishDate)}</span>
                 </div>
                 <div className="flex items-center">
                   <Clock className="w-5 h-5 mr-2" />
@@ -447,13 +459,13 @@ const ArticlePage = () => {
             </header>
 
             {/* Article Image */}
-            {article.image && (
+            {articleImageUrl && (
               <div className="mb-8 relative overflow-hidden rounded-xl bg-gray-100">
                 <img
-                  src={optimizeImage(article.image, 1280, 85)}
-                  srcSet={generateSrcSet(article.image)}
+                  src={optimizeImage(articleImageUrl, 1280, 85)}
+                  srcSet={generateSrcSet(articleImageUrl)}
                   sizes={generateSizes()}
-                  alt={article.title}
+                  alt={articleImageAlt}
                   className="w-full h-64 md:h-96 object-cover rounded-xl"
                   width="1024"
                   height="690"
@@ -461,7 +473,7 @@ const ArticlePage = () => {
                   fetchpriority="high"
                   decoding="async"
                   onError={(e) => {
-                    e.target.src = article.image // Fallback to original
+                    e.target.src = articleImageUrl // Fallback to original
                   }}
                 />
               </div>

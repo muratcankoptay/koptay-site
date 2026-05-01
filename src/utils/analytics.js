@@ -1,8 +1,12 @@
 // Gerçek zamanlı analytics tracking sistemi
+// NOT: Bu özel/yerel analytics sistemi yalnızca development'ta çalışır.
+// Production'da Google Analytics + Microsoft Clarity kullanılır (consent sonrası).
 const ANALYTICS_API = 'http://localhost:3003/api/analytics'
+const ANALYTICS_ENABLED = import.meta.env.DEV  // Sadece development'ta aktif
 
 class AnalyticsTracker {
   constructor() {
+    if (!ANALYTICS_ENABLED) return  // Production'da hiç başlatma
     this.sessionId = this.getOrCreateSessionId()
     this.visitorId = this.getOrCreateVisitorId()
     this.isTracking = false
@@ -11,6 +15,7 @@ class AnalyticsTracker {
 
   init() {
     if (typeof window === 'undefined') return
+    if (!ANALYTICS_ENABLED) return
     
     // Sayfa yüklendiğinde track
     this.trackPageView()

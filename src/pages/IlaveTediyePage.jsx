@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { Link } from 'react-router-dom';
 import { 
     FaCalculator, 
@@ -142,11 +143,13 @@ const IlaveTediyePage = () => {
 
     return (
         <>
-            <Helmet>
-                <title>İlave Tediye Hesaplama 2026 | 6772 Sayılı Kanun | Koptay Hukuk</title>
-                <meta name="description" content="6772 sayılı kanun kapsamında kamu işçileri için ilave tediye hesaplama aracı. 2026 güncel parametreleriyle brüt-net tediye hesaplayın." />
-                <meta name="keywords" content="ilave tediye, tediye hesaplama, kamu işçisi, 6772 sayılı kanun, ikramiye hesaplama, belediye işçisi" />
-            </Helmet>
+            <SEO
+                title="İlave Tediye Hesaplama 2026 | 6772 Sayılı Kanun | Koptay Hukuk"
+                description="6772 sayılı kanun kapsamında kamu işçileri için ilave tediye hesaplama aracı. 2026 güncel parametreleriyle brüt-net tediye hesaplayın. Ankara avukat — Koptay Hukuk Bürosu."
+                keywords="ilave tediye hesaplama, ilave tediye 2026, 6772 sayılı kanun, kamu işçisi ilave tediye, ilave tediye alacağı, ilave tediye davası, ankara iş hukuku avukatı"
+                url="https://koptay.av.tr/hesaplama-araclari/ilave-tediye"
+                image="/images/articles/2026-ilave-tediye-hesaplama-kamu-iscisi-bordro.jpg"
+            />
 
             <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4">
                 <div className="max-w-4xl mx-auto">

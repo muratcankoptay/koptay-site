@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node public/generate-sitemap.js && node public/generate-rss.js && vite build",
+    "build": "node public/generate-sitemap.js && node public/generate-rss.js && vite build && node scripts/prerender.js",
+    "build:no-prerender": "node public/generate-sitemap.js && node public/generate-rss.js && vite build",
+    "prerender": "node scripts/prerender.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "admin": "concurrently \"node admin-server.js\" \"node analytics-server.js\" \"vite\"",

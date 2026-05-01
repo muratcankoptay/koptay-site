@@ -1,13 +1,50 @@
+# robots.txt - koptay.av.tr
+
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /muvekkil-paneli
 
-Sitemap: https://koptay.av.tr/sitemap.xml
-
-# Allow search engines to crawl the site
 User-agent: Googlebot
 Allow: /
-
-# Block crawling of admin or development paths
 Disallow: /admin/
-Disallow: /_next/
 Disallow: /api/
+Disallow: /muvekkil-paneli
+
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /muvekkil-paneli
+
+User-agent: YandexBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /muvekkil-paneli
+
+# AI crawlers - opt-out
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+Sitemap: https://koptay.av.tr/sitemap.xml

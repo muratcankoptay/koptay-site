@@ -49,9 +49,11 @@ const ArticleCard = ({ article, index = 0 }) => {
       <div className="relative h-48 bg-gradient-to-br from-primary-500 to-primary-700 overflow-hidden">
         {article.image ? (
           <img
-            src={optimizeImage(article.image, 640, 75)}
-            alt={article.title}
+            src={optimizeImage((typeof article.image === 'object' ? article.image.url : article.image), 640, 75)}
+            alt={(typeof article.image === 'object' && article.image.alternativeText) ? article.image.alternativeText : article.title}
             className="w-full h-full object-cover"
+            width="640"
+            height="360"
             loading="lazy"
             decoding="async"
             onError={(e) => {
@@ -87,7 +89,7 @@ const ArticleCard = ({ article, index = 0 }) => {
             </div>
             <div className="flex items-center">
               <Calendar className="w-4 h-4 mr-1" />
-              <span>{formatDate(article.publishDate)}</span>
+              <span>{formatDate(article.publishedAt || article.publishDate)}</span>
             </div>
           </div>
           <div className="flex items-center">
