@@ -179,12 +179,130 @@ const TrafikKazasiPage = () => {
     return (
         <div className="min-h-screen bg-slate-50 pt-32 pb-12 px-4 sm:px-6 lg:px-8 font-sans">
             <SEO
-                title="Trafik Kazası Tazminat Hesaplama 2026 | Değer Kaybı & Aktüerya | Koptay Hukuk"
-                description="Araç değer kaybı, ikame araç bedeli, sürekli sakatlık ve geçici iş göremezlik tazminatlarını hesaplayın. KTK m.85 ve TBK m.49 uyumlu aktüerya sistemi. Ankara avukat — Koptay Hukuk Bürosu."
-                keywords="trafik kazası tazminat hesaplama, araç değer kaybı hesaplama, ikame araç bedeli, sürekli sakatlık tazminatı, geçici iş göremezlik, KTK 85, TBK 49, trafik kazası avukatı ankara"
-                url="https://koptay.av.tr/hesaplama-araclari/tazminat-hesaplama"
+                title="Trafik Kazası Tazminat Hesaplama 2026 | Maluliyet, İş Göremezlik, İkame Araç | Koptay Hukuk"
+                description="Sürekli sakatlık, geçici iş göremezlik, ikame araç bedeli ve manevi tazminat hesaplama. KTK m.85 ve TBK m.49 uyumlu aktüerya sistemi, TRH-2010 yaşam tablosu ve Yargıtay 17. HD içtihatlarına göre. Ankara avukat — Koptay Hukuk Bürosu."
+                keywords="trafik kazası tazminat hesaplama, trafik kazası avukatı ankara, sürekli sakatlık tazminatı hesaplama, geçici iş göremezlik tazminatı, ikame araç bedeli, manevi tazminat hesaplama, KTK 85, TBK 49, trafik kazası sigorta tazminatı, destekten yoksun kalma tazminatı, araç değer kaybı"
+                url="https://koptay.av.tr/hesaplama-araclari/trafik-kazasi"
                 image="/images/articles/arac-deger-kaybi-kapsamli-rehber.jpg"
             />
+
+            {/* JSON-LD: SoftwareApplication */}
+            <script type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "SoftwareApplication",
+                    "name": "Trafik Kazası Tazminat Hesaplama Aracı (2026)",
+                    "applicationCategory": "FinanceApplication",
+                    "operatingSystem": "Web",
+                    "url": "https://koptay.av.tr/hesaplama-araclari/trafik-kazasi",
+                    "description": "Trafik kazası sonrası araç değer kaybı, ikame araç bedeli, sürekli sakatlık ve geçici iş göremezlik tazminatlarını KTK m.85, TBK m.49 ve TRH-2010 esaslı hesaplayan aktüerya aracı.",
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "TRY" },
+                    "creator": {
+                        "@type": "Attorney",
+                        "name": "Koptay Hukuk Bürosu",
+                        "url": "https://koptay.av.tr",
+                        "address": { "@type": "PostalAddress", "addressLocality": "Ankara", "addressCountry": "TR" }
+                    },
+                    "featureList": [
+                        "Araç değer kaybı (Baz Katsayı %19)",
+                        "İkame araç bedeli hesabı",
+                        "Sürekli sakatlık tazminatı (TRH-2010 esaslı)",
+                        "Geçici iş göremezlik tazminatı",
+                        "Manevi tazminat tahmini",
+                        "Yargıtay 17. HD içtihatlarına uygun"
+                    ]
+                })}
+            </script>
+
+            {/* JSON-LD: FAQPage */}
+            <script type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "name": "Trafik kazasında hangi tazminatları talep edebilirim?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Maddi zararlar (araç değer kaybı, onarım masrafı, ikame araç bedeli), bedensel zararlar (geçici iş göremezlik, sürekli sakatlık, tedavi gideri), ölüm halinde destekten yoksun kalma tazminatı ve manevi tazminat talep edilebilir. Talepler hem kusurlu sürücüye hem de zorunlu trafik sigortasına yöneltilebilir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Sigorta hangi tazminatları öder?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Zorunlu trafik sigortası KTK m.85 kapsamında üçüncü kişilere yönelik maddi ve bedensel zararları teminat limitleri dahilinde öder. Sigorta limitlerini aşan kısım için kusurlu sürücüye karşı dava açılabilir. Manevi tazminat trafik sigortası teminatı dışındadır; doğrudan kusurlu sürücüden talep edilir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Maluliyet raporu hangi hastaneden alınır?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Maluliyet raporu, Sağlık Kurulu raporu vermeye yetkili üniversite hastaneleri, eğitim ve araştırma hastaneleri ile devlet hastanelerinden alınabilir. Adli Tıp Kurumu raporu mahkemece istenebilir. Sigorta tazminat sürecinde sigortacının yönlendirdiği anlaşmalı sağlık kuruluşunun raporu da kabul edilir; ancak rapor sonucuna itiraz hakkınız saklıdır."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Manevi tazminat trafik kazasında ne kadar talep edilebilir?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Manevi tazminat tutarı kazanın ağırlığı, yaralanma derecesi, kalıcı sakatlık oranı, kusur durumu ve tarafların ekonomik-sosyal durumuna göre hâkim tarafından takdir edilir (TBK m.56). Yargıtay 4. HD ve 17. HD içtihatlarında basit yaralanmalarda 10.000-50.000 TL, ağır yaralanmalarda 100.000-500.000 TL, ölümlü olaylarda yakınlar için 250.000-1.500.000 TL aralıklarına karar verildiği görülmektedir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Karşı tarafın sigortası ödemiyorsa ne yapmalıyım?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "İki yol mevcuttur: (1) Sigorta Tahkim Komisyonu'na başvuru — daha hızlı, 5.000 TL'ye kadar kesin karar; (2) Asliye Hukuk veya Asliye Ticaret Mahkemesi'nde dava — daha uzun ama tutarsız sınır. Önce yazılı ihtarname göndermeniz, ardından sigortacının ret veya sessiz kalmasını beklemeniz tavsiye edilir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Üçüncü kişi (yolcu) nasıl tazminat alır?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Yolcular ve yayalar gibi üçüncü kişiler, kazada kim kusurlu olursa olsun zorunlu mali sorumluluk sigortasından doğrudan tazminat talep edebilir (KTK m.85). Yolcu, kendi sürücüsünün kusurlu olduğu kazada bile kendi aracının trafik sigortasından tazminat alma hakkına sahiptir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Tek taraflı kazada tazminat alınır mı?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Sürücünün kendi kusuruyla yaptığı tek taraflı kazada, sürücüye zorunlu trafik sigortasından tazminat ödenmez. Ancak araç içindeki yolcular, yaya çarpışan kazalarda mağdur ve aracın hasarı için varsa İhtiyari Mali Mesuliyet (İMM) veya Kasko sigortası teminatları devreye girer."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Kasko değer kaybını öder mi?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Standart kasko poliçeleri kural olarak değer kaybını ödemez; yalnızca onarım masrafını ve total hasarda araç bedelini karşılar. Değer kaybı, karşı tarafın zorunlu trafik sigortasından (kusurlu olunmaması şartıyla) veya kusurlu sürücüden talep edilir. Bazı 'genişletilmiş' kasko poliçelerinde değer kaybı ek teminat olarak yer alabilir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Kusur oranıma itiraz edebilir miyim?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Evet. TRAMER veya sigorta eksperi tarafından belirlenen kusur oranına 15 gün içinde Sigorta Tahkim Komisyonu'na veya doğrudan mahkemeye itiraz edilebilir. Yargıtay 17. HD'nin yerleşik içtihatlarına göre kusur oranı, kazanın oluş şekli, trafik kuralları ihlalleri ve mevcut delillere göre yeniden değerlendirilebilir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Trafik kazası tazminat davasının zamanaşımı kaç yıl?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "TBK m.72 uyarınca haksız fiilden doğan tazminat davası, zarar görenin zararı ve tazminat yükümlüsünü öğrendiği tarihten itibaren 2 yıl, her halde 10 yıl içinde açılmalıdır. Trafik kazası aynı zamanda suç teşkil ediyorsa (TCK'da öngörülen daha uzun ceza zamanaşımı süresi uygulanır) — örneğin ölümlü kazada 15 yıl gibi. Sigortacıya karşı taleplerde KTK m.109'a göre 2 yıllık özel zamanaşımı geçerlidir."
+                            }
+                        }
+                    ]
+                })}
+            </script>
 
             <div className="max-w-7xl mx-auto">
                 {/* Header */}

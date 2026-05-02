@@ -149,7 +149,6 @@ function App() {
             <Route path="/hesaplama-araclari/tazminat-hesaplama" element={<TazminatHesaplamaPage />} />
             <Route path="/hesaplama-araclari/vekalet-ucreti" element={<VekaletUcretiPage />} />
             <Route path="/hesaplama-araclari/arac-deger-kaybi" element={<AracDegerKaybiPage />} />
-            <Route path="/hesaplama-araclari/deger-kaybi" element={<AracDegerKaybiPage />} />
             <Route path="/hesaplama-araclari/meslek-hastaligi" element={<MeslekHastaligiPage />} />
             <Route path="/hesaplama-araclari/iscilik-alacaklari" element={<IscilikAlacaklariPage />} />
             <Route path="/hesaplama-araclari/ilave-tediye" element={<IlaveTediyePage />} />

@@ -151,6 +151,99 @@ const IlaveTediyePage = () => {
                 image="/images/articles/2026-ilave-tediye-hesaplama-kamu-iscisi-bordro.jpg"
             />
 
+            {/* JSON-LD: SoftwareApplication */}
+            <script type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "SoftwareApplication",
+                    "name": "İlave Tediye Hesaplama Aracı (2026)",
+                    "applicationCategory": "FinanceApplication",
+                    "operatingSystem": "Web",
+                    "url": "https://koptay.av.tr/hesaplama-araclari/ilave-tediye",
+                    "description": "6772 sayılı kanun kapsamında kamu işçileri için ilave tediye (ikramiye) hesaplama aracı. 2026 güncel parametreler ile brüt ve net tediye tutarını hesaplar.",
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "TRY" },
+                    "creator": {
+                        "@type": "Attorney",
+                        "name": "Koptay Hukuk Bürosu",
+                        "url": "https://koptay.av.tr",
+                        "address": { "@type": "PostalAddress", "addressLocality": "Ankara", "addressCountry": "TR" }
+                    },
+                    "featureList": [
+                        "6772 sayılı kanun kapsamı kontrolü",
+                        "2026 brüt asgari ücret entegrasyonu",
+                        "Damga vergisi kesintisi (%0,759)",
+                        "Yıllık 52 günlük tediye hesabı",
+                        "Brüt ve net tutar gösterimi"
+                    ]
+                })}
+            </script>
+
+            {/* JSON-LD: FAQPage */}
+            <script type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "name": "İlave tediye nedir?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "İlave tediye, 6772 sayılı kanun kapsamında kamu kurum ve kuruluşlarında çalışan işçilere yılda toplam 52 gün üzerinden ödenen ek ücrettir. Özünde ikramiye niteliğindedir ve yılda iki kez (yarım dönem ödemeleri ile) verilir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "İlave tediye kimleri kapsar?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Devlete, il özel idarelerine, belediyelere ve bunlara bağlı tüm kurum ve kuruluşlara, KİT'lere bağlı işyerlerinde 4857 sayılı İş Kanunu kapsamında çalışan işçileri kapsar. Memurlar, sözleşmeli personel ve özel sektör işçileri kapsam dışıdır."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "2026 ilave tediye ödeme tarihleri nedir?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "İlave tediye ödeme tarihleri her yıl Bakanlar Kurulu (Cumhurbaşkanlığı) kararı ile belirlenir. Genellikle ilk yarı (26 gün) Ocak-Şubat aylarında, ikinci yarı (26 gün) Haziran-Temmuz aylarında ödenir. 2026 yılı için resmi takvim Resmî Gazete'de yayımlandıktan sonra geçerlidir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "İlave tediye brüt mü net mi hesaplanır?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "İlave tediye brüt ücret üzerinden hesaplanır. Brüt tutardan yalnızca damga vergisi (%0,759) kesilir; gelir vergisi ve SGK kesintisi yapılmaz. Bu nedenle net tutar, brütün yaklaşık %99,24'üne karşılık gelir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "İlave tediye geriye dönük talep edilebilir mi?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Evet. Ödenmemiş ilave tediye için 5 yıllık zamanaşımı süresi içinde dava açılabilir (TBK m.146 ve İş K. m.32 atfı). Faiz başlangıç tarihi her ödeme döneminin muaccel olduğu tarihtir; mevduata uygulanan en yüksek faiz talep edilebilir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "İlave tediye davası hangi mahkemede açılır?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "İlave tediye, işçilik alacağı niteliğinde olduğundan 7036 sayılı İş Mahkemeleri Kanunu uyarınca İş Mahkemeleri'nde dava açılır. Dava açmadan önce arabuluculuk başvurusu (zorunlu arabuluculuk) gerekir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Sözleşmeli personel ilave tediye alır mı?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Hayır. 6772 sayılı kanun yalnızca İş Kanunu kapsamındaki işçileri kapsar; 657 sayılı Devlet Memurları Kanunu kapsamındaki memurlar ve 4/B sözleşmeli personel ilave tediyenin doğrudan muhatabı değildir. Ancak fiilen işçi statüsünde çalışıyorsa Yargıtay içtihatları gerçek statüye göre değerlendirme yapar."
+                            }
+                        }
+                    ]
+                })}
+            </script>
+
             <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4">
                 <div className="max-w-4xl mx-auto">
                     {/* Header */}

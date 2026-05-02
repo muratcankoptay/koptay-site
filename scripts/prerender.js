@@ -204,12 +204,6 @@ const staticRoutes = [
     keywords: 'araç değer kaybı hesaplama, trafik sigortası, tahkim itirazı, değer kaybı davası, sigorta tazminatı'
   },
   {
-    path: '/hesaplama-araclari/deger-kaybi',
-    title: 'Değer Kaybı Hesaplama | Pert ve Hasarlı Araç | Koptay Hukuk',
-    description: 'Pert ve hasarlı araçlarda rayiç değer ile değer kaybı uyuşmazlıklarını çözmek için hesaplama aracı. Sigorta tahkim ve dava için rapor.',
-    keywords: 'değer kaybı hesaplama, pert araç, rayiç değer, sigorta tahkim, hasarlı araç tazminatı'
-  },
-  {
     path: '/hesaplama-araclari/dava-suresi',
     title: 'Dava Süresi Hesaplama | Hukuki Süre Hesaplama | Koptay Hukuk',
     description: 'Dava süresi, zamanaşımı, hak düşürücü süre ve usul süreleri hesaplama aracı. Hukuki süre hesabı ve ihtarname rehberi.',

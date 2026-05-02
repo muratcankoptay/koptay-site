@@ -158,19 +158,192 @@ const IscilikAlacaklariPage = () => {
     return (
         <div className="min-h-screen bg-gray-50 pt-32 pb-12 px-4 sm:px-6 lg:px-8">
             <SEO
-                title="İşçilik Alacakları Hesaplama 2026 — Kıdem, İhbar, İzin, Mesai | Koptay Hukuk"
-                description="Kıdem tazminatı, ihbar tazminatı, yıllık izin ücreti ve fazla mesai alacaklarınızı 2026 güncel oranlarla hesaplayın. Profesyonel işçilik alacakları hesaplama aracı. Ankara avukat — Koptay Hukuk Bürosu."
-                keywords="işçilik alacakları hesaplama, kıdem tazminatı hesaplama, ihbar tazminatı hesaplama, yıllık izin ücreti, fazla mesai hesaplama, iş hukuku avukatı ankara, işçi alacakları davası"
+                title="Kıdem Tazminatı Hesaplama 2026 | Kıdem, İhbar, İzin, Mesai | Koptay Hukuk"
+                description="2026 kıdem tavanı 64.948,77 TL ile kıdem tazminatı, ihbar tazminatı, yıllık izin ücreti ve fazla mesai hesaplama aracı. İş Kanunu, 1475 sayılı Mülga Kanun m.14, Yargıtay 9. HD ve 22. HD içtihatlarına uygun. Ankara avukat — Koptay Hukuk Bürosu."
+                keywords="kıdem tazminatı hesaplama, kıdem tazminatı 2026, kıdem tavanı 2026, ihbar tazminatı hesaplama, yıllık izin ücreti hesaplama, fazla mesai hesaplama, işçilik alacakları, brüt kıdem tazminatı, net kıdem tazminatı, kıdem ve ihbar hesaplama, ankara iş hukuku avukatı, işçi alacakları davası"
                 url="https://koptay.av.tr/hesaplama-araclari/iscilik-alacaklari"
             />
 
+            {/* JSON-LD: SoftwareApplication */}
+            <script type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "SoftwareApplication",
+                    "name": "İşçilik Alacakları Hesaplama Aracı (Kıdem, İhbar, Yıllık İzin, Fazla Mesai)",
+                    "applicationCategory": "FinanceApplication",
+                    "operatingSystem": "Web",
+                    "url": "https://koptay.av.tr/hesaplama-araclari/iscilik-alacaklari",
+                    "description": "2026 güncel kıdem tavanı, damga vergisi (%0,759) ve İş Kanunu hükümleri ile dört kalemde işçilik alacaklarını hesaplar.",
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "TRY" },
+                    "creator": {
+                        "@type": "Attorney",
+                        "name": "Koptay Hukuk Bürosu",
+                        "url": "https://koptay.av.tr",
+                        "address": { "@type": "PostalAddress", "addressLocality": "Ankara", "addressCountry": "TR" }
+                    },
+                    "featureList": [
+                        "Kıdem tazminatı (1475 sayılı Mülga K. m.14, 2026 tavanı)",
+                        "İhbar tazminatı (İş K. m.17 — 2-8 hafta)",
+                        "Yıllık izin ücreti (İş K. m.59)",
+                        "Fazla mesai hesabı (İş K. m.41)",
+                        "Brüt ve net tutar gösterimi",
+                        "Damga vergisi kesintisi entegre"
+                    ]
+                })}
+            </script>
+
+            {/* JSON-LD: HowTo — Kıdem Tazminatı Adımları */}
+            <script type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "HowTo",
+                    "name": "Kıdem Tazminatı Nasıl Hesaplanır? (2026)",
+                    "description": "İş Kanunu hükümlerine göre kıdem tazminatı hesaplama adımları, 2026 tavan rakamı ve damga vergisi uygulaması.",
+                    "totalTime": "PT5M",
+                    "step": [
+                        {
+                            "@type": "HowToStep",
+                            "name": "Hizmet süresini belirleyin",
+                            "text": "İşe başlangıç ve sona erme tarihleri arasındaki yıl ve gün sayısını tespit edin. En az bir tam yıl çalışma kıdem tazminatı hak etmenin asgari koşuludur."
+                        },
+                        {
+                            "@type": "HowToStep",
+                            "name": "Brüt günlük ücreti bulun",
+                            "text": "Son ay brüt ücretini 30'a bölün. İş Kanunu m.32 ve Yargıtay 9. HD içtihatlarına göre süreklilik arz eden yol, yemek, prim, ikramiye gibi yardımları da ekleyin."
+                        },
+                        {
+                            "@type": "HowToStep",
+                            "name": "Yıl başına 30 günlük ücret hesabı",
+                            "text": "Her tam hizmet yılı için 30 günlük brüt ücret tutarı kıdem tazminatı esasıdır. Yıldan artan süreler için orantılı hesap yapılır."
+                        },
+                        {
+                            "@type": "HowToStep",
+                            "name": "2026 kıdem tavanını uygulayın",
+                            "text": "Hesaplanan günlük ücret, 2026 ilk 6 ay tavanı olan 64.948,77 TL'nin 30'a bölümünü aşamaz. Tavanı aşan kısımlar dikkate alınmaz."
+                        },
+                        {
+                            "@type": "HowToStep",
+                            "name": "Damga vergisini düşün",
+                            "text": "Brüt tutar üzerinden yalnızca %0,759 damga vergisi kesilir. Gelir Vergisi Kanunu m.25/7 uyarınca kıdem tazminatından gelir vergisi kesilmez."
+                        }
+                    ]
+                })}
+            </script>
+
+            {/* JSON-LD: FAQPage */}
+            <script type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "name": "2026 kıdem tazminatı tavanı kaç TL?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "2026 yılı ilk 6 ay (Ocak-Haziran) için kıdem tazminatı tavanı 64.948,77 TL'dir. Bu tutar her 6 ayda bir Maliye Bakanlığı bütçe genelgesi ile güncellenir; her tam hizmet yılı için ödenecek kıdem tazminatı bu tavanı aşamaz."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Kıdem tazminatından hangi vergiler kesilir?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Kıdem tazminatından yalnızca %0,759 oranında damga vergisi kesilir. 193 sayılı Gelir Vergisi Kanunu m.25/7 uyarınca kıdem tazminatından gelir vergisi kesilmez. SGK primi de kesilmez."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "İhbar tazminatı süreleri nelerdir?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "İş Kanunu m.17 uyarınca ihbar süreleri kıdeme göre belirlenir: 6 aydan az çalışmada 2 hafta, 6 ay-1,5 yıl arası 4 hafta, 1,5-3 yıl arası 6 hafta, 3 yıldan fazla çalışmada 8 haftadır. İhbar tazminatı, bu süreye karşılık gelen brüt ücrettir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "İstifa eden işçi kıdem tazminatı alabilir mi?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Kural olarak istifa eden işçi kıdem tazminatı alamaz. Ancak istisnaları vardır: askerlik nedeniyle istifa, kadın işçinin evlenmeyi takip eden 1 yıl içinde feshi, emeklilik, sağlık nedenleri (İş K. m.24/I), işverenin haklı nedensiz ücret ödememesi (İş K. m.24/II) gibi haklı nedenle fesih hallerinde işçi kıdem tazminatına hak kazanır."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Fazla mesai WhatsApp mesajı ile ispat edilebilir mi?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Evet. Yargıtay 9. HD yerleşik içtihatlarına göre fazla mesai çalışması her türlü delille ispatlanabilir; tanık beyanı en yaygın delildir. WhatsApp mesajları, e-postalar, mesai çizelgeleri, kart okutma kayıtları, görev yazışmaları gibi elektronik deliller HMK m.199 uyarınca yazılı belge niteliğindedir. Ancak Yargıtay genellikle tanık beyanına dayalı hesaplamada yargıcın takdiri ile %20-30 arası takdiri indirim uygular."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Yıllık izin parası ne zaman zamanaşımına uğrar?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Yıllık izin ücreti alacağı, iş sözleşmesinin feshinden itibaren 5 yıl içinde zamanaşımına uğrar (TBK m.146). Bu süre içinde dava açılmazsa hak düşer. Önemli not: kullanılmayan yıllık izinler iş sözleşmesi devam ederken zamanaşımına uğramaz; sadece sözleşme feshinden sonra 5 yıllık süre işlemeye başlar."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Kıdem tazminatı brüt mü net mi hesaplanır?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Kıdem tazminatı her zaman brüt ücret üzerinden hesaplanır. Brüt tutardan yalnızca damga vergisi (%0,759) kesilerek net ödenecek tutar bulunur. Bu nedenle 'kıdem tazminatım kaç TL?' sorusunda cevap brüt tutardır; net tutar damga vergisi düştükten sonraki rakamdır."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Geriye dönük 5 yıllık fazla mesai talep edilebilir mi?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Evet. Fazla mesai alacağı 5 yıllık zamanaşımına tabidir. Dava tarihinden geriye doğru 5 yıllık süre içindeki tüm fazla mesailer talep edilebilir. Daha eski döneme ait fazla mesailer zamanaşımı def'i ile reddedilir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Asgari ücretle çalışan işçi kıdem tazminatı nasıl hesaplanır?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Asgari ücretle çalışan işçinin kıdem tazminatı, son brüt asgari ücret üzerinden hesaplanır. Brüt aylık asgari ücret 30'a bölünerek günlük ücret bulunur, her tam hizmet yılı için 30 gün ile çarpılır. Asgari ücretle çalışan işçi 2026 itibarıyla kıdem tavanını aşmadığı için tavan kısıtlaması uygulanmaz; brüt asgari ücretin tamamı kıdem matrahıdır."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Hafta tatili çalışmasının ücreti nasıl hesaplanır?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "İş Kanunu m.46 uyarınca hafta tatilinde çalıştırılan işçiye, çalıştığı her saat için %50 zamlı ücret ödenir; bu, fazla mesai ücretine eşittir. Hafta tatili kullandırılmıyorsa ayrıca tatil ücreti de ödenmesi gerekir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "İşçilik alacakları davası nerede açılır?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "İşçilik alacakları davaları 7036 sayılı İş Mahkemeleri Kanunu uyarınca İş Mahkemeleri'nde açılır. Ancak dava açmadan önce zorunlu arabuluculuk başvurusu yapılması gerekir; arabuluculukta anlaşma sağlanamazsa son tutanak ile dava açılabilir."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Bordro tuzağı nedir? İhtirazi kayıt nasıl konulur?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Bordro tuzağı, işverenin ödediği fazla mesai ücretini bordroda gösterip işçiye 'aldım' yazdırarak alacağın tamamını ödediğini ispat etmesidir. Bunu önlemek için bordroya 'fazla mesai alacağımı saklı tutuyorum, ihtirazi kayıt' notu eklenmeli; ya da bordroda gösterilen ücretle gerçekte ödenen ücret tutmuyorsa banka hesap ekstresi delil olarak hazırlanmalıdır."
+                            }
+                        }
+                    ]
+                })}
+            </script>
+
             <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-10">
-                    <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
-                        İşçilik Alacakları Hesaplama
+                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                        Kıdem Tazminatı Hesaplama 2026 — Kıdem, İhbar, İzin, Fazla Mesai
                     </h1>
-                    <p className="text-lg text-gray-600">
-                        Kıdem, İhbar, Yıllık İzin ve Fazla Mesai alacaklarınızı kolayca hesaplayın.
+                    <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                        2026 kıdem tavanı <strong>64.948,77 TL</strong> ile kıdem tazminatı, ihbar tazminatı, yıllık izin ücreti ve fazla mesai alacaklarını
+                        İş Kanunu hükümleri ve Yargıtay 9. HD–22. HD içtihatlarına uygun olarak hesaplayın.
                     </p>
                 </div>
 
@@ -358,19 +531,209 @@ const IscilikAlacaklariPage = () => {
                     </div>
                 </div>
 
-                <div className="mt-8 bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Bilgilendirme</h2>
-                    <div className="prose prose-blue text-gray-600 text-sm">
-                        <p>
-                            * <strong>Kıdem Tazminatı:</strong> En az 1 yıl çalışmış olmanız gerekmektedir. 2024 yılı için kıdem tazminatı tavanı {CONSTANTS.KIDEM_TAVANI.toLocaleString('tr-TR')} TL'dir.
-                        </p>
-                        <p>
-                            * <strong>İhbar Tazminatı:</strong> İş sözleşmesinin feshinden önce bildirim sürelerine uyulmaması durumunda ödenir.
-                        </p>
-                        <p>
-                            * <strong>Vergiler:</strong> Hesaplamalarda standart yasal kesintiler (Damga Vergisi, Gelir Vergisi, SGK) uygulanmıştır. Kümülatif vergi matrahınıza göre net tutarlar değişiklik gösterebilir.
+                {/* === İÇERİK DERİNLİĞİ === */}
+
+                {/* 1) Bu hesaplamalar nedir? */}
+                <section className="mt-12 bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">İşçilik Alacakları Hesaplaması Nedir?</h2>
+                    <p className="text-gray-700 leading-relaxed mb-4">
+                        İşçilik alacakları, iş sözleşmesinin sona ermesi veya çalışma süresince hak edilip ödenmemiş ücretler için işçinin işverenden talep edebileceği tazminat ve ücret kalemlerinin tümünü ifade eder.
+                        Türk iş hukukunda dört ana başlık öne çıkar: <strong>kıdem tazminatı</strong>, <strong>ihbar tazminatı</strong>, <strong>yıllık izin ücreti</strong> ve <strong>fazla mesai alacağı</strong>.
+                        Bu sayfadaki hesaplama aracı dördünü tek bir raporda birleştirerek, brüt ve net tutarları 2026 mevzuatına göre verir.
+                    </p>
+                    <p className="text-gray-700 leading-relaxed">
+                        Hesaplama sonuçları, sürecin başında size somut bir aralık sunmak için tasarlanmıştır.
+                        Mahkeme aşamasında nihai rakam atanan bilirkişinin raporuyla belirlenir; ancak Yargıtay yerleşik içtihatları ve İş Kanunu hükümleri gözetildiğinde bu hesaplama gerçekçi bir başlangıç noktası verir.
+                    </p>
+                </section>
+
+                {/* 2) Kıdem Tazminatı Nasıl Hesaplanır? */}
+                <section className="mt-8 bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Kıdem Tazminatı Nasıl Hesaplanır? (2026)</h2>
+                    <p className="text-gray-700 leading-relaxed mb-4">
+                        Kıdem tazminatı, bir işyerinde en az bir yıl süreyle çalışmış işçinin, iş sözleşmesinin kanunda sayılan hallerden biriyle (işveren tarafından haksız fesih, işçinin haklı nedenle feshi, askerlik, evlilik, emeklilik vb.) sona ermesi durumunda hak ettiği bir tutardır.
+                        Hesaplama her tam hizmet yılı için 30 günlük brüt ücret esasına dayanır.
+                    </p>
+                    <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Adım adım hesaplama</h3>
+                    <ol className="list-decimal pl-6 space-y-2 text-gray-700">
+                        <li><strong>Hizmet süresini belirleyin:</strong> İşe başlangıç ve sona erme tarihleri arasındaki yıl ve gün sayısı. En az bir tam yıl şarttır.</li>
+                        <li><strong>Brüt günlük ücreti bulun:</strong> Son ay brüt ücretini 30'a bölün. İş Kanunu m.32 uyarınca süreklilik arz eden yol, yemek, prim, ikramiye gibi yardımları da ekleyin.</li>
+                        <li><strong>Yıl başına 30 günlük ücret:</strong> Her tam hizmet yılı için 30 günlük brüt ücret tutarı kıdem tazminatı esasıdır. Yıldan artan süreler için orantılı hesap yapılır.</li>
+                        <li><strong>2026 kıdem tavanını uygulayın:</strong> Her yıl için ödenecek kıdem tazminatı, 2026 ilk 6 ay tavanı olan <strong>64.948,77 TL</strong>'yi aşamaz.</li>
+                        <li><strong>Damga vergisini düşün:</strong> Brüt tutar üzerinden %0,759 damga vergisi kesilir; gelir vergisi ve SGK kesintisi yapılmaz.</li>
+                    </ol>
+                </section>
+
+                {/* 3) İhbar / Yıllık İzin / Fazla Mesai */}
+                <section className="mt-8 bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">İhbar, Yıllık İzin ve Fazla Mesai Hesabı</h2>
+
+                    <h3 className="text-lg font-semibold text-gray-900 mt-4 mb-2">İhbar Tazminatı (İş K. m.17)</h3>
+                    <p className="text-gray-700 leading-relaxed mb-3">
+                        İş sözleşmesinin haksız feshinde bildirim sürelerine uyulmaması karşılığında ödenen tazminattır. Süreler kıdeme göre değişir:
+                    </p>
+                    <ul className="list-disc pl-6 space-y-1 text-gray-700 mb-4">
+                        <li>6 aydan az çalışmada: <strong>2 hafta</strong></li>
+                        <li>6 ay – 1,5 yıl arası: <strong>4 hafta</strong></li>
+                        <li>1,5 – 3 yıl arası: <strong>6 hafta</strong></li>
+                        <li>3 yıldan fazla çalışmada: <strong>8 hafta</strong></li>
+                    </ul>
+                    <p className="text-gray-700 leading-relaxed mb-6">
+                        İhbar tazminatı brüt ücret üzerinden hesaplanır; damga vergisi ve gelir vergisi kesintilerine tabidir.
+                    </p>
+
+                    <h3 className="text-lg font-semibold text-gray-900 mt-4 mb-2">Yıllık İzin Ücreti (İş K. m.59)</h3>
+                    <p className="text-gray-700 leading-relaxed mb-4">
+                        İş sözleşmesinin sona ermesi durumunda kullanılmamış yıllık izinlerin ücret karşılığı işçiye ödenir.
+                        Yıllık izin süreleri kıdeme göre 14, 20 ve 26 gündür. Hesaplama: <em>Brüt günlük ücret × Kullanılmayan izin günü sayısı</em>.
+                    </p>
+
+                    <h3 className="text-lg font-semibold text-gray-900 mt-4 mb-2">Fazla Mesai Alacağı (İş K. m.41)</h3>
+                    <p className="text-gray-700 leading-relaxed mb-3">
+                        Haftalık 45 saati aşan çalışma fazla mesaidir; her saat normal saatlik ücretin %50 zamlısı ile ödenir.
+                        Hafta tatili (Pazar) ve genel tatil günlerindeki çalışmalar ayrı kalemlerdir (sırasıyla %50 ve %100 zam).
+                    </p>
+                    <div className="bg-amber-50 border-l-4 border-amber-400 p-4 mt-4">
+                        <p className="text-sm text-amber-900">
+                            <strong>Önemli:</strong> Fazla mesai çoğu zaman tanık beyanıyla ispat edilir; Yargıtay 9. HD yerleşik içtihatlarına göre bu durumda hâkim, takdiri olarak <strong>%20-30 arası indirim</strong> uygulayabilir.
+                            Bordroya "fazla mesai alacağım saklıdır, ihtirazi kayıt" notu düşmek bu doktrini etkileyebilir.
                         </p>
                     </div>
+                </section>
+
+                {/* 4) Mevzuat dayanağı */}
+                <section className="mt-8 bg-blue-50 rounded-xl p-8 border border-blue-100">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Mevzuat Dayanağı</h2>
+                    <ul className="space-y-2 text-gray-700">
+                        <li>• <strong>4857 sayılı İş Kanunu</strong> — yürürlükteki ana iş kanunu (m.17 ihbar, m.32 ücret, m.41 fazla mesai, m.46 hafta tatili, m.47 genel tatil, m.59 yıllık izin).</li>
+                        <li>• <strong>1475 sayılı (Mülga) İş Kanunu m.14</strong> — kıdem tazminatına ilişkin tek yürürlükteki madde.</li>
+                        <li>• <strong>İş Kanunu Geçici Madde 6</strong> — kıdem tazminatı tavanı düzenlemesi.</li>
+                        <li>• <strong>193 sayılı Gelir Vergisi Kanunu m.25/7</strong> — kıdem tazminatından gelir vergisi kesilmez.</li>
+                        <li>• <strong>488 sayılı Damga Vergisi Kanunu</strong> — %0,759 damga vergisi.</li>
+                        <li>• <strong>6098 sayılı TBK m.146</strong> — işçi alacaklarında 5 yıllık zamanaşımı.</li>
+                        <li>• <strong>7036 sayılı İş Mahkemeleri Kanunu</strong> — zorunlu arabuluculuk ve yetkili mahkeme.</li>
+                    </ul>
+                </section>
+
+                {/* 5) Yargıtay kararları */}
+                <section className="mt-8 bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Yargıtay Yerleşik İçtihatları</h2>
+
+                    <div className="space-y-5">
+                        <div className="border-l-4 border-blue-500 pl-4">
+                            <h3 className="font-semibold text-gray-900">Yargıtay 9. HD — Süreklilik arz eden yardımlar</h3>
+                            <p className="text-gray-700 text-sm mt-1">
+                                Süreklilik arz eden yol, yemek, prim, ikramiye gibi yardımlar kıdem tazminatı hesabında esas brüt ücrete dahil edilir.
+                                Bir defaya mahsus, gönüllülük esasına dayalı ödemeler dahil edilmez.
+                            </p>
+                        </div>
+
+                        <div className="border-l-4 border-blue-500 pl-4">
+                            <h3 className="font-semibold text-gray-900">Yargıtay 22. HD — Gerçek ücretin tespiti</h3>
+                            <p className="text-gray-700 text-sm mt-1">
+                                İşveren tarafından gerçek ücreti gizleyen ödeme yöntemleri (elden ödeme, bordroda düşük gösterme) tespit edildiğinde
+                                tazminat gerçek ücret üzerinden hesaplanır. Banka hesap ekstresi, tanık beyanı ve emsal ücretler delil olarak değerlendirilir.
+                            </p>
+                        </div>
+
+                        <div className="border-l-4 border-blue-500 pl-4">
+                            <h3 className="font-semibold text-gray-900">Yargıtay 9. HD — Fazla mesai takdiri indirim doktrini</h3>
+                            <p className="text-gray-700 text-sm mt-1">
+                                Fazla mesainin tanık beyanı ile ispat edildiği durumlarda hâkim, çalışmanın tüm süre boyunca kesintisiz yapılmamış olabileceği varsayımıyla
+                                hesaplanan tutardan %20-30 arası takdiri indirim uygulayabilir. Yazılı delil (mesai çizelgesi, kart okutma kaydı) varsa indirim oranı düşürülür.
+                            </p>
+                        </div>
+
+                        <div className="border-l-4 border-blue-500 pl-4">
+                            <h3 className="font-semibold text-gray-900">Yargıtay HGK — İhtirazi kayıt</h3>
+                            <p className="text-gray-700 text-sm mt-1">
+                                İşçinin bordroyu ihtirazi kayıt koymadan imzalaması, gerçek alacağından feragat ettiği anlamına gelmez.
+                                Ancak fazla mesai gibi hesaplama kalemlerinde ihtirazi kayıt konulması, sonraki dava sürecinde ispat yükünü hafifletir.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* 6) SSS - Görünür blok (FAQPage schema ile uyumlu) */}
+                <section className="mt-8 bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6">Sıkça Sorulan Sorular</h2>
+                    <div className="space-y-5">
+                        {[
+                            { q: '2026 kıdem tazminatı tavanı kaç TL?', a: '2026 yılı ilk 6 ay için kıdem tazminatı tavanı 64.948,77 TL\'dir. Bu tutar her 6 ayda bir Maliye Bakanlığı bütçe genelgesi ile güncellenir.' },
+                            { q: 'Kıdem tazminatından hangi vergiler kesilir?', a: 'Yalnızca %0,759 damga vergisi. Gelir Vergisi Kanunu m.25/7 uyarınca kıdem tazminatından gelir vergisi ve SGK primi kesilmez.' },
+                            { q: 'İstifa eden işçi kıdem tazminatı alabilir mi?', a: 'Kural olarak hayır; ancak askerlik, kadın işçi evliliği (1 yıl içinde), emeklilik, sağlık nedenleri (m.24/I) ve işverenin haklı nedensiz ücret ödememesi gibi haklı nedenle fesih hallerinde kıdem tazminatı hak edilir.' },
+                            { q: 'Fazla mesai WhatsApp ile ispatlanabilir mi?', a: 'Evet. WhatsApp mesajları, e-postalar, mesai çizelgeleri HMK m.199 uyarınca yazılı belge niteliğindedir. Tanık beyanı en yaygın yoldur, ancak Yargıtay yargıcın takdiriyle %20-30 indirim uygulayabilir.' },
+                            { q: 'Yıllık izin parası ne zaman zamanaşımına uğrar?', a: 'İş sözleşmesinin feshinden itibaren 5 yıl. Sözleşme devam ederken zamanaşımı işlemez; yalnızca fesih sonrası süre başlar.' },
+                            { q: 'Kıdem brüt mü net mi hesaplanır?', a: 'Her zaman brüt. Brütten yalnızca damga vergisi (%0,759) kesilerek net ödenecek tutar bulunur.' },
+                            { q: 'Geriye dönük 5 yıllık fazla mesai talep edilebilir mi?', a: 'Evet. Dava tarihinden geriye doğru 5 yıllık süre içindeki tüm fazla mesailer talep edilebilir; daha eski dönem zamanaşımıyla reddedilir.' },
+                            { q: 'Asgari ücretle çalışan kıdem tazminatı nasıl hesaplanır?', a: 'Son brüt asgari ücret üzerinden hesaplanır. Asgari ücretle çalışan işçi kıdem tavanını aşmadığı için tavan kısıtlaması uygulanmaz.' },
+                            { q: 'Hafta tatili çalışmasının ücreti nedir?', a: 'İş K. m.46 uyarınca hafta tatilinde çalıştırılan işçiye, çalıştığı her saat için %50 zamlı ücret ödenir.' },
+                            { q: 'İşçilik alacakları davası nerede açılır?', a: '7036 sayılı Kanun uyarınca İş Mahkemeleri\'nde. Önce zorunlu arabuluculuk başvurusu yapılır; anlaşma olmazsa son tutanak ile dava açılır.' },
+                            { q: 'Bordro tuzağı nedir?', a: 'İşverenin ödediği fazla mesaiyi bordroda gösterip "aldım" yazdırmasıdır. İhtirazi kayıt notu ya da banka ekstresi delili ile bu durumun aşılması gerekir.' },
+                            { q: 'İhbar tazminatından gelir vergisi kesilir mi?', a: 'Evet. Kıdem tazminatından farklı olarak ihbar tazminatından hem damga vergisi hem de gelir vergisi kesilir.' }
+                        ].map((f, i) => (
+                            <div key={i} className="border-b border-gray-100 pb-4 last:border-b-0">
+                                <h3 className="font-semibold text-gray-900 mb-2">{f.q}</h3>
+                                <p className="text-gray-700 text-sm leading-relaxed">{f.a}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* 7) İlgili Makaleler */}
+                <section className="mt-8 bg-gradient-to-br from-slate-50 to-blue-50 rounded-xl p-8 border border-blue-100">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">İlgili Makaleler</h2>
+                    <p className="text-gray-700 mb-6">İş hukukundaki süreçleri daha derinlemesine incelemek isterseniz aşağıdaki rehberleri öneriyoruz.</p>
+                    <div className="grid md:grid-cols-2 gap-4">
+                        <Link to="/makale/fazla-mesai-alacagi-hesaplama-ispat-dava-sureci-2026"
+                              className="block bg-white rounded-lg p-5 border border-gray-200 hover:border-blue-400 transition-colors">
+                            <h3 className="font-semibold text-gray-900 mb-1">Fazla Mesai Alacağı: Hesaplama, İspat ve Dava Süreci 2026</h3>
+                            <p className="text-sm text-gray-600">İhtirazi kayıt, %30 takdiri indirim doktrini, tanık beyanı stratejisi, bordro tuzakları.</p>
+                        </Link>
+                        <Link to="/makale/2026-ilave-tediye-hesaplama-ve-hukuki-nitelik-rehberi"
+                              className="block bg-white rounded-lg p-5 border border-gray-200 hover:border-blue-400 transition-colors">
+                            <h3 className="font-semibold text-gray-900 mb-1">2026 İlave Tediye Hesaplama ve Hukuki Nitelik Rehberi</h3>
+                            <p className="text-sm text-gray-600">6772 sayılı kanun kapsamı, ödeme tarihleri, dava süreci, faiz başlangıcı.</p>
+                        </Link>
+                        <Link to="/makale/ilave-tediye-alacak-tahsili-ve-dava-sureci-2026"
+                              className="block bg-white rounded-lg p-5 border border-gray-200 hover:border-blue-400 transition-colors">
+                            <h3 className="font-semibold text-gray-900 mb-1">İlave Tediye Alacak Tahsili ve Dava Süreci 2026</h3>
+                            <p className="text-sm text-gray-600">Geriye dönük talep, arabuluculuk başvurusu, faiz türü ve oranları.</p>
+                        </Link>
+                        <Link to="/hesaplama-araclari/tazminat-hesaplama"
+                              className="block bg-white rounded-lg p-5 border border-gray-200 hover:border-blue-400 transition-colors">
+                            <h3 className="font-semibold text-gray-900 mb-1">İş Kazası Tazminat Hesaplayıcısı</h3>
+                            <p className="text-sm text-gray-600">Maluliyet, kusur ve TRH-2010 esaslı aktüerya analizi ile maddi tazminat.</p>
+                        </Link>
+                    </div>
+                </section>
+
+                {/* 8) Avukatla görüş CTA */}
+                <section className="mt-8 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl shadow-lg p-8 text-white">
+                    <h2 className="text-2xl font-bold mb-3">Davanız İçin Kişiye Özel Hesap ve Strateji</h2>
+                    <p className="text-blue-100 mb-6 leading-relaxed">
+                        Bu hesaplama size yön gösterir; ancak gerçek alacağınız belge denetimi, Yargıtay içtihatları ve dava stratejisiyle şekillenir.
+                        <strong className="text-white"> Av. Murat Can Koptay </strong> Ankara'da iş hukuku alanında danışmanlık ve dava takibi yapmaktadır.
+                        İlk değerlendirme ücretsizdir.
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                        <a href="tel:+905307111864" className="bg-white text-blue-700 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                            Hemen Ara: 0530 711 18 64
+                        </a>
+                        <Link to="/iletisim" className="bg-blue-800 text-white border border-white/40 px-6 py-3 rounded-lg font-semibold hover:bg-blue-900 transition-colors">
+                            İletişim Formu
+                        </Link>
+                    </div>
+                </section>
+
+                {/* 9) Yasal uyarı */}
+                <div className="mt-8 bg-gray-100 rounded-xl p-6 border border-gray-200">
+                    <h2 className="text-base font-semibold text-gray-700 mb-2">Yasal Uyarı</h2>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                        Bu hesaplamalar bilgilendirme amaçlıdır. Mahkemeye sunulacak nihai rakam atanan bilirkişinin raporuyla belirlenir.
+                        Vergi kesintilerinde kümülatif vergi matrahınıza göre net tutarlar değişiklik gösterebilir.
+                        Kıdem tavanı, asgari ücret ve faiz oranları dönemsel olarak güncellenmektedir; en güncel mevzuat takip edilmelidir.
+                    </p>
                 </div>
             </div>
         </div>

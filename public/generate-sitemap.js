@@ -32,7 +32,6 @@ const staticPages = [
   { url: '/hesaplama-araclari/vekalet-ucreti', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/tazminat-hesaplama', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/arac-deger-kaybi', changefreq: 'weekly', priority: '0.9' },
-  { url: '/hesaplama-araclari/deger-kaybi', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/dava-suresi', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/ilave-tediye', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/iscilik-alacaklari', changefreq: 'weekly', priority: '0.9' },

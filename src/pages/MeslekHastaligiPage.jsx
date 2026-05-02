@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO';
 import { Chart } from 'chart.js/auto';
@@ -217,9 +218,9 @@ const MeslekHastaligiPage = () => {
     return (
         <div className="min-h-screen bg-slate-50 pt-32 pb-12 px-4 font-sans text-slate-800">
             <SEO
-                title="Meslek Hastalığı Tazminat Hesaplama 2026 | TRH-2010 Esaslı | Koptay Hukuk"
-                description="Meslek hastalığı tazminat hesaplama aracı ile TRH-2010 tablosuna göre maddi tazminatınızı hesaplayın. Yükümlülük süresi, maluliyet oranı ve Yargıtay içtihatlarına uygun detaylı rapor. Ankara avukat — Koptay Hukuk Bürosu."
-                keywords="meslek hastalığı tazminat hesaplama, TRH-2010, meslek hastalığı davası, maluliyet oranı, sürekli iş göremezlik, meslek hastalığı avukatı, ankara iş hukuku"
+                title="Meslek Hastalığı Tazminatı Hesaplama 2026 | Yükümlülük Süresi & TRH-2010 | Koptay Hukuk"
+                description="Meslek hastalığı tazminatınızı yükümlülük süresi, 5510 SK m.14, maluliyet oranı ve TRH-2010 yaşam tablosu ile hesaplayın. Silikosis, asbestos, mobbing kaynaklı hastalıklar dahil. Yargıtay 10. ve 21. HD içtihatlarına uygun. Ankara meslek hastalığı avukatı."
+                keywords="meslek hastalığı tazminat hesaplama, yükümlülük süresi, 5510 sayılı kanun madde 14, TRH-2010, meslek hastalığı davası, maluliyet oranı, sürekli iş göremezlik, silikosis tazminatı, asbestos tazminatı, meslek hastalığı avukatı, ankara iş hukuku"
                 url="https://koptay.av.tr/hesaplama-araclari/meslek-hastaligi"
                 image="/images/articles/meslek-hastaligi-tazminati-hesaplama.jpg"
             />
@@ -255,8 +256,8 @@ const MeslekHastaligiPage = () => {
                         </svg>
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold text-slate-800 tracking-tight">Meslek Hastalığı Tazminat Hesaplayıcı</h1>
-                        <p className="text-xs text-slate-500">TRH-2010 Tablosu & Yargıtay İçtihatlarına Uygun Projeksiyon</p>
+                        <h1 className="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">Meslek Hastalığı Tazminatı Hesaplama 2026</h1>
+                        <p className="text-xs md:text-sm text-slate-500">Yükümlülük Süresi (5510 SK m.14) & TRH-2010 — Yargıtay 10. HD İçtihatlarına Uygun</p>
                     </div>
                 </div>
                 <button onClick={() => window.print()} className="hidden md:flex items-center gap-2 text-sm text-teal-700 font-medium hover:bg-teal-50 px-3 py-2 rounded transition no-print">
@@ -448,10 +449,23 @@ const MeslekHastaligiPage = () => {
 
                 {/* Detailed Content & FAQ Section */}
                 <div className="mt-16 max-w-5xl mx-auto space-y-12 no-print">
-                    
+
+                    {/* Çapraz referans: İş kazası ayrı sayfa */}
+                    <section className="bg-amber-50 border-l-4 border-amber-400 p-5 rounded-lg">
+                        <p className="text-sm text-amber-900">
+                            <strong>Meslek hastalığı mı, iş kazası mı?</strong> Bu sayfa, uzun süreli mesleki maruziyet sonucu oluşan{' '}
+                            <strong>meslek hastalığı</strong> tazminatı için yükümlülük süresi (5510 SK m.14) ve TRH-2010 esaslı hesaplama yapar.
+                            Anlık bir travma niteliğindeki <strong>iş kazası</strong> tazminatı için{' '}
+                            <Link to="/hesaplama-araclari/tazminat-hesaplama" className="font-semibold text-amber-900 underline hover:text-amber-700">
+                                İş Kazası Tazminat Hesaplayıcısı
+                            </Link>{' '}
+                            sayfasını kullanın.
+                        </p>
+                    </section>
+
                     {/* Expert Report Content */}
                     <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 prose prose-slate max-w-none">
-                        <h2 className="text-2xl font-bold text-slate-800 border-b pb-4 mb-6">Mesleki Hastalık Tazminat Hesaplamalarında Hukuki ve Aktüeryal Temeller</h2>
+                        <h2 className="text-2xl font-bold text-slate-800 border-b pb-4 mb-6">Meslek Hastalığı Tazminatının Hukuki ve Aktüeryal Temelleri</h2>
                         
                         <div className="grid md:grid-cols-2 gap-8">
                             <div>

@@ -1,6 +1,18 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/hesaplama-araclari/deger-kaybi",
+      "destination": "/hesaplama-araclari/arac-deger-kaybi",
+      "permanent": true
+    },
+    {
+      "source": "/hesaplama-araclari/bedeni-hasar",
+      "destination": "/hesaplama-araclari/trafik-kazasi",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",

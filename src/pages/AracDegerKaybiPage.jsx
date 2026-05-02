@@ -129,10 +129,10 @@ export default function AracDegerKaybiPage() {
   return (
     <>
       <SEO
-        title="Araç Değer Kaybı Hesaplama 2025 | Bilirkişi Raporu Uyumlu | Koptay Hukuk"
-        description="Trafik kazası sonrası araç değer kaybı hesaplama aracı. 2025 Sigorta Genel Şartları formülü (Baz Katsayı %19), A1-A4 hasar sınıflandırması, Yargıtay içtihatlarına uygun detaylı hesaplama. Profesyonel araç değer kaybı hesaplayıcı."
-        keywords="araç değer kaybı hesaplama, araç değer kaybı 2025, trafik kazası değer kaybı, araç hasar değer kaybı, bilirkişi raporu araç değer kaybı, sigorta değer kaybı hesaplama, araç ekspertiz değer kaybı, A1 A2 A3 A4 hasar, yargıtay araç değer kaybı, araç değer kaybı formülü, trafik sigortası değer kaybı, kasko değer kaybı, araç değer kaybı tazminat"
-        url="/hesaplama-araclari/arac-deger-kaybi"
+        title="Araç Değer Kaybı Hesaplama 2026 | Sigorta Tahkim ve Yargıtay Uyumlu | Koptay Hukuk"
+        description="2026 Sigorta Genel Şartları (Baz Katsayı %19), A1-A4 hasar sınıflandırması ve Yargıtay 17. HD içtihatlarına uygun araç değer kaybı hesaplama aracı. Sigorta tahkim ve dava süreçlerine uygun bilirkişi formatlı PDF rapor."
+        keywords="araç değer kaybı hesaplama, araç değer kaybı 2026, trafik kazası değer kaybı, araç hasar değer kaybı, bilirkişi raporu araç değer kaybı, sigorta değer kaybı hesaplama, araç ekspertiz değer kaybı, A1 A2 A3 A4 hasar, yargıtay araç değer kaybı, araç değer kaybı formülü, trafik sigortası değer kaybı, kasko değer kaybı, araç değer kaybı tazminat, sigorta tahkim değer kaybı"
+        url="https://koptay.av.tr/hesaplama-araclari/arac-deger-kaybi"
       />
 
       {/* Structured Data - JSON-LD for Calculator */}
@@ -148,18 +148,19 @@ export default function AracDegerKaybiPage() {
             "price": "0",
             "priceCurrency": "TRY"
           },
-          "description": "Trafik kazası sonrası araç değer kaybı hesaplama aracı. 2025 Sigorta Genel Şartları formülü ile Yargıtay içtihatlarına uygun hesaplama.",
+          "description": "Trafik kazası sonrası araç değer kaybı hesaplama aracı. 2026 Sigorta Genel Şartları formülü ile Yargıtay içtihatlarına uygun hesaplama.",
+          "url": "https://koptay.av.tr/hesaplama-araclari/arac-deger-kaybi",
           "author": {
             "@type": "LegalService",
             "name": "Koptay Hukuk Bürosu",
             "address": {
               "@type": "PostalAddress",
-              "addressLocality": "İstanbul",
+              "addressLocality": "Ankara",
               "addressCountry": "TR"
             }
           },
           "featureList": [
-            "2025 Sigorta Genel Şartları formülü (Baz Katsayı %19)",
+            "2026 Sigorta Genel Şartları formülü (Baz Katsayı %19)",
             "A1-A4 hasar boyutu sınıflandırması",
             "Kilometre bazlı katsayı hesaplama",
             "Yargıtay %35 üst sınır kontrolü",
@@ -180,7 +181,7 @@ export default function AracDegerKaybiPage() {
               "name": "Araç değer kaybı nasıl hesaplanır?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "2025 Sigorta Genel Şartlarına göre: Baz Değer Kaybı = Araç Rayiç Değeri × %19. Toplam Değer Kaybı = Baz Değer Kaybı × Hasar Boyutu Katsayısı (A1-A4) × KM Katsayısı. Yargıtay kararlarına göre maksimum %35 sınırı uygulanır."
+                "text": "2026 Sigorta Genel Şartlarına göre: Baz Değer Kaybı = Araç Rayiç Değeri × %19. Toplam Değer Kaybı = Baz Değer Kaybı × Hasar Boyutu Katsayısı (A1-A4) × KM Katsayısı. Yargıtay kararlarına göre maksimum %35 sınırı uygulanır."
               }
             },
             {
@@ -201,10 +202,10 @@ export default function AracDegerKaybiPage() {
             },
             {
               "@type": "Question",
-              "name": "2025 araç değer kaybı formülü nedir?",
+              "name": "2026 araç değer kaybı formülü nedir?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "2025 Sigorta Genel Şartlarına göre Baz Katsayı %19'dur. Formül: B (Baz Değer Kaybı) = R (Rayiç Değer) × 0.19, D (Toplam Değer Kaybı) = B × H (Hasar Boyutu) × K (KM Katsayısı)."
+                "text": "2026 Sigorta Genel Şartlarına göre Baz Katsayı %19'dur. Formül: B (Baz Değer Kaybı) = R (Rayiç Değer) × 0.19, D (Toplam Değer Kaybı) = B × H (Hasar Boyutu) × K (KM Katsayısı)."
               }
             }
           ]
@@ -381,9 +382,9 @@ export default function AracDegerKaybiPage() {
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">Araç Değer Kaybı Nedir ve Nasıl Hesaplanır?</h2>
                     
                     <div className="prose prose-gray max-w-none">
-                      <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">2025 Araç Değer Kaybı Hesaplama Formülü</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">2026 Araç Değer Kaybı Hesaplama Formülü</h3>
                       <p className="text-gray-700 leading-relaxed mb-4">
-                        Trafik kazası sonrası araç değer kaybı, 2025 Sigorta Genel Şartları'na göre <strong>Baz Katsayı %19</strong> ile hesaplanır. 
+                        Trafik kazası sonrası araç değer kaybı, 2026 Sigorta Genel Şartları'na göre <strong>Baz Katsayı %19</strong> ile hesaplanır. 
                         Formül: <strong>Baz Değer Kaybı = Araç Rayiç Değeri × 0.19</strong>. Toplam değer kaybı için hasar boyutu (A1-A4) 
                         ve kilometre katsayısı ile çarpılır.
                       </p>
@@ -421,7 +422,7 @@ export default function AracDegerKaybiPage() {
                       <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Bilirkişi Raporu ve Yasal Süreç</h3>
                       <p className="text-gray-700 leading-relaxed mb-4">
                         Araç değer kaybı hesaplaması için mahkeme tarafından atanan bilirkişi, 
-                        aracın kaza öncesi ve sonrası değerini tespit eder. 2025 formülüne göre yapılan hesaplama, 
+                        aracın kaza öncesi ve sonrası değerini tespit eder. 2026 formülüne göre yapılan hesaplama, 
                         Yargıtay içtihatları ve sigorta mevzuatı çerçevesinde değerlendirilir.
                       </p>
 
@@ -822,7 +823,7 @@ const OzetEkrani = ({ formData, hasar1 }) => {
       {/* Hasar Boyutu Rehberi */}
       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6">
         <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-          📋 Hasar Boyutu Sınıflandırması (2025 Resmî Uygulama)
+          📋 Hasar Boyutu Sınıflandırması (2026 Resmî Uygulama)
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
           <div className="bg-white p-3 rounded border border-red-200">
@@ -904,7 +905,7 @@ const RaporEkrani = ({ sonuc, formData }) => {
         
         {/* Formül Açıklaması */}
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4 mb-4">
-          <div className="text-sm font-medium text-gray-700 mb-2">📐 Hesaplama Formülü (2025 Sigorta Genel Şartları):</div>
+          <div className="text-sm font-medium text-gray-700 mb-2">📐 Hesaplama Formülü (2026 Sigorta Genel Şartları):</div>
           <div className="space-y-1 text-sm text-gray-700">
             <div className="font-mono bg-white px-3 py-2 rounded border border-blue-200">
               <strong>B</strong> (Baz Değer Kaybı) = R (Rayiç Değer) × 0.19

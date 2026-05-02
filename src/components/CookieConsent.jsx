@@ -15,7 +15,6 @@ const CookieConsent = () => {
   const handleAccept = () => {
     localStorage.setItem('cookieConsent', 'true');
     setIsVisible(false);
-    // Consent Mode v2: tam mod aç + Clarity yükle
     if (typeof window.gtag === 'function') {
       window.gtag('consent', 'update', {
         ad_storage: 'granted',
@@ -34,8 +33,6 @@ const CookieConsent = () => {
   const handleReject = () => {
     localStorage.setItem('cookieConsent', 'false');
     setIsVisible(false);
-    // Consent Mode v2: denied'da kalmaya devam — GA4 cookie-less ping göndermeye devam eder
-    // (modeled visits sayılır, ama bireysel kullanıcı tanımlanmaz)
     if (typeof window.gtag === 'function') {
       window.gtag('consent', 'update', {
         ad_storage: 'denied',

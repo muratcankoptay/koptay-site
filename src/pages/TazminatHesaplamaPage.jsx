@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO';
 
@@ -188,7 +189,7 @@ const TazminatHesaplamaPage = () => {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "İş Kazası ve Meslek Hastalığı Tazminat Hesaplama Aracı",
+        "name": "İş Kazası Tazminat Hesaplama Aracı (2026)",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Web",
         "offers": {
@@ -242,9 +243,9 @@ const TazminatHesaplamaPage = () => {
     return (
         <div className="min-h-screen bg-slate-50 pt-32 pb-12 px-4 font-sans text-slate-800">
             <SEO
-                title="Tazminat Hesaplama Aracı 2026 | İş Kazası & Meslek Hastalığı | Koptay Hukuk"
-                description="İş kazası ve meslek hastalığı tazminat hesaplama aracı. TRH-2010 tablosuna göre maddi tazminatınızı hesaplayın. Maluliyet oranı ve kusur durumu ile detaylı rapor. Ankara avukat — Koptay Hukuk Bürosu."
-                keywords="tazminat hesaplama, iş kazası tazminatı, meslek hastalığı tazminatı, TRH-2010, maluliyet oranı, kusur durumu, iş kazası avukatı ankara"
+                title="İş Kazası Tazminat Hesaplama 2026 | Maluliyet, Kusur, TRH-2010 | Koptay Hukuk"
+                description="İş kazası nedeniyle maddi tazminatınızı maluliyet oranı, kusur durumu ve TRH-2010 yaşam tablosu kapsamında hesaplayın. Sürekli iş göremezlik, geçici iş göremezlik, destekten yoksun kalma. Yargıtay 21. ve 10. HD içtihatlarına uygun. Ankara iş kazası avukatı."
+                keywords="iş kazası tazminat hesaplama, iş kazası maddi tazminat, maluliyet oranı hesaplama, kusur oranı, TRH-2010, sürekli iş göremezlik tazminatı, geçici iş göremezlik, destekten yoksun kalma, iş kazası avukatı ankara, ankara iş hukuku avukatı"
                 url="https://koptay.av.tr/hesaplama-araclari/tazminat-hesaplama"
             />
             <Helmet>
@@ -279,8 +280,8 @@ const TazminatHesaplamaPage = () => {
                         </svg>
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold text-slate-800 tracking-tight">İş Kazası ve Meslek Hastalığı Tazminat Hesaplayıcı</h1>
-                        <p className="text-xs text-slate-500">TRH-2010 Tablosu & Yargıtay İçtihatlarına Uygun Projeksiyon</p>
+                        <h1 className="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">İş Kazası Tazminat Hesaplama 2026</h1>
+                        <p className="text-xs md:text-sm text-slate-500">Maluliyet, Kusur ve TRH-2010 Esaslı Aktüerya — Yargıtay 21. HD İçtihatlarına Uygun</p>
                     </div>
                 </div>
                 <button onClick={() => window.print()} className="hidden md:flex items-center gap-2 text-sm text-teal-700 font-medium hover:bg-teal-50 px-3 py-2 rounded transition no-print">
@@ -472,10 +473,23 @@ const TazminatHesaplamaPage = () => {
 
                 {/* Detailed Content & FAQ Section */}
                 <div className="mt-16 max-w-5xl mx-auto space-y-12 no-print">
-                    
+
+                    {/* Çapraz referans: Meslek hastalığı için ayrı sayfa */}
+                    <section className="bg-amber-50 border-l-4 border-amber-400 p-5 rounded-lg">
+                        <p className="text-sm text-amber-900">
+                            <strong>İş kazası mı, meslek hastalığı mı?</strong> Bu sayfa anlık travma niteliğindeki <strong>iş kazası</strong> tazminatı içindir.
+                            Hastalığınız iş yerindeki uzun süreli maruziyetin sonucu (silikosis, asbestos kaynaklı, mobbing kaynaklı vb.) ise
+                            yükümlülük süresi açısından farklı kurallar geçerlidir;{' '}
+                            <Link to="/hesaplama-araclari/meslek-hastaligi" className="font-semibold text-amber-900 underline hover:text-amber-700">
+                                Meslek Hastalığı Tazminat Hesaplayıcısı
+                            </Link>{' '}
+                            sayfasını kullanın.
+                        </p>
+                    </section>
+
                     {/* Expert Report Content */}
                     <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 prose prose-slate max-w-none">
-                        <h2 className="text-2xl font-bold text-slate-800 border-b pb-4 mb-6">İş Kazası ve Meslek Hastalığı Tazminat Hesaplamalarında Hukuki ve Aktüeryal Temeller</h2>
+                        <h2 className="text-2xl font-bold text-slate-800 border-b pb-4 mb-6">İş Kazası Tazminatının Hukuki ve Aktüeryal Temelleri</h2>
                         
                         <div className="grid md:grid-cols-2 gap-8">
                             <div>
@@ -562,6 +576,25 @@ const TazminatHesaplamaPage = () => {
                                 </div>
                             </details>
                             <details className="group bg-slate-50 rounded-lg">
+                                <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
+                                    <span>Emekli olduktan sonraki dönem için tazminat alabilir miyim?</span>
+                                    <span className="transition group-open:rotate-180">
+                                        <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                    </span>
+                                </summary>
+                                <div className="text-slate-600 text-sm px-4 pb-4">
+                                    Evet. Yargıtay'a göre emeklilik döneminde de (Pasif Dönem) efor kaybı devam ettiği için, genellikle asgari ücret üzerinden tazminat hesaplanır.
+                                </div>
+                            </details>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default TazminatHesaplamaPage;
                                 <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
                                     <span>Emekli olduktan sonraki dönem için tazminat alabilir miyim?</span>
                                     <span className="transition group-open:rotate-180">
