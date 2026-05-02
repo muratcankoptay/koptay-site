@@ -15,14 +15,37 @@ const CookieConsent = () => {
   const handleAccept = () => {
     localStorage.setItem('cookieConsent', 'true');
     setIsVisible(false);
-    if (typeof window.__initAnalytics === 'function') {
-      window.__initAnalytics();
+    // Consent Mode v2: tam mod aç + Clarity yükle
+    if (typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', {
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        analytics_storage: 'granted',
+        functionality_storage: 'granted',
+        personalization_storage: 'granted',
+      });
+    }
+    if (typeof window.__initClarity === 'function') {
+      window.__initClarity();
     }
   };
 
   const handleReject = () => {
     localStorage.setItem('cookieConsent', 'false');
     setIsVisible(false);
+    // Consent Mode v2: denied'da kalmaya devam — GA4 cookie-less ping göndermeye devam eder
+    // (modeled visits sayılır, ama bireysel kullanıcı tanımlanmaz)
+    if (typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'denied',
+        personalization_storage: 'denied',
+      });
+    }
   };
 
   if (!isVisible) return null;
