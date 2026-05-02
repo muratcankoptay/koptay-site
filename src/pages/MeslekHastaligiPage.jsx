@@ -571,3 +571,5 @@ const MeslekHastaligiPage = () => {
 };
 
 export default MeslekHastaligiPage;
+
+export default MeslekHastaligiPage;
