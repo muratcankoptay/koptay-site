@@ -51,7 +51,7 @@ const MeslekHastaligiPage = () => {
         const psdVal = parseFloat(psd) || 0;
 
         if (dobDate >= eventDateObj) {
-            alert("Hata: Doğum tarihi olay tarihinden büyük olamaz.");
+            alert("Hata: DoÄŸum tarihi olay tarihinden bÃ¼yÃ¼k olamaz.");
             return;
         }
 
@@ -121,7 +121,7 @@ const MeslekHastaligiPage = () => {
             chartInstance.current = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Net Tazminat', 'Kusur İndirimi', 'SGK Mahsup'],
+                    labels: ['Net Tazminat', 'Kusur Ä°ndirimi', 'SGK Mahsup'],
                     datasets: [{
                         data: [results.finalNet, results.faultDeduction, results.psd],
                         backgroundColor: [
@@ -164,7 +164,7 @@ const MeslekHastaligiPage = () => {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "Meslek Hastalığı Tazminat Hesaplama Aracı",
+        "name": "Meslek HastalÄ±ÄŸÄ± Tazminat Hesaplama AracÄ±",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Web",
         "offers": {
@@ -172,8 +172,8 @@ const MeslekHastaligiPage = () => {
             "price": "0",
             "priceCurrency": "TRY"
         },
-        "description": "TRH-2010 yaşam tablosu ve Yargıtay içtihatlarına uygun, meslek hastalığı maddi tazminat hesaplama aracı.",
-        "featureList": "TRH-2010 Yaşam Tablosu, Aktif/Pasif Dönem Hesabı, Kusur İndirimi, SGK PSD Mahsubu"
+        "description": "TRH-2010 yaÅŸam tablosu ve YargÄ±tay iÃ§tihatlarÄ±na uygun, meslek hastalÄ±ÄŸÄ± maddi tazminat hesaplama aracÄ±.",
+        "featureList": "TRH-2010 YaÅŸam Tablosu, Aktif/Pasif DÃ¶nem HesabÄ±, Kusur Ä°ndirimi, SGK PSD Mahsubu"
     };
 
     const faqSchema = {
@@ -182,34 +182,34 @@ const MeslekHastaligiPage = () => {
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": "Meslek hastalığı ile iş kazası arasındaki fark nedir?",
+                "name": "Meslek hastalÄ±ÄŸÄ± ile iÅŸ kazasÄ± arasÄ±ndaki fark nedir?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "İş kazası anlık bir olay iken, meslek hastalığı tekrarlanan sebeplerle veya işin yürütüm şartları yüzünden zamanla ortaya çıkan, süreklilik arz eden bir süreçtir."
+                    "text": "Ä°ÅŸ kazasÄ± anlÄ±k bir olay iken, meslek hastalÄ±ÄŸÄ± tekrarlanan sebeplerle veya iÅŸin yÃ¼rÃ¼tÃ¼m ÅŸartlarÄ± yÃ¼zÃ¼nden zamanla ortaya Ã§Ä±kan, sÃ¼reklilik arz eden bir sÃ¼reÃ§tir."
                 }
             },
             {
                 "@type": "Question",
-                "name": "İşten ayrıldıktan yıllar sonra meslek hastalığı davası açabilir miyim?",
+                "name": "Ä°ÅŸten ayrÄ±ldÄ±ktan yÄ±llar sonra meslek hastalÄ±ÄŸÄ± davasÄ± aÃ§abilir miyim?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Evet. Yükümlülük süresi (genellikle 10 yıl) dolsa bile, tıbbi illiyet bağı kurulabiliyorsa Yüksek Sağlık Kurulu onayı ile meslek hastalığı sayılabilir ve dava açılabilir."
+                    "text": "Evet. YÃ¼kÃ¼mlÃ¼lÃ¼k sÃ¼resi (genellikle 10 yÄ±l) dolsa bile, tÄ±bbi illiyet baÄŸÄ± kurulabiliyorsa YÃ¼ksek SaÄŸlÄ±k Kurulu onayÄ± ile meslek hastalÄ±ÄŸÄ± sayÄ±labilir ve dava aÃ§Ä±labilir."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Tazminat hesabında hangi yaşam tablosu kullanılır?",
+                "name": "Tazminat hesabÄ±nda hangi yaÅŸam tablosu kullanÄ±lÄ±r?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Yargıtay kararları uyarınca PMF-1931 yerine, daha güncel olan TRH-2010 (Türkiye Hayat Tablosu) kullanılmaktadır."
+                    "text": "YargÄ±tay kararlarÄ± uyarÄ±nca PMF-1931 yerine, daha gÃ¼ncel olan TRH-2010 (TÃ¼rkiye Hayat Tablosu) kullanÄ±lmaktadÄ±r."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Emekli olduktan sonraki dönem için tazminat alabilir miyim?",
+                "name": "Emekli olduktan sonraki dÃ¶nem iÃ§in tazminat alabilir miyim?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Evet. Yargıtay'a göre emeklilik döneminde de (Pasif Dönem) efor kaybı devam ettiği için, genellikle asgari ücret üzerinden tazminat hesaplanır."
+                    "text": "Evet. YargÄ±tay'a gÃ¶re emeklilik dÃ¶neminde de (Pasif DÃ¶nem) efor kaybÄ± devam ettiÄŸi iÃ§in, genellikle asgari Ã¼cret Ã¼zerinden tazminat hesaplanÄ±r."
                 }
             }
         ]
@@ -218,9 +218,9 @@ const MeslekHastaligiPage = () => {
     return (
         <div className="min-h-screen bg-slate-50 pt-32 pb-12 px-4 font-sans text-slate-800">
             <SEO
-                title="Meslek Hastalığı Tazminatı Hesaplama 2026 | Yükümlülük Süresi & TRH-2010 | Koptay Hukuk"
-                description="Meslek hastalığı tazminatınızı yükümlülük süresi, 5510 SK m.14, maluliyet oranı ve TRH-2010 yaşam tablosu ile hesaplayın. Silikosis, asbestos, mobbing kaynaklı hastalıklar dahil. Yargıtay 10. ve 21. HD içtihatlarına uygun. Ankara meslek hastalığı avukatı."
-                keywords="meslek hastalığı tazminat hesaplama, yükümlülük süresi, 5510 sayılı kanun madde 14, TRH-2010, meslek hastalığı davası, maluliyet oranı, sürekli iş göremezlik, silikosis tazminatı, asbestos tazminatı, meslek hastalığı avukatı, ankara iş hukuku"
+                title="Meslek HastalÄ±ÄŸÄ± TazminatÄ± Hesaplama 2026 | YÃ¼kÃ¼mlÃ¼lÃ¼k SÃ¼resi & TRH-2010 | Koptay Hukuk"
+                description="Meslek hastalÄ±ÄŸÄ± tazminatÄ±nÄ±zÄ± yÃ¼kÃ¼mlÃ¼lÃ¼k sÃ¼resi, 5510 SK m.14, maluliyet oranÄ± ve TRH-2010 yaÅŸam tablosu ile hesaplayÄ±n. Silikosis, asbestos, mobbing kaynaklÄ± hastalÄ±klar dahil. YargÄ±tay 10. ve 21. HD iÃ§tihatlarÄ±na uygun. Ankara meslek hastalÄ±ÄŸÄ± avukatÄ±."
+                keywords="meslek hastalÄ±ÄŸÄ± tazminat hesaplama, yÃ¼kÃ¼mlÃ¼lÃ¼k sÃ¼resi, 5510 sayÄ±lÄ± kanun madde 14, TRH-2010, meslek hastalÄ±ÄŸÄ± davasÄ±, maluliyet oranÄ±, sÃ¼rekli iÅŸ gÃ¶remezlik, silikosis tazminatÄ±, asbestos tazminatÄ±, meslek hastalÄ±ÄŸÄ± avukatÄ±, ankara iÅŸ hukuku"
                 url="https://koptay.av.tr/hesaplama-araclari/meslek-hastaligi"
                 image="/images/articles/meslek-hastaligi-tazminati-hesaplama.jpg"
             />
@@ -256,15 +256,15 @@ const MeslekHastaligiPage = () => {
                         </svg>
                     </div>
                     <div>
-                        <h1 className="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">Meslek Hastalığı Tazminatı Hesaplama 2026</h1>
-                        <p className="text-xs md:text-sm text-slate-500">Yükümlülük Süresi (5510 SK m.14) & TRH-2010 — Yargıtay 10. HD İçtihatlarına Uygun</p>
+                        <h1 className="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">Meslek HastalÄ±ÄŸÄ± TazminatÄ± Hesaplama 2026</h1>
+                        <p className="text-xs md:text-sm text-slate-500">YÃ¼kÃ¼mlÃ¼lÃ¼k SÃ¼resi (5510 SK m.14) & TRH-2010 â€” YargÄ±tay 10. HD Ä°Ã§tihatlarÄ±na Uygun</p>
                     </div>
                 </div>
                 <button onClick={() => window.print()} className="hidden md:flex items-center gap-2 text-sm text-teal-700 font-medium hover:bg-teal-50 px-3 py-2 rounded transition no-print">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                     </svg>
-                    Yazdır / PDF
+                    YazdÄ±r / PDF
                 </button>
             </div>
 
@@ -274,34 +274,34 @@ const MeslekHastaligiPage = () => {
                     {/* INPUT PANEL */}
                     <div className="lg:col-span-4 space-y-6 no-print">
                         <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100">
-                            <h2 className="text-lg font-bold text-slate-700 mb-4 border-b pb-2">1. Kişisel Veriler & Olay</h2>
+                            <h2 className="text-lg font-bold text-slate-700 mb-4 border-b pb-2">1. KiÅŸisel Veriler & Olay</h2>
                             
                             <div className="grid grid-cols-2 gap-4 mb-4">
                                 <div>
                                     <label className="block text-xs font-semibold text-slate-500 mb-1">Cinsiyet</label>
                                     <select value={gender} onChange={(e) => setGender(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none">
                                         <option value="M">Erkek</option>
-                                        <option value="F">Kadın</option>
+                                        <option value="F">KadÄ±n</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-semibold text-slate-500 mb-1">Doğum Tarihi</label>
+                                    <label className="block text-xs font-semibold text-slate-500 mb-1">DoÄŸum Tarihi</label>
                                     <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
                                 </div>
                             </div>
 
                             <div className="mb-4">
-                                <label className="block text-xs font-semibold text-slate-500 mb-1">Meslek Hastalığı Tespit Tarihi</label>
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">Meslek HastalÄ±ÄŸÄ± Tespit Tarihi</label>
                                 <input type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
                             </div>
 
                             <div className="mb-4">
-                                <label className="block text-xs font-semibold text-slate-500 mb-1">Aylık Net Kazanç (TL)</label>
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">AylÄ±k Net KazanÃ§ (TL)</label>
                                 <div className="relative">
-                                    <input type="number" value={wage} onChange={(e) => setWage(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded pl-3 pr-10 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" placeholder="Örn: 25000" />
-                                    <span className="absolute right-3 top-2 text-slate-400 text-sm">₺</span>
+                                    <input type="number" value={wage} onChange={(e) => setWage(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded pl-3 pr-10 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" placeholder="Ã–rn: 25000" />
+                                    <span className="absolute right-3 top-2 text-slate-400 text-sm">â‚º</span>
                                 </div>
-                                <p className="text-[10px] text-slate-400 mt-1">*Çıplak net ücret giriniz.</p>
+                                <p className="text-[10px] text-slate-400 mt-1">*Ã‡Ä±plak net Ã¼cret giriniz.</p>
                             </div>
                         </div>
 
@@ -310,16 +310,16 @@ const MeslekHastaligiPage = () => {
                             
                             <div className="mb-4">
                                 <div className="flex justify-between">
-                                    <label className="block text-xs font-semibold text-slate-500 mb-1">Maluliyet Oranı (%)</label>
+                                    <label className="block text-xs font-semibold text-slate-500 mb-1">Maluliyet OranÄ± (%)</label>
                                     <span className="text-xs font-bold text-teal-700">%{disability}</span>
                                 </div>
                                 <input type="range" min="0" max="100" value={disability} onChange={(e) => setDisability(e.target.value)} className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600" />
-                                <p className="text-[10px] text-slate-400 mt-1">SGK Sağlık Kurulu tarafından belirlenen oran.</p>
+                                <p className="text-[10px] text-slate-400 mt-1">SGK SaÄŸlÄ±k Kurulu tarafÄ±ndan belirlenen oran.</p>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4 mb-4">
                                 <div>
-                                    <label className="block text-xs font-semibold text-slate-500 mb-1">İşçi Kusuru (%)</label>
+                                    <label className="block text-xs font-semibold text-slate-500 mb-1">Ä°ÅŸÃ§i Kusuru (%)</label>
                                     <input type="number" value={workerFault} max="100" onChange={(e) => {
                                         let val = parseInt(e.target.value) || 0;
                                         if(val > 100) val = 100;
@@ -327,16 +327,16 @@ const MeslekHastaligiPage = () => {
                                     }} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-semibold text-slate-500 mb-1">İşveren Kusuru (%)</label>
+                                    <label className="block text-xs font-semibold text-slate-500 mb-1">Ä°ÅŸveren Kusuru (%)</label>
                                     <input type="number" value={100 - workerFault} readOnly className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
                                 </div>
                             </div>
-                            <p className="text-[10px] text-red-400 mb-4">*İşveren kusuru otomatik hesaplanır (100 - İşçi).</p>
+                            <p className="text-[10px] text-red-400 mb-4">*Ä°ÅŸveren kusuru otomatik hesaplanÄ±r (100 - Ä°ÅŸÃ§i).</p>
 
                             <div>
-                                <label className="block text-xs font-semibold text-slate-500 mb-1">SGK Tarafından Bağlanan PSD (TL)</label>
+                                <label className="block text-xs font-semibold text-slate-500 mb-1">SGK TarafÄ±ndan BaÄŸlanan PSD (TL)</label>
                                 <input type="number" value={psd} onChange={(e) => setPsd(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
-                                <p className="text-[10px] text-slate-400 mt-1">Rücu edilebilir Peşin Sermaye Değeri (İndirim kalemi).</p>
+                                <p className="text-[10px] text-slate-400 mt-1">RÃ¼cu edilebilir PeÅŸin Sermaye DeÄŸeri (Ä°ndirim kalemi).</p>
                             </div>
                         </div>
 
@@ -354,28 +354,28 @@ const MeslekHastaligiPage = () => {
                         {/* Summary Cards */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div className="bg-white p-4 rounded-xl shadow border-l-4 border-blue-500">
-                                <p className="text-xs text-slate-500 font-semibold uppercase">Olay Tarihi Yaşı</p>
+                                <p className="text-xs text-slate-500 font-semibold uppercase">Olay Tarihi YaÅŸÄ±</p>
                                 <p className="text-xl font-bold text-slate-800">{results ? results.ageAtEvent : '-'}</p>
                             </div>
                             <div className="bg-white p-4 rounded-xl shadow border-l-4 border-indigo-500">
                                 <p className="text-xs text-slate-500 font-semibold uppercase">TRH-2010 Bakiye</p>
-                                <p className="text-xl font-bold text-slate-800">{results ? results.remainingLife.toFixed(2) + ' Yıl' : '-'}</p>
+                                <p className="text-xl font-bold text-slate-800">{results ? results.remainingLife.toFixed(2) + ' YÄ±l' : '-'}</p>
                             </div>
                             <div className="bg-white p-4 rounded-xl shadow border-l-4 border-amber-500">
-                                <p className="text-xs text-slate-500 font-semibold uppercase">Aktif Dönem</p>
-                                <p className="text-xl font-bold text-slate-800">{results ? results.activeYears.toFixed(2) + ' Yıl' : '-'}</p>
+                                <p className="text-xs text-slate-500 font-semibold uppercase">Aktif DÃ¶nem</p>
+                                <p className="text-xl font-bold text-slate-800">{results ? results.activeYears.toFixed(2) + ' YÄ±l' : '-'}</p>
                             </div>
                             <div className="bg-white p-4 rounded-xl shadow border-l-4 border-teal-500">
-                                <p className="text-xs text-slate-500 font-semibold uppercase">Pasif Dönem</p>
-                                <p className="text-xl font-bold text-slate-800">{results ? results.passiveYears.toFixed(2) + ' Yıl' : '-'}</p>
+                                <p className="text-xs text-slate-500 font-semibold uppercase">Pasif DÃ¶nem</p>
+                                <p className="text-xl font-bold text-slate-800">{results ? results.passiveYears.toFixed(2) + ' YÄ±l' : '-'}</p>
                             </div>
                         </div>
 
                         {/* Main Result Card */}
                         <div className="bg-white rounded-xl shadow-xl overflow-hidden border border-slate-200">
                             <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
-                                <h3 className="font-bold text-slate-700">Tazminat Hesap Özeti</h3>
-                                <span className="text-xs bg-teal-100 text-teal-800 px-2 py-1 rounded">Bilirkişi Formatı</span>
+                                <h3 className="font-bold text-slate-700">Tazminat Hesap Ã–zeti</h3>
+                                <span className="text-xs bg-teal-100 text-teal-800 px-2 py-1 rounded">BilirkiÅŸi FormatÄ±</span>
                             </div>
                             
                             <div className="p-6">
@@ -390,34 +390,34 @@ const MeslekHastaligiPage = () => {
                                         </thead>
                                         <tbody className="divide-y divide-slate-100">
                                             <tr>
-                                                <td className="px-4 py-3 font-medium text-slate-700">Brüt Zarar (Aktif Dönem)</td>
-                                                <td className="px-4 py-3 text-right text-slate-500">60 Yaşına Kadar</td>
-                                                <td className="px-4 py-3 text-right font-mono">{results ? fmt(results.grossActiveLoss) : '0,00 ₺'}</td>
+                                                <td className="px-4 py-3 font-medium text-slate-700">BrÃ¼t Zarar (Aktif DÃ¶nem)</td>
+                                                <td className="px-4 py-3 text-right text-slate-500">60 YaÅŸÄ±na Kadar</td>
+                                                <td className="px-4 py-3 text-right font-mono">{results ? fmt(results.grossActiveLoss) : '0,00 â‚º'}</td>
                                             </tr>
                                             <tr>
-                                                <td className="px-4 py-3 font-medium text-slate-700">Brüt Zarar (Pasif Dönem)</td>
-                                                <td className="px-4 py-3 text-right text-slate-500">Ölüm Tarihine Kadar</td>
-                                                <td className="px-4 py-3 text-right font-mono">{results ? fmt(results.grossPassiveLoss) : '0,00 ₺'}</td>
+                                                <td className="px-4 py-3 font-medium text-slate-700">BrÃ¼t Zarar (Pasif DÃ¶nem)</td>
+                                                <td className="px-4 py-3 text-right text-slate-500">Ã–lÃ¼m Tarihine Kadar</td>
+                                                <td className="px-4 py-3 text-right font-mono">{results ? fmt(results.grossPassiveLoss) : '0,00 â‚º'}</td>
                                             </tr>
                                             <tr className="bg-slate-50">
                                                 <td className="px-4 py-3 font-bold text-slate-800">TOPLAM ZARAR</td>
                                                 <td className="px-4 py-3 text-right"></td>
-                                                <td className="px-4 py-3 text-right font-mono font-bold">{results ? fmt(results.totalLoss) : '0,00 ₺'}</td>
+                                                <td className="px-4 py-3 text-right font-mono font-bold">{results ? fmt(results.totalLoss) : '0,00 â‚º'}</td>
                                             </tr>
                                             <tr>
-                                                <td className="px-4 py-3 text-red-600">(-) İşçi Kusuru İndirimi</td>
+                                                <td className="px-4 py-3 text-red-600">(-) Ä°ÅŸÃ§i Kusuru Ä°ndirimi</td>
                                                 <td className="px-4 py-3 text-right text-red-500">%{results ? (results.workerFaultRate * 100).toFixed(0) : '0'}</td>
-                                                <td className="px-4 py-3 text-right font-mono text-red-600">{results ? '-' + fmt(results.faultDeduction) : '0,00 ₺'}</td>
+                                                <td className="px-4 py-3 text-right font-mono text-red-600">{results ? '-' + fmt(results.faultDeduction) : '0,00 â‚º'}</td>
                                             </tr>
                                             <tr>
-                                                <td className="px-4 py-3 text-blue-600">(-) SGK Peşin Sermaye Değeri (PSD)</td>
-                                                <td className="px-4 py-3 text-right text-blue-500">Rücu Edilebilir</td>
-                                                <td className="px-4 py-3 text-right font-mono text-blue-600">{results ? '-' + fmt(results.psd) : '0,00 ₺'}</td>
+                                                <td className="px-4 py-3 text-blue-600">(-) SGK PeÅŸin Sermaye DeÄŸeri (PSD)</td>
+                                                <td className="px-4 py-3 text-right text-blue-500">RÃ¼cu Edilebilir</td>
+                                                <td className="px-4 py-3 text-right font-mono text-blue-600">{results ? '-' + fmt(results.psd) : '0,00 â‚º'}</td>
                                             </tr>
                                             <tr className="bg-teal-50 border-t-2 border-teal-100">
-                                                <td className="px-4 py-4 font-bold text-teal-900 text-lg">NET ÖDENECEK TAZMİNAT</td>
+                                                <td className="px-4 py-4 font-bold text-teal-900 text-lg">NET Ã–DENECEK TAZMÄ°NAT</td>
                                                 <td className="px-4 py-4"></td>
-                                                <td className="px-4 py-4 text-right font-bold text-teal-700 text-xl font-mono">{results ? fmt(results.finalNet) : '0,00 ₺'}</td>
+                                                <td className="px-4 py-4 text-right font-bold text-teal-700 text-xl font-mono">{results ? fmt(results.finalNet) : '0,00 â‚º'}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -428,7 +428,7 @@ const MeslekHastaligiPage = () => {
                         {/* Explanation / Chart Area */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 no-print">
                             <div className="bg-white p-6 rounded-xl shadow border border-slate-100">
-                                <h4 className="font-bold text-slate-700 mb-4 text-sm">Oransal Dağılım</h4>
+                                <h4 className="font-bold text-slate-700 mb-4 text-sm">Oransal DaÄŸÄ±lÄ±m</h4>
                                 <div className="chart-container">
                                     <canvas ref={chartRef}></canvas>
                                 </div>
@@ -436,10 +436,10 @@ const MeslekHastaligiPage = () => {
                             <div className="bg-white p-6 rounded-xl shadow border border-slate-100">
                                 <h4 className="font-bold text-slate-700 mb-2 text-sm">Hukuki Notlar</h4>
                                 <ul className="text-xs text-slate-600 space-y-3 list-disc pl-4">
-                                    <li><strong>TRH-2010:</strong> Hesaplamada Yargıtay'ın zorunlu kıldığı güncel yaşam tablosu kullanılmıştır.</li>
-                                    <li><strong>Aktif/Pasif Ayrımı:</strong> 60 yaş "Ekonomik Bütünleşme Yaşı" kabul edilmiştir. Pasif dönemde asgari geçim indirimi (AGİ) hariç tutar üzerinden hesaplama yapılması esastır, burada net ücret üzerinden projeksiyon yapılmıştır.</li>
-                                    <li><strong>Kusur Oranı:</strong> Müterafik kusur (TBK m.52) uyarınca işçinin kusuru toplam zarardan düşülmüştür.</li>
-                                    <li><strong>Mükerrer Ödeme:</strong> SGK tarafından bağlanan gelirin ilk peşin sermaye değeri, sebepsiz zenginleşmeyi önlemek (TBK m.55) için mahsup edilmiştir.</li>
+                                    <li><strong>TRH-2010:</strong> Hesaplamada YargÄ±tay'Ä±n zorunlu kÄ±ldÄ±ÄŸÄ± gÃ¼ncel yaÅŸam tablosu kullanÄ±lmÄ±ÅŸtÄ±r.</li>
+                                    <li><strong>Aktif/Pasif AyrÄ±mÄ±:</strong> 60 yaÅŸ "Ekonomik BÃ¼tÃ¼nleÅŸme YaÅŸÄ±" kabul edilmiÅŸtir. Pasif dÃ¶nemde asgari geÃ§im indirimi (AGÄ°) hariÃ§ tutar Ã¼zerinden hesaplama yapÄ±lmasÄ± esastÄ±r, burada net Ã¼cret Ã¼zerinden projeksiyon yapÄ±lmÄ±ÅŸtÄ±r.</li>
+                                    <li><strong>Kusur OranÄ±:</strong> MÃ¼terafik kusur (TBK m.52) uyarÄ±nca iÅŸÃ§inin kusuru toplam zarardan dÃ¼ÅŸÃ¼lmÃ¼ÅŸtÃ¼r.</li>
+                                    <li><strong>MÃ¼kerrer Ã–deme:</strong> SGK tarafÄ±ndan baÄŸlanan gelirin ilk peÅŸin sermaye deÄŸeri, sebepsiz zenginleÅŸmeyi Ã¶nlemek (TBK m.55) iÃ§in mahsup edilmiÅŸtir.</li>
                                 </ul>
                             </div>
                         </div>
@@ -450,38 +450,38 @@ const MeslekHastaligiPage = () => {
                 {/* Detailed Content & FAQ Section */}
                 <div className="mt-16 max-w-5xl mx-auto space-y-12 no-print">
 
-                    {/* Çapraz referans: İş kazası ayrı sayfa */}
+                    {/* Ã‡apraz referans: Ä°ÅŸ kazasÄ± ayrÄ± sayfa */}
                     <section className="bg-amber-50 border-l-4 border-amber-400 p-5 rounded-lg">
                         <p className="text-sm text-amber-900">
-                            <strong>Meslek hastalığı mı, iş kazası mı?</strong> Bu sayfa, uzun süreli mesleki maruziyet sonucu oluşan{' '}
-                            <strong>meslek hastalığı</strong> tazminatı için yükümlülük süresi (5510 SK m.14) ve TRH-2010 esaslı hesaplama yapar.
-                            Anlık bir travma niteliğindeki <strong>iş kazası</strong> tazminatı için{' '}
+                            <strong>Meslek hastalÄ±ÄŸÄ± mÄ±, iÅŸ kazasÄ± mÄ±?</strong> Bu sayfa, uzun sÃ¼reli mesleki maruziyet sonucu oluÅŸan{' '}
+                            <strong>meslek hastalÄ±ÄŸÄ±</strong> tazminatÄ± iÃ§in yÃ¼kÃ¼mlÃ¼lÃ¼k sÃ¼resi (5510 SK m.14) ve TRH-2010 esaslÄ± hesaplama yapar.
+                            AnlÄ±k bir travma niteliÄŸindeki <strong>iÅŸ kazasÄ±</strong> tazminatÄ± iÃ§in{' '}
                             <Link to="/hesaplama-araclari/tazminat-hesaplama" className="font-semibold text-amber-900 underline hover:text-amber-700">
-                                İş Kazası Tazminat Hesaplayıcısı
+                                Ä°ÅŸ KazasÄ± Tazminat HesaplayÄ±cÄ±sÄ±
                             </Link>{' '}
-                            sayfasını kullanın.
+                            sayfasÄ±nÄ± kullanÄ±n.
                         </p>
                     </section>
 
                     {/* Expert Report Content */}
                     <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 prose prose-slate max-w-none">
-                        <h2 className="text-2xl font-bold text-slate-800 border-b pb-4 mb-6">Meslek Hastalığı Tazminatının Hukuki ve Aktüeryal Temelleri</h2>
+                        <h2 className="text-2xl font-bold text-slate-800 border-b pb-4 mb-6">Meslek HastalÄ±ÄŸÄ± TazminatÄ±nÄ±n Hukuki ve AktÃ¼eryal Temelleri</h2>
                         
                         <div className="grid md:grid-cols-2 gap-8">
                             <div>
-                                <h3 className="text-lg font-semibold text-teal-700">1. Meslek Hastalığının Doğası</h3>
+                                <h3 className="text-lg font-semibold text-teal-700">1. Meslek HastalÄ±ÄŸÄ±nÄ±n DoÄŸasÄ±</h3>
                                 <p className="text-sm text-slate-600">
-                                    Meslek hastalıkları, iş kazalarından farklı olarak anlık bir travma değil, zamana yayılmış bir maruziyetin sonucudur. 
-                                    5510 sayılı Kanun’un 14. maddesine göre; sigortalının çalıştığı işin niteliğinden dolayı tekrarlanan bir sebeple 
-                                    veya işin yürütüm şartları yüzünden uğradığı geçici veya sürekli hastalık halleridir.
+                                    Meslek hastalÄ±klarÄ±, iÅŸ kazalarÄ±ndan farklÄ± olarak anlÄ±k bir travma deÄŸil, zamana yayÄ±lmÄ±ÅŸ bir maruziyetin sonucudur. 
+                                    5510 sayÄ±lÄ± Kanunâ€™un 14. maddesine gÃ¶re; sigortalÄ±nÄ±n Ã§alÄ±ÅŸtÄ±ÄŸÄ± iÅŸin niteliÄŸinden dolayÄ± tekrarlanan bir sebeple 
+                                    veya iÅŸin yÃ¼rÃ¼tÃ¼m ÅŸartlarÄ± yÃ¼zÃ¼nden uÄŸradÄ±ÄŸÄ± geÃ§ici veya sÃ¼rekli hastalÄ±k halleridir.
                                 </p>
                             </div>
                             <div>
-                                <h3 className="text-lg font-semibold text-teal-700">2. Yükümlülük Süresi ve Latent Dönem</h3>
+                                <h3 className="text-lg font-semibold text-teal-700">2. YÃ¼kÃ¼mlÃ¼lÃ¼k SÃ¼resi ve Latent DÃ¶nem</h3>
                                 <p className="text-sm text-slate-600">
-                                    Hastalığın işten ayrıldıktan sonra ortaya çıkması durumunda "Yükümlülük Süresi" devreye girer. 
-                                    Genellikle 10 yıl olan bu süre aşılsa bile, tıbbi illiyet bağı kurulabiliyorsa Yüksek Sağlık Kurulu onayı ile 
-                                    hastalık "Meslek Hastalığı" sayılabilir.
+                                    HastalÄ±ÄŸÄ±n iÅŸten ayrÄ±ldÄ±ktan sonra ortaya Ã§Ä±kmasÄ± durumunda "YÃ¼kÃ¼mlÃ¼lÃ¼k SÃ¼resi" devreye girer. 
+                                    Genellikle 10 yÄ±l olan bu sÃ¼re aÅŸÄ±lsa bile, tÄ±bbi illiyet baÄŸÄ± kurulabiliyorsa YÃ¼ksek SaÄŸlÄ±k Kurulu onayÄ± ile 
+                                    hastalÄ±k "Meslek HastalÄ±ÄŸÄ±" sayÄ±labilir.
                                 </p>
                             </div>
                         </div>
@@ -489,22 +489,22 @@ const MeslekHastaligiPage = () => {
                         <div className="mt-8">
                             <h3 className="text-lg font-semibold text-teal-700">3. Hesaplama Metodolojisi (TRH-2010)</h3>
                             <p className="text-sm text-slate-600 mb-4">
-                                Yargıtay 10. Hukuk Dairesi ve Hukuk Genel Kurulu kararları uyarınca, tazminat hesaplamalarında PMF-1931 tablosu yerine, 
-                                Türkiye İstatistik Kurumu verilerine dayanan <strong>TRH-2010 (Türkiye Hayat Tablosu)</strong> kullanılması zorunludur.
+                                YargÄ±tay 10. Hukuk Dairesi ve Hukuk Genel Kurulu kararlarÄ± uyarÄ±nca, tazminat hesaplamalarÄ±nda PMF-1931 tablosu yerine, 
+                                TÃ¼rkiye Ä°statistik Kurumu verilerine dayanan <strong>TRH-2010 (TÃ¼rkiye Hayat Tablosu)</strong> kullanÄ±lmasÄ± zorunludur.
                             </p>
                             <ul className="list-disc pl-5 text-sm text-slate-600 space-y-2">
-                                <li><strong>Aktif Dönem:</strong> 60 yaşına kadar olan çalışma çağıdır. Tam ücret üzerinden hesaplanır.</li>
-                                <li><strong>Pasif Dönem:</strong> 60 yaşından ölüme kadar olan dönemdir. Emekli de olsa efor kaybı devam ettiği için asgari ücret üzerinden hesaplanır.</li>
-                                <li><strong>Progresif Rant:</strong> Bilinmeyen devreler için %10 artırım ve %10 iskonto yöntemi uygulanır.</li>
+                                <li><strong>Aktif DÃ¶nem:</strong> 60 yaÅŸÄ±na kadar olan Ã§alÄ±ÅŸma Ã§aÄŸÄ±dÄ±r. Tam Ã¼cret Ã¼zerinden hesaplanÄ±r.</li>
+                                <li><strong>Pasif DÃ¶nem:</strong> 60 yaÅŸÄ±ndan Ã¶lÃ¼me kadar olan dÃ¶nemdir. Emekli de olsa efor kaybÄ± devam ettiÄŸi iÃ§in asgari Ã¼cret Ã¼zerinden hesaplanÄ±r.</li>
+                                <li><strong>Progresif Rant:</strong> Bilinmeyen devreler iÃ§in %10 artÄ±rÄ±m ve %10 iskonto yÃ¶ntemi uygulanÄ±r.</li>
                             </ul>
                         </div>
 
                         <div className="mt-8 bg-slate-50 p-6 rounded-xl border-l-4 border-teal-500">
-                            <h3 className="text-lg font-semibold text-slate-800">Kritik Uyarı: SGK PSD Mahsubu</h3>
+                            <h3 className="text-lg font-semibold text-slate-800">Kritik UyarÄ±: SGK PSD Mahsubu</h3>
                             <p className="text-sm text-slate-600 mt-2">
-                                Hukukumuzda "Zenginleşme Yasağı" gereği, işçi aynı zarar için iki kere tazminat alamaz. 
-                                Bu nedenle, SGK tarafından bağlanan Sürekli İş Göremezlik Gelirinin <strong>İlk Peşin Sermaye Değeri (PSD)</strong>, 
-                                işverenin kusuru oranında hesaplanan tazminattan düşülür. Bu veri girilmezse hesaplama hatalı (yüksek) çıkar.
+                                Hukukumuzda "ZenginleÅŸme YasaÄŸÄ±" gereÄŸi, iÅŸÃ§i aynÄ± zarar iÃ§in iki kere tazminat alamaz. 
+                                Bu nedenle, SGK tarafÄ±ndan baÄŸlanan SÃ¼rekli Ä°ÅŸ GÃ¶remezlik Gelirinin <strong>Ä°lk PeÅŸin Sermaye DeÄŸeri (PSD)</strong>, 
+                                iÅŸverenin kusuru oranÄ±nda hesaplanan tazminattan dÃ¼ÅŸÃ¼lÃ¼r. Bu veri girilmezse hesaplama hatalÄ± (yÃ¼ksek) Ã§Ä±kar.
                             </p>
                         </div>
                     </section>
@@ -515,51 +515,51 @@ const MeslekHastaligiPage = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            Sıkça Sorulan Sorular
+                            SÄ±kÃ§a Sorulan Sorular
                         </h2>
                         <div className="space-y-4">
                             <details className="group bg-slate-50 rounded-lg">
                                 <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
-                                    <span>Meslek hastalığı ile iş kazası arasındaki fark nedir?</span>
+                                    <span>Meslek hastalÄ±ÄŸÄ± ile iÅŸ kazasÄ± arasÄ±ndaki fark nedir?</span>
                                     <span className="transition group-open:rotate-180">
                                         <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
                                     </span>
                                 </summary>
                                 <div className="text-slate-600 text-sm px-4 pb-4">
-                                    İş kazası anlık bir olay iken, meslek hastalığı tekrarlanan sebeplerle veya işin yürütüm şartları yüzünden zamanla ortaya çıkan, süreklilik arz eden bir süreçtir.
+                                    Ä°ÅŸ kazasÄ± anlÄ±k bir olay iken, meslek hastalÄ±ÄŸÄ± tekrarlanan sebeplerle veya iÅŸin yÃ¼rÃ¼tÃ¼m ÅŸartlarÄ± yÃ¼zÃ¼nden zamanla ortaya Ã§Ä±kan, sÃ¼reklilik arz eden bir sÃ¼reÃ§tir.
                                 </div>
                             </details>
                             <details className="group bg-slate-50 rounded-lg">
                                 <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
-                                    <span>İşten ayrıldıktan yıllar sonra dava açabilir miyim?</span>
+                                    <span>Ä°ÅŸten ayrÄ±ldÄ±ktan yÄ±llar sonra dava aÃ§abilir miyim?</span>
                                     <span className="transition group-open:rotate-180">
                                         <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
                                     </span>
                                 </summary>
                                 <div className="text-slate-600 text-sm px-4 pb-4">
-                                    Evet. Yükümlülük süresi (genellikle 10 yıl) dolsa bile, tıbbi illiyet bağı kurulabiliyorsa Yüksek Sağlık Kurulu onayı ile meslek hastalığı sayılabilir. Zamanaşımı süresi (10 yıl) ise hastalığın kesin teşhis konulduğu tarihten itibaren başlar.
+                                    Evet. YÃ¼kÃ¼mlÃ¼lÃ¼k sÃ¼resi (genellikle 10 yÄ±l) dolsa bile, tÄ±bbi illiyet baÄŸÄ± kurulabiliyorsa YÃ¼ksek SaÄŸlÄ±k Kurulu onayÄ± ile meslek hastalÄ±ÄŸÄ± sayÄ±labilir. ZamanaÅŸÄ±mÄ± sÃ¼resi (10 yÄ±l) ise hastalÄ±ÄŸÄ±n kesin teÅŸhis konulduÄŸu tarihten itibaren baÅŸlar.
                                 </div>
                             </details>
                             <details className="group bg-slate-50 rounded-lg">
                                 <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
-                                    <span>Tazminat hesabında hangi yaşam tablosu kullanılır?</span>
+                                    <span>Tazminat hesabÄ±nda hangi yaÅŸam tablosu kullanÄ±lÄ±r?</span>
                                     <span className="transition group-open:rotate-180">
                                         <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
                                     </span>
                                 </summary>
                                 <div className="text-slate-600 text-sm px-4 pb-4">
-                                    Yargıtay kararları uyarınca PMF-1931 yerine, daha güncel olan ve Türkiye İstatistik Kurumu verilerine dayanan TRH-2010 (Türkiye Hayat Tablosu) kullanılmaktadır.
+                                    YargÄ±tay kararlarÄ± uyarÄ±nca PMF-1931 yerine, daha gÃ¼ncel olan ve TÃ¼rkiye Ä°statistik Kurumu verilerine dayanan TRH-2010 (TÃ¼rkiye Hayat Tablosu) kullanÄ±lmaktadÄ±r.
                                 </div>
                             </details>
                             <details className="group bg-slate-50 rounded-lg">
                                 <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 hover:text-teal-700 transition">
-                                    <span>Emekli olduktan sonraki dönem için tazminat alabilir miyim?</span>
+                                    <span>Emekli olduktan sonraki dÃ¶nem iÃ§in tazminat alabilir miyim?</span>
                                     <span className="transition group-open:rotate-180">
                                         <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
                                     </span>
                                 </summary>
                                 <div className="text-slate-600 text-sm px-4 pb-4">
-                                    Evet. Yargıtay'a göre emeklilik döneminde de (Pasif Dönem) efor kaybı devam ettiği için, genellikle asgari ücret üzerinden tazminat hesaplanır.
+                                    Evet. YargÄ±tay'a gÃ¶re emeklilik dÃ¶neminde de (Pasif DÃ¶nem) efor kaybÄ± devam ettiÄŸi iÃ§in, genellikle asgari Ã¼cret Ã¼zerinden tazminat hesaplanÄ±r.
                                 </div>
                             </details>
                         </div>
@@ -569,7 +569,5 @@ const MeslekHastaligiPage = () => {
         </div>
     );
 };
-
-export default MeslekHastaligiPage;
 
 export default MeslekHastaligiPage;
