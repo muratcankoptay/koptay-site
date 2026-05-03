@@ -56,51 +56,20 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"></noscript>
     
     <!--
-      Analytics: KVKK / GDPR uyumlu — Google Consent Mode v2.
-      - GA4 her ziyaretci icin yuklenir; ancak default consent state DENIED'dir.
-      - Bu modda GA4 cookie atmaz; cookie'siz "consentless ping" gonderir, modeled visits olusturur.
-      - Kullanici "Kabul Et" tikladiginda gtag('consent', 'update') ile tam mod acilir.
-      - Microsoft Clarity (session replay invaziv oldugu icin) sadece "Kabul Et" sonrasi yuklenir.
-      - Bu konfigürasyon trafik sayilmaya devam etmesini saglar + KVKK'ya uyumlu kalir.
+      Analytics: GA4 ve Microsoft Clarity her ziyaretci icin yuklenir.
+      - Sadece pseudonim / aggregate veri toplanir (sehir-ilce, sayfa akisi).
+      - anonymize_ip = true => IP son okteti maskelenir.
+      - allow_google_signals = false => cross-device / demografi sinyalleri kapali.
+      - Clarity default olarak metin/input maskeleme uygular.
+      - KVKK bilgilendirmesi /kvkk sayfasinda + sitedeki bilgilendirici banner ile saglanir.
+      - __initAnalytics / __initClarity geriye donuk uyumluluk icin no-op olarak birakildi.
     -->
     <script>
       (function() {
-        // GA4 dataLayer init (Consent Mode v2 default state)
         window.dataLayer = window.dataLayer || [];
         window.gtag = function(){ window.dataLayer.push(arguments); };
 
-        // 1) Default consent: hepsi DENIED. Cookie atilmaz, ama cookie'siz ping calisir.
-        gtag('consent', 'default', {
-          'ad_storage': 'denied',
-          'ad_user_data': 'denied',
-          'ad_personalization': 'denied',
-          'analytics_storage': 'denied',
-          'functionality_storage': 'denied',
-          'personalization_storage': 'denied',
-          'security_storage': 'granted',
-          'wait_for_update': 500
-        });
-
-        // 2) Cookie-less ping mode (URL passthrough + ads_data_redaction)
-        gtag('set', 'ads_data_redaction', true);
-        gtag('set', 'url_passthrough', false);
-
-        // 3) Onceki kabul varsa, hemen consent guncelle
-        try {
-          var consent = localStorage.getItem('cookieConsent');
-          if (consent === 'true') {
-            gtag('consent', 'update', {
-              'ad_storage': 'granted',
-              'ad_user_data': 'granted',
-              'ad_personalization': 'granted',
-              'analytics_storage': 'granted',
-              'functionality_storage': 'granted',
-              'personalization_storage': 'granted'
-            });
-          }
-        } catch (e) { /* localStorage devre disi olabilir */ }
-
-        // 4) GA4 her ziyaretcide yuklenir (cookie-less ping veya tam mod)
+        // Google Analytics 4 — koşulsuz yükle
         var gaScript = document.createElement('script');
         gaScript.async = true;
         gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-8DQ21Q8GF9';
@@ -112,41 +81,16 @@
           'allow_ad_personalization_signals': false
         });
 
-        // 5) Clarity (session replay invaziv) — sadece tam consent sonrasi yuklenir.
-        //    CookieConsent bileseni "Kabul Et" tikladiginda window.__initClarity() cagrilir.
-        var clarityLoaded = false;
-        window.__initClarity = function() {
-          if (clarityLoaded) return;
-          clarityLoaded = true;
-          (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-          })(window, document, "clarity", "script", "ugrdvpu2fw");
-        };
+        // Microsoft Clarity — koşulsuz yükle (default masking aktif)
+        (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "ugrdvpu2fw");
 
-        try {
-          if (localStorage.getItem('cookieConsent') === 'true') {
-            if (document.readyState === 'complete') {
-              window.__initClarity();
-            } else {
-              window.addEventListener('load', function() { window.__initClarity(); });
-            }
-          }
-        } catch (e) {}
-
-        // 6) Geriye doniik uyumluluk: eski __initAnalytics cagrilarini kir.
-        window.__initAnalytics = function() {
-          gtag('consent', 'update', {
-            'ad_storage': 'granted',
-            'ad_user_data': 'granted',
-            'ad_personalization': 'granted',
-            'analytics_storage': 'granted',
-            'functionality_storage': 'granted',
-            'personalization_storage': 'granted'
-          });
-          if (typeof window.__initClarity === 'function') window.__initClarity();
-        };
+        // Geriye dönük uyumluluk — eski cağrılar artık no-op
+        window.__initAnalytics = function() {};
+        window.__initClarity = function() {};
       })();
     </script>
   </head>
