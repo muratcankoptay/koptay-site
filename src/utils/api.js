@@ -114,8 +114,8 @@ const mockArticles = [
     image: '/images/is-hukuku-2024.jpg',
     featured: true,
     views: 1250,
-    metaDescription: 'İş hukuku 2024 yılı değişiklikleri: Esnek çalışma, uzaktan çalışma hakları, tazminat hesaplama. Uzman avukat görüşleri ve yasal danışmanlık.',
-    metaKeywords: 'iş hukuku 2024, esnek çalışma, uzaktan çalışma hakları, kıdem tazminatı, işçi hakları'
+    metaDescription: 'İş hukuku 2024 yılı değişiklikleri: Esnek çalışma, uzaktan çalışma hakları, tazminat hesaplama hakkında bilgilendirme.',
+    metaKeywords: ''
   },
   {
     id: 2,
@@ -140,7 +140,7 @@ const mockArticles = [
       <h3>İnfaz Süresi Hesaplama</h3>
       <p>İnfaz süresi hesaplamalarında suç tarihi, suç türü ve mahsup edilecek günler önemli faktörlerdir. <a href="/hesaplama-araclari/infaz-yatar">İnfaz hesaplama aracımızı</a> kullanarak tahmini süreleri öğrenebilirsiniz.</p>
       
-      <p>Ceza hukuku konularında profesyonel hukuki destek için <a href="/iletisim">bizimle iletişime geçin</a>.</p>
+      <p>Ceza hukuku konularında bilgi almak için <a href="/iletisim">bizimle iletişime geçin</a>.</p>
     `,
     author: 'Av. Koptay',
     publishDate: '2024-09-28',

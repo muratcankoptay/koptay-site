@@ -203,11 +203,11 @@ const CONTENT_TEMPLATES = [
 
 ---
 
-## Sonuç ve Uzman Değerlendirmesi
+## Sonuç
 
 [Konuyu özetleyin, okuyucuya somut bir eylem önerisi sunun.]
 
-*Bu makale bilgilendirme amaçlıdır. Somut hukuki sorunlarınız için bir avukattan profesyonel destek alınız.*`
+*Bu makale bilgilendirme amaçlıdır. Somut hukuki sorunlarınız için bir avukata danışınız.*`
   },
   {
     name: 'Yargıtay Karar Analizi',
@@ -303,7 +303,7 @@ const CONTENT_TEMPLATES = [
 
 ## Sonuç
 
-[Özet ve profesyonel destek önerisi.]`
+[Özet ve avukata danışma önerisi.]`
   },
   {
     name: 'Karşılaştırmalı Analiz',
@@ -536,7 +536,7 @@ const WebAdminArticleEditor = () => {
       comparisonTable: `\n| Kriter | Seçenek A | Seçenek B |\n| :--- | :--- | :--- |\n| **Tanım** | ${sel} | |\n| **Süre** | | |\n| **Maliyet** | | |\n`,
       hr: `\n---\n`,
       faq: `\n## Sıkça Sorulan Sorular (SSS)\n\n**${sel || 'Soru 1?'}**\nCevap buraya.\n\n**Soru 2?**\nCevap buraya.\n\n**Soru 3?**\nCevap buraya.\n`,
-      conclusion: `\n## Sonuç ve Değerlendirme\n\n${sel || '[Konuyu özetleyin ve okuyucuya eylem önerisi sunun.]'}\n\n*Bu makale bilgilendirme amaçlıdır. Hukuki sorunlarınız için mutlaka bir avukattan profesyonel destek alınız.*\n`
+      conclusion: `\n## Sonuç\n\n${sel || '[Konuyu özetleyin ve okuyucuya eylem önerisi sunun.]'}\n\n*Bu makale bilgilendirme amaçlıdır. Hukuki sorunlarınız için mutlaka bir avukata danışınız.*\n`
     }
     const newText = map[syntax] || sel
     const newContent = article.content.substring(0, start) + newText + article.content.substring(end)

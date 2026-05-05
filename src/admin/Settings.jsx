@@ -21,7 +21,7 @@ const Settings = () => {
   const [settings, setSettings] = useState({
     // Genel Ayarlar
     siteName: 'Koptay Hukuk Bürosu',
-    siteTagline: 'İş Hukuku Alanında Uzman Avukatlar',
+    siteTagline: 'Av. Murat Can Koptay - Ankara',
     siteUrl: 'https://koptay.av.tr',
     adminEmail: 'admin@koptay.av.tr',
     contactEmail: 'iletisim@koptay.av.tr',
@@ -29,8 +29,8 @@ const Settings = () => {
     address: 'İstanbul, Türkiye',
     
     // SEO Ayarları
-    metaDescription: 'İş hukuku alanında uzman avukatlar. Tazminat hesaplama, işçi hakları ve daha fazlası.',
-    metaKeywords: 'iş hukuku, avukat, tazminat, işçi hakları',
+    metaDescription: 'Koptay Hukuk Bürosu - Çankaya/Ankara.',
+    metaKeywords: '',
     googleAnalyticsId: 'UA-XXXXXXXXX-X',
     googleSearchConsole: '',
     

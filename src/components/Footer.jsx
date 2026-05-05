@@ -1,4 +1,4 @@
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react'
+import { MapPin, Phone, Mail, Clock } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 const Footer = () => {
@@ -15,7 +15,7 @@ const Footer = () => {
 
   const quickLinks = [
     { name: 'Ana Sayfa', href: '/' },
-    { name: 'Hizmetlerimiz', href: '/#services' },
+    { name: 'Çalışma Alanları', href: '/#services' },
     { name: 'Makaleler', href: '/makaleler' },
     { name: 'Ekibimiz', href: '/ekibimiz' },
     { name: 'İletişim', href: '/iletisim' }
@@ -31,13 +31,6 @@ const Footer = () => {
     { name: 'İnfaz Yatar Hesaplama', href: '/hesaplama-araclari/infaz-yatar' },
     { name: 'Vekalet Ücreti Hesaplama', href: '/hesaplama-araclari/vekalet-ucreti' },
     { name: 'Dava Süresi & Zamanaşımı', href: '/hesaplama-araclari/dava-suresi' }
-  ]
-
-  const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Twitter, href: '#', label: 'Twitter' }
   ]
 
   const scrollToSection = (sectionId) => {
@@ -63,22 +56,14 @@ const Footer = () => {
               <span className="text-2xl font-bold font-serif">Koptay Hukuk</span>
             </div>
             <p className="text-gray-400 mb-6 leading-relaxed">
-              Hukuki haklarınızı korumak ve adaletin yerini bulması için buradayız.
-              Her müvekkilimize özel çözümler sunan güvenilir hukuki partneriniz.
+              Av. Murat Can Koptay<br />
+              Ankara 2 Nolu Barosu - Sicil No: 3560
             </p>
-            <div className="flex space-x-4">
-              {socialLinks.map((social, index) => (
-                <a key={index} href={social.href} aria-label={social.label}
-                   className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary-600 transition-colors duration-300">
-                  <social.icon className="w-5 h-5" />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Practice Areas */}
           <div>
-            <h3 className="text-xl font-bold mb-6 font-serif">Uzmanlık Alanlarımız</h3>
+            <h3 className="text-xl font-bold mb-6 font-serif">Çalışma Alanları</h3>
             <ul className="space-y-3">
               {practiceAreas.map((area, index) => (
                 <li key={index}>

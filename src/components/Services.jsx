@@ -118,11 +118,10 @@ const Services = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
                   <h2 className="text-4xl md:text-5xl font-light text-lawDark mb-6 font-serif">
-            Uygulama Alanlarımız
+            Çalışma Alanları
           </h2>
                   <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Geniş bir yelpazede profesyonel hukuki hizmet sunuyoruz. 
-            Her alanda uzmanlaşmış deneyimli kadromuzla yanınızdayız.
+            Büromuzun çalışma alanları aşağıda yer almaktadır.
           </p>
         </div>
 
@@ -204,16 +203,13 @@ const Services = () => {
           </div>
         )}
 
-        {/* Call to Action - Bick Law Style */}
+        {/* İletişim bilgisi */}
         <div className="bg-lawPrimary text-white py-16 px-8 text-center">
           <h3 className="text-3xl md:text-4xl font-serif mb-4 uppercase font-normal">
-            Hukuki Danışmanlığa İhtiyacınız mı Var?
+            İletişim
           </h3>
-          <p className="text-xl mb-8 font-sans max-w-2xl mx-auto">
-            Uzman avukat kadromuzla görüşmek için hemen iletişime geçin.
-          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
+            <button
               onClick={() => {
                 const contactSection = document.getElementById('contact')
                 if (contactSection) {
@@ -222,13 +218,13 @@ const Services = () => {
               }}
               className="bg-lawSecondary text-white px-8 py-4 font-sans font-medium uppercase tracking-wide hover:bg-lawPrimary hover:text-white transition-all duration-300"
             >
-              İletişime Geç
+              İletişim Formu
             </button>
-            <a 
+            <a
               href={`tel:${import.meta.env.VITE_PHONE || '+90 530 711 18 64'}`}
               className="border-2 border-white text-white px-8 py-4 font-sans font-medium uppercase tracking-wide hover:bg-white hover:text-lawPrimary transition-all duration-300"
             >
-              Hemen Ara
+              Telefon
             </a>
           </div>
         </div>

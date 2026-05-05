@@ -71,10 +71,9 @@ const IletisimPage = () => {
 
   return (
     <>
-      <SEO 
-        title="İletişim - Koptay Hukuk Bürosu"
-        description="Ankara'da avukatlık hizmeti için bizimle iletişime geçin. Uzman avukat kadromuzla yanınızdayız."
-        keywords="avukat ankara, hukuk bürosu ankara, profesyonel hizmet, aziziye mahallesi avukat"
+      <SEO
+        title="İletişim — Koptay Hukuk Bürosu"
+        description="Koptay Hukuk Bürosu iletişim bilgileri. Çankaya/Ankara."
         url="/iletisim"
       />
 
@@ -316,21 +315,11 @@ const IletisimPage = () => {
                 </div>
 
                 <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-xl">
-                  <Award className="w-6 h-6 text-lawPrimary mt-1" />
-                  <div>
-                    <h3 className="font-serif text-xl text-lawDark mb-2">Profesyonel Değerlendirme</h3>
-                    <p className="text-gray-700">
-                      Hukuki sorunlarınızı değerlendirip size en iyi çözümü sunuyoruz.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4 p-6 bg-gray-50 rounded-xl">
                   <Users className="w-6 h-6 text-lawPrimary mt-1" />
                   <div>
-                    <h3 className="font-serif text-xl text-lawDark mb-2">Uzman Kadro</h3>
+                    <h3 className="font-serif text-xl text-lawDark mb-2">Çalışma Alanları</h3>
                     <p className="text-gray-700">
-                      Tüm hukuk alanlarında uzmanlaşmış deneyimli avukat kadromuzla yanınızdayız.
+                      İş Hukuku, Ceza Hukuku, Aile Hukuku, Tazminat Davaları ve diğer hukuki konular.
                     </p>
                   </div>
                 </div>

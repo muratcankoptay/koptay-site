@@ -62,10 +62,9 @@ const MakalelerPage = () => {
 
   return (
     <>
-      <SEO 
-        title="Makaleler - Koptay Hukuk Bürosu"
-        description="Hukuk alanındaki güncel gelişmeler, yargıtay kararları, mevzuat değişiklikleri ve uzman görüşlerimizi içeren makalelerimiz."
-        keywords="hukuk makaleleri, yargıtay kararları, mevzuat, iş hukuku makaleleri, ticaret hukuku, aile hukuku, ceza hukuku"
+      <SEO
+        title="Makaleler — Koptay Hukuk Bürosu"
+        description="Bilgilendirme amaçlı hukuk makaleleri."
         url="/makaleler"
       />
 
@@ -75,9 +74,6 @@ const MakalelerPage = () => {
           <h1 className="text-4xl md:text-6xl font-light mb-6 font-serif">
             Makaleler
           </h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
-            Hukuk alanındaki güncel gelişmeler, yargıtay kararları ve uzman görüşlerimiz
-          </p>
         </div>
       </section>
 
@@ -233,20 +229,17 @@ const MakalelerPage = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* İletişim */}
       <section className="bg-lawPrimary text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h3 className="text-3xl md:text-4xl font-serif mb-4">
-            Hukuki Danışmanlığa İhtiyacınız mı Var?
+            İletişim
           </h3>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Uzman avukat kadromuzla görüşmek için hemen iletişime geçin.
-          </p>
-          <Link 
+          <Link
             to="/iletisim"
             className="inline-block bg-lawSecondary text-white px-8 py-4 font-medium uppercase tracking-wide hover:bg-white hover:text-lawPrimary transition-all duration-300"
           >
-            İletişime Geç
+            İletişim Formu
           </Link>
         </div>
       </section>

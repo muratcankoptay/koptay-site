@@ -31,8 +31,8 @@ const SEOManager = () => {
       id: 1,
       url: '/',
       title: 'Ana Sayfa - Koptay Hukuk',
-      metaDescription: 'İş hukuku alanında uzman avukatlar. Tazminat hesaplama, işçi hakları ve daha fazlası.',
-      keywords: ['iş hukuku', 'avukat', 'tazminat'],
+      metaDescription: 'Koptay Hukuk Bürosu - Çankaya/Ankara.',
+      keywords: [],
       score: 95,
       issues: 0,
       status: 'excellent'

@@ -77,29 +77,8 @@ const Home = () => {
     }
     return colors[category] || 'bg-gray-100 text-gray-800'
   }
-  const testimonials = [
-    {
-      id: 1,
-      name: 'Ahmet Yılmaz',
-      position: 'Şirket Sahibi',
-      content: 'Av. Koptay ve ekibi, şirketimizin hukuki işlemlerinde bizlere büyük destek oldu. Profesyonel yaklaşımları ve hızlı çözümleri ile çok memnun kaldık.',
-      rating: 5
-    },
-    {
-      id: 2,
-      name: 'Elif Demir',
-      position: 'Mimar',
-      content: 'Aile hukuku konusundaki davamda Av. Koptay\'ın uzman yaklaşımı sayesinde süreci sorunsuz atlattık. Teşekkür ederiz.',
-      rating: 5
-    },
-    {
-      id: 3,
-      name: 'Mehmet Özkan',
-      position: 'Emlak Uzmanı',
-      content: 'Gayrimenkul işlemlerimde güvenilir avukatlık desteği arıyordum. Koptay Hukuk Bürosu\'nun uzman ekibi sayesinde tüm işlemlerim sorunsuz tamamlandı.',
-      rating: 5
-    }
-  ]
+  // NOT: TBB Reklam Yasağı Yönetmeliği Madde 7/d gereği müvekkil yorumu / referans
+  // paylaşımı yasaktır. Eski testimonials verisi bu nedenle kaldırılmıştır.
 
   return (
     <>
@@ -116,9 +95,6 @@ const Home = () => {
             <h2 className="text-4xl md:text-5xl font-light text-lawDark mb-6 font-serif">
               Hesaplama Araçları
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Hukuki süreçlerinizde ihtiyaç duyabileceğiniz hesaplamaları kolayca yapın
-            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -187,11 +163,8 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-light text-lawDark mb-6 font-serif">
-              Hukuki Rehberler ve Makaleler
+              Makaleler
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Güncel hukuki gelişmeler, uzman görüşleri ve pratik rehberler
-            </p>
           </div>
 
           {loadingArticles ? (
@@ -319,11 +292,8 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-light text-lawDark mb-6 font-serif">
-              Uygulama Alanlarımız
+              Çalışma Alanları
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Geniş bir yelpazede profesyonel hukuki hizmet sunuyoruz
-            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mb-16">
@@ -346,27 +316,23 @@ const Home = () => {
           </div>
 
           <div className="text-center">
-            <Link 
+            <Link
               to="/hizmetlerimiz"
               className="inline-flex items-center gap-2 bg-lawPrimary text-white px-8 py-4 font-medium uppercase tracking-wide hover:bg-lawSecondary transition-all duration-300"
             >
-              Tüm Hizmetlerimiz
+              Tüm Çalışma Alanları
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Contact CTA Section */}
+      {/* İletişim */}
       <section className="py-20 bg-lawDark">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-light text-white mb-6 font-serif">
-            Hukuki Danışmanlık
+            İletişim
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-            Hukuki sorunlarınız için uzman avukat kadromuzla görüşme yapın. 
-            Size en uygun çözümü birlikte bulalım.
-          </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
             <div className="flex items-center gap-3 text-white">
@@ -396,17 +362,17 @@ const Home = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
+            <Link
               to="/iletisim"
               className="bg-lawSecondary text-white px-8 py-4 font-medium uppercase tracking-wide hover:bg-lawPrimary transition-all duration-300"
             >
               İletişim Formu
             </Link>
-            <a 
+            <a
               href="tel:+905307111864"
               className="border-2 border-white text-white px-8 py-4 font-medium uppercase tracking-wide hover:bg-white hover:text-lawDark transition-all duration-300"
             >
-              Hemen Ara
+              Telefon
             </a>
           </div>
         </div>

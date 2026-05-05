@@ -95,10 +95,9 @@ const ArticlesPage = () => {
 
   return (
     <>
-      <SEO 
-        title="Hukuki Makaleler ve Rehberler | Av. Koptay"
-        description="Güncel hukuki gelişmeler, uzman görüşleri ve pratik rehberler. İş hukuku, ticaret hukuku, aile hukuku ve daha fazlası."
-        keywords="hukuk makaleleri, hukuki rehber, iş hukuku, ticaret hukuku, aile hukuku, ceza hukuku, gayrimenkul hukuku"
+      <SEO
+        title="Makaleler — Koptay Hukuk Bürosu"
+        description="Bilgilendirme amaçlı hukuk makaleleri."
       />
 
       {/* Hero Section */}
@@ -106,11 +105,8 @@ const ArticlesPage = () => {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h1 className="text-5xl md:text-6xl font-light mb-6 font-serif">
-              Hukuki Makaleler
+              Makaleler
             </h1>
-            <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed">
-              Güncel hukuki gelişmeler, uzman görüşleri ve pratik rehberlerle bilgili kalın
-            </p>
           </div>
         </div>
       </section>

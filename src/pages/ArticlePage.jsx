@@ -363,7 +363,7 @@ const ArticlePage = () => {
             "url": "https://koptay.av.tr",
             "logo": "https://koptay.av.tr/logo.png",
             "image": "https://koptay.av.tr/images/hero.jpg",
-            "description": "Ankara merkezli profesyonel hukuk bürosu. İş hukuku, ticaret hukuku, aile hukuku, ceza hukuku alanlarında 20+ yıl deneyim.",
+            "description": "Ankara merkezli hukuk bürosu.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Ankara",
@@ -505,14 +505,11 @@ const ArticlePage = () => {
             )}
           </article>
 
-          {/* Contact CTA */}
+          {/* İletişim */}
           <div className="max-w-4xl mx-auto mt-12 bg-gradient-to-r from-primary-600 to-primary-700 rounded-3xl p-8 text-center text-white">
             <h3 className="text-2xl md:text-3xl font-bold mb-4 font-serif">
-              Bu Konuda Hukuki Desteğe İhtiyacınız mı Var?
+              İletişim
             </h3>
-            <p className="text-xl mb-6 text-blue-100">
-              Uzman avukat kadromuzla görüşmek için hemen iletişime geçin.
-            </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button 
                 onClick={() => {
@@ -525,11 +522,11 @@ const ArticlePage = () => {
               >
                 İletişime Geç
               </button>
-              <a 
+              <a
                 href={`tel:${import.meta.env.VITE_PHONE || '+90 530 711 18 64'}`}
                 className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition-colors"
               >
-                Hemen Ara
+                Telefon
               </a>
             </div>
           </div>

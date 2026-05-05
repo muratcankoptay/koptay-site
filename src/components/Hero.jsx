@@ -48,8 +48,8 @@ const Hero = () => {
 
               {/* Phone & Hours Info */}
               <div className="mb-8 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
-                <a 
-                  href="tel:+905307111864" 
+                <a
+                  href="tel:+905307111864"
                   className="flex items-center gap-3 text-white hover:text-lawSecondary transition-colors group"
                 >
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-lawSecondary transition-colors">
@@ -59,7 +59,7 @@ const Hero = () => {
                   </div>
                   <div>
                     <p className="text-2xl font-medium">0530 711 18 64</p>
-                    <p className="text-sm text-white/70">Hemen Arayın</p>
+                    <p className="text-sm text-white/70">Telefon</p>
                   </div>
                 </a>
                 <div className="flex items-center gap-3 text-white/80">
@@ -109,45 +109,6 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* Statistics Section - Bick Law Style */}
-      <section className="bg-white py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className={`text-center transition-all duration-700 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-            }`} style={{ transitionDelay: '600ms' }}>
-              <div className="bg-white text-lawGray p-8 h-40 flex flex-col justify-center transition-all duration-300 hover:opacity-90 shadow-lg">
-                <p className="text-2xl md:text-3xl font-light mb-2">Güvenilir</p>
-                <p className="font-serif text-sm uppercase tracking-wide">Avukatlık Hizmeti</p>
-              </div>
-            </div>
-            <div className={`text-center transition-all duration-700 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-            }`} style={{ transitionDelay: '800ms' }}>
-              <div className="bg-white text-lawGray p-8 h-40 flex flex-col justify-center transition-all duration-300 hover:opacity-90 shadow-lg">
-                <p className="text-2xl md:text-3xl font-light mb-2">Deneyimli</p>
-                <p className="font-serif text-sm uppercase tracking-wide">Hukuk Ekibi</p>
-              </div>
-            </div>
-            <div className={`text-center transition-all duration-700 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-            }`} style={{ transitionDelay: '1000ms' }}>
-              <div className="bg-white text-lawGray p-8 h-40 flex flex-col justify-center transition-all duration-300 hover:opacity-90 shadow-lg">
-                <p className="text-2xl md:text-3xl font-light mb-2">Etik</p>
-                <p className="font-serif text-sm uppercase tracking-wide">Hukuk Hizmeti</p>
-              </div>
-            </div>
-            <div className={`text-center transition-all duration-700 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-            }`} style={{ transitionDelay: '1200ms' }}>
-              <div className="bg-white text-lawGray p-8 h-40 flex flex-col justify-center transition-all duration-300 hover:opacity-90 shadow-lg">
-                <p className="text-2xl md:text-3xl font-light mb-2">Ulaşılabilir</p>
-                <p className="font-serif text-sm uppercase tracking-wide">Avukatlık Hizmeti</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   )
 }

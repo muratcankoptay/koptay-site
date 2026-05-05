@@ -195,7 +195,7 @@ class GeminiService {
       3. Öneriler: İnfaz sürecinde nelere dikkat edilmeli?
       4. Alternatif Senaryolar: Hangi durumlar değişirse sonuç nasıl etkilenir?
 
-      Cevabını avukat seviyesinde profesyonel ama anlaşılır şekilde ver.
+      Cevabını teknik doğrulukta ama anlaşılır şekilde ver.
       `
 
       const result = await this.model.generateContent(prompt)

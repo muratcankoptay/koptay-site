@@ -78,10 +78,9 @@ const KamulastirmaHaritasiPage = () => {
 
   return (
     <>
-      <SEO 
-        title="Kamulaştırma Haritası | Kamulaştırma Haberleri ve Blog | Koptay Hukuk"
-        description="Güncel kamulaştırma haberleri, blog yazıları ve hukuki rehberler. Kamulaştırma süreçleri, bedel tespiti, dava süreçleri hakkında uzman görüşleri."
-        keywords="kamulaştırma, kamulaştırma haberleri, kamulaştırma blog, bedel tespiti, acele kamulaştırma, kamulaştırmasız el atma"
+      <SEO
+        title="Kamulaştırma Haritası — Koptay Hukuk Bürosu"
+        description="Kamulaştırma süreçleri hakkında bilgilendirme amaçlı içerikler."
         url="/kamulastirma-haritasi"
       />
 
@@ -111,8 +110,7 @@ const KamulastirmaHaritasiPage = () => {
               Kamulaştırma <span className="text-emerald-300">Haritası</span>
             </h1>
             <p className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed text-cyan-100/80">
-              Kamulaştırma haberleri, uzman blog yazıları ve hukuki rehberler.
-              Her gün güncellenen içeriklerle kamulaştırma süreçleri hakkında bilgi edinin.
+              Kamulaştırma süreçleri hakkında bilgilendirme amaçlı içerikler.
             </p>
           </div>
         </div>
@@ -311,12 +309,8 @@ const KamulastirmaHaritasiPage = () => {
         <div className="container mx-auto px-4 text-center">
           <Building2 className="w-12 h-12 text-emerald-300 mx-auto mb-6" />
           <h2 className="text-3xl md:text-4xl font-light text-white mb-4 font-serif">
-            Kamulaştırma Sürecinizde Yanınızdayız
+            İletişim
           </h2>
-          <p className="text-lg text-cyan-100/80 max-w-2xl mx-auto mb-8">
-            Kamulaştırma davalarında uzman avukat kadromuzla hukuki haklarınızı koruyoruz.
-            Bedel tespiti, dava süreçleri ve itiraz başvuruları için bize ulaşın.
-          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               to="/iletisim"
@@ -325,11 +319,11 @@ const KamulastirmaHaritasiPage = () => {
               İletişime Geç
               <ArrowRight className="w-5 h-5" />
             </Link>
-            <a 
+            <a
               href="tel:+905307111864"
               className="inline-flex items-center justify-center gap-2 border-2 border-white/30 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all duration-300"
             >
-              Hemen Ara
+              Telefon
             </a>
           </div>
         </div>

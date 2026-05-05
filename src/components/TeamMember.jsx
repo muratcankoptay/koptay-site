@@ -69,11 +69,11 @@ const TeamMember = ({ member }) => {
           </div>
         )}
 
-        {/* Uzmanlık Alanları */}
+        {/* Çalışma Alanları */}
         {member.expertise && (
           <div className="mb-4">
             <h4 className="text-sm font-semibold text-lawDark mb-2 uppercase tracking-wide">
-              Uzmanlık Alanları
+              Çalışma Alanları
             </h4>
             <div className="flex flex-wrap gap-2">
               {member.expertise.map((area, index) => (
