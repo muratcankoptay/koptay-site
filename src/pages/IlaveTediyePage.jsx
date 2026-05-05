@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO';
+import HesaplamaDisclaimer from '../components/HesaplamaDisclaimer';
 import { Link } from 'react-router-dom';
 import { 
     FaCalculator, 
@@ -640,7 +641,7 @@ const IlaveTediyePage = () => {
                             <li>• Gerçek tediye tutarı, işvereninizin bordro hesaplamalarına göre farklılık gösterebilir.</li>
                             <li>• Vergi dilimi seçimi, kümülatif matrahınıza göre yapılmalıdır.</li>
                             <li>• İlave tediye alacağı 5 yıllık zamanaşımına tabidir.</li>
-                            <li>• Detaylı bilgi için bir iş hukuku uzmanına danışmanızı öneririz.</li>
+                            <li>• Detaylı bilgi için bir avukata danışmanızı öneririz.</li>
                         </ul>
                     </div>
 
@@ -676,6 +677,15 @@ const IlaveTediyePage = () => {
                     </div>
                 </div>
             </div>
+            <HesaplamaDisclaimer
+                aracAdi="ilave tediye hesaplama aracı"
+                mevzuat="6772 sayılı Devlet ve Ona Bağlı Müesseselerde Çalışan İşçilere İlave Tediye Yapılması Hakkında Kanun"
+                ekNotlar={[
+                    'İlave tediye yalnızca 6772 sayılı Kanun kapsamındaki kamu kurum ve kuruluşlarında çalışan işçilere uygulanır; özel sektör işçileri kapsam dışındadır.',
+                    'Ödenecek tutar; işçinin günlük ücret tutarı, çalışılan gün sayısı, vergi dilimi ve SGK tavanı gibi parametrelere göre değişir.',
+                    'İlave tediye alacağı 5 yıllık zamanaşımına tabidir.',
+                ]}
+            />
         </>
     );
 };

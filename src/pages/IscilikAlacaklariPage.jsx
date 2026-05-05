@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO';
-import { 
-    calculateSeverance, 
+import HesaplamaDisclaimer from '../components/HesaplamaDisclaimer';
+import {
+    calculateSeverance,
     calculateNoticePay, 
     calculateAnnualLeave, 
     calculateOvertime,
@@ -718,7 +719,7 @@ const IscilikAlacaklariPage = () => {
                     </p>
                     <div className="flex flex-wrap gap-3">
                         <a href="tel:+905307111864" className="bg-white text-blue-700 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
-                            Hemen Ara: 0530 711 18 64
+                            Telefon: 0530 711 18 64
                         </a>
                         <Link to="/iletisim" className="bg-blue-800 text-white border border-white/40 px-6 py-3 rounded-lg font-semibold hover:bg-blue-900 transition-colors">
                             İletişim Formu
@@ -726,16 +727,16 @@ const IscilikAlacaklariPage = () => {
                     </div>
                 </section>
 
-                {/* 9) Yasal uyarı */}
-                <div className="mt-8 bg-gray-100 rounded-xl p-6 border border-gray-200">
-                    <h2 className="text-base font-semibold text-gray-700 mb-2">Yasal Uyarı</h2>
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                        Bu hesaplamalar bilgilendirme amaçlıdır. Mahkemeye sunulacak nihai rakam atanan bilirkişinin raporuyla belirlenir.
-                        Vergi kesintilerinde kümülatif vergi matrahınıza göre net tutarlar değişiklik gösterebilir.
-                        Kıdem tavanı, asgari ücret ve faiz oranları dönemsel olarak güncellenmektedir; en güncel mevzuat takip edilmelidir.
-                    </p>
-                </div>
             </div>
+            <HesaplamaDisclaimer
+                aracAdi="işçilik alacakları hesaplama aracı (kıdem, ihbar, izin, mesai)"
+                mevzuat="4857 sayılı İş Kanunu ve 1475 sayılı Mülga İş Kanunu m.14"
+                ekNotlar={[
+                    'Kıdem tavanı (2026: 64.948,77 TL), asgari ücret ve faiz oranları her yıl güncellenir; sonuçlar güncel parametrelere göre yeniden hesaplanmalıdır.',
+                    'Vergi kesintilerinde kümülatif vergi matrahınıza göre net tutarlar değişiklik gösterebilir.',
+                    'Fazla mesai çoğu zaman tanık beyanıyla ispat edilir; Yargıtay 9. HD içtihatlarına göre hâkim takdiri %20-30 indirim uygulayabilir.',
+                ]}
+            />
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Car, Calculator, FileText, CheckCircle, AlertCircle, ChevronRight, ChevronLeft, Calendar, Gauge, DollarSign, Info } from 'lucide-react';
 import SEO from '../components/SEO';
+import HesaplamaDisclaimer from '../components/HesaplamaDisclaimer';
 import {
   hesaplaDegerKaybi,
   parcaListesi,
@@ -428,9 +429,8 @@ export default function AracDegerKaybiPage() {
 
                       <div className="bg-red-50 border-l-4 border-red-500 p-4 mt-6 rounded">
                         <p className="text-sm text-red-800">
-                          <strong>Önemli:</strong> Bu araç değer kaybı hesaplama aracı bilgilendirme amaçlıdır. 
-                          Kesin hesaplama için bilirkişi raporu gereklidir. 
-                          Koptay Hukuk Bürosu olarak araç değer kaybı tazminat davalarında uzman avukatlık hizmeti sunuyoruz.
+                          <strong>Önemli:</strong> Bu araç değer kaybı hesaplama aracı bilgilendirme amaçlıdır.
+                          Kesin hesaplama için bilirkişi raporu gereklidir.
                         </p>
                       </div>
                     </div>
@@ -987,17 +987,6 @@ const RaporEkrani = ({ sonuc, formData }) => {
         </div>
       )}
 
-      {/* Yasal Uyarı */}
-      <div className="bg-gray-50 border border-gray-200 p-6 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3">Yasal Uyarı</h3>
-        <p className="text-sm text-gray-600 leading-relaxed">
-          Bu hesaplama, bilirkişi raporları ve Yargıtay içtihatlarına dayalı olarak yapılmış olup,
-          tahmini bir sonuç niteliğindedir. Kesin değer kaybı, mahkeme tarafından atanan bilirkişi
-          tarafından belirlenecektir. Maksimum %35 değer kaybı sınırı Yargıtay kararlarına göre
-          uygulanmaktadır.
-        </p>
-      </div>
-
       {/* Yazdır Butonu */}
       <div className="flex justify-center gap-4">
         <button
@@ -1013,6 +1002,16 @@ const RaporEkrani = ({ sonuc, formData }) => {
           Yeni Hesaplama
         </button>
       </div>
+
+      <HesaplamaDisclaimer
+        aracAdi="araç değer kaybı hesaplama aracı"
+        mevzuat="2918 sayılı Karayolları Trafik Kanunu, KMAZMSS Genel Şartları ve Yargıtay 17. HD içtihatları"
+        ekNotlar={[
+          'Maksimum %35 değer kaybı sınırı Yargıtay yerleşik içtihatlarına göre uygulanır; somut olayda bu oran daha düşük tespit edilebilir.',
+          'A1-A4 hasar sınıflandırması ve baz katsayı (2026 için %19) sigorta tahkim ve yargı uygulamasına göre güncellenebilir.',
+          'Mahkemece atanan bilirkişi raporu kesin değer kaybını belirler; bu araç sürecin başında yaklaşık bir aralık sunar.',
+        ]}
+      />
     </div>
   );
 };

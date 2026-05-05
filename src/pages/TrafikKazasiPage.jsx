@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO';
+import HesaplamaDisclaimer from '../components/HesaplamaDisclaimer';
 import { FaCar, FaUserInjured, FaCalculator, FaPrint, FaInfoCircle, FaExclamationTriangle } from 'react-icons/fa';
 
 // Lazy load Chart.js components
@@ -607,6 +608,16 @@ const TrafikKazasiPage = () => {
                     </div>
                 </div>
             </div>
+            <HesaplamaDisclaimer
+                aracAdi="trafik kazası tazminat hesaplama aracı"
+                mevzuat="2918 sayılı Karayolları Trafik Kanunu m.85, 6098 sayılı Türk Borçlar Kanunu m.49, KMAZMSS Genel Şartları"
+                ekNotlar={[
+                    'Sürekli iş göremezlik tazminatı için maluliyet oranı, ATK veya tam teşekküllü hastane raporuna göre belirlenir; bu araçtaki seçim yaklaşık değerdir.',
+                    'TRH-2010 yaşam tablosu, asgari ücret ve faiz oranları dönemsel olarak güncellenir.',
+                    'Manevi tazminat tamamen hâkimin takdirinde olup bu hesaplamaya dahil değildir.',
+                    'KTK m.109 uyarınca sigortacıya karşı taleplerde 2 yıllık özel zamanaşımı, TBK m.72 uyarınca haksız fiilden doğan taleplerde 2 yıllık öğrenme/10 yıllık her hâlde zamanaşımı uygulanır.',
+                ]}
+            />
         </div>
     );
 };

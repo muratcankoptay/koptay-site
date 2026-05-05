@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Calculator, Scale, TrendingUp, Info, ChevronDown } from 'lucide-react';
 import SEO from '../components/SEO';
+import HesaplamaDisclaimer from '../components/HesaplamaDisclaimer';
 import {
   calculateNispiUcret,
   calculateMaktuUcret,
@@ -575,6 +576,15 @@ export default function VekaletUcretiPage() {
           animation: fade-in 0.5s ease-out;
         }
       `}</style>
+
+      <HesaplamaDisclaimer
+        aracAdi="vekâlet ücreti hesaplama aracı"
+        mevzuat="2026 yılı Avukatlık Asgari Ücret Tarifesi (AAÜT)"
+        ekNotlar={[
+          'Tarife, her yıl Türkiye Barolar Birliği tarafından güncellenir; sayfa içeriği yayınlanan en son tarifeye göre düzenlenmiştir.',
+          'Nispi ücret hesabında müddeabihin değeri, kademeli oranlar ve maktu sınırlar bu araçta dikkate alınır; somut davada mahkemece takdir edilecek miktar farklılık gösterebilir.',
+        ]}
+      />
     </>
   );
 }

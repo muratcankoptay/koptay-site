@@ -14,6 +14,7 @@ import {
   Phone,
 } from 'lucide-react';
 import SEO from '../components/SEO';
+import HesaplamaDisclaimer from '../components/HesaplamaDisclaimer';
 import {
   ZAMANASIMI_KATEGORILERI,
   USUL_KATEGORILERI,
@@ -257,7 +258,7 @@ const DavaSuresiPage = () => {
               href="tel:+905307111864"
               className="inline-flex items-center justify-center gap-2 bg-white text-lawPrimary font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors"
             >
-              <Phone className="w-5 h-5" /> Hemen Ara
+              <Phone className="w-5 h-5" /> Telefon
             </a>
             <Link
               to="/iletisim"
@@ -268,6 +269,16 @@ const DavaSuresiPage = () => {
           </div>
         </div>
       </section>
+
+      <HesaplamaDisclaimer
+        aracAdi="dava süresi ve zamanaşımı hesaplama aracı"
+        mevzuat="6098 sayılı Türk Borçlar Kanunu, 5237 sayılı Türk Ceza Kanunu, 6100 sayılı HMK, 5271 sayılı CMK, 2577 sayılı İYUK ve 2004 sayılı İİK"
+        ekNotlar={[
+          'Süreler; suç tarihi, eylem tarihi, öğrenme tarihi ve mevzuat değişiklikleri gibi parametrelere göre değişiklik gösterir.',
+          'Adli tatil (20 Temmuz – 31 Ağustos) bazı süreleri durdurur (HMK m.93). Son gün resmi tatile rastlarsa süre ilk iş günü mesai bitiminde sona erer.',
+          'Hak düşürücü süre ile zamanaşımı süresi farklı kavramlardır; hak düşürücü süreler kesin olup hâkim tarafından re\'sen dikkate alınır.',
+        ]}
+      />
     </>
   );
 };

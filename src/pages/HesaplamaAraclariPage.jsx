@@ -4,6 +4,7 @@ import {
   Scale, Banknote, Hourglass, Briefcase, Stethoscope, Shield
 } from 'lucide-react'
 import SEO from '../components/SEO'
+import HesaplamaDisclaimer from '../components/HesaplamaDisclaimer'
 
 /**
  * Hesaplama Araçları İndex (Hub) Sayfası
@@ -260,33 +261,27 @@ const HesaplamaAraclariPage = () => {
         </div>
       </section>
 
-      {/* Disclaimer + CTA */}
-      <section className="py-12 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-white rounded-xl p-6 border-l-4 border-lawPrimary">
-            <h2 className="text-lg font-semibold text-lawDark mb-3">Önemli Uyarı</h2>
-            <p className="text-gray-700 mb-3">
-              Bu hesaplama araçları genel bilgilendirme amaçlıdır ve her hukuki süreç kendi olgularına göre değerlendirilir.
-              Mahkemeye sunulacak nihai rakam için bilirkişi raporu gereklidir; bu araçlar size sürecin başında somut bir aralık verir.
-            </p>
-            <p className="text-gray-700 mb-4">
-              Davanız için kişiye özel hesaplama, dava stratejisi ve hak kayıplarına karşı koruma için
-              <strong> Av. Murat Can Koptay</strong> ile iletişime geçebilirsiniz.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <a
-                href="tel:+905307111864"
-                className="bg-lawPrimary text-white px-5 py-2.5 rounded-lg font-medium hover:bg-lawSecondary transition-colors inline-flex items-center"
-              >
-                Hemen Ara: 0530 711 18 64
-              </a>
-              <Link
-                to="/iletisim"
-                className="bg-white text-lawPrimary border border-lawPrimary px-5 py-2.5 rounded-lg font-medium hover:bg-lawPrimary hover:text-white transition-colors"
-              >
-                İletişim Formu
-              </Link>
-            </div>
+      {/* Sorumluluk Reddi */}
+      <HesaplamaDisclaimer
+        aracAdi="hesaplama araçları"
+        ekNotlar={[
+          'Mahkemeye sunulacak nihai rakam için bilirkişi raporu gereklidir. Bu araçlar yalnızca sürecin başında genel bir aralık verir.',
+          'Mevzuatta yapılan değişiklikler, parametre güncellemeleri (kıdem tavanı, AAÜT, baz katsayı, TRH-2010 vb.) sonuçları etkileyebilir.',
+        ]}
+      />
+
+      {/* İletişim */}
+      <section className="py-10 bg-gray-100">
+        <div className="container mx-auto px-4 max-w-4xl text-center">
+          <div className="flex flex-wrap gap-3 justify-center">
+            <a href="tel:+905307111864"
+              className="bg-lawPrimary text-white px-5 py-2.5 rounded-lg font-medium hover:bg-lawSecondary transition-colors">
+              Telefon: 0530 711 18 64
+            </a>
+            <Link to="/iletisim"
+              className="bg-white text-lawPrimary border border-lawPrimary px-5 py-2.5 rounded-lg font-medium hover:bg-lawPrimary hover:text-white transition-colors">
+              İletişim Formu
+            </Link>
           </div>
         </div>
       </section>
