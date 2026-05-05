@@ -1,2349 +1,740 @@
-import { useEffect, useMemo, useRef, useState, lazy, Suspense } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Calculator, Home, ChevronRight, Info, Phone, ArrowLeft, Clock, Calendar, AlertTriangle, FileText, Scale, CheckCircle, RefreshCw, Check } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
+import {
+  Calculator, Home, ChevronRight, Info, AlertTriangle, FileText,
+  Scale, CheckCircle, RefreshCw, ChevronDown, BookOpen, Calendar,
+  ListChecks, Gavel, ArrowLeft
+} from 'lucide-react'
 import SEO from '../components/SEO'
-import flatpickr from 'flatpickr'
-import 'flatpickr/dist/flatpickr.min.css'
-import { calculateInfaz, calculateInfazAdvanced, getCrimeTypeText, loadFromStorage, parseFromSearchParams, saveToStorage, serializeToSearchParams, autoDetectOffenseCategory, offenseCategoryLabel } from '../utils/infaz'
-import { calculateInfazGelismis, getSucTipiSeçenekleri, validateInfazInput } from '../utils/infazEnhanced'
-import { isGeminiConfigured, suggestCrimeType, analyzeLegalCase, assessRisks, suggestAlternativeScenarios } from '../services/geminiService'
+import HesaplamaDisclaimer from '../components/HesaplamaDisclaimer'
+import motor, {
+  SUC_KATEGORILERI, MUEBBET_KS_YIL, AZAMI_KS_YIL,
+  hesapla, muebbetHesapla, validateInput, formatYilAyGun, gunuYilAyGuneCevir
+} from '../utils/infazHesapMotoru'
 
-// Lazy load heavy libraries - only when needed
-let jsPDFInstance = null;
-let ChartInstance = null;
+// ============ SAYFA İÇİ İÇERİK BLOKLARI (SEO için) ============
 
-const loadJsPDF = async () => {
-  if (!jsPDFInstance) {
-    const { jsPDF } = await import('jspdf');
-    jsPDFInstance = jsPDF;
-  }
-  return jsPDFInstance;
-};
+const SSS_LISTESI = [
+  {
+    soru: 'İnfaz yatar hesaplama nedir?',
+    cevap: 'İnfaz yatar hesaplama, kesinleşmiş bir hapis cezasının ne kadar süreyle kapalı ceza infaz kurumunda, ne kadar süreyle açık ceza infaz kurumunda ve ne kadar süreyle denetimli serbestlik tedbiri altında geçirileceğini, ayrıca koşullu salıverme ve hak ederek tahliye tarihlerini gösteren hesaptır. Hesap, 5275 sayılı Ceza ve Güvenlik Tedbirlerinin İnfazına Dair Kanun temelinde yapılır.',
+  },
+  {
+    soru: 'Koşullu salıverme oranı nasıl belirlenir?',
+    cevap: '5275 SK 107/2 gereği genel kural toplam cezanın 1/2\'sidir. Ancak kasten öldürme, neticesi sebebiyle ağırlaşmış yaralama, işkence, cinsel saldırı/taciz, özel hayata karşı suçlar, devlet sırlarına karşı suçlar gibi 107/2 istisnaları için 2/3; örgüt suçları (107/4) için 2/3; tekerrür halinde (108/1) 2/3; nitelikli cinsel saldırı, çocukların cinsel istismarı, uyuşturucu imal/ticareti (108/9) için 3/4; terör suçları (3713 SK 17) için 3/4 oranı uygulanır.',
+  },
+  {
+    soru: 'Denetimli serbestlik süresi ne kadardır?',
+    cevap: '5275 SK 105/A maddesi gereği genel kural koşullu salıverme tarihine 1 yıl veya daha az süre kalmış olmaktır. 0-6 yaş arası çocuğu olan kadın hükümlüler için 2 yıl, ağır hastalık veya engellilik nedeniyle hayatını yalnız idame ettiremeyenler için 3 yıl önceden denetime ayrılma mümkündür. 30/03/2020 öncesi işlenen ve istisna olmayan suçlarda 7242 SK Geçici 6/1 ile 3 yıl, 31/07/2023 itibariyle kapalıda bulunan istisna olmayan hükümlüler için 7456 SK Geçici 10/6 ile ek 3 yıl daha erken denetim hakkı bulunmaktadır.',
+  },
+  {
+    soru: 'Hangi suçlar koşullu salıverme dışında kalır?',
+    cevap: '5275 SK ve diğer mevzuat gereği şu hallerde koşullu salıverme uygulanmaz: ikinci kez mükerrirler (108/3), koşullu salıverilmesi geri alınanlar (107/13), disiplin hapsi hükümlüleri, 01/03/2008 sonrası adli para cezasından çevrilen hapis (106/9), TCK 2. kitap 4. kısım 4-5-6. bölümlerde yer alan suçlardan ağırlaştırılmış müebbet hapis cezasına mahkum olanlar (107/16).',
+  },
+  {
+    soru: 'Müebbet hapis cezasında ne kadar yatılır?',
+    cevap: '5275 SK 107/2 gereği müebbet hapis cezasında koşullu salıverme süresi 24 yıl, ağırlaştırılmış müebbet hapis cezasında 30 yıldır. Örgüt suçları (107/4) ve terör suçları (3713 SK 17) için bu süreler sırasıyla 30 ve 36 yıla yükselir. TCK 2. kitap 4. kısım 4, 5 ve 6. bölümlerde yer alan suçlardan ağırlaştırılmış müebbet hapis cezasına mahkum olanlar hakkında ise koşullu salıverme uygulanmaz.',
+  },
+  {
+    soru: 'Açık ceza infaz kurumuna ne zaman ayrılınır?',
+    cevap: 'Açık Ceza İnfaz Kurumlarına Ayrılma Yönetmeliği gereği: toplam ceza 10 yıldan az ise hükümlü cezasının 1/10\'unu, 10 yıl ve üzeri ise 1/3\'ünü kapalı ceza infaz kurumunda geçirmek zorundadır. Toplam ceza kasten işlenen suçlarda 3 yıl, taksirli suçlarda 5 yıldan fazla değilse hükümlü doğrudan açık ceza infaz kurumuna alınır. Adli para cezasından çevrili hapis ve İİK kaynaklı tazyik hapislerinde de doğrudan açık infaz uygulanır.',
+  },
+  {
+    soru: 'Mahsup nedir, nasıl uygulanır?',
+    cevap: 'TCK 63 gereği tutuklulukta, gözaltında, gözlem altında ve adli kontrol kapsamındaki konutu terk etmeme yükümlülüğünde geçirilen süreler hapis cezasından mahsup edilir (konutu terk etmeme süresinin yarısı sayılır). Mahsup, koşullu salıverme süresini ve hak ederek tahliye tarihini geriye çeker.',
+  },
+  {
+    soru: 'Çocuk hükümlülerde mahsup farklı mıdır?',
+    cevap: 'Evet. 5275 SK 107/5 gereği hükümlünün 15 yaşını dolduruncaya kadar ceza infaz kurumunda geçirdiği bir günü iki gün sayılır. 7242 SK ile eklenen Geçici 6/4 maddesi gereği 30/03/2020 tarihine kadar işlenen suçlarda 15 yaşa kadar 1 gün üç gün, 18 yaşa kadar 1 gün iki gün olarak mahsup edilir. Ayrıca suç tarihinde çocuk olan hükümlülere 108/9 ve 3713 SK 17 kapsamında 3/4 oranı yerine 2/3 oranı uygulanır.',
+  },
+  {
+    soru: '01/06/2005 öncesi işlenen suçlarda ne uygulanır?',
+    cevap: 'TCK 7/3 lehe uygulama ilkesi gereği koşullu salıverme oranları bakımından lehe olan 647 sayılı (mülga) İnfaz Kanunu hükümleri uygulanır. Genel kural toplam cezanın 1/2\'sidir; ayrıca 647 SK Ek 2. madde uyarınca bakiye gün sayısından her ay için 6 gün ek indirim yapılır. Terör suçlarında ise 3/4 oranı uygulanır ve Ek 2 indirimi yapılmaz.',
+  },
+  {
+    soru: 'Tekerrür halinde infaz nasıl hesaplanır?',
+    cevap: '5275 SK 108/1 gereği tekerrür halinde koşullu salıvermeye esas süre toplam cezanın 2/3\'üdür. Ne var ki tekerrür halinde koşullu salıverme süresine eklenecek miktar, tekerrüre esas alınan cezaların en ağırından fazla olamaz. İkinci kez mükerrirler hakkında ise koşullu salıverme hükümleri uygulanmaz (108/3).',
+  },
+  {
+    soru: 'Hapis cezasının ertelenmesi mümkün müdür?',
+    cevap: 'Evet. 5275 SK 17. madde gereği isteme bağlı erteleme için: infazı gereken toplam cezanın kasıtlı suçlarda 3 yıl, taksirli suçlarda 5 yıldan fazla olmaması; suçun terör, örgüt, cinsel dokunulmazlık, tekerrürlü, adli para, disiplin/tazyik hapsi olmaması; hükümlünün 10 günlük çağrı süresi içinde savcılığa başvurmuş olması gerekir. Erteleme süresi en fazla 1 yıl + 1 yıl, en fazla iki parça halindedir.',
+  },
+  {
+    soru: 'Hastalık nedeniyle erteleme şartları nelerdir?',
+    cevap: '5275 SK 16. madde gereği akıl hastalığı (16/1), hayatı için kesin tehlike teşkil eden fiziki hastalık (16/2), toplum bakımından ağır ve somut tehlike oluşturmayan ve ağır hastalık veya engellilik nedeniyle hayatını yalnız idame ettiremeyenler (16/6) hakkında erteleme kararı verilebilir. Karar Adalet Bakanlığınca belirlenen tam teşekküllü hastane sağlık kurullarının ve ATK\'nın raporu üzerine verilir; süre raporda aksi yoksa 1 yıldır. Ağırlaştırılmış müebbet hapis cezasının infazında uygulanmaz (25/1-ı).',
+  },
+  {
+    soru: 'Çağrı kağıdı mı, yakalama emri mi çıkarılır?',
+    cevap: '5275 SK 19. madde gereği infazı gereken toplam ceza kasten işlenen suçlarda 3 yıl, taksirli suçlarda 5 yıldan fazla değilse çağrı kağıdı çıkarılır; bu sınırın üstünde ise yakalama emri çıkarılır. Çağrı kağıdı tebliğinden itibaren hükümlüye 10 günlük teslim olma süresi tanınır.',
+  },
+  {
+    soru: 'Adli para cezasından çevrili hapis cezası nasıl infaz edilir?',
+    cevap: '5275 SK 106. madde gereği adli para cezasının ödenmemesi halinde hükümlü hakkında önce kamuya yararlı işte çalıştırma (KYİÇ) — 1 gün hapis = 2 saat çalışma — kararı verilir. Çalışma yükümlülüğü ihlal edilirse para cezası hapse çevrilir. 01/03/2008 tarihinden sonra işlenen suçlarda 5275 SK 106/9 gereği bu hapis cezalarında koşullu salıverme uygulanmaz; hükümlü hak ederek tahliye tarihine kadar açık ceza infaz kurumunda cezasını çeker.',
+  },
+  {
+    soru: '7242 sayılı Kanun (Geçici 6) avantajı kimler için geçerlidir?',
+    cevap: '7242 SK ile eklenen 5275 SK Geçici 6. madde, 30/03/2020 tarihine kadar işlenen ve maddede sayılan istisna suçlar (kasten öldürme, cinsel dokunulmazlık, terör, örgüt, uyuşturucu imal/ticareti vb.) hariç olmak üzere, koşullu salıverilmesine 3 yıl veya daha az süre kalan hükümlülere denetimli serbestlik yolunu açtı. Ayrıca 15 yaşa kadar 1 gün=3 gün, 18 yaşa kadar 1 gün=2 gün şeklinde çocuk mahsubu avantajı getirildi.',
+  },
+  {
+    soru: '7456 sayılı Kanun (Geçici 10) hangi avantajları sağlar?',
+    cevap: '7456 SK ile eklenen Geçici 10. madde 31 Temmuz 2023 tarihini kriter alır. Bu tarihte kapalı ceza infaz kurumunda bulunan ve istisna suçlar (TCK 302-339, terör, örgüt, koşullu salıvermesi geri alınanlar, ikinci kez mükerrirler) kapsamında olmayan hükümlüler 10 yıldan az ceza için 1 ay, 10 yıl ve üzeri için 3 ay kapalıda kalmak şartıyla 3 yıl erken açığa ayrılır ve 3 yıl erken denetimli serbestliğe geçer.',
+  },
+  {
+    soru: 'Koşullu salıverme nasıl geri alınır?',
+    cevap: '5275 SK 107/12-13 gereği koşullu salıverilen hükümlü denetim süresinde hapis cezasını gerektiren kasıtlı bir suç işlerse, sonraki suç tarihinden başlayıp hak ederek tahliye tarihini geçmemek üzere, sonradan işlediği her bir suç için verilen hapis cezasının iki katı süreyle koşullu salıverme geri alınır (107/12-13a). Koşullu salıverme yükümlülüklerine aykırılık halinde ise uymama tarihi ile hak ederek tahliye tarihi arasındaki süreyi geçmemek üzere takdir edilen bir süreyle geri alınır (107/12-13b).',
+  },
+  {
+    soru: 'Disiplin hapislerinin (tazyik, hapsen tazyik, disiplin hapsi) infazı farklı mıdır?',
+    cevap: 'Evet. Disiplin hapsi türleri için koşullu salıverilme uygulanmaz, denetimli serbestlik uygulanmaz, ertelenmez, tekerrür hükümleri uygulanmaz ve adli sicil kaydına geçirilmez. İcra İflas Kanunu kaynaklı tazyik hapisleri dışındaki disiplin hapisleri kapalı ceza infaz kurumunda infaz edilir. İİK\'daki tazyik ve hapsen tazyik için ceza zamanaşımı 2 yıl (İİK 354/2), diğer disiplin hapislerinde 10 yıldır (TCK 68/1-e).',
+  },
+  {
+    soru: 'Hangi suçlarda hükümlü daima kapalıda kalır?',
+    cevap: 'Açığa Ayrılma Yönetmeliği 8. madde gereği ağırlaştırılmış müebbet hapis cezasına mahkum olanlar, ikinci defa tekerrür hükmü uygulananlar, beş ve daha fazla hücreye koyma cezası alanlar, koşullu salıvermeleri geri alınanlar, kapalıdan bir kez veya açıktan iki kez firar edenler, İİK dışında tazyik/disiplin/zorlama hapsi alanlar hiçbir şekilde açığa ayrılamayıp cezalarının tamamını kapalı ceza infaz kurumunda çekerler.',
+  },
+  {
+    soru: 'İçtima (toplama) nedir?',
+    cevap: 'Bir kişi hakkında başka başka kesinleşmiş hükümler bulunması halinde, koşullu salıverme hükümlerinin uygulanabilmesi için mahkemeden bir toplama kararı istenir. Toplanması gereken cezalar: aynı hükümlü hakkında kesinleşmiş hapis cezaları ve ceza infaz kurumunda infaz edilme aşamasına gelmiş adli para cezalarıdır (5275 SK 99). Yetkili mahkeme en fazla cezayı veren mahkemenin yer infaz hakimliğidir; birden fazla hüküm varsa son hükmü vermiş mahkeme yer infaz hakimliği yetkilidir (5275 SK 101/2).',
+  },
+  {
+    soru: 'Hükümlü hangi durumlarda denetim hakkını kaybeder?',
+    cevap: '5275 SK 105/A-6 gereği hükümlü ceza infaz kurumundan ayrıldıktan sonra talebinde belirttiği denetimli serbestlik müdürlüğüne 5 gün içinde başvurmazsa, denetim planına uymakta ısrar ederse (birinci ihlal, uyarı tebliği, ikinci ihlal) veya ceza infaz kurumuna geri dönmeyi talep ederse infaz hakimliği kararıyla açık ceza infaz kurumuna geri gönderilir. Ayrıca denetim sonrası alt sınırı bir yıl veya daha fazla hapis cezasını gerektiren kasıtlı bir suçtan kamu davası açılırsa infaz hakimi takdiren kapalıya gönderme kararı verebilir.',
+  },
+  {
+    soru: 'Müddetname nedir, hangi unsurları içerir?',
+    cevap: '5275 SK 20/4 gereği müddetname (süre belgesi), hükümlünün infaz sürecini gösteren resmi belgedir. Şu unsurları içermelidir: hükümlünün kimlik ve adres bilgileri, toplam ceza miktarı, her bir cezanın infaz rejimi ve koşulluya esas indirim oranları, mahsup bilgileri, infaza başlama tarihi, hak ederek salıverme tarihi, koşullu salıverme tarihi ve gerekli açıklamalar. Hatalı düzenlenmiş bir müddetname kazanılmış hak oluşturmaz.',
+  },
+  {
+    soru: 'Bu hesaplama aracı resmi midir?',
+    cevap: 'Hayır. Bu araç 5275 sayılı Kanun ve ilgili mevzuat hükümlerine göre yaklaşık bir hesaplama yapar; bilgilendirme amaçlıdır ve hukuki görüş niteliği taşımaz. Resmi süre belgesi yalnızca müddetname olup, hükümlünün gerçek koşullu salıverme ve tahliye tarihleri ilgili Cumhuriyet Başsavcılığı tarafından düzenlenir, infaz hakimliğince denetlenir. Somut olaya özgü hesaplama için bir avukata danışmanız önerilir.',
+  },
+  {
+    soru: 'Hesaplama hangi mevzuata göre yapılıyor?',
+    cevap: 'Bu hesaplama aracı şu mevzuat kaynaklarına dayanmaktadır: 5275 sayılı Ceza ve Güvenlik Tedbirlerinin İnfazına Dair Kanun, 647 sayılı (mülga) Cezaların İnfazı Hakkında Kanun (01/06/2005 öncesi suçlarda lehe uygulama), 5402 sayılı Denetimli Serbestlik Hizmetleri Kanunu, 4675 sayılı İnfaz Hakimliği Kanunu, 3713 sayılı Terörle Mücadele Kanunu, 7242 sayılı Kanun (Geçici 6), 7456 sayılı Kanun (Geçici 10), Açık Ceza İnfaz Kurumlarına Ayrılma Yönetmeliği, Denetimli Serbestlik Hizmetleri Yönetmeliği.',
+  },
+  {
+    soru: 'Karma cezalarda (birden fazla suç) hesap nasıl yapılır?',
+    cevap: 'Birden fazla suçtan kesinleşmiş hüküm bulunduğunda her bir ceza için suç türüne uygun koşullu salıverme oranı ayrı ayrı uygulanır, sonuçlar toplanır ve toplam mahsup düşülür. Örneğin 3 yıl hırsızlık (1/2 → 547 gün) + 2 yıl cinsel taciz (2/3 → 486 gün) = 1033 gün koşullu salıvermeye esas süre. Bu hesaplama aracı tek bir kategori seçtirdiğinden karma cezalarda baskın olan kategoriyi seçmeniz veya her ceza için ayrı hesap yapmanız önerilir.',
+  },
+];
 
-const loadChart = async () => {
-  if (!ChartInstance) {
-    const module = await import('chart.js/auto');
-    ChartInstance = module.default;
-  }
-  return ChartInstance;
-};
+const SUC_TURU_TABLOSU = [
+  { oran: '1/2',  suclar: 'Genel suçlar (özel istisna kapsamında olmayan tüm suçlar)', dayanak: '5275 SK 107/2' },
+  { oran: '2/3',  suclar: 'Kasten öldürme (TCK 81-83), neticesi sebebiyle ağırlaşmış yaralama (TCK 87/2-d), işkence/eziyet (TCK 94-96), cinsel saldırı (basit), reşit olmayanla cinsel ilişki (basit), cinsel taciz (TCK 105), özel hayata karşı suçlar (TCK 132-138), devlet sırlarına karşı suçlar (TCK 326-339)', dayanak: '5275 SK 107/2' },
+  { oran: '2/3',  suclar: 'Suç işlemek için örgüt kurmak/yönetmek/üye olmak/örgüt faaliyeti kapsamında işlenen suçlar', dayanak: '5275 SK 107/4' },
+  { oran: '2/3',  suclar: 'Tekerrür hükümleri uygulanan suçlar', dayanak: '5275 SK 108/1' },
+  { oran: '3/4',  suclar: 'Nitelikli cinsel saldırı (TCK 102/2), çocukların cinsel istismarı (TCK 103), reşit olmayanla cinsel ilişki nitelikli (TCK 104/2-3), uyuşturucu/uyarıcı madde imal ve ticareti (TCK 188)', dayanak: '5275 SK 108/9' },
+  { oran: '3/4',  suclar: 'Terörle Mücadele Kanunu kapsamına giren suçlar', dayanak: '3713 SK 17' },
+];
+
+// ============ FORMÜL: ANA SAYFA BİLEŞENİ ============
 
 const InfazYatarPage = () => {
-  const defaults = useMemo(() => ({
-    crimeType: 'genel',
-    years: '',
-    months: '',
-    days: '',
-    convictionDate: '',
-    preTrialDays: '',
-    birthDate: '', // Doğum tarihi
-    gender: '', // Cinsiyet seçimi
-    isPregnant: false, // Hamilelik durumu
-    hasGivenBirth: false, // Doğum yapmış mı
-    goodBehavior: 'evet',
-    isRecidivist: false,
-    // Eski format için uyumluluk
-    crimeDate: '',
-    startDate: '',
-    age: '',
-    isJuvenile: false,
-    pretrialDays: '0',
-    hasBirth: 'hayır'
-  }), [])
+  useEffect(() => { window.scrollTo(0, 0) }, [])
 
-  const location = useLocation()
-  const navigate = useNavigate()
+  // form modu
+  const [mod, setMod] = useState('sureli') // 'sureli' veya 'muebbet'
 
-  const [formData, setFormData] = useState(defaults)
-  const [advanced, setAdvanced] = useState(true) // Start with advanced mode for Grok features
-  const [offenseHint, setOffenseHint] = useState('')
-  const [validationErrors, setValidationErrors] = useState([])
-  const [validationWarnings, setValidationWarnings] = useState([])
-  
-  const [result, setResult] = useState(null)
-  const [isCalculating, setIsCalculating] = useState(false)
-  
-  // AI Related States
-  const [aiEnabled, setAiEnabled] = useState(false)
-  const [crimeDescription, setCrimeDescription] = useState('')
-  const [aiSuggestion, setAiSuggestion] = useState(null)
-  const [aiAnalysis, setAiAnalysis] = useState(null)
-  const [aiRisks, setAiRisks] = useState([])
-  const [aiScenarios, setAiScenarios] = useState([])
-  const [isAiLoading, setIsAiLoading] = useState(false)
+  // süreli hapis için form
+  const [form, setForm] = useState({
+    cezaYil: 0, cezaAy: 0, cezaGun: 0,
+    sucTarihi: '',
+    sucKategoriKodu: 'genel',
+    taksirliMi: false,
+    dogumTarihi: '',
+    tutukluGun: 0,
+    cezaevineGirisTarihi: '',
+    ozelDurum: 'normal',
+    gecici10Uygula: false,
+    lehe647Uygula: true,
+  })
 
-  // Yaş hesaplama fonksiyonu
-  const calculateAge = (birthDate, referenceDate = new Date()) => {
-    if (!birthDate) return null
-    const birth = new Date(birthDate)
-    const reference = new Date(referenceDate)
-    let age = reference.getFullYear() - birth.getFullYear()
-    const monthDiff = reference.getMonth() - birth.getMonth()
-    if (monthDiff < 0 || (monthDiff === 0 && reference.getDate() < birth.getDate())) {
-      age--
-    }
-    return age
-  }
+  // müebbet için form
+  const [muebbetForm, setMuebbetForm] = useState({
+    muebbetTuru: 'muebbet',
+    sucKategoriKodu: 'genel',
+    cezaevineGirisTarihi: '',
+    tutukluGun: 0,
+  })
 
-  // Formdan yaş hesapla
-  const calculatedAge = useMemo(() => {
-    return calculateAge(formData.birthDate, formData.convictionDate || new Date())
-  }, [formData.birthDate, formData.convictionDate])
+  const [sonuc, setSonuc] = useState(null)
+  const [hatalar, setHatalar] = useState([])
+  const [acikSss, setAcikSss] = useState(null)
 
-  // Çocuk hükümlü kontrolü
-  const isJuvenile = calculatedAge !== null && calculatedAge < 18
-
-  // Özel durumları otomatik belirle
-  const specialConditions = useMemo(() => {
-    const conditions = []
-    
-    if (isJuvenile) {
-      conditions.push('Çocuk Hükümlü (18 yaş altı)')
-    }
-    
-    if (formData.gender === 'kadın' && formData.isPregnant) {
-      conditions.push('Hamile Kadın Hükümlü')
-    }
-    
-    if (formData.gender === 'kadın' && formData.hasGivenBirth) {
-      conditions.push('Doğum Yapmış Kadın Hükümlü')
-    }
-    
-    if (formData.isRecidivist) {
-      conditions.push('Mükerrir (Tekrar Suç İşleyen)')
-    }
-    
-    return conditions
-  }, [calculatedAge, formData.gender, formData.isPregnant, formData.hasGivenBirth, formData.isRecidivist, isJuvenile])
-
-  // AI fonksiyonları
-  useEffect(() => {
-    setAiEnabled(isGeminiConfigured())
-  }, [])
-
-  const handleCrimeSuggestion = async () => {
-    if (!crimeDescription.trim() || !aiEnabled) return
-    
-    setIsAiLoading(true)
-    try {
-      const suggestion = await suggestCrimeType(crimeDescription)
-      setAiSuggestion(suggestion)
-      
-      if (suggestion.success && suggestion.crimeType) {
-        // Önerilen suç türünü form'a uygula
-        setFormData(prev => ({
-          ...prev,
-          crimeType: suggestion.crimeType
-        }))
-      }
-    } catch (error) {
-      console.error('AI Suggestion Error:', error)
-    } finally {
-      setIsAiLoading(false)
-    }
-  }
-
-  const handleAiAnalysis = async () => {
-    if (!result || !aiEnabled) return
-    
-    setIsAiLoading(true)
-    try {
-      const [analysis, risks, scenarios] = await Promise.all([
-        analyzeLegalCase(formData, result),
-        assessRisks(formData),
-        suggestAlternativeScenarios(formData, result)
-      ])
-      
-      setAiAnalysis(analysis)
-      setAiRisks(risks.risks || [])
-      setAiScenarios(scenarios.scenarios || [])
-    } catch (error) {
-      console.error('AI Analysis Error:', error)
-    } finally {
-      setIsAiLoading(false)
-    }
-  }
-  const chartRef = useRef(null)
-  const chartInstanceRef = useRef(null)
-  const crimeDateRef = useRef(null)
-  const startDateRef = useRef(null)
-
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  // Initialize flatpickr date pickers
-  useEffect(() => {
-    if (crimeDateRef.current) {
-      flatpickr(crimeDateRef.current, {
-        dateFormat: 'd.m.Y',
-        locale: 'tr',
-        onChange: (dates, dateStr) => {
-          setFormData(prev => ({ ...prev, crimeDate: dates[0]?.toISOString().split('T')[0] || '' }))
-        }
-      })
-    }
-    if (startDateRef.current) {
-      flatpickr(startDateRef.current, {
-        dateFormat: 'd.m.Y', 
-        locale: 'tr',
-        onChange: (dates, dateStr) => {
-          setFormData(prev => ({ ...prev, startDate: dates[0]?.toISOString().split('T')[0] || '' }))
-        }
-      })
-    }
-  }, [])
-
-  // Initialize flatpickr date pickers
-  useEffect(() => {
-    if (crimeDateRef.current) {
-      flatpickr(crimeDateRef.current, {
-        dateFormat: 'd.m.Y',
-        locale: 'tr',
-        onChange: (dates, dateStr) => {
-          setFormData(prev => ({ ...prev, crimeDate: dates[0]?.toISOString().split('T')[0] || '' }))
-        }
-      })
-    }
-    if (startDateRef.current) {
-      flatpickr(startDateRef.current, {
-        dateFormat: 'd.m.Y', 
-        locale: 'tr',
-        onChange: (dates, dateStr) => {
-          setFormData(prev => ({ ...prev, startDate: dates[0]?.toISOString().split('T')[0] || '' }))
-        }
-      })
-    }
-  }, [])
-
-  const onCalculate = () => {
-    // Validate input first
-    const validation = validateInfazInput(formData)
-    setValidationErrors(validation.errors)
-    setValidationWarnings(validation.warnings)
-    
-    if (!validation.valid) {
-      return // Don't calculate if there are errors
-    }
-    
-    setIsCalculating(true)
-    setTimeout(() => {
-      // Prepare enhanced form data with calculated values
-      const enhancedFormData = {
-        ...formData,
-        age: calculatedAge, // Calculated age from birth date
-        isJuvenile: isJuvenile, // Auto-determined juvenile status
-        // Add other special conditions for calculation
-        specialConditions: specialConditions
-      }
-      
-      // Use the enhanced calculator
-      const r = calculateInfazGelismis(enhancedFormData)
-      setResult(r)
-      setIsCalculating(false)
-    }, 600)
-  }
-
-  // Sync from URL or localStorage on mount
-  useEffect(() => {
-    const sp = new URLSearchParams(location.search)
-    const fromUrl = parseFromSearchParams(sp, defaults)
-    const hasQuery = Array.from(sp.keys()).length > 0
-    if (hasQuery) {
-      setFormData(fromUrl)
-      return
-    }
-    // else try storage
-    const stored = loadFromStorage(defaults)
-    setFormData(stored)
-  }, [location.search, defaults])
-
-  // Persist to storage whenever form changes
-  useEffect(() => {
-    saveToStorage(formData)
-  }, [formData])
-
-  const shareLink = () => {
-    const sp = serializeToSearchParams(formData)
-    const url = `${window.location.origin}/hesaplama-araclari/infaz-yatar?${sp.toString()}`
-    navigator.clipboard.writeText(url)
-  }
-
-  const exportPDF = async () => {
-    if (!result) return
-    
-    // Dynamically load jsPDF only when needed
-    const jsPDF = await loadJsPDF();
-    const doc = new jsPDF()
-    
-    // Header with logo area
-    doc.setFontSize(20)
-    doc.setFont(undefined, 'bold')
-    doc.text('İNFAZ SÜRESİ HESAPLAMA RAPORU', 14, 20)
-    
-    doc.setFontSize(12)
-    doc.setFont(undefined, 'normal')
-    doc.text('Koptay Hukuk Bürosu - Detaylı İnfaz Hesaplama Raporu', 14, 30)
-    doc.text(`Oluşturulma Tarihi: ${new Date().toLocaleDateString('tr-TR')} ${new Date().toLocaleTimeString('tr-TR')}`, 14, 38)
-    
-    // Draw line
-    doc.line(14, 42, 200, 42)
-    
-    let y = 50
-    
-    // === GİRİŞ BİLGİLERİ ===
-    doc.setFontSize(14)
-    doc.setFont(undefined, 'bold')
-    doc.text('1. GİRİŞ BİLGİLERİ', 14, y)
-    y += 10
-    
-    doc.setFontSize(10)
-    doc.setFont(undefined, 'normal')
-    const girisInfo = [
-      `Suç Türü: ${result.sucTuru || 'Belirtilmemiş'}`,
-      `Toplam Ceza Süresi: ${formData.years || 0} yıl, ${formData.months || 0} ay, ${formData.days || 0} gün`,
-      `Toplam Ceza (Gün): ${result.toplamCezaGun || 0} gün`,
-      `Suç Tarihi: ${formData.crimeDate || '-'}`,
-      `Mahkumiyet Tarihi: ${formData.convictionDate || '-'}`,
-      `İnfaz Başlangıç: ${formData.startDate || '-'}`,
-      `Mahsup Günler: ${result.mahsupGun || 0} gün`
-    ]
-    
-    girisInfo.forEach(item => {
-      doc.text(`• ${item}`, 20, y)
-      y += 6
-    })
-    y += 8
-    
-    // === YASAL DAYANAK ===
-    doc.setFontSize(14)
-    doc.setFont(undefined, 'bold')
-    doc.text('2. YASAL DAYANAK', 14, y)
-    y += 10
-    
-    doc.setFontSize(10)
-    doc.setFont(undefined, 'normal')
-    const yasalInfo = [
-      `İnfaz Oranı: ${result.infazOrani || 'N/A'}%`,
-      `Denetimli Serbestlik Süresi: ${result.denetimliSerbestlikYil || 0} yıl`,
-      `Yasal Açıklama: ${result.yasalAciklama || 'CGTİK m.107 genel hükümleri uygulanmıştır.'}`
-    ]
-    
-    if (result.leheHukmumUygulandiMi) {
-      yasalInfo.push(`✓ TCK m.7 Lehe Hüküm Uygulandı: ${result.leheAciklama || ''}`)
-    }
-    
-    yasalInfo.forEach(item => {
-      const lines = doc.splitTextToSize(item, 170)
-      lines.forEach(line => {
-        doc.text(`• ${line}`, 20, y)
-        y += 6
-      })
-    })
-    y += 8
-    
-    // === TARİHLER ===
-    doc.setFontSize(14)
-    doc.setFont(undefined, 'bold')
-    doc.text('3. HESAPLANAN TARİHLER', 14, y)
-    y += 10
-    
-    doc.setFontSize(10)
-    doc.setFont(undefined, 'normal')
-    const tarihler = [
-      { label: 'Hakederek Tahliye Tarihi', tarih: result.tamTahliyeTarihi || result.tahliyeDate, gun: result.toplamCezaGun },
-      { label: 'Koşullu Salıverilme Tarihi', tarih: result.kosulluSaliverme || result.kosulluDate, gun: result.infazSuresi },
-      { label: 'Denetimli Serbestlik Tarihi', tarih: result.denetimliSerbestlik || result.dsDate, gun: result.cezaevindeGecen }
-    ]
-    
-    if (result.acikCezaeviTarihi) {
-      tarihler.push({ label: 'Açık Cezaevi Geçiş Tarihi', tarih: result.acikCezaeviTarihi, gun: result.acikGecisGunu })
-    }
-    
-    tarihler.forEach(item => {
-      doc.text(`• ${item.label}: ${item.tarih || '-'}`, 20, y)
-      if (item.gun) {
-        doc.text(`  (${item.gun} gün)`, 30, y + 4)
-        y += 4
-      }
-      y += 6
-    })
-    y += 8
-    
-    // === ÖZEL DURUMLAR ===
-    if (result.ozelDurumlar && result.ozelDurumlar.length > 0) {
-      doc.setFontSize(14)
-      doc.setFont(undefined, 'bold')
-      doc.text('4. ÖZEL DURUMLAR', 14, y)
-      y += 10
-      
-      doc.setFontSize(10)
-      doc.setFont(undefined, 'normal')
-      result.ozelDurumlar.forEach(durum => {
-        const lines = doc.splitTextToSize(`• ${durum}`, 170)
-        lines.forEach(line => {
-          doc.text(line, 20, y)
-          y += 6
-        })
-      })
-      y += 8
-    }
-    
-    // New page if needed
-    if (y > 250) {
-      doc.addPage()
-      y = 20
-    }
-    
-    // === UYARILAR ===
-    doc.setFontSize(14)
-    doc.setFont(undefined, 'bold')
-    doc.text('5. ÖNEMLI UYARILAR', 14, y)
-    y += 10
-    
-    doc.setFontSize(9)
-    doc.setFont(undefined, 'normal')
-    const uyarilar = [
-      '• Bu hesaplama 5275 sayılı Ceza ve Güvenlik Tedbirlerinin İnfazı Hakkında Kanun\'a göre yapılmıştır.',
-      '• TCK 7. madde gereği, lehe olan hükümler otomatik olarak uygulanmıştır.',
-      '• Hesaplama sonuçları tahmini olup, kesin sonuç için İnfaz Hâkimliği\'ne başvurun.',
-      '• Disiplin cezaları, iyi hal, hastalık durumu gibi faktörler sonuçları değiştirebilir.',
-      '• Özel suç türleri ve istisnai durumlar için avukat görüşü alınız.',
-      '• Bu rapor hukuki görüş niteliği taşımamaktadır.'
-    ]
-    
-    uyarilar.forEach(uyari => {
-      const lines = doc.splitTextToSize(uyari, 170)
-      lines.forEach(line => {
-        doc.text(line, 20, y)
-        y += 5
-      })
-    })
-    
-    // Footer
-    y = 280
-    doc.setFontSize(8)
-    doc.setFont(undefined, 'italic')
-    doc.text('Koptay Hukuk Bürosu | www.koptay.av.tr | Detaylı İnfaz Hesaplama', 14, y)
-    doc.text(`Rapor No: ${Date.now().toString().slice(-8)} | Sayfa 1/1`, 14, y + 6)
-    
-    const fileName = `infaz_raporu_${new Date().toISOString().split('T')[0]}.pdf`
-    doc.save(fileName)
-  }
-
-  // Initialize flatpickr date pickers
-  useEffect(() => {
-    if (crimeDateRef.current) {
-      flatpickr(crimeDateRef.current, {
-        dateFormat: 'd.m.Y',
-        locale: 'tr',
-        onChange: (dates, dateStr) => {
-          setFormData(prev => ({ ...prev, crimeDate: dates[0]?.toISOString().split('T')[0] || '' }))
-        }
-      })
-    }
-    if (startDateRef.current) {
-      flatpickr(startDateRef.current, {
-        dateFormat: 'd.m.Y', 
-        locale: 'tr',
-        onChange: (dates, dateStr) => {
-          setFormData(prev => ({ ...prev, startDate: dates[0]?.toISOString().split('T')[0] || '' }))
-        }
-      })
-    }
-  }, [])
-
-  // Render result chart - Load Chart.js dynamically
-  useEffect(() => {
-    if (!result) return
-    
-    const initChart = async () => {
-      const ctx = chartRef.current?.getContext('2d')
-      if (!ctx) return
-      if (chartInstanceRef.current) {
-        chartInstanceRef.current.destroy()
-      }
-      
-      const Chart = await loadChart();
-      
-      // Calculate proper data for chart based on result type
-      let yatar, denetimli, toplam
-      if (advanced && result.yatar !== undefined) {
-        yatar = result.yatar
-        denetimli = result.denetimli || 0
-        toplam = yatar + denetimli
+  const handleHesapla = () => {
+    if (mod === 'sureli') {
+      const errs = validateInput(form)
+      setHatalar(errs)
+      if (errs.length === 0) {
+        setSonuc({ tip: 'sureli', data: hesapla(form) })
       } else {
-        yatar = result.kosullu || 0
-        denetimli = Math.round((result.denetimliYears || 0) * 365)
-        toplam = yatar + denetimli
+        setSonuc(null)
       }
-      
-      chartInstanceRef.current = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Yatar', 'Denetimli', 'Toplam'],
-          datasets: [{
-            label: 'Süre (Gün)',
-            data: [yatar, denetimli, toplam],
-            backgroundColor: ['#007bff', '#28a745', '#ffc107']
-          }]
-        },
-        options: { 
-          responsive: true, 
-          scales: { y: { beginAtZero: true } },
-          plugins: {
-            legend: { display: true },
-            title: { display: true, text: 'İnfaz Süresi Dağılımı' }
-          }
-        }
-      })
-    };
-    
-    initChart();
-  }, [result, advanced])
-
-  const updateUrl = () => {
-    const sp = serializeToSearchParams(formData)
-    navigate({ search: `?${sp.toString()}` }, { replace: true })
+    } else {
+      setSonuc({ tip: 'muebbet', data: muebbetHesapla(muebbetForm) })
+      setHatalar([])
+    }
+    setTimeout(() => {
+      const el = document.getElementById('sonuc-bolumu')
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 100)
   }
 
-  const clearForm = () => {
-    setFormData({
-      crimeType: 'general_yaralama',
-      years: '',
-      months: '',
-      days: '',
-      crimeDate: '',
-      startDate: '',
-      mahsup: '0',
-      discipline: '0',
-      // Advanced defaults
-      age: '',
-      gender: 'erkek',
-      offenseCategory: 'adi',
-      recidivism: 'yok',
-      goodBehavior: 'evet'
+  const handleSifirla = () => {
+    setForm({
+      cezaYil: 0, cezaAy: 0, cezaGun: 0,
+      sucTarihi: '', sucKategoriKodu: 'genel', taksirliMi: false,
+      dogumTarihi: '', tutukluGun: 0, cezaevineGirisTarihi: '',
+      ozelDurum: 'normal', gecici10Uygula: false, lehe647Uygula: true,
     })
-    setResult(null)
+    setMuebbetForm({ muebbetTuru: 'muebbet', sucKategoriKodu: 'genel', cezaevineGirisTarihi: '', tutukluGun: 0 })
+    setSonuc(null)
+    setHatalar([])
   }
+
+  // ============ JSON-LD STRUCTURED DATA ============
+  const jsonLd = useMemo(() => {
+    const breadcrumb = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Ana Sayfa', item: 'https://koptay.av.tr/' },
+        { '@type': 'ListItem', position: 2, name: 'Hesaplama Araçları', item: 'https://koptay.av.tr/hesaplama-araclari' },
+        { '@type': 'ListItem', position: 3, name: 'İnfaz Yatar Hesaplama', item: 'https://koptay.av.tr/hesaplama-araclari/infaz-yatar' },
+      ],
+    }
+    const howTo = {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: 'İnfaz Yatar Hesaplama Nasıl Yapılır?',
+      description: '5275 sayılı Ceza ve Güvenlik Tedbirlerinin İnfazına Dair Kanun\'a göre koşullu salıverme, denetimli serbestlik ve açık ceza infaz kurumu sürelerinin hesaplanması.',
+      step: [
+        { '@type': 'HowToStep', position: 1, name: 'Toplam ceza miktarını belirleyin', text: 'Hükmedilen hapis cezasının toplam yıl, ay ve gün miktarı tespit edilir. Birden fazla hüküm varsa içtima (toplama) sonrası toplam ceza esas alınır.' },
+        { '@type': 'HowToStep', position: 2, name: 'Suç türüne göre koşullu salıverme oranını uygulayın', text: 'Suç türüne göre 1/2 (genel), 2/3 (107/2 istisnaları, örgüt, tekerrür) veya 3/4 (108/9, terör) oranı uygulanarak koşullu salıvermeye esas süre bulunur.' },
+        { '@type': 'HowToStep', position: 3, name: 'Mahsupları düşün', text: 'TCK 63 gereği tutukluluk, gözaltı ve adli kontrol süreleri hesaptan düşülür. 18 yaş altı hükümlüler için 5275 SK 107/5 ve Geçici 6/4 ek mahsup avantajı sağlar.' },
+        { '@type': 'HowToStep', position: 4, name: 'Denetimli serbestlik süresini ayırın', text: '5275 SK 105/A gereği koşullu salıverme tarihine 1 yıl kala denetimli serbestlik tedbiri başlar. Geçici 6/1 ve Geçici 10/6 hükümlerine göre bu süre 3 veya 6 yıla kadar uzayabilir.' },
+        { '@type': 'HowToStep', position: 5, name: 'Açığa ayrılma süresini hesaplayın', text: 'Toplam ceza 10 yıldan az ise cezanın 1/10\'u, 10 yıl ve üzeri ise 1/3\'ü kapalı ceza infaz kurumunda geçirilir. ≤3 yıl kasten / ≤5 yıl taksirli cezalarda doğrudan açık infaz uygulanır.' },
+      ],
+    }
+    const faq = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: SSS_LISTESI.map(s => ({
+        '@type': 'Question', name: s.soru,
+        acceptedAnswer: { '@type': 'Answer', text: s.cevap },
+      })),
+    }
+    return [breadcrumb, howTo, faq]
+  }, [])
 
   return (
     <>
-      <SEO 
-        title="İnfaz Yatar Hesaplama: Cezaevinde Ne Kadar Kalınır? 2025 Güncel Rehber"
-        description="İnfaz yatar hesaplama rehberi: Cezaevinde ne kadar kalınır, koşullu salıverilme tarihi nasıl hesaplanır? Gelişmiş infaz hesaplama aracı ve adım adım rehber. CGTİK m.107 hükümlerine göre."
-        keywords="infaz yatar hesaplama, cezaevinde ne kadar kalınır, infaz süresi hesaplama, koşullu salıverilme hesaplama, denetimli serbestlik, CGTİK m.107, infaz hesaplayıcısı, ceza süresi hesaplama, tahliye tarihi hesaplama"
-        url="/hesaplama-araclari/infaz-yatar"
-        canonical="https://koptay.com/hesaplama-araclari/infaz-yatar"
+      <SEO
+        title="İnfaz Yatar Hesaplama 2026 — Koşullu Salıverme & Denetimli Serbestlik | Koptay Hukuk"
+        description="5275 sayılı Kanun'a göre güncel infaz yatar hesaplama. Koşullu salıverme tarihi, denetimli serbestlik, açık ceza infaz kurumu süreleri. Süreli hapis, müebbet, çocuk hükümlü, 7242 ve 7456 SK Geçici 6 ve 10 avantajları dahil 2026 hesabı."
+        url="https://koptay.av.tr/hesaplama-araclari/infaz-yatar"
+        preloadImage={false}
       />
-      
-      {/* JSON-LD Structured Data - Article Schema */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Article",
-          "headline": "İnfaz Yatar Hesaplama: Cezaevinde Ne Kadar Kalınır? 2025 Güncel Rehber",
-          "description": "İnfaz yatar hesaplama rehberi: Cezaevinde ne kadar kalınır, koşullu salıverilme tarihi nasıl hesaplanır? Detaylı rehber ve gelişmiş hesaplama aracı.",
-          "image": "https://koptay.com/images/infaz-yatar-hesaplama.jpg",
-          "author": {
-            "@type": "Organization",
-            "name": "Koptay Hukuk Bürosu"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "Koptay Hukuk Bürosu",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://koptay.com/logo.png"
-            }
-          },
-          "datePublished": "2025-01-06",
-          "dateModified": "2025-01-06",
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https://koptay.com/hesaplama-araclari/infaz-yatar"
-          },
-          "keywords": ["infaz yatar hesaplama", "cezaevinde ne kadar kalınır", "koşullu salıverilme", "denetimli serbestlik", "CGTİK"],
-          "articleSection": "Ceza Hukuku",
-          "inLanguage": "tr-TR"
-        })}
-      </script>
-      
-      {/* JSON-LD Structured Data - HowTo Schema */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "HowTo",
-          "name": "İnfaz Yatar Nasıl Hesaplanır?",
-          "description": "Ceza infazı süresini ve tahliye tarihini adım adım hesaplama rehberi",
-          "image": "https://koptay.com/images/infaz-yatar-hesaplama.jpg",
-          "totalTime": "PT5M",
-          "tool": [
-            {
-              "@type": "HowToTool",
-              "name": "İnfaz Hesaplama Aracı"
-            },
-            {
-              "@type": "HowToTool",
-              "name": "Mahkeme Kararı"
-            }
-          ],
-          "step": [
-            {
-              "@type": "HowToStep",
-              "name": "Toplam Ceza Süresini Belirleyin",
-              "text": "Mahkeme kararındaki toplam hapis cezasını yıl, ay ve gün olarak not edin.",
-              "position": 1
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Mahkumiyet Tarihini Kontrol Edin",
-              "text": "Kararın kesinleşme tarihini not edin. Bu tarih hangi yasal düzenlemenin uygulanacağını belirler.",
-              "position": 2
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Suç Türünü ve İnfaz Oranını Belirleyin",
-              "text": "İşlenen suçun türüne göre uygulanacak infaz oranını tespit edin (1/2, 2/3 veya 3/4).",
-              "position": 3
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Koşullu Salıverilme Tarihini Hesaplayın",
-              "text": "Toplam ceza günü × İnfaz Oranı = Koşullu salıverilme için gerekli gün sayısı.",
-              "position": 4
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Mahsup Günlerini Düşün",
-              "text": "Gözaltı ve tutukluluk süresini hesaplamadan düşün. Bu süreler cezadan düşülür.",
-              "position": 5
-            },
-            {
-              "@type": "HowToStep",
-              "name": "Tahliye Tarihini Belirleyin",
-              "text": "İnfaz başlangıç tarihi + Koşullu salıverilme gün sayısı - Mahsup günleri = Tahmini tahliye tarihi.",
-              "position": 6
-            }
-          ]
-        })}
-      </script>
-      
-      {/* JSON-LD Structured Data - FAQPage Schema */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "İnfaz yatar hesaplama nedir?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "İnfaz yatar hesaplama, bir hükümlünün ceza infaz kurumunda (cezaevinde) ne kadar süre kalacağını belirleyen hukuki bir işlemdir. Türk hukuk sisteminde, mahkeme tarafından verilen cezanın tamamı cezaevinde çekilmez; hükümlü, belirli koşulları yerine getirdiğinde koşullu salıverme ve denetimli serbestlik sisteminden yararlanabilir."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Cezaevinde ne kadar kalınır?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Cezaevinde kalma süresi, suçun türüne, işlenme tarihine ve hükümlünün kişisel durumuna göre değişir. Genel suçlar için 1/2 (50%), cinsel suçlar için 2/3 (67%), ağır suçlar için 3/4 (75%) oranında infaz uygulanır. Örneğin 10 yıl ceza alan bir hükümlü, suç türüne göre 5-7.5 yıl cezaevinde kalabilir."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Koşullu salıverme nedir?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Koşullu salıverme, hükümlünün cezasının belirli bir kısmını çektikten sonra, iyi halini göstermesi halinde geri kalan cezasını cezaevi dışında geçirmesine imkan veren bir infaz kurumudur. CGTİK m.107'ye göre, suç türüne göre 1/2, 2/3 veya 3/4 oranında ceza çekildikten sonra koşullu salıverilme mümkündür."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Denetimli serbestlik nedir?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Denetimli serbestlik, hükümlünün toplumsal yaşama uyumunu sağlamak amacıyla, cezasının son kısmını belirli denetim ve yükümlülükler altında geçirmesini sağlar. 30 Mart 2020 öncesi suçlar için son 3 yıl, sonrası suçlar için son 1 yıl denetimli serbestlik uygulanır."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Mahsup nedir?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Mahsup, tutukluluk süresi, gözaltı süresi gibi özgürlüğü kısıtlayan tedbirlerin ceza süresinden düşülmesi işlemidir. Bu süreler infaz süresini kısaltır ve tahliye tarihini öne çeker."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "30 Mart 2020 tarihi neden önemli?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Bu tarihte yapılan yasal düzenleme ile denetimli serbestlik süreleri değişmiştir. Bu tarih öncesi suçlarda 3 yıl, sonrasında ise 1 yıl denetimli serbestlik uygulanır. TCK m.7 lehe hüküm gereği, hükümlü lehine olan düzenleme geriye dönük uygulanabilir."
-              }
-            }
-          ]
-        })}
-      </script>
-      
-      {/* JSON-LD Structured Data - WebApplication Schema */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebApplication",
-          "name": "İnfaz Yatar Hesaplama Aracı",
-          "description": "Ceza infazı süresi, koşullu salıverilme ve denetimli serbestlik hesaplama aracı",
-          "url": "https://koptay.com/hesaplama-araclari/infaz-yatar",
-          "applicationCategory": "LegalApplication",
-          "operatingSystem": "Web",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "TRY"
-          },
-          "featureList": [
-            "İnfaz süresi hesaplama",
-            "Koşullu salıverilme tarihi hesaplama",
-            "Denetimli serbestlik hesaplama",
-            "TCK m.7 lehe hüküm otomatiği",
-            "PDF rapor indirme",
-            "Mahsup günü hesaplama"
-          ]
-        })}
-      </script>
+      <Helmet>
+        {jsonLd.map((ld, i) => (
+          <script key={i} type="application/ld+json">{JSON.stringify(ld)}</script>
+        ))}
+      </Helmet>
 
-      {/* Hero Section */}
-      <section className="page-hero py-12">
+      {/* Breadcrumb */}
+      <nav className="bg-gray-50 py-3 border-b border-gray-200" aria-label="Breadcrumb">
         <div className="container mx-auto px-4">
-          {/* Breadcrumb */}
-          <nav className="flex items-center space-x-2 text-white/70 mb-6">
-            <Link to="/" className="hover:text-white transition-colors">
-              <Home className="w-4 h-4" />
-            </Link>
-            <ChevronRight className="w-4 h-4" />
-            <Link to="/hesaplama-araclari" className="hover:text-white transition-colors">
-              Hesaplama Araçları
-            </Link>
-            <ChevronRight className="w-4 h-4" />
-            <span className="text-white">İnfaz Süresi Hesaplama</span>
-          </nav>
+          <ol className="flex items-center gap-2 text-sm text-gray-600 flex-wrap">
+            <li><Link to="/" className="hover:text-lawPrimary inline-flex items-center gap-1"><Home className="w-4 h-4" />Ana Sayfa</Link></li>
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <li><Link to="/hesaplama-araclari" className="hover:text-lawPrimary">Hesaplama Araçları</Link></li>
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <li className="text-gray-900 font-medium">İnfaz Yatar Hesaplama</li>
+          </ol>
+        </div>
+      </nav>
 
+      {/* Hero */}
+      <section className="bg-gradient-to-br from-lawDark to-lawPrimary text-white py-12">
+        <div className="container mx-auto px-4">
           <div className="max-w-4xl">
-            <Clock className="w-12 h-12 mb-4" />
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 font-serif">
-              İnfaz Süresi Hesaplama
+            <div className="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full text-sm mb-4">
+              <Calculator className="w-4 h-4" /> 2026 Güncel Hesaplama Aracı
+            </div>
+            <h1 className="text-3xl md:text-5xl font-serif font-bold mb-4 leading-tight">
+              İnfaz Yatar Hesaplama
             </h1>
-            <p className="text-xl max-w-3xl leading-relaxed">
-              Ceza ve Güvenlik Tedbirlerinin İnfazı Hakkında Kanun'a göre 
-              infaz süresi, koşullu salıverme ve denetimli serbestlik hesaplaması yapın.
+            <p className="text-lg md:text-xl text-white/90 leading-relaxed">
+              5275 sayılı Ceza ve Güvenlik Tedbirlerinin İnfazına Dair Kanun ve ilgili mevzuat
+              uyarınca koşullu salıverme tarihi, denetimli serbestlik süresi, açık ceza infaz
+              kurumuna ayrılma tarihi ve hak ederek tahliye tarihi hesaplaması.
             </p>
-            
-            {/* Hızlı Erişim CTA - Above the Fold */}
-            <div className="flex flex-col sm:flex-row gap-4 mt-6">
-              <a 
-                href="#hesaplama-formu" 
-                className="inline-flex items-center justify-center bg-white text-lawPrimary px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 shadow-xl"
-              >
-                <Calculator className="w-6 h-6 mr-3" />
-                Hemen Hesapla
-              </a>
-              <a 
-                href="#makale-icerigi" 
-                className="inline-flex items-center justify-center border-2 border-white text-white px-6 py-4 rounded-xl font-medium hover:bg-white hover:text-lawPrimary transition-all"
-              >
-                <FileText className="w-5 h-5 mr-2" />
-                Detaylı Bilgi
-              </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Hesaplama Aracı */}
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+            {/* Mod Seçici */}
+            <div className="flex border-b">
+              <button onClick={() => setMod('sureli')}
+                className={`flex-1 py-4 px-6 font-medium transition-colors ${mod === 'sureli' ? 'bg-lawPrimary text-white' : 'bg-gray-50 text-gray-700 hover:bg-gray-100'}`}>
+                Süreli Hapis Cezası
+              </button>
+              <button onClick={() => setMod('muebbet')}
+                className={`flex-1 py-4 px-6 font-medium transition-colors ${mod === 'muebbet' ? 'bg-lawPrimary text-white' : 'bg-gray-50 text-gray-700 hover:bg-gray-100'}`}>
+                Müebbet / Ağırlaştırılmış Müebbet
+              </button>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Makale İçeriği - SEO İçin */}
-      <section id="makale-icerigi" className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto prose prose-lg">
-            <article>
-              {/* Giriş */}
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">İnfaz Yatar Hesaplama Nedir?</h2>
-              
-              <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                İnfaz yatar hesaplama, bir hükümlünün ceza infaz kurumunda (cezaevinde) ne kadar süre 
-                kalacağını belirleyen hukuki bir işlemdir. Türk hukuk sisteminde, mahkeme tarafından 
-                verilen cezanın tamamı cezaevinde çekilmez; hükümlü, belirli koşulları yerine getirdiğinde 
-                <strong> koşullu salıverme</strong> ve <strong>denetimli serbestlik</strong> sisteminden 
-                yararlanabilir.
-              </p>
+            <div className="p-6 md:p-8">
+              {mod === 'sureli' ? (
+                <SureliForm form={form} setForm={setForm} hatalar={hatalar} />
+              ) : (
+                <MuebbetForm form={muebbetForm} setForm={setMuebbetForm} />
+              )}
 
-              {/* Hızlı CTA Banner */}
-              <div className="bg-gradient-to-r from-blue-600 to-teal-600 text-white p-6 rounded-xl my-8 not-prose">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                  <div className="flex items-center space-x-3">
-                    <Calculator className="w-10 h-10" />
-                    <div>
-                      <p className="font-bold text-lg">Hemen Hesapla!</p>
-                      <p className="text-sm opacity-90">Aşağıdaki aracı kullanarak infaz sürenizi hesaplayın</p>
-                    </div>
-                  </div>
-                  <a 
-                    href="#hesaplama-formu" 
-                    className="bg-white text-blue-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors shadow-lg"
-                  >
-                    Hesaplama Aracına Git →
-                  </a>
-                </div>
-              </div>
-
-              <div className="bg-blue-50 border-l-4 border-blue-600 p-6 my-8 rounded-r-lg">
-                <p className="text-blue-900 font-medium">
-                  💡 <strong>Önemli Not:</strong> İnfaz yatar hesaplaması, 5275 sayılı Ceza ve Güvenlik 
-                  Tedbirlerinin İnfazı Hakkında Kanun (CGTİK) hükümlerine göre yapılır. Bu hesaplama, 
-                  hükümlünün hangi tarihte tahliye olacağını, koşullu salıverilme hakkından ne zaman 
-                  yararlanabileceğini ve denetimli serbestlik süresini belirler.
-                </p>
-              </div>
-
-              {/* İnfaz ve Yatar Kavramları */}
-              <h2 className="text-3xl font-bold text-gray-900 mb-6 mt-12">İnfaz ve Yatar Kavramları</h2>
-              
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">İnfaz Nedir?</h3>
-              <p className="text-gray-700 leading-relaxed mb-6">
-                <strong>İnfaz</strong>, mahkeme tarafından verilen hapis cezasının yerine getirilmesi 
-                sürecidir. İnfaz süreci, hükümlünün ceza infaz kurumuna girdiği andan itibaren başlar 
-                ve cezanın tamamının çekilmesi veya koşullu salıverilme ile sona erer. İnfaz süresi, 
-                suçun türüne, işlenme tarihine ve hükümlünün kişisel durumuna göre değişiklik gösterir.
-              </p>
-
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">Yatar Nedir?</h3>
-              <p className="text-gray-700 leading-relaxed mb-6">
-                <strong>Yatar</strong>, hükümlünün ceza infaz kurumunda fiilen kalacağı süreyi ifade eder. 
-                Mahkemece verilen toplam ceza süresi ile yatar süresi genellikle aynı değildir. Çünkü 
-                Türk hukuku, iyi hal gösteren hükümlülere koşullu salıverilme ve denetimli serbestlik 
-                imkanı tanır. Bu nedenle, örneğin 10 yıl hapis cezası alan bir hükümlü, suçun türüne 
-                göre 5-7.5 yıl kadar cezaevinde kalabilir.
-              </p>
-
-              <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 my-8 rounded-r-lg">
-                <p className="text-yellow-900">
-                  ⚠️ <strong>Dikkat:</strong> Yatar süresi, mahsup günleri, iyi hal indirimi, 
-                  disiplin cezaları gibi faktörlere bağlı olarak değişebilir. Bu nedenle kesin sonuç 
-                  için mutlaka bir ceza avukatına danışmanız önerilir.
-                </p>
-              </div>
-
-              {/* Cezaevinde Ne Kadar Kalınır Kriterleri */}
-              <h2 className="text-3xl font-bold text-gray-900 mb-6 mt-12">Cezaevinde Ne Kadar Kalınır? Belirleyici Kriterler</h2>
-              
-              <p className="text-gray-700 leading-relaxed mb-6">
-                Bir hükümlünün cezaevinde ne kadar kalacağını belirleyen birçok önemli kriter vardır. 
-                Bu kriterler doğru analiz edildiğinde, tahliye tarihinin tam olarak hesaplanması mümkündür.
-              </p>
-
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">1. Suçun İşlenme Tarihi</h3>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Suçun hangi tarihte işlendiği, uygulanacak infaz rejimini belirler:
-              </p>
-              <ul className="list-disc list-inside space-y-2 mb-6 text-gray-700">
-                <li><strong>30 Mart 2020 öncesi suçlar:</strong> Son 3 yıl denetimli serbestlik uygulanır</li>
-                <li><strong>30 Mart 2020 sonrası suçlar:</strong> Son 1 yıl denetimli serbestlik uygulanır</li>
-                <li><strong>TCK m.7 Lehe Hüküm:</strong> Hükümlü lehine olan yeni düzenlemeler geriye dönük uygulanır</li>
-              </ul>
-
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">2. Suç Türü ve İnfaz Oranı</h3>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Suçun türü, koşullu salıverilme için gereken infaz oranını belirler:
-              </p>
-              
-              <div className="overflow-x-auto my-6">
-                <table className="min-w-full bg-white border border-gray-200 rounded-lg">
-                  <thead className="bg-gradient-to-r from-teal-600 to-teal-700 text-white">
-                    <tr>
-                      <th className="px-6 py-3 text-left font-semibold">Suç Kategorisi</th>
-                      <th className="px-6 py-3 text-left font-semibold">İnfaz Oranı</th>
-                      <th className="px-6 py-3 text-left font-semibold">Örnekler</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200">
-                    <tr className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4">Genel Suçlar</td>
-                      <td className="px-6 py-4 font-semibold text-green-600">1/2 (50%)</td>
-                      <td className="px-6 py-4 text-sm">Hırsızlık, Dolandırıcılık, Kasten Yaralama</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4">Cinsel Suçlar</td>
-                      <td className="px-6 py-4 font-semibold text-orange-600">2/3 (67%)</td>
-                      <td className="px-6 py-4 text-sm">Cinsel İstismar, Cinsel Saldırı</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4">Ağır Suçlar</td>
-                      <td className="px-6 py-4 font-semibold text-red-600">3/4 (75%)</td>
-                      <td className="px-6 py-4 text-sm">Terör, Uyuşturucu Ticareti, Örgütlü Suç</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4">Müebbet Hapis</td>
-                      <td className="px-6 py-4 font-semibold text-purple-600">30 yıl</td>
-                      <td className="px-6 py-4 text-sm">Kasten Adam Öldürme (Ağırlaştırılmış)</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">3. Özel Durumlar</h3>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Bazı özel durumlar, infaz süresini doğrudan etkiler:
-              </p>
-              <ul className="list-disc list-inside space-y-2 mb-6 text-gray-700">
-                <li><strong>Çocuk Hükümlü (18 yaş altı):</strong> Daha kısa infaz oranları uygulanır</li>
-                <li><strong>Hamile veya Yeni Doğum Yapmış Kadın:</strong> Erteleme veya ev hapsi mümkün olabilir</li>
-                <li><strong>Mükerrir (Tekrar Suç İşleyen):</strong> Koşullu salıverilme hakkı yoktur</li>
-                <li><strong>İyi Hal Şartları:</strong> Eğitim, meslek kursları, disiplin ihlali yapmama</li>
-                <li><strong>Gözaltı/Tutukluluk Süresi:</strong> Ceza süresinden düşülür (mahsup)</li>
-              </ul>
-
-              {/* Adım Adım Hesaplama Rehberi */}
-              <h2 className="text-3xl font-bold text-gray-900 mb-6 mt-12">İnfaz Yatar Hesaplama: Adım Adım Rehber</h2>
-              
-              <p className="text-gray-700 leading-relaxed mb-6">
-                İnfaz yatar hesaplamasını doğru yapmak için aşağıdaki adımları takip edebilirsiniz:
-              </p>
-
-              <div className="space-y-6 mb-8">
-                <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
-                  <h4 className="font-bold text-blue-900 mb-2">📋 Adım 1: Toplam Ceza Süresini Belirleyin</h4>
-                  <p className="text-blue-800">
-                    Mahkeme kararındaki toplam hapis cezasını yıl, ay ve gün olarak not edin. 
-                    Örnek: 5 yıl 6 ay 15 gün = 2012 gün
-                  </p>
-                </div>
-
-                <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
-                  <h4 className="font-bold text-green-900 mb-2">📅 Adım 2: Mahkumiyet Tarihini Kontrol Edin</h4>
-                  <p className="text-green-800">
-                    Kararın kesinleşme tarihini not edin. Bu tarih, hangi yasal düzenlemenin 
-                    uygulanacağını belirler (30 Mart 2020 öncesi/sonrası).
-                  </p>
-                </div>
-
-                <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
-                  <h4 className="font-bold text-yellow-900 mb-2">⚖️ Adım 3: Suç Türünü ve İnfaz Oranını Belirleyin</h4>
-                  <p className="text-yellow-800">
-                    İşlenen suçun türüne göre uygulanacak infaz oranını tespit edin (1/2, 2/3 veya 3/4). 
-                    Yukarıdaki tabloya bakarak doğru oranı seçin.
-                  </p>
-                </div>
-
-                <div className="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
-                  <h4 className="font-bold text-purple-900 mb-2">🧮 Adım 4: Koşullu Salıverilme Tarihini Hesaplayın</h4>
-                  <p className="text-purple-800">
-                    Toplam ceza günü × İnfaz Oranı = Koşullu salıverilme için gerekli gün sayısı. 
-                    Örnek: 2012 gün × 1/2 = 1006 gün (yaklaşık 2 yıl 9 ay)
-                  </p>
-                </div>
-
-                <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
-                  <h4 className="font-bold text-red-900 mb-2">🔢 Adım 5: Mahsup Günlerini Düşün</h4>
-                  <p className="text-red-800">
-                    Gözaltı ve tutukluluk süresini hesaplamadan düşün. Bu süreler cezadan düşülür ve 
-                    tahliye tarihini öne çeker.
-                  </p>
-                </div>
-
-                <div className="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
-                  <h4 className="font-bold text-indigo-900 mb-2">📆 Adım 6: Tahliye Tarihini Belirleyin</h4>
-                  <p className="text-indigo-800">
-                    İnfaz başlangıç tarihi + Koşullu salıverilme gün sayısı - Mahsup günleri = 
-                    Tahmini tahliye tarihi. Bu tarihte hükümlü denetimli serbestliğe çıkar.
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-r from-blue-600 to-teal-600 text-white p-8 rounded-xl my-8">
-                <h4 className="text-2xl font-bold mb-4">💻 Otomatik Hesaplama İçin Aracımızı Kullanın</h4>
-                <p className="text-lg mb-4">
-                  Yukarıdaki karmaşık hesaplamaları tek tıkla yapmak için aşağıdaki hesaplama 
-                  aracımızı kullanabilirsiniz. Sadece bilgileri girin, hesaplama otomatik olarak 
-                  yapılsın!
-                </p>
-                <a 
-                  href="#hesaplama-formu" 
-                  className="inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors"
-                >
-                  Hesaplama Aracına Git →
-                </a>
-              </div>
-
-              {/* Hesaplama Aracı Kullanım İpuçları */}
-              <h2 className="text-3xl font-bold text-gray-900 mb-6 mt-12">Hesaplama Aracı Kullanım İpuçları</h2>
-              
-              <p className="text-gray-700 leading-relaxed mb-6">
-                İnfaz yatar hesaplama aracımızı kullanırken aşağıdaki ipuçlarını göz önünde 
-                bulundurarak daha doğru sonuçlar elde edebilirsiniz:
-              </p>
-
-              <div className="grid md:grid-cols-2 gap-6 mb-8">
-                <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                  <div className="text-3xl mb-3">✅</div>
-                  <h4 className="font-bold text-gray-900 mb-2">Doğru Bilgi Girişi</h4>
-                  <p className="text-gray-700 text-sm">
-                    Mahkeme kararınızı yanınızda bulundurarak tüm bilgileri eksiksiz ve doğru girin. 
-                    Yanlış bilgi, yanlış hesaplama sonucu verir.
-                  </p>
-                </div>
-
-                <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                  <div className="text-3xl mb-3">📅</div>
-                  <h4 className="font-bold text-gray-900 mb-2">Tarih Kontrolü</h4>
-                  <p className="text-gray-700 text-sm">
-                    Suçun işlenme tarihi ve mahkumiyet tarihini karıştırmayın. Her ikisi de 
-                    hesaplama için kritik öneme sahiptir.
-                  </p>
-                </div>
-
-                <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                  <div className="text-3xl mb-3">⚖️</div>
-                  <h4 className="font-bold text-gray-900 mb-2">Suç Türü Seçimi</h4>
-                  <p className="text-gray-700 text-sm">
-                    Suç türünü doğru seçin. Emin değilseniz, mahkeme kararındaki TCK madde 
-                    numarasına bakarak seçim yapın veya avukata danışın.
-                  </p>
-                </div>
-
-                <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                  <div className="text-3xl mb-3">🔢</div>
-                  <h4 className="font-bold text-gray-900 mb-2">Mahsup Hesabı</h4>
-                  <p className="text-gray-700 text-sm">
-                    Gözaltı ve tutukluluk günlerinizi toplamayı unutmayın. Bu günler cezanızdan 
-                    düşüleceği için tahliye tarihinizi öne çeker.
-                  </p>
-                </div>
-
-                <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                  <div className="text-3xl mb-3">👶</div>
-                  <h4 className="font-bold text-gray-900 mb-2">Özel Durumlar</h4>
-                  <p className="text-gray-700 text-sm">
-                    18 yaş altı, hamilelik, mükerirlik gibi özel durumları mutlaka belirtin. 
-                    Bu faktörler hesaplamayı doğrudan etkiler.
-                  </p>
-                </div>
-
-                <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                  <div className="text-3xl mb-3">⚠️</div>
-                  <h4 className="font-bold text-gray-900 mb-2">Avukat Danışmanlığı</h4>
-                  <p className="text-gray-700 text-sm">
-                    Hesaplama aracı tahmini sonuç verir. Kesin bilgi için mutlaka bir ceza avukatına 
-                    danışın ve durumunuzu detaylı inceletin.
-                  </p>
-                </div>
-              </div>
-
-              {/* İlgili Konular ve İç Linkler */}
-              <div className="bg-blue-50 border-l-4 border-blue-600 p-6 my-8 rounded-r-lg">
-                <h4 className="text-xl font-bold text-blue-900 mb-4">📚 İlgili Konular</h4>
-                <p className="text-blue-800 mb-4">
-                  Ceza hukuku ile ilgili diğer önemli konular hakkında bilgi almak için:
-                </p>
-                <div className="grid md:grid-cols-2 gap-3">
-                  <Link 
-                    to="/makaleler" 
-                    className="bg-white hover:bg-blue-50 text-blue-800 px-4 py-3 rounded-lg font-medium transition-colors border border-blue-200"
-                  >
-                    → Ceza Hukuku Makaleleri
-                  </Link>
-                  <Link 
-                    to="/hizmetlerimiz" 
-                    className="bg-white hover:bg-blue-50 text-blue-800 px-4 py-3 rounded-lg font-medium transition-colors border border-blue-200"
-                  >
-                    → Ceza Avukatı Hizmetleri
-                  </Link>
-                  <Link 
-                    to="/hesaplama-araclari/tazminat-hesaplama" 
-                    className="bg-white hover:bg-blue-50 text-blue-800 px-4 py-3 rounded-lg font-medium transition-colors border border-blue-200"
-                  >
-                    → Tazminat Hesaplama
-                  </Link>
-                  <Link 
-                    to="/hesaplama-araclari" 
-                    className="bg-white hover:bg-blue-50 text-blue-800 px-4 py-3 rounded-lg font-medium transition-colors border border-blue-200"
-                  >
-                    → Diğer Hesaplama Araçları
-                  </Link>
-                </div>
-              </div>
-
-              {/* Sonuç ve CTA */}
-              <div className="bg-gradient-to-br from-gray-800 to-gray-900 text-white p-8 rounded-xl my-12">
-                <h3 className="text-2xl font-bold mb-4">🎯 Sonuç</h3>
-                <p className="text-lg leading-relaxed mb-6">
-                  İnfaz yatar hesaplama, ceza hukukunun en karmaşık konularından biridir. Doğru 
-                  hesaplama için suç türü, işlenme tarihi, özel durumlar ve güncel mevzuat bilgisi 
-                  gereklidir. Yukarıdaki rehber ve hesaplama aracımız, size genel bir fikir verecektir. 
-                  Ancak kesin sonuç için mutlaka <strong>deneyimli bir ceza avukatına danışmanızı</strong> 
-                  öneririz.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link 
-                    to="/iletisim"
-                    className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold text-center transition-colors"
-                  >
-                    📞 İletişime Geçin
-                  </Link>
-                  <Link 
-                    to="/makaleler"
-                    className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold text-center transition-colors"
-                  >
-                    📚 Ceza Hukuku Makaleleri
-                  </Link>
-                </div>
-              </div>
-
-              {/* Uzman Görüşü Uyarısı */}
-              <div className="bg-amber-50 border border-amber-300 rounded-lg p-6 my-8">
-                <div className="flex items-start space-x-3">
-                  <AlertTriangle className="w-6 h-6 text-amber-600 mt-1 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-bold text-amber-900 mb-2">⚖️ Profesyonel Hukuki Destek</h4>
-                    <p className="text-amber-800 mb-4">
-                      Bu hesaplama aracı ve rehber, genel bilgilendirme amaçlıdır ve hukuki görüş niteliği taşımaz. 
-                      Her ceza dosyası kendine özgü özellikler içerir. <strong>Avukat danışmanlığı almadan</strong> 
-                      önemli kararlar vermeyin.
-                    </p>
-                    <ul className="text-sm text-amber-700 space-y-1 mb-4">
-                      <li>✓ Dosyanızın detaylı incelenmesi</li>
-                      <li>✓ İnfaz hâkimliği başvuruları</li>
-                      <li>✓ Koşullu salıverme prosedürleri</li>
-                      <li>✓ İyi hal belgesi hazırlama</li>
-                      <li>✓ Açık cezaevi geçiş başvuruları</li>
-                    </ul>
-                    <Link 
-                      to="/iletisim"
-                      className="inline-block bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded-lg font-semibold transition-colors"
-                    >
-                      Hemen Avukat Desteği Alın →
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      {/* Bilgilendirme Bölümü */}
-      <section id="hesaplama-formu" className="py-16 bg-blue-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <div className="flex items-start space-x-4 mb-6">
-                <AlertTriangle className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Ceza İnfaz Süresi Hesaplama Aracı</h2>
-                  <div className="prose max-w-none text-gray-700 space-y-4">
-                    <p className="text-lg font-medium text-blue-800 bg-blue-100 p-4 rounded-lg">
-                      Bu araç <strong>Ceza ve Güvenlik Tedbirlerinin İnfazı Hakkında Kanun m.107 ve m.105/A</strong> esas alınarak geliştirilmiştir.
-                      <br />
-                      <strong>Bilgi amaçlıdır, kesin sonuç için infaz hâkimliği ve avukatınıza başvurun.</strong>
-                    </p>
-                    
-                    <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Suç Türlerine Göre Oranlar:</h3>
-                    <ul className="list-disc list-inside space-y-2">
-                      <li><strong>Genel Suçlar (1/2 oranı):</strong> Kasten yaralama, hırsızlık, dolandırıcılık, tehdit, zimmet</li>
-                      <li><strong>Ağır Suçlar (3/4 oranı):</strong> Terör, örgütlü, uyuşturucu, cinsel suçlar</li>
-                      <li><strong>Müebbet Hapis:</strong> 30 yıl infaz süresi</li>
-                      <li><strong>Ağırlaştırılmış Müebbet:</strong> 36 yıl infaz süresi</li>
-                    </ul>
-
-                    <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Denetimli Serbestlik Süreleri:</h3>
-                    <ul className="list-disc list-inside space-y-2">
-                      <li><strong>30 Mart 2020 sonrası suçlar:</strong> Son 1 yıl denetimli serbestlik</li>
-                      <li><strong>30 Mart 2020 öncesi suçlar:</strong> Son 3 yıl denetimli serbestlik</li>
-                      <li><strong>Müebbet cezalar:</strong> Son 3 yıl denetimli serbestlik</li>
-                    </ul>
-
-                    <h3 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Mahsup Günleri:</h3>
-                    <ul className="list-disc list-inside space-y-2">
-                      <li>Tutukluluk süresi</li>
-                      <li>Gözaltı süresi</li>
-                      <li>Diğer yasal mahsup sebepleri</li>
-                    </ul>
-                  </div>
-                </div>
+              <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                <button onClick={handleHesapla}
+                  className="flex-1 bg-lawPrimary hover:bg-lawSecondary text-white py-3 px-6 rounded-lg font-semibold transition-colors inline-flex items-center justify-center gap-2">
+                  <Calculator className="w-5 h-5" /> Hesapla
+                </button>
+                <button onClick={handleSifirla}
+                  className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors inline-flex items-center justify-center gap-2">
+                  <RefreshCw className="w-5 h-5" /> Sıfırla
+                </button>
               </div>
             </div>
           </div>
+
+          {/* Sonuç */}
+          {sonuc && (
+            <div id="sonuc-bolumu" className="mt-8 scroll-mt-20">
+              {sonuc.tip === 'sureli' ? <SureliSonuc data={sonuc.data} /> : <MuebbetSonuc data={sonuc.data} />}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Hesaplama Formu */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12">
-              {/* Form */}
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                  <Calculator className="w-6 h-6 mr-2 text-blue-600" />
-                  Hesaplama Formu
-                </h2>
-                
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center space-x-2">
-                    <Scale className="w-5 h-5 text-blue-600" />
-                    <span className="text-sm font-medium text-gray-700">Gelişmiş İnfaz Hesaplama Aracı</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-xs text-gray-500">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>TCK m.7 Lehe Hükümler</span>
-                  </div>
-                </div>
+      {/* Suç Türleri ve Oranlar Tablosu */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold text-lawDark mb-2 flex items-center gap-2">
+            <Scale className="w-7 h-7 text-lawPrimary" /> Suç Türlerine Göre Koşullu Salıverme Oranları
+          </h2>
+          <p className="text-gray-600 mb-6">
+            5275 sayılı Kanun ve ilgili mevzuat uyarınca uygulanan koşullu salıvermeye esas oranlar.
+          </p>
+          <div className="overflow-x-auto rounded-lg border border-gray-200">
+            <table className="w-full text-left">
+              <thead className="bg-lawDark text-white">
+                <tr>
+                  <th className="px-4 py-3 font-semibold w-24">Oran</th>
+                  <th className="px-4 py-3 font-semibold">Suç Türleri</th>
+                  <th className="px-4 py-3 font-semibold w-40">Mevzuat Dayanağı</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {SUC_TURU_TABLOSU.map((row, i) => (
+                  <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                    <td className="px-4 py-3 font-bold text-lawPrimary text-lg">{row.oran}</td>
+                    <td className="px-4 py-3 text-sm text-gray-700">{row.suclar}</td>
+                    <td className="px-4 py-3 text-sm text-gray-600 font-mono">{row.dayanak}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="mt-4 bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-sm text-blue-900">
+            <strong>Önemli:</strong> Suç tarihinde 18 yaşından küçük hükümlülere 3/4 oranı yerine 2/3 oranı uygulanır.
+            5275 SK 108/9 kapsamındaki suçlar 28/06/2014 öncesinde işlenmişse 3/4 yerine 2/3 oranı geçerlidir.
+            01/06/2005 öncesi işlenen suçlarda TCK 7/3 lehe uygulama ilkesi gereği 647 sayılı (mülga) Kanun hükümleri uygulanır.
+          </div>
+        </div>
+      </section>
 
-                <div className="space-y-6">
-                  {/* Validation Errors and Warnings */}
-                  {validationErrors.length > 0 && (
-                    <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <AlertTriangle className="w-5 h-5 text-red-600" />
-                        <h4 className="font-medium text-red-800">Hatalar</h4>
-                      </div>
-                      <ul className="text-sm text-red-700 space-y-1">
-                        {validationErrors.map((error, idx) => (
-                          <li key={idx}>• {error}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  
-                  {validationWarnings.length > 0 && (
-                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Info className="w-5 h-5 text-yellow-600" />
-                        <h4 className="font-medium text-yellow-800">Uyarılar</h4>
-                      </div>
-                      <ul className="text-sm text-yellow-700 space-y-1">
-                        {validationWarnings.map((warning, idx) => (
-                          <li key={idx}>• {warning}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Suç Türü * 
-                      <span className="text-xs text-gray-500 ml-2">(Oran otomatik hesaplanır)</span>
-                    </label>
-                    <select
-                      name="crimeType"
-                      value={formData.crimeType}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    >
-                      {/* Uluslararası Suçlar */}
-                      <optgroup label="🌍 Uluslararası Suçlar">
-                        {getSucTipiSeçenekleri()
-                          .filter(suc => suc.kategori === 'uluslararasi')
-                          .map(suc => (
-                            <option key={suc.value} value={suc.value}>
-                              {suc.label} - {suc.oran}
-                            </option>
-                          ))}
-                      </optgroup>
-                      
-                      {/* Kişilere Karşı Suçlar */}
-                      <optgroup label="👤 Kişilere Karşı Suçlar">
-                        {getSucTipiSeçenekleri()
-                          .filter(suc => suc.kategori === 'kişilere_karsi')
-                          .map(suc => (
-                            <option key={suc.value} value={suc.value}>
-                              {suc.label} - {suc.oran}
-                            </option>
-                          ))}
-                      </optgroup>
-                      
-                      {/* Cinsel Suçlar */}
-                      <optgroup label="⚠️ Cinsel Suçlar">
-                        {getSucTipiSeçenekleri()
-                          .filter(suc => suc.kategori === 'cinsel')
-                          .map(suc => (
-                            <option key={suc.value} value={suc.value}>
-                              {suc.label} - {suc.oran}
-                            </option>
-                          ))}
-                      </optgroup>
-                      
-                      {/* Terör ve Örgüt Suçları */}
-                      <optgroup label="🔴 Terör ve Örgüt Suçları">
-                        {getSucTipiSeçenekleri()
-                          .filter(suc => ['terror_orgut', 'tmk'].includes(suc.kategori))
-                          .map(suc => (
-                            <option key={suc.value} value={suc.value}>
-                              {suc.label} - {suc.oran}
-                            </option>
-                          ))}
-                      </optgroup>
-                      
-                      {/* Uyuşturucu Suçları */}
-                      <optgroup label="💊 Uyuşturucu Suçları">
-                        {getSucTipiSeçenekleri()
-                          .filter(suc => suc.kategori === 'uyusturucu')
-                          .map(suc => (
-                            <option key={suc.value} value={suc.value}>
-                              {suc.label} - {suc.oran}
-                            </option>
-                          ))}
-                      </optgroup>
-                      
-                      {/* Malvarlığına Karşı Suçlar */}
-                      <optgroup label="💰 Malvarlığına Karşı Suçlar">
-                        {getSucTipiSeçenekleri()
-                          .filter(suc => suc.kategori === 'malvarligina_karsi')
-                          .map(suc => (
-                            <option key={suc.value} value={suc.value}>
-                              {suc.label} - {suc.oran}
-                            </option>
-                          ))}
-                      </optgroup>
-                      
-                      {/* Kamu İdaresine Karşı Suçlar */}
-                      <optgroup label="🏛️ Kamu İdaresine Karşı Suçlar">
-                        {getSucTipiSeçenekleri()
-                          .filter(suc => suc.kategori === 'kamu_idaresi')
-                          .map(suc => (
-                            <option key={suc.value} value={suc.value}>
-                              {suc.label} - {suc.oran}
-                            </option>
-                          ))}
-                      </optgroup>
-                      
-                      {/* Devlet Güvenliği Suçları */}
-                      <optgroup label="🛡️ Devlet Güvenliği Suçları">
-                        {getSucTipiSeçenekleri()
-                          .filter(suc => ['devlet_guvenlik', 'devlet_sirlari'].includes(suc.kategori))
-                          .map(suc => (
-                            <option key={suc.value} value={suc.value}>
-                              {suc.label} - {suc.oran}
-                            </option>
-                          ))}
-                      </optgroup>
-                      
-                      {/* Müebbet Cezalar */}
-                      <optgroup label="⚫ Müebbet Cezalar">
-                        {getSucTipiSeçenekleri()
-                          .filter(suc => suc.kategori === 'muebbet')
-                          .map(suc => (
-                            <option key={suc.value} value={suc.value}>
-                              {suc.label} - {suc.oran}
-                            </option>
-                          ))}
-                      </optgroup>
-                      
-                      {/* Genel ve Diğer Kategoriler */}
-                      {['şeref', 'ozel_hayat', 'topluma_karsi', 'cevre', 'kamu_sagligi', 'aile', 'ekonomi', 'bilişim', 'adliye', 'silah', 'kacakcilik', 'genel'].map(kategori => {
-                        const filteredCrimes = getSucTipiSeçenekleri().filter(suc => suc.kategori === kategori)
-                        if (filteredCrimes.length === 0) return null
-                        
-                        const categoryLabels = {
-                          'şeref': 'Şerefe Karşı',
-                          'ozel_hayat': 'Özel Hayata Karşı', 
-                          'topluma_karsi': 'Topluma Karşı',
-                          'cevre': 'Çevre',
-                          'kamu_sagligi': 'Kamu Sağlığı',
-                          'aile': 'Aile Düzenine Karşı',
-                          'ekonomi': 'Ekonomi, Sanayi ve Ticaret',
-                          'bilişim': 'Bilişim',
-                          'adliye': 'Adliyeye Karşı',
-                          'silah': 'Silah',
-                          'kacakcilik': 'Kaçakçılık',
-                          'genel': 'Genel Suçlar'
-                        }
-                        
-                        return (
-                          <optgroup key={kategori} label={`📋 ${categoryLabels[kategori]} Suçları`}>
-                            {filteredCrimes.map(suc => (
-                              <option key={suc.value} value={suc.value}>
-                                {suc.label} - {suc.oran}
-                              </option>
-                            ))}
-                          </optgroup>
-                        )
-                      })}
-                    </select>
-                    <p className="text-xs text-gray-500 mt-1">
-                      Suç türüne göre infaz oranı otomatik belirlenir. Lehe hükümler (TCK m.7) otomatik uygulanır.
-                    </p>
-                  </div>
-
-                  {/* AI SUÇTURU ÖNERİSİ */}
-                  {aiEnabled && (
-                    <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-lg p-4">
-                      <div className="flex items-center space-x-2 mb-3">
-                        <span className="text-2xl">🤖</span>
-                        <h4 className="font-medium text-blue-800">AI Suç Türü Tespiti</h4>
-                        <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full">BETA</span>
-                      </div>
-                      
-                      <div className="space-y-3">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Suçu Yazınız
-                          </label>
-                          <textarea
-                            value={crimeDescription}
-                            onChange={(e) => setCrimeDescription(e.target.value)}
-                            placeholder="Örn: Kişiye bıçakla saldırıp yaraladı ve cebindeki parayı aldı..."
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                            rows={3}
-                          />
-                          <p className="text-xs text-gray-500 mt-1">
-                            İşlenen suçu kısaca açıklayın, AI otomatik olarak doğru suç türünü belirleyecek.
-                          </p>
-                        </div>
-                        
-                        <button
-                          type="button"
-                          onClick={handleCrimeSuggestion}
-                          disabled={!crimeDescription.trim() || isAiLoading}
-                          className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-                        >
-                          {isAiLoading ? (
-                            <>
-                              <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
-                              <span>Analiz ediliyor...</span>
-                            </>
-                          ) : (
-                            <>
-                              <span>🧠</span>
-                              <span>Suç Türünü Belirle</span>
-                            </>
-                          )}
-                        </button>
-
-                        {aiSuggestion && (
-                          <div className="mt-3">
-                            {aiSuggestion.success ? (
-                              <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                                <div className="flex items-center space-x-2 mb-2">
-                                  <span className="text-green-600">✅</span>
-                                  <span className="font-medium text-green-800">Belirlenen Suç Türü</span>
-                                  <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">
-                                    %{aiSuggestion.confidence} doğruluk
-                                  </span>
-                                  {aiSuggestion.modelUsed && (
-                                    <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full">
-                                      {aiSuggestion.modelUsed}
-                                    </span>
-                                  )}
-                                </div>
-                                <p className="text-sm text-green-700 mb-2">
-                                  <strong>Suç Türü:</strong> {aiSuggestion.crimeType}
-                                </p>
-                                <p className="text-xs text-green-600">
-                                  <strong>Açıklama:</strong> {aiSuggestion.explanation}
-                                </p>
-                                <div className="mt-2">
-                                  <button
-                                    onClick={() => {
-                                      setFormData(prev => ({
-                                        ...prev,
-                                        crimeType: aiSuggestion.crimeType
-                                      }))
-                                    }}
-                                    className="text-xs bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg font-medium transition-colors"
-                                  >
-                                    ✅ Bu Suç Türünü Kullan
-                                  </button>
-                                </div>
-                              </div>
-                            ) : (
-                              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                                <div className="flex items-center space-x-2 mb-1">
-                                  <span className="text-red-600">❌</span>
-                                  <span className="font-medium text-red-800">AI Hatası</span>
-                                </div>
-                                <p className="text-sm text-red-700">{aiSuggestion.message}</p>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
-
-                  {!aiEnabled && (
-                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <span className="text-yellow-600">🔑</span>
-                        <span className="font-medium text-yellow-800">AI Özellikleri</span>
-                      </div>
-                      <p className="text-sm text-yellow-700 mb-2">
-                        AI destekli otomatik suç türü tespiti ve hukuki analiz için Google Gemini API anahtarı gerekli.
-                      </p>
-                      <p className="text-xs text-yellow-600">
-                        API anahtarı: <code className="bg-yellow-100 px-1 rounded">.env</code> dosyasına <code className="bg-yellow-100 px-1 rounded">VITE_GEMINI_API_KEY</code> olarak ekleyin.
-                      </p>
-                    </div>
-                  )}
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Ceza Süresi *
-                    </label>
-                    <div className="grid grid-cols-3 gap-3">
-                      <div>
-                        <input
-                          type="number"
-                          name="years"
-                          value={formData.years}
-                          onChange={handleInputChange}
-                          placeholder="Yıl"
-                          min="0"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        />
-                        <span className="text-xs text-gray-500 mt-1 block">Yıl</span>
-                      </div>
-                      <div>
-                        <input
-                          type="number"
-                          name="months"
-                          value={formData.months}
-                          onChange={handleInputChange}
-                          placeholder="Ay"
-                          min="0"
-                          max="11"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        />
-                        <span className="text-xs text-gray-500 mt-1 block">Ay</span>
-                      </div>
-                      <div>
-                        <input
-                          type="number"
-                          name="days"
-                          value={formData.days}
-                          onChange={handleInputChange}
-                          placeholder="Gün"
-                          min="0"
-                          max="30"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        />
-                        <span className="text-xs text-gray-500 mt-1 block">Gün</span>
-                      </div>
-                    </div>
-                    <p className="text-xs text-gray-500 mt-1">
-                      Toplam hapis cezası süresini yıl, ay ve gün olarak giriniz. Müebbet cezaları için süre girmenize gerek yok.
-                    </p>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Mahkumiyet Tarihi *
-                    </label>
-                    <input
-                      type="date"
-                      name="convictionDate"
-                      value={formData.convictionDate}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      Kararın kesinleşme tarihini giriniz. Bu tarih, hangi yasal düzenlemenin uygulanacağını belirler.
-                    </p>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Suç Tarihi *
-                    </label>
-                    <input
-                      type="date"
-                      name="crimeDate"
-                      value={formData.crimeDate}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      Suçun işlendiği tarihi giriniz. Bu tarih, 30 Mart 2020 değişikliğinden yararlanma durumunu belirler.
-                    </p>
-                    {formData.crimeDate && new Date(formData.crimeDate) < new Date('2020-03-31') && (
-                      <div className="mt-2 p-3 bg-green-50 border border-green-200 rounded-lg">
-                        <p className="text-sm text-green-800">
-                          ✅ <strong>30 Mart 2020 öncesi suç:</strong> Daha avantajlı infaz rejiminden yararlanabilir.
-                        </p>
-                      </div>
-                    )}
-                    {formData.crimeDate && new Date(formData.crimeDate) >= new Date('2020-03-31') && (
-                      <div className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                        <p className="text-sm text-amber-800">
-                          ⚠️ <strong>30 Mart 2020 sonrası suç:</strong> Yeni infaz rejimi uygulanır.
-                        </p>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* KİŞİSEL BİLGİLER BÖLÜMÜ */}
-                  <div className="border-t pt-6">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-4">👤 Kişisel Bilgiler</h3>
-                    
-                    {/* Doğum Tarihi */}
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Doğum Tarihi
-                        <span className="text-xs text-gray-500 ml-2">(Yaş otomatik hesaplanır)</span>
-                      </label>
-                      <input
-                        type="date"
-                        name="birthDate"
-                        value={formData.birthDate}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                      {calculatedAge !== null && (
-                        <p className="text-sm text-blue-600 mt-1">
-                          📅 Hesaplanan yaş: {calculatedAge} yaşında
-                          {isJuvenile && <span className="text-orange-600 font-medium"> (Çocuk Hükümlü)</span>}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Cinsiyet */}
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Cinsiyet
-                      </label>
-                      <div className="flex gap-4">
-                        <label className="flex items-center">
-                          <input
-                            type="radio"
-                            name="gender"
-                            value="erkek"
-                            checked={formData.gender === 'erkek'}
-                            onChange={handleInputChange}
-                            className="mr-2"
-                          />
-                          👨 Erkek
-                        </label>
-                        <label className="flex items-center">
-                          <input
-                            type="radio"
-                            name="gender"
-                            value="kadın"
-                            checked={formData.gender === 'kadın'}
-                            onChange={handleInputChange}
-                            className="mr-2"
-                          />
-                          👩 Kadın
-                        </label>
-                      </div>
-                    </div>
-
-                    {/* Kadınlar için özel durumlar */}
-                    {formData.gender === 'kadın' && (
-                      <div className="bg-pink-50 border border-pink-200 rounded-lg p-4 mb-4">
-                        <h4 className="font-medium text-pink-800 mb-3">👶 Kadın Hükümlü Özel Durumları</h4>
-                        
-                        <div className="space-y-3">
-                          <label className="flex items-center">
-                            <input
-                              type="checkbox"
-                              name="isPregnant"
-                              checked={formData.isPregnant}
-                              onChange={(e) => setFormData(prev => ({
-                                ...prev,
-                                isPregnant: e.target.checked
-                              }))}
-                              className="mr-2"
-                            />
-                            🤰 Hamile
-                          </label>
-                          
-                          <label className="flex items-center">
-                            <input
-                              type="checkbox"
-                              name="hasGivenBirth"
-                              checked={formData.hasGivenBirth}
-                              onChange={(e) => setFormData(prev => ({
-                                ...prev,
-                                hasGivenBirth: e.target.checked
-                              }))}
-                              className="mr-2"
-                            />
-                            👶 Doğum yapmış (son 1 yıl içinde)
-                          </label>
-                        </div>
-                        
-                        <p className="text-xs text-pink-600 mt-2">
-                          Bu durumlar infaz süresini ve koşulları etkileyebilir.
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Özel Durumlar Özeti */}
-                    {specialConditions.length > 0 && (
-                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                        <h4 className="font-medium text-blue-800 mb-2">⚖️ Tespit Edilen Özel Durumlar:</h4>
-                        <ul className="text-sm text-blue-700 space-y-1">
-                          {specialConditions.map((condition, idx) => (
-                            <li key={idx}>• {condition}</li>
-                          ))}
-                        </ul>
-                        <p className="text-xs text-blue-600 mt-2">
-                          Bu durumlar hesaplamada otomatik olarak dikkate alınacaktır.
-                        </p>
-                      </div>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Gözaltı/Tutukluluk Süresi (Gün)
-                    </label>
-                    <input
-                      type="number"
-                      name="preTrialDays"
-                      value={formData.preTrialDays}
-                      onChange={handleInputChange}
-                      min="0"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Varsa gözaltı ve tutukluluk günlerini giriniz"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      Gözaltı ve tutukluluk süreleri cezadan düşülür.
-                    </p>
-                  </div>
-
-                  {/* DİĞER ÖZEL DURUMLAR */}
-                  <div className="border-t pt-6">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-4">⚖️ Diğer Özel Durumlar</h3>
-                    
-                    {/* Mükerrir */}
-                    <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-                      <div className="flex items-center space-x-2 mb-3">
-                        <AlertTriangle className="w-5 h-5 text-red-600" />
-                        <h4 className="font-medium text-red-800">Tekrar Suç (Mükerrir)</h4>
-                      </div>
-                      <label className="flex items-center">
-                        <input
-                          type="checkbox"
-                          name="isRecidivist"
-                          checked={formData.isRecidivist}
-                          onChange={(e) => setFormData(prev => ({
-                            ...prev,
-                            isRecidivist: e.target.checked
-                          }))}
-                          className="mr-2"
-                        />
-                        <span className="text-sm text-red-700">
-                          🔄 Bu kişi mükerrir (daha önce suç işlemiş ve tekrar suç işlemiş) midir?
-                        </span>
-                      </label>
-                      <p className="text-xs text-red-600 mt-2">
-                        ⚠️ Mükerrir hükümlüler için koşullu salıverilme uygulanmaz!
-                      </p>
-                    </div>
-
-                    {/* İyi Hal */}
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                      <div className="flex items-center space-x-2 mb-3">
-                        <Check className="w-5 h-5 text-green-600" />
-                        <h4 className="font-medium text-green-800">İyi Hal Durumu</h4>
-                      </div>
-                      <div className="space-y-2">
-                        <label className="flex items-center">
-                          <input
-                            type="radio"
-                            name="goodBehavior"
-                            value="evet"
-                            checked={formData.goodBehavior === 'evet'}
-                            onChange={handleInputChange}
-                            className="mr-2"
-                          />
-                          ✅ İyi hal şartlarını sağlıyor
-                        </label>
-                        <label className="flex items-center">
-                          <input
-                            type="radio"
-                            name="goodBehavior"
-                            value="hayır"
-                            checked={formData.goodBehavior === 'hayır'}
-                            onChange={handleInputChange}
-                            className="mr-2"
-                          />
-                          ❌ İyi hal şartlarını sağlamıyor
-                        </label>
-                      </div>
-                      <p className="text-xs text-green-600 mt-2">
-                        İyi hal, koşullu salıverilme için zorunlu şarttır. İyi hal şartları: eğitim, meslek öğrenme, cezaevinde disiplin ihlali yapmama vb.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <div className="flex items-center space-x-2 mb-3">
-                      <AlertTriangle className="w-5 h-5 text-blue-600" />
-                      <h4 className="font-medium text-blue-800">Tekrar Suç</h4>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <label className="flex items-center">
-                        <input
-                          type="checkbox"
-                          name="isRecidivist"
-                          checked={formData.isRecidivist}
-                          onChange={handleInputChange}
-                          className="mr-2"
-                        />
-                        <span className="text-sm text-blue-700">
-                          Bu kişi mükerrir (tekrar suç işleyen) midir?
-                        </span>
-                      </label>
-                    </div>
-                    <p className="text-xs text-blue-600 mt-2">
-                      Mükerrir hükümlüler için infaz oranı 3/4'tür.
-                    </p>
-                  </div>
-
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                    <div className="flex items-center space-x-2 mb-3">
-                      <Info className="w-5 h-5 text-green-600" />
-                      <h4 className="font-medium text-green-800">Çocuk Hükümlü</h4>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <label className="flex items-center">
-                        <input
-                          type="checkbox"
-                          name="isJuvenile"
-                          checked={formData.isJuvenile}
-                          onChange={handleInputChange}
-                          className="mr-2"
-                        />
-                        <span className="text-sm text-green-700">
-                          Suç işlendiği sırada 18 yaşından küçük müydü?
-                        </span>
-                      </label>
-                    </div>
-                    <p className="text-xs text-green-600 mt-2">
-                      18 yaşından küçükler için özel infaz oranları uygulanır.
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <button
-                      type="button"
-                      onClick={onCalculate}
-                      disabled={(!formData.years && !formData.months && !formData.days) || !formData.convictionDate}
-                      className="flex-1 flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-medium transition-colors"
-                    >
-                      <Calculator className="w-5 h-5" />
-                      <span>Hesapla</span>
-                    </button>
-                    
-                    <button
-                      type="button"
-                      onClick={clearForm}
-                      className="flex items-center justify-center space-x-2 bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"
-                    >
-                      <RefreshCw className="w-5 h-5" />
-                      <span>Temizle</span>
-                    </button>
-                  </div>
-                </div>
+      {/* Müebbet Süreleri Tablosu */}
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold text-lawDark mb-2 flex items-center gap-2">
+            <Gavel className="w-7 h-7 text-lawPrimary" /> Müebbet Hapis Cezalarında Koşullu Salıverme Süreleri
+          </h2>
+          <p className="text-gray-600 mb-6">5275 sayılı Kanun 107/2, 107/4 ve 3713 SK 17. madde uyarınca.</p>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="bg-white rounded-xl p-6 shadow border border-gray-200">
+              <h3 className="font-bold text-lg text-lawDark mb-3">Genel Hükümlüler (107/2)</h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between border-b pb-2"><span>Müebbet hapis</span><span className="font-bold text-lawPrimary">{MUEBBET_KS_YIL.GENEL.muebbet} yıl</span></div>
+                <div className="flex justify-between"><span>Ağırlaştırılmış müebbet</span><span className="font-bold text-lawPrimary">{MUEBBET_KS_YIL.GENEL.agirlastirilmis} yıl</span></div>
               </div>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow border border-gray-200">
+              <h3 className="font-bold text-lg text-lawDark mb-3">Örgüt / Terör Suçları (107/4 — 3713/17)</h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between border-b pb-2"><span>Müebbet hapis</span><span className="font-bold text-lawPrimary">{MUEBBET_KS_YIL.ORGUT_TEROR.muebbet} yıl</span></div>
+                <div className="flex justify-between"><span>Ağırlaştırılmış müebbet</span><span className="font-bold text-lawPrimary">{MUEBBET_KS_YIL.ORGUT_TEROR.agirlastirilmis} yıl</span></div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-4 bg-amber-50 border-l-4 border-amber-500 p-4 rounded text-sm text-amber-900">
+            <strong>Dikkat:</strong> 5275 SK 107/16 gereği TCK 2. kitap 4. kısım 4, 5 ve 6. bölümlerde
+            yer alan suçlardan ağırlaştırılmış müebbet hapis cezasına mahkum olanlar hakkında koşullu
+            salıverme uygulanmaz.
+          </div>
+        </div>
+      </section>
 
-              {/* Sonuç Bölümü */}
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                  <Calendar className="w-6 h-6 mr-2 text-green-600" />
-                  Hesaplama Sonucu
-                </h2>
+      {/* Mevzuat Dayanakları */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold text-lawDark mb-6 flex items-center gap-2">
+            <BookOpen className="w-7 h-7 text-lawPrimary" /> Hesaplamada Esas Alınan Mevzuat
+          </h2>
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              { kod: '5275 sayılı Kanun', baslik: 'Ceza ve Güvenlik Tedbirlerinin İnfazına Dair Kanun', ozet: 'İnfaz hukukunun temel kanunu. Koşullu salıverme (107), denetimli serbestlik (105/A), açığa ayrılma, içtima (99) gibi tüm temel kuralları içerir.' },
+              { kod: '647 sayılı (Mülga) Kanun', baslik: 'Cezaların İnfazı Hakkında Kanun', ozet: '01/06/2005 öncesi işlenen suçlarda TCK 7/3 lehe uygulama ilkesi gereği uygulanır. 1/2 oranı + ayda 6 gün ek indirim sağlar.' },
+              { kod: '3713 sayılı Kanun', baslik: 'Terörle Mücadele Kanunu', ozet: 'Terör suçları için 3/4 koşullu salıverme oranı (m.17). Müebbette 30 yıl, ağırlaştırılmış müebbette 36 yıl.' },
+              { kod: '5402 sayılı Kanun', baslik: 'Denetimli Serbestlik Hizmetleri Kanunu', ozet: 'Denetim altında infaz, yükümlülük türleri ve denetimli serbestlik müdürlüklerinin görev alanı.' },
+              { kod: '4675 sayılı Kanun', baslik: 'İnfaz Hakimliği Kanunu', ozet: 'Koşullu salıverme kararları, denetim kararları ve infaz işlemlerine ilişkin şikayetlerin karara bağlanması.' },
+              { kod: '7242 sayılı Kanun', baslik: '5275 SK Geçici 6. Madde', ozet: '30/03/2020 milat. İstisna olmayan suçlarda KS\'ye 3 yıl kala denetim. 15 yaş altı 1=3, 18 yaş altı 1=2 çocuk mahsubu.' },
+              { kod: '7456 sayılı Kanun', baslik: '5275 SK Geçici 10. Madde', ozet: '31/07/2023 kriter tarihi. Kapalıda olup istisna olmayan hükümlüler için 3 yıl erken açığa + 3 yıl erken denetim.' },
+              { kod: 'Yönetmelik', baslik: 'Açık Ceza İnfaz Kurumlarına Ayrılma Yönetmeliği', ozet: 'Toplam ceza <10 yıl ise 1/10\'u, ≥10 yıl ise 1/3\'ü kapalıda. ≤3 yıl kasten / ≤5 yıl taksirli direkt açık.' },
+            ].map((item, i) => (
+              <div key={i} className="border border-gray-200 rounded-lg p-5 bg-gray-50">
+                <div className="text-xs font-mono text-lawPrimary font-semibold mb-1">{item.kod}</div>
+                <h3 className="font-bold text-lawDark mb-2">{item.baslik}</h3>
+                <p className="text-sm text-gray-600">{item.ozet}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                {!result ? (
-                  <div className="text-center py-12">
-                    <Clock className="w-16 h-16 mx-auto text-gray-300 mb-4" />
-                    <p className="text-gray-500 text-lg">
-                      Hesaplama yapmak için formu doldurun ve "Hesapla" butonuna tıklayın.
-                    </p>
-                  </div>
-                ) : (
-                  <div className="space-y-6">
-                    {/* Ceza Süre Özeti */}
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                      <h3 className="text-lg font-semibold text-blue-800 mb-4">Ceza Süresi Özeti</h3>
-                      <div className="grid md:grid-cols-3 gap-4">
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-blue-900">{formData.years || 0}</div>
-                          <div className="text-sm text-blue-700">Yıl</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-blue-900">{formData.months || 0}</div>
-                          <div className="text-sm text-blue-700">Ay</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-blue-900">{formData.days || 0}</div>
-                          <div className="text-sm text-blue-700">Gün</div>
-                        </div>
-                      </div>
-                      <div className="mt-4 pt-4 border-t border-blue-200">
-                        <div className="flex justify-between items-center">
-                          <span className="text-blue-700 font-medium">Toplam Ceza Süresi:</span>
-                          <span className="text-xl font-bold text-blue-900">{result.toplamCezaGun || 0} gün</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-                      <h3 className="text-lg font-semibold text-green-800 mb-4">Hesaplama Detayları</h3>
-                      <div className="space-y-3">
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-700">Suç Türü:</span>
-                          <span className="font-medium text-gray-900">{result.sucTuru || result.crimeTypeText}</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-700">İnfaz Oranı:</span>
-                          <span className="font-medium text-gray-900">{result.infazOrani || result.fraction}%</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-700">Denetimli serbestlik süresi:</span>
-                          <span className="font-medium text-gray-900">{result.denetimliSerbestlikYil || result.denetimliYears} yıl</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-700">Mahsup edilen günler:</span>
-                          <span className="font-medium text-green-600">{result.mahsupGun || result.mahsupDays || 0} gün</span>
-                        </div>
-                        {result.leheHukmumUygulandiMi && (
-                          <div className="bg-yellow-50 border border-yellow-200 rounded p-3 mt-3">
-                            <div className="flex items-center space-x-2">
-                              <CheckCircle className="w-4 h-4 text-green-600" />
-                              <span className="text-sm font-medium text-yellow-800">TCK m.7 Lehe Hükmü Uygulandı</span>
-                            </div>
-                            <p className="text-xs text-yellow-700 mt-1">{result.leheAciklama}</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Yasal Açıklamalar */}
-                    {result.yasalAciklama && (
-                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                        <h3 className="text-lg font-semibold text-blue-800 mb-3">Yasal Dayanak</h3>
-                        <p className="text-sm text-blue-700">{result.yasalAciklama}</p>
-                      </div>
-                    )}
-
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-lg font-semibold text-blue-800">İnfaz Takvimi</h3>
-                        <div className="flex space-x-2">
-                          <button
-                            type="button"
-                            onClick={() => window.print()}
-                            className="text-sm text-blue-700 hover:text-blue-900 underline"
-                          >
-                            Yazdır
-                          </button>
-                          <button
-                            type="button"
-                            onClick={exportPDF}
-                            className="text-sm text-green-700 hover:text-green-900 underline"
-                          >
-                            PDF İndir
-                          </button>
-                        </div>
-                      </div>
-                      <div className="space-y-4">
-                        <div className="bg-white rounded-lg p-4 border-l-4 border-red-400">
-                          <div className="flex justify-between items-center">
-                            <span className="text-gray-700 font-medium">Hakederek Tahliye Tarihi:</span>
-                            <span className="font-bold text-red-900 text-lg">{result.tamTahliyeTarihi || result.tahliyeDate}</span>
-                          </div>
-                          <span className="text-sm text-gray-500">({result.toplamCezaGun || result.fullTerm} gün - Ceza süresinin tamamı)</span>
-                        </div>
-                        
-                        <div className="bg-white rounded-lg p-4 border-l-4 border-blue-400">
-                          <div className="flex justify-between items-center">
-                            <span className="text-gray-700 font-medium">Koşullu Salıverilme Tarihi:</span>
-                            <span className="font-bold text-blue-900 text-lg">{result.kosulluSaliverme || result.kosulluDate}</span>
-                          </div>
-                          <span className="text-sm text-gray-500">({result.infazSuresi || result.kosullu} gün - {result.infazOrani || result.fraction}% oranında)</span>
-                        </div>
-                        
-                        <div className="bg-white rounded-lg p-4 border-l-4 border-green-400">
-                          <div className="flex justify-between items-center">
-                            <span className="text-gray-700 font-medium">Denetimli Serbestlik Tarihi:</span>
-                            <span className="font-bold text-green-900 text-lg">{result.denetimliSerbestlik || result.dsDate}</span>
-                          </div>
-                          <span className="text-sm text-gray-500">({result.cezaevindeGecen || result.denetimliS} gün - Fiilen cezaevinde)</span>
-                        </div>
-
-                        {/* Açık Cezaevi Tarihi */}
-                        {result.acikCezaeviTarihi && (
-                          <div className="bg-white rounded-lg p-4 border-l-4 border-yellow-400">
-                            <div className="flex justify-between items-center">
-                              <span className="text-gray-700 font-medium">Açık Cezaevi Geçiş:</span>
-                              <span className="font-bold text-yellow-900 text-lg">{result.acikCezaeviTarihi}</span>
-                            </div>
-                            <span className="text-sm text-gray-500">Açık cezaevine geçiş hakkı doğan tarih</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Detaylı Hesaplama Tablosu */}
-                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-                      <h3 className="text-lg font-semibold text-gray-800 mb-4">Detaylı Hesaplama Analizi</h3>
-                      <div className="overflow-x-auto">
-                        <table className="w-full text-sm">
-                          <thead>
-                            <tr className="border-b border-gray-300">
-                              <th className="text-left py-2 font-semibold text-gray-700">Hesaplama Adımı</th>
-                              <th className="text-right py-2 font-semibold text-gray-700">Gün</th>
-                              <th className="text-right py-2 font-semibold text-gray-700">Tarih</th>
-                            </tr>
-                          </thead>
-                          <tbody className="space-y-2">
-                            <tr className="border-b border-gray-200">
-                              <td className="py-2 text-gray-700">Toplam Ceza Süresi</td>
-                              <td className="py-2 text-right font-medium">{result.toplamCezaGun || 0}</td>
-                              <td className="py-2 text-right text-gray-600">-</td>
-                            </tr>
-                            <tr className="border-b border-gray-200">
-                              <td className="py-2 text-gray-700">Mahsup Edilen Günler</td>
-                              <td className="py-2 text-right font-medium text-red-600">-{result.mahsupGun || 0}</td>
-                              <td className="py-2 text-right text-gray-600">-</td>
-                            </tr>
-                            <tr className="border-b border-gray-200">
-                              <td className="py-2 text-gray-700">Net Çekilecek Ceza</td>
-                              <td className="py-2 text-right font-medium">{(result.toplamCezaGun || 0) - (result.mahsupGun || 0)}</td>
-                              <td className="py-2 text-right text-gray-600">-</td>
-                            </tr>
-                            <tr className="border-b border-gray-200 bg-blue-50">
-                              <td className="py-2 text-blue-700 font-medium">Koşullu Salıverilme ({result.infazOrani}%)</td>
-                              <td className="py-2 text-right font-bold text-blue-900">{result.infazSuresi || 0}</td>
-                              <td className="py-2 text-right font-bold text-blue-900">{result.kosulluSaliverme || result.kosulluDate}</td>
-                            </tr>
-                            <tr className="border-b border-gray-200 bg-green-50">
-                              <td className="py-2 text-green-700 font-medium">Denetimli Serbestlik Başlangıcı</td>
-                              <td className="py-2 text-right font-bold text-green-900">{result.cezaevindeGecen || 0}</td>
-                              <td className="py-2 text-right font-bold text-green-900">{result.denetimliSerbestlik || result.dsDate}</td>
-                            </tr>
-                            {result.acikCezaeviTarihi && (
-                              <tr className="border-b border-gray-200 bg-yellow-50">
-                                <td className="py-2 text-yellow-700 font-medium">Açık Cezaevi Geçişi</td>
-                                <td className="py-2 text-right font-bold text-yellow-900">{result.acikGecisGunu || 0}</td>
-                                <td className="py-2 text-right font-bold text-yellow-900">{result.acikCezaeviTarihi}</td>
-                              </tr>
-                            )}
-                            <tr className="border-b border-gray-200 bg-red-50">
-                              <td className="py-2 text-red-700 font-medium">Hakederek Tahliye</td>
-                              <td className="py-2 text-right font-bold text-red-900">{result.toplamCezaGun || 0}</td>
-                              <td className="py-2 text-right font-bold text-red-900">{result.tamTahliyeTarihi || result.tahliyeDate}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-
-                    {advanced && (
-                      <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-6">
-                        <h3 className="text-lg font-semibold text-indigo-800 mb-4">Gelişmiş Sonuçlar</h3>
-                        <div className="space-y-2 text-sm text-indigo-900">
-                          <div className="flex justify-between"><span>Toplam Ceza (gün):</span><span>{result.toplamGun ?? '-'}</span></div>
-                          <div className="flex justify-between"><span>Yatar (gün):</span><span>{result.yatar ?? '-'}</span></div>
-                          <div className="flex justify-between"><span>Denetimli (gün):</span><span>{result.denetimli ?? '-'}</span></div>
-                          <div className="flex justify-between"><span>Koşullu Tarih:</span><span>{result.kosulTarih ?? '-'}</span></div>
-                          <div className="flex justify-between"><span>Denetimli Başlangıç:</span><span>{result.dsBaslangic ?? '-'}</span></div>
-                          <div className="flex justify-between"><span>Toplam Tahliye Tarihi:</span><span>{result.toplamTahliyeTarih ?? '-'}</span></div>
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                      <div className="flex items-start space-x-2">
-                        <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
-                        <div>
-                          <h4 className="font-medium text-amber-800 mb-1">Önemli Uyarı</h4>
-                          <p className="text-sm text-amber-700">
-                            Bu hesaplama genel esaslara göre yapılmıştır. Suç türüne, mükerrirlik, 
-                            disiplin cezası, infaz hakimliği kararları gibi faktörlere göre değişebilir.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* AI ANALİZ PANELİ */}
-                    {aiEnabled && (
-                      <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 border border-blue-200 rounded-lg p-6">
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center space-x-3">
-                            <span className="text-3xl">🤖</span>
-                            <div>
-                              <h3 className="text-lg font-semibold text-blue-800">AI Hukuki Analiz</h3>
-                              <p className="text-sm text-blue-600">Google Gemini AI ile desteklenen profesyonel analiz</p>
-                            </div>
-                          </div>
-                          <button
-                            onClick={handleAiAnalysis}
-                            disabled={isAiLoading}
-                            className="flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 disabled:from-gray-400 disabled:to-gray-500 text-white px-4 py-2 rounded-lg font-medium transition-all transform hover:scale-105 disabled:transform-none"
-                          >
-                            {isAiLoading ? (
-                              <>
-                                <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
-                                <span>Analiz ediliyor...</span>
-                              </>
-                            ) : (
-                              <>
-                                <span>🧠</span>
-                                <span>AI Analizi Başlat</span>
-                              </>
-                            )}
-                          </button>
-                        </div>
-
-                        {/* AI ANALİZ SONUÇLARI */}
-                        {(aiAnalysis || aiRisks.length > 0 || aiScenarios.length > 0) && (
-                          <div className="space-y-6">
-                            
-                            {/* Hukuki Analiz */}
-                            {aiAnalysis && aiAnalysis.success && (
-                              <div className="bg-white rounded-lg p-5 border border-blue-200">
-                                <div className="flex items-center space-x-2 mb-3">
-                                  <span className="text-blue-600">⚖️</span>
-                                  <h4 className="font-semibold text-blue-800">Hukuki Değerlendirme</h4>
-                                </div>
-                                <div className="prose prose-sm max-w-none text-gray-700">
-                                  {aiAnalysis.analysis.split('\n').map((paragraph, idx) => (
-                                    <p key={idx} className="mb-2">{paragraph}</p>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-
-                            {/* Risk Değerlendirmesi */}
-                            {aiRisks.length > 0 && (
-                              <div className="bg-white rounded-lg p-5 border border-orange-200">
-                                <div className="flex items-center space-x-2 mb-3">
-                                  <span className="text-orange-600">⚠️</span>
-                                  <h4 className="font-semibold text-orange-800">Risk Değerlendirmesi</h4>
-                                </div>
-                                <div className="space-y-3">
-                                  {aiRisks.map((risk, idx) => (
-                                    <div key={idx} className={`p-3 rounded-lg border-l-4 ${
-                                      risk.level === 'YÜKSEK' ? 'bg-red-50 border-red-400' :
-                                      risk.level === 'ORTA' ? 'bg-yellow-50 border-yellow-400' :
-                                      'bg-green-50 border-green-400'
-                                    }`}>
-                                      <div className="flex items-center justify-between mb-1">
-                                        <span className="font-medium text-gray-800">{risk.category}</span>
-                                        <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                                          risk.level === 'YÜKSEK' ? 'bg-red-100 text-red-700' :
-                                          risk.level === 'ORTA' ? 'bg-yellow-100 text-yellow-700' :
-                                          'bg-green-100 text-green-700'
-                                        }`}>
-                                          {risk.level}
-                                        </span>
-                                      </div>
-                                      <p className="text-sm text-gray-600 mb-2">{risk.description}</p>
-                                      <p className="text-xs text-blue-600"><strong>Öneri:</strong> {risk.recommendation}</p>
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-
-                            {/* Alternatif Senaryolar */}
-                            {aiScenarios.length > 0 && (
-                              <div className="bg-white rounded-lg p-5 border border-indigo-200">
-                                <div className="flex items-center space-x-2 mb-3">
-                                  <span className="text-indigo-600">🔮</span>
-                                  <h4 className="font-semibold text-indigo-800">Alternatif Senaryolar</h4>
-                                </div>
-                                <div className="grid md:grid-cols-2 gap-4">
-                                  {aiScenarios.map((scenario, idx) => (
-                                    <div key={idx} className="bg-indigo-50 rounded-lg p-4 border border-indigo-200">
-                                      <h5 className="font-medium text-indigo-800 mb-2">{scenario.title}</h5>
-                                      <p className="text-sm text-indigo-700 mb-2">{scenario.description}</p>
-                                      <p className="text-sm text-indigo-600 mb-2"><strong>Etki:</strong> {scenario.impact}</p>
-                                      {scenario.newRatio && (
-                                        <div className="bg-white rounded px-2 py-1 text-xs font-medium text-indigo-800">
-                                          Yeni Oran: {scenario.newRatio}
-                                        </div>
-                                      )}
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        )}
-
-                        {!aiAnalysis && !isAiLoading && (
-                          <div className="text-center py-8 text-blue-600">
-                            <span className="text-4xl mb-2 block">🤔</span>
-                            <p>AI analizi başlatmak için yukarıdaki butona tıklayın</p>
-                          </div>
-                        )}
-                      </div>
-                    )}
+      {/* SSS */}
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold text-lawDark mb-2 flex items-center gap-2">
+            <ListChecks className="w-7 h-7 text-lawPrimary" /> Sıkça Sorulan Sorular
+          </h2>
+          <p className="text-gray-600 mb-6">İnfaz hukuku ve infaz yatar hesaplamaya ilişkin temel sorular ve mevzuata dayalı cevapları.</p>
+          <div className="space-y-2">
+            {SSS_LISTESI.map((item, i) => (
+              <div key={i} className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                <button onClick={() => setAcikSss(acikSss === i ? null : i)}
+                  className="w-full text-left px-5 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                  <span className="font-semibold text-lawDark pr-4">{item.soru}</span>
+                  <ChevronDown className={`w-5 h-5 text-gray-500 flex-shrink-0 transition-transform ${acikSss === i ? 'rotate-180' : ''}`} />
+                </button>
+                {acikSss === i && (
+                  <div className="px-5 pb-4 text-gray-700 leading-relaxed border-t border-gray-100 pt-3">
+                    {item.cevap}
                   </div>
                 )}
               </div>
-            </div>
-            {/* Chart */}
-            <div className="max-w-4xl mx-auto mt-8">
-              <div className="bg-white rounded-2xl shadow p-6">
-                <h3 className="text-lg font-semibold mb-4">Görsel Dağılım</h3>
-                <canvas ref={chartRef} height="120" />
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ Bölümü */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Sıkça Sorulan Sorular</h2>
-            
-            <div className="space-y-6">
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Koşullu salıverme nedir?</h3>
-                <p className="text-gray-700">
-                  Koşullu salıverme, hükümlünün cezasının belirli bir kısmını çektikten sonra, 
-                  iyi halini göstermesi halinde geri kalan cezasını cezaevi dışında geçirmesine 
-                  imkan veren bir infaz kurumudur.
-                </p>
-              </div>
+      {/* Sorumluluk Reddi */}
+      <HesaplamaDisclaimer
+        aracAdi="infaz yatar hesaplama aracı"
+        mevzuat="5275 sayılı Ceza ve Güvenlik Tedbirlerinin İnfazına Dair Kanun"
+        ekNotlar={[
+          'Resmi süre belgesi yalnızca müddetnamedir. Gerçek koşullu salıverme ve tahliye tarihleri ilgili Cumhuriyet Başsavcılığı tarafından düzenlenir, infaz hakimliğince denetlenir.',
+          'Karma cezalarda her bir suç için ayrı ayrı oran uygulanması gerektiğinden bu araç tek bir kategori seçtirir; uygulamada içtima sonrası her ceza ayrı hesaplanır.',
+        ]}
+      />
 
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Denetimli serbestlik nedir?</h3>
-                <p className="text-gray-700">
-                  Denetimli serbestlik, hükümlünün toplumsal yaşama uyumunu sağlamak amacıyla, 
-                  cezasının son kısmını belirli denetim ve yükümlülükler altında geçirmesini sağlar.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Mahsup nedir?</h3>
-                <p className="text-gray-700">
-                  Mahsup, tutukluluk süresi, gözaltı süresi gibi özgürlüğü kısıtlayan tedbirlerin 
-                  ceza süresinden düşülmesi işlemidir. Bu süreler infaz süresini kısaltır.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">30 Mart 2020 tarihi neden önemli?</h3>
-                <p className="text-gray-700">
-                  Bu tarihte yapılan yasal düzenleme ile denetimli serbestlik süreleri değişmiştir. 
-                  Bu tarih öncesi suçlarda 3 yıl, sonrasında ise 1 yıl denetimli serbestlik uygulanır.
-                </p>
-              </div>
-            </div>
+      {/* Diğer Araçlar */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 className="text-2xl font-serif font-bold text-lawDark mb-6">İlgili Hesaplama Araçları</h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            <Link to="/hesaplama-araclari/dava-suresi" className="block p-5 border border-gray-200 rounded-lg hover:border-lawPrimary hover:shadow-md transition-all">
+              <Calendar className="w-8 h-8 text-lawPrimary mb-2" />
+              <h3 className="font-bold text-lawDark mb-1">Dava Süresi & Zamanaşımı</h3>
+              <p className="text-sm text-gray-600">Dava açma süreleri ve zamanaşımı hesaplama</p>
+            </Link>
+            <Link to="/hesaplama-araclari" className="block p-5 border border-gray-200 rounded-lg hover:border-lawPrimary hover:shadow-md transition-all">
+              <Calculator className="w-8 h-8 text-lawPrimary mb-2" />
+              <h3 className="font-bold text-lawDark mb-1">Tüm Hesaplama Araçları</h3>
+              <p className="text-sm text-gray-600">Hukuki hesaplama araçlarının tamamı</p>
+            </Link>
+            <Link to="/makaleler" className="block p-5 border border-gray-200 rounded-lg hover:border-lawPrimary hover:shadow-md transition-all">
+              <FileText className="w-8 h-8 text-lawPrimary mb-2" />
+              <h3 className="font-bold text-lawDark mb-1">Makaleler</h3>
+              <p className="text-sm text-gray-600">Hukuk alanında bilgilendirici yazılar</p>
+            </Link>
           </div>
-        </div>
-      </section>
-
-      {/* İletişim CTA - Güçlendirilmiş */}
-      <section className="py-16 bg-gradient-to-br from-blue-600 via-blue-700 to-teal-600 text-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            {/* Ana CTA */}
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Ceza Davası İçin Profesyonel Hukuki Destek
-              </h2>
-              <p className="text-xl mb-2 leading-relaxed">
-                İnfaz süreci karmaşık ve stresli olabilir. <strong>20+ yıllık deneyimli</strong> ceza avukatlarımızdan 
-                hukuki danışmanlık alın.
-              </p>
-              <p className="text-lg opacity-90">
-                📞 7/24 İletişim | 🏛️ Tüm Mahkemelerde Temsil | ⚖️ Başarı Odaklı Çözümler
-              </p>
-            </div>
-
-            {/* Hizmet Kartları */}
-            <div className="grid md:grid-cols-3 gap-6 mb-10">
-              <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-6 text-center border border-white border-opacity-20">
-                <div className="text-4xl mb-3">📋</div>
-                <h3 className="font-bold text-lg mb-2">İnfaz Danışmanlığı</h3>
-                <p className="text-sm opacity-90">
-                  Koşullu salıverilme, denetimli serbestlik ve açık cezaevi başvuruları
-                </p>
-              </div>
-              
-              <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-6 text-center border border-white border-opacity-20">
-                <div className="text-4xl mb-3">⚖️</div>
-                <h3 className="font-bold text-lg mb-2">Ceza Davası Savunma</h3>
-                <p className="text-sm opacity-90">
-                  Soruşturma ve kovuşturma aşamalarında güçlü savunma stratejileri
-                </p>
-              </div>
-              
-              <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-lg p-6 text-center border border-white border-opacity-20">
-                <div className="text-4xl mb-3">📞</div>
-                <h3 className="font-bold text-lg mb-2">7/24 Acil Destek</h3>
-                <p className="text-sm opacity-90">
-                  Gözaltı, tutuklama ve acil durumlarda anında müdahale
-                </p>
-              </div>
-            </div>
-
-            {/* CTA Butonları */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                to="/iletisim"
-                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 inline-flex items-center justify-center shadow-lg"
-              >
-                <Phone className="w-6 h-6 mr-2" />
-                Hemen Arayın
-              </Link>
-              <Link 
-                to="/ekibimiz"
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-blue-600 transition-all inline-flex items-center justify-center"
-              >
-                👨‍⚖️ Avukat Ekibimiz
-              </Link>
-              <Link 
-                to="/hesaplama-araclari"
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-blue-600 transition-all inline-flex items-center justify-center"
-              >
-                <ArrowLeft className="w-5 h-5 mr-2" />
-                Diğer Araçlar
-              </Link>
-            </div>
-
-            {/* Güven İşaretleri */}
-            <div className="mt-10 pt-8 border-t border-white border-opacity-20 text-center">
-              <div className="flex flex-wrap justify-center gap-8 text-sm opacity-90">
-                <div className="flex items-center">
-                  <CheckCircle className="w-5 h-5 mr-2" />
-                  <span>20+ Yıl Deneyim</span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="w-5 h-5 mr-2" />
-                  <span>1000+ Başarılı Dava</span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="w-5 h-5 mr-2" />
-                  <span>%98 Müvekkil Memnuniyeti</span>
-                </div>
-              </div>
-            </div>
+          <div className="mt-8 text-center">
+            <Link to="/hesaplama-araclari" className="inline-flex items-center gap-2 text-lawPrimary hover:text-lawSecondary font-medium">
+              <ArrowLeft className="w-4 h-4" /> Hesaplama Araçlarına Dön
+            </Link>
           </div>
-        </div>
-      </section>
-
-      {/* Footer Info */}
-      <section className="py-8 bg-gray-50">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-600 text-sm">
-            Bu hesaplama aracı CGTİK m.107 ve m.105/A hükümlerine göre hazırlanmıştır. 
-            Güncel mevzuat değişiklikleri için avukatınıza danışın.
-          </p>
         </div>
       </section>
     </>
+  )
+}
+
+// ============ FORM BİLEŞENLERİ ============
+
+const SureliForm = ({ form, setForm, hatalar }) => {
+  const upd = (k, v) => setForm(p => ({ ...p, [k]: v }))
+  return (
+    <div className="space-y-5">
+      {/* Ceza miktarı */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Hapis Cezası Miktarı</label>
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            { k: 'cezaYil', l: 'Yıl' },
+            { k: 'cezaAy', l: 'Ay' },
+            { k: 'cezaGun', l: 'Gün' },
+          ].map(({ k, l }) => (
+            <div key={k}>
+              <input type="number" min="0" value={form[k]} onChange={e => upd(k, e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawPrimary focus:border-transparent" />
+              <span className="text-xs text-gray-500 mt-1 block">{l}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Suç türü */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Suç Türü (Koşullu Salıverme Oranını Belirler)</label>
+        <select value={form.sucKategoriKodu} onChange={e => upd('sucKategoriKodu', e.target.value)}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawPrimary">
+          {SUC_KATEGORILERI.map(k => (
+            <option key={k.kod} value={k.kod}>{k.label} — {k.oran === 1/2 ? '1/2' : k.oran === 2/3 ? '2/3' : '3/4'}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-5">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Suç Tarihi *</label>
+          <input type="date" value={form.sucTarihi} onChange={e => upd('sucTarihi', e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawPrimary" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Cezaevine Giriş Tarihi (opsiyonel)</label>
+          <input type="date" value={form.cezaevineGirisTarihi} onChange={e => upd('cezaevineGirisTarihi', e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawPrimary" />
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-5">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Doğum Tarihi (çocuk mahsubu için)</label>
+          <input type="date" value={form.dogumTarihi} onChange={e => upd('dogumTarihi', e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawPrimary" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Tutukluluk + Gözaltı (gün)</label>
+          <input type="number" min="0" value={form.tutukluGun} onChange={e => upd('tutukluGun', e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawPrimary" />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Özel Durum (denetimli serbestlik için)</label>
+        <select value={form.ozelDurum} onChange={e => upd('ozelDurum', e.target.value)}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawPrimary">
+          <option value="normal">Normal hükümlü</option>
+          <option value="kadin_0_6_cocuk">0-6 yaş çocuğu olan kadın hükümlü (KS\'ye 2 yıl kala denetim)</option>
+          <option value="agir_hastalik">Ağır hastalık / engellilik (KS\'ye 3 yıl kala denetim)</option>
+        </select>
+      </div>
+
+      <div className="space-y-2">
+        <label className="flex items-start gap-2 cursor-pointer">
+          <input type="checkbox" checked={form.taksirliMi} onChange={e => upd('taksirliMi', e.target.checked)}
+            className="mt-1 rounded text-lawPrimary focus:ring-lawPrimary" />
+          <span className="text-sm text-gray-700"><strong>Taksirli suç</strong> (5 yıla kadar direkt açık infaz)</span>
+        </label>
+        <label className="flex items-start gap-2 cursor-pointer">
+          <input type="checkbox" checked={form.gecici10Uygula} onChange={e => upd('gecici10Uygula', e.target.checked)}
+            className="mt-1 rounded text-lawPrimary focus:ring-lawPrimary" />
+          <span className="text-sm text-gray-700"><strong>7456 SK Geçici 10/6 avantajı</strong> — 31/07/2023\'te kapalıda olan istisna olmayan hükümlüler için 3 yıl erken açığa + 3 yıl erken denetim</span>
+        </label>
+        <label className="flex items-start gap-2 cursor-pointer">
+          <input type="checkbox" checked={form.lehe647Uygula} onChange={e => upd('lehe647Uygula', e.target.checked)}
+            className="mt-1 rounded text-lawPrimary focus:ring-lawPrimary" />
+          <span className="text-sm text-gray-700"><strong>647 SK lehe uygulaması</strong> — 01/06/2005 öncesi suçlar için (TCK 7/3)</span>
+        </label>
+      </div>
+
+      {hatalar.length > 0 && (
+        <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded">
+          <ul className="text-sm text-red-800 space-y-1 list-disc pl-5">
+            {hatalar.map((h, i) => <li key={i}>{h}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  )
+}
+
+const MuebbetForm = ({ form, setForm }) => {
+  const upd = (k, v) => setForm(p => ({ ...p, [k]: v }))
+  return (
+    <div className="space-y-5">
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Müebbet Türü</label>
+        <div className="grid grid-cols-2 gap-3">
+          <label className={`flex items-center gap-2 border-2 rounded-lg p-3 cursor-pointer transition-all ${form.muebbetTuru === 'muebbet' ? 'border-lawPrimary bg-lawPrimary/5' : 'border-gray-200'}`}>
+            <input type="radio" name="muebbetTuru" value="muebbet" checked={form.muebbetTuru === 'muebbet'} onChange={e => upd('muebbetTuru', e.target.value)} />
+            <span className="font-medium">Müebbet hapis</span>
+          </label>
+          <label className={`flex items-center gap-2 border-2 rounded-lg p-3 cursor-pointer transition-all ${form.muebbetTuru === 'agirlastirilmis' ? 'border-lawPrimary bg-lawPrimary/5' : 'border-gray-200'}`}>
+            <input type="radio" name="muebbetTuru" value="agirlastirilmis" checked={form.muebbetTuru === 'agirlastirilmis'} onChange={e => upd('muebbetTuru', e.target.value)} />
+            <span className="font-medium">Ağırlaştırılmış müebbet</span>
+          </label>
+        </div>
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Suç Türü</label>
+        <select value={form.sucKategoriKodu} onChange={e => upd('sucKategoriKodu', e.target.value)}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawPrimary">
+          <option value="genel">Genel suç (107/2 kapsamı)</option>
+          <option value="orgut">Örgüt suçu (107/4)</option>
+          <option value="teror">Terör suçu (3713 SK 17)</option>
+        </select>
+      </div>
+      <div className="grid md:grid-cols-2 gap-5">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Cezaevine Giriş Tarihi (opsiyonel)</label>
+          <input type="date" value={form.cezaevineGirisTarihi} onChange={e => upd('cezaevineGirisTarihi', e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawPrimary" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Tutukluluk + Gözaltı (gün)</label>
+          <input type="number" min="0" value={form.tutukluGun} onChange={e => upd('tutukluGun', e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawPrimary" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ============ SONUÇ BİLEŞENLERİ ============
+
+const SureliSonuc = ({ data }) => {
+  if (data.hata) {
+    return <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded">{data.hata}</div>
+  }
+  return (
+    <div className="space-y-4">
+      {/* Ana sonuç kartları */}
+      <div className="bg-white rounded-2xl shadow-lg p-6">
+        <h3 className="text-xl font-bold text-lawDark mb-4 flex items-center gap-2">
+          <CheckCircle className="w-6 h-6 text-green-600" /> Hesaplama Sonucu
+        </h3>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+          <SonucKart renk="red" baslik="Kapalıda" deger={data.ozet.kapaliFormat} altMetin={`${data.kurum.kapaliGun} gün`} />
+          <SonucKart renk="amber" baslik="Açıkta" deger={data.ozet.acikFormat} altMetin={`${data.kurum.acikGun} gün`} />
+          <SonucKart renk="emerald" baslik="Denetimli Serbestlik" deger={data.ozet.denetimFormat} altMetin={`${data.denetim.gun} gün`} />
+          <SonucKart renk="blue" baslik="Toplam Yatış" deger={data.ozet.ksFormat} altMetin={`${data.ks.ksGunNet} gün`} />
+        </div>
+        {(data.ks.ksTarih || data.hakEderekTahliyeTarih) && (
+          <div className="bg-gray-50 rounded-lg p-4 grid md:grid-cols-3 gap-4 text-sm">
+            {data.kurum.acikGirisTarih && (
+              <div><div className="text-gray-500">Açığa Geçiş</div><div className="font-bold text-lawDark">{data.kurum.acikGirisTarih}</div></div>
+            )}
+            {data.denetim.baslangicTarih && (
+              <div><div className="text-gray-500">Denetim Başlangıcı</div><div className="font-bold text-lawDark">{data.denetim.baslangicTarih}</div></div>
+            )}
+            {data.ks.ksTarih && (
+              <div><div className="text-gray-500">Koşullu Salıverme</div><div className="font-bold text-lawPrimary">{data.ks.ksTarih}</div></div>
+            )}
+            {data.hakEderekTahliyeTarih && (
+              <div className="md:col-span-3 pt-3 border-t border-gray-200">
+                <div className="text-gray-500">Hak Ederek Tahliye Tarihi</div>
+                <div className="font-bold text-green-700 text-lg">{data.hakEderekTahliyeTarih}</div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Adım adım açıklama */}
+      <div className="bg-white rounded-2xl shadow-lg p-6">
+        <h3 className="text-lg font-bold text-lawDark mb-4 flex items-center gap-2">
+          <Info className="w-5 h-5 text-lawPrimary" /> Adım Adım Hesaplama
+        </h3>
+        <div className="space-y-3">
+          {data.adimlar.map((a, i) => (
+            <div key={i} className="border-l-4 border-lawPrimary pl-4 py-2">
+              <div className="font-semibold text-lawDark">{a.baslik}</div>
+              <div className="text-sm text-gray-700 mt-1">{a.metin}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Uyarılar */}
+      {data.uyarilar.length > 0 && (
+        <div className="bg-amber-50 border border-amber-300 rounded-2xl p-5">
+          <h3 className="font-bold text-amber-900 mb-3 flex items-center gap-2">
+            <AlertTriangle className="w-5 h-5" /> Dikkat Edilecek Hususlar
+          </h3>
+          <ul className="space-y-2 text-sm text-amber-900 list-disc pl-5">
+            {data.uyarilar.map((u, i) => <li key={i}>{u}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  )
+}
+
+const MuebbetSonuc = ({ data }) => (
+  <div className="bg-white rounded-2xl shadow-lg p-6">
+    <h3 className="text-xl font-bold text-lawDark mb-4 flex items-center gap-2">
+      <CheckCircle className="w-6 h-6 text-green-600" /> Müebbet Hesaplama Sonucu
+    </h3>
+    <div className="grid md:grid-cols-2 gap-4 mb-4">
+      <div className="bg-lawPrimary text-white rounded-xl p-5">
+        <div className="text-sm opacity-90 mb-1">Koşullu Salıverme Süresi</div>
+        <div className="text-3xl font-bold">{data.ksYil} yıl</div>
+        <div className="text-sm opacity-90 mt-1">{data.ksGun.toLocaleString('tr-TR')} gün</div>
+      </div>
+      {data.ksTarih && (
+        <div className="bg-gray-100 rounded-xl p-5">
+          <div className="text-sm text-gray-600 mb-1">Koşullu Salıverme Tarihi</div>
+          <div className="text-2xl font-bold text-lawDark">{data.ksTarih}</div>
+        </div>
+      )}
+    </div>
+    <p className="text-gray-700 mb-3">{data.aciklama}</p>
+    {data.uyarilar.length > 0 && (
+      <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded mt-4">
+        <ul className="text-sm text-amber-900 list-disc pl-5 space-y-1">
+          {data.uyarilar.map((u, i) => <li key={i}>{u}</li>)}
+        </ul>
+      </div>
+    )}
+  </div>
+)
+
+const SonucKart = ({ renk, baslik, deger, altMetin }) => {
+  const renkler = {
+    red:     'bg-red-50 border-red-200 text-red-900',
+    amber:   'bg-amber-50 border-amber-200 text-amber-900',
+    emerald: 'bg-emerald-50 border-emerald-200 text-emerald-900',
+    blue:    'bg-blue-50 border-blue-200 text-blue-900',
+  }[renk]
+  return (
+    <div className={`${renkler} border-2 rounded-xl p-4`}>
+      <div className="text-xs font-medium opacity-75 mb-1">{baslik}</div>
+      <div className="text-lg font-bold leading-tight">{deger}</div>
+      <div className="text-xs opacity-75 mt-1">{altMetin}</div>
+    </div>
   )
 }
 
