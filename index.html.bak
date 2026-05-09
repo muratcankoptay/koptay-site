@@ -48,6 +48,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Preload Hero Image (WebP fallback'li) -->
+    <link rel="preload" as="image" href="/images/hero-bg-1.webp" type="image/webp" fetchpriority="high">
     <link rel="preload" as="image" href="/logo.svg" fetchpriority="high">
 
     <!-- Optimized font loading -->

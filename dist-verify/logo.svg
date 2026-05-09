@@ -1,0 +1,8 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Option 1: Abstract Scales Icon -->
+  <path d="M50 35L20 70H80L50 35Z" fill="#C5A059" opacity="0.8"/>
+  <rect x="48" y="20" width="4" height="60" fill="#1e293b"/>
+  <rect x="20" y="20" width="60" height="4" fill="#1e293b"/>
+  <path d="M20 20L20 35" stroke="#1e293b" stroke-width="2"/>
+  <path d="M80 20L80 35" stroke="#1e293b" stroke-width="2"/>
+</svg>
