@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { trackGA, GA_EVENTS } from '../utils/gaEvents';
 
 /**
  * Sabit iletişim menüsü — Madde 7/c-7/e gereği "çevrimiçi/mesai dışı" canlı durum,
@@ -55,7 +56,10 @@ const FloatingContact = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 transition-all duration-200"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                trackGA(GA_EVENTS.WHATSAPP_CLICK, { source: 'floating_menu' });
+                setIsOpen(false);
+              }}
             >
               <div className="w-12 h-12 bg-[#25D366] rounded-xl flex items-center justify-center">
                 <svg viewBox="0 0 24 24" className="w-6 h-6 text-white" fill="currentColor">
@@ -71,7 +75,10 @@ const FloatingContact = () => {
             <a
               href="tel:+905307111864"
               className="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 transition-all duration-200"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                trackGA(GA_EVENTS.PHONE_CLICK, { source: 'floating_menu' });
+                setIsOpen(false);
+              }}
             >
               <div className="w-12 h-12 bg-lawSecondary rounded-xl flex items-center justify-center">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -88,7 +95,10 @@ const FloatingContact = () => {
             <a
               href={`mailto:${emailAddress}`}
               className="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 transition-all duration-200"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                trackGA(GA_EVENTS.EMAIL_CLICK, { source: 'floating_menu' });
+                setIsOpen(false);
+              }}
             >
               <div className="w-12 h-12 bg-gray-700 rounded-xl flex items-center justify-center">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

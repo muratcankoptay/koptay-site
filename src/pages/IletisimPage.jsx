@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import SEO from '../components/SEO'
 import { api } from '../utils/api'
+import { trackGA, GA_EVENTS } from '../utils/gaEvents'
 
 const IletisimPage = () => {
   const [contactForm, setContactForm] = useState({
@@ -39,6 +40,7 @@ const IletisimPage = () => {
     try {
       const response = await api.submitContact(contactForm)
       if (response.success) {
+        trackGA(GA_EVENTS.FORM_SUBMIT, { form: 'iletisim', subject: contactForm.subject || 'genel' })
         setSubmitMessage(response.message)
         setSubmitStatus('success')
         setContactForm({
@@ -145,12 +147,14 @@ const IletisimPage = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-lawDark font-medium mb-2">
+                    <label htmlFor="contact-name" className="block text-lawDark font-medium mb-2">
                       Ad Soyad *
                     </label>
                     <input
+                      id="contact-name"
                       type="text"
                       name="name"
+                      autoComplete="name"
                       value={contactForm.name}
                       onChange={handleInputChange}
                       required
@@ -160,12 +164,14 @@ const IletisimPage = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-lawDark font-medium mb-2">
+                    <label htmlFor="contact-email" className="block text-lawDark font-medium mb-2">
                       E-posta *
                     </label>
                     <input
+                      id="contact-email"
                       type="email"
                       name="email"
+                      autoComplete="email"
                       value={contactForm.email}
                       onChange={handleInputChange}
                       required
@@ -177,12 +183,14 @@ const IletisimPage = () => {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-lawDark font-medium mb-2">
+                    <label htmlFor="contact-phone" className="block text-lawDark font-medium mb-2">
                       Telefon
                     </label>
                     <input
+                      id="contact-phone"
                       type="tel"
                       name="phone"
+                      autoComplete="tel"
                       value={contactForm.phone}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawPrimary focus:border-transparent"
@@ -191,10 +199,11 @@ const IletisimPage = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-lawDark font-medium mb-2">
+                    <label htmlFor="contact-subject" className="block text-lawDark font-medium mb-2">
                       Konu
                     </label>
                     <select
+                      id="contact-subject"
                       name="subject"
                       value={contactForm.subject}
                       onChange={handleInputChange}
@@ -212,10 +221,11 @@ const IletisimPage = () => {
                 </div>
 
                 <div>
-                  <label className="block text-lawDark font-medium mb-2">
+                  <label htmlFor="contact-message" className="block text-lawDark font-medium mb-2">
                     Mesajınız *
                   </label>
                   <textarea
+                    id="contact-message"
                     name="message"
                     value={contactForm.message}
                     onChange={handleInputChange}

@@ -158,6 +158,63 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Kamulastirma Haritasi - Essiz Farklilastirici */}
+      <section className="py-20 bg-gradient-to-br from-lawPrimary via-lawDark to-lawPrimary text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true">
+          <svg className="w-full h-full" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,200 Q200,100 400,200 T800,200" stroke="white" strokeWidth="1" fill="none" />
+            <path d="M0,250 Q200,150 400,250 T800,250" stroke="white" strokeWidth="1" fill="none" />
+            <circle cx="400" cy="200" r="8" fill="white" />
+            <circle cx="200" cy="180" r="4" fill="white" />
+            <circle cx="600" cy="220" r="4" fill="white" />
+          </svg>
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <span className="inline-block px-3 py-1 rounded-full bg-lawSecondary/30 text-lawSecondary text-xs font-semibold tracking-wider uppercase mb-4">
+                Turkiye'de Tek
+              </span>
+              <h2 className="text-4xl md:text-5xl font-light mb-6 font-serif leading-tight">
+                Ankara Kamulastirma <span className="text-lawSecondary italic">Haritasi</span>
+              </h2>
+              <p className="text-lg md:text-xl text-white/85 leading-relaxed mb-6">
+                Ankara ve cevresindeki guncel kamulastirma davalarini, idari surecleri ve emsal Yargitay kararlarini harita uzerinden takip edebileceginiz interaktif bir arac. Mulkunuz risk altinda mi, hemen gorun.
+              </p>
+              <ul className="space-y-2 mb-8">
+                <li className="flex items-start gap-2 text-white/85">
+                  <span className="mt-1 w-1.5 h-1.5 rounded-full bg-lawSecondary shrink-0" aria-hidden="true"></span>
+                  <span>Bolge bazli dava emsalleri ve surec takibi</span>
+                </li>
+                <li className="flex items-start gap-2 text-white/85">
+                  <span className="mt-1 w-1.5 h-1.5 rounded-full bg-lawSecondary shrink-0" aria-hidden="true"></span>
+                  <span>Idari ve yargisal asamalar icin pratik rehber</span>
+                </li>
+                <li className="flex items-start gap-2 text-white/85">
+                  <span className="mt-1 w-1.5 h-1.5 rounded-full bg-lawSecondary shrink-0" aria-hidden="true"></span>
+                  <span>Bedel artirim ve deger tespiti emsalleri</span>
+                </li>
+              </ul>
+              <Link
+                to="/kamulastirma-haritasi"
+                className="inline-flex items-center gap-2 bg-lawSecondary hover:bg-white hover:text-lawPrimary text-white px-7 py-3.5 rounded-lg font-semibold text-base transition-colors"
+              >
+                <MapPin className="w-5 h-5" aria-hidden="true" />
+                Haritayi Incele
+                <ArrowRight className="w-5 h-5" aria-hidden="true" />
+              </Link>
+            </div>
+            <div className="hidden lg:flex justify-center">
+              <div className="w-72 h-72 rounded-full bg-white/5 border border-white/15 flex items-center justify-center backdrop-blur-sm">
+                <div className="w-56 h-56 rounded-full bg-lawSecondary/20 border border-lawSecondary/40 flex items-center justify-center">
+                  <MapPin className="w-24 h-24 text-lawSecondary" strokeWidth={1.2} aria-hidden="true" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Articles Section */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">

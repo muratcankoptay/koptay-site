@@ -167,14 +167,14 @@ body {
   text-align: right;
 }
 
-/* Blockquote styling */
+/* Blockquote styling — marka teal'i ile */
 .prose blockquote {
-  border-left: 4px solid #3b82f6;
+  border-left: 4px solid #548c8d;
   padding-left: 1.5rem;
   margin: 1.5rem 0;
   font-style: italic;
   color: #4b5563;
-  background: #f0f9ff;
+  background: #f1f7f7;
   padding: 1rem 1.5rem;
   border-radius: 0 8px 8px 0;
 }
@@ -271,9 +271,9 @@ body {
   padding: 0;
 }
 
-/* Links */
+/* Links — marka teal tonlari */
 .prose a {
-  color: #2563eb;
+  color: #467276;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
@@ -281,7 +281,7 @@ body {
 }
 
 .prose a:hover {
-  color: #1d4ed8;
+  color: #2D3748;
   text-decoration-thickness: 2px;
 }
 
@@ -291,7 +291,6 @@ body {
   border-top: 2px solid #e5e7eb;
   margin: 3rem 0;
 }
-
 /* Emphasis styling */
 .prose em {
   font-style: italic;

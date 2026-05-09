@@ -103,19 +103,23 @@ const Nav = () => {
           </Link>
 
           <button
+            type="button"
             onClick={toggleMenu}
+            aria-label={isOpen ? 'Menuyu kapat' : 'Menuyu ac'}
+            aria-expanded={isOpen}
+            aria-controls="mobile-nav"
             className={`lg:hidden p-2 border-2 transition-colors duration-300 ${
               shouldUseDarkMode 
                 ? "border-lawDark text-lawDark hover:bg-lawDark hover:text-white" 
                 : "border-white text-white hover:bg-white hover:text-lawPrimary"
             }`}
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
           </button>
         </div>
 
         {isOpen && (
-          <div className="lg:hidden mt-4">
+          <div id="mobile-nav" className="lg:hidden mt-4">
             <div className="bg-lawDark/95 backdrop-blur-sm rounded-lg p-6">
               {navLinks.map((link) => (
                 <Link

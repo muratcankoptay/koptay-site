@@ -3,6 +3,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import FloatingContact from './components/FloatingContact'
+import MobileStickyCallBar from './components/MobileStickyCallBar'
 import CookieConsent from './components/CookieConsent'
 
 // Critical pages - load immediately
@@ -166,6 +167,7 @@ function App() {
       </main>
       <Footer />
       <FloatingContact />
+      <MobileStickyCallBar />
       <CookieConsent />
     </div>
   )

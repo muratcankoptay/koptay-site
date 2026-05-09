@@ -17,7 +17,7 @@ const Hero = () => {
     <>
       {/* Hero Section with Background Image */}
       <section
-        className="relative min-h-screen flex items-center bg-cover bg-center bg-no-repeat"
+        className="relative min-h-screen min-h-[100svh] flex items-center bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `linear-gradient(rgba(45, 55, 72, 0.55), rgba(53, 52, 65, 0.78)),
                            image-set(url('/images/hero-bg-1.avif') type('image/avif'), url('/images/hero-bg-1.webp') type('image/webp'), url('/images/hero-bg-1.jpg') type('image/jpeg')),
@@ -40,6 +40,8 @@ const Hero = () => {
               <div className="mb-8 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
                 <a
                   href="tel:+905307111864"
+                  onClick={() => trackGA(GA_EVENTS.PHONE_CLICK, { source: 'hero' })}
+                  aria-label="Telefon ile ara: 0530 711 18 64"
                   className="flex items-center gap-3 text-white hover:text-lawSecondary transition-colors group"
                 >
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-lawSecondary transition-colors">
