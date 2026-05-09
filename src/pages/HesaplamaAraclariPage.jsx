@@ -143,24 +143,24 @@ const HesaplamaAraclariPage = () => {
   // Sayfa altı SSS (FAQPage schema kaynağı)
   const faqs = [
     {
-      q: 'Hesaplama araçlarınız ücretsiz mi?',
-      a: 'Evet. Sitedeki dokuz hesaplama aracının tamamı ücretsizdir; üyelik veya kayıt gerekmez. Sonuçları PDF olarak indirebilir ve hukuki süreçte taslak olarak kullanabilirsiniz.'
+      q: 'Hesaplama araçlarını kullanmak için kayıt gerekiyor mu?',
+      a: 'Hayır, üyelik veya kayıt gerekmez. Bu araçlar yalnızca bilgilendirme amaçlıdır.'
     },
     {
-      q: 'Hesaplama sonuçları mahkemeye sunulabilir mi?',
-      a: 'Hesaplamalarımız bilirkişi raporu formatına yakın yapıdadır ve süreç başlangıcı için yön gösterici niteliktedir. Mahkemeye sunulacak nihai rapor için her zaman atanan bilirkişinin değerlendirmesi esastır; biz sürecin başında size somut bir aralık vermeyi hedefliyoruz.'
+      q: 'Hesaplama sonuçları somut hukuki tavsiye yerine geçer mi?',
+      a: 'Geçmez. Sitedeki hesaplamalar genel bir fikir vermek üzere hazırlanmış bilgilendirici araçlardır; her dosyanın kendine özgü koşulları olduğu için kesin sonuç ancak dosyanın incelenmesi ve mahkeme süreciyle ortaya çıkar. Olayınıza özel değerlendirme için bir avukatla görüşmeniz önerilir.'
     },
     {
-      q: 'Hesaplamaları kim hazırladı?',
-      a: 'Tüm hesaplama araçları, Ankara Barosu tescilli avukat Av. Murat Can Koptay yönetiminde, ilgili kanun maddeleri (CGTİK, İş Kanunu, KTK, TBK, AAÜT vb.) ve Yargıtay yerleşik içtihatları esas alınarak hazırlanmıştır. 2026 mevzuat değişiklikleri ve TRH-2010 yaşam tablosu güncel olarak entegre edilmiştir.'
+      q: 'Hesaplamalar hangi mevzuata göre yapılıyor?',
+      a: 'Araçlar; ilgili kanun maddeleri (CGTİK, İş Kanunu, KTK, TBK, AAÜT vb.) ve genel kabul görmüş aktüerya tabloları esas alınarak hazırlanmıştır. Mevzuat değiştikçe içerik güncellenmeye çalışılır; yine de her başvurudan önce güncel mevzuatın kontrol edilmesi gerekir.'
     },
     {
       q: 'Verilerim güvende mi?',
-      a: 'Hesaplamalar tamamen tarayıcınızda çalışır; girdileriniz sunucuya gönderilmez. PDF rapor indirdiğinizde sadece e-posta adresiniz alınır (bültenimiz için, KVKK uyumlu açık rıza ile). E-postanızı istemiyorsanız PDF olmadan da hesaplama sonucunu ekrana görebilirsiniz.'
+      a: 'Hesaplamalar tamamen tarayıcınızda çalışır; girdileriniz sunucuya gönderilmez. PDF rapor indirdiğinizde yalnızca opsiyonel olarak e-posta adresiniz istenir; bu adımı atlayabilirsiniz.'
     },
     {
-      q: 'Hangi hesaplama aracı bana uygun?',
-      a: 'İşçi-işveren ilişkisi konularında İşçilik Alacakları, Tazminat veya Meslek Hastalığı sayfalarını; trafik kazası sonrası talepleriniz için Trafik Kazası ve Araç Değer Kaybı sayfalarını; ceza yargılaması konularında İnfaz Yatar sayfasını kullanabilirsiniz. Emin değilseniz iletişim bölümünden bize yazın, sizi doğru araca yönlendirelim.'
+      q: 'Hangi konuda hangi araca bakabilirim?',
+      a: 'İşçi-işveren ilişkisi konularında İşçilik Alacakları, Tazminat veya Meslek Hastalığı sayfalarına; trafik kazası ile ilgili konularda Trafik Kazası ve Araç Değer Kaybı sayfalarına; ceza infazı ile ilgili konularda İnfaz Yatar sayfasına bakabilirsiniz. Bu araçlar yalnızca bilgilendirme amaçlıdır.'
     }
   ]
   const faqSchema = {
@@ -176,9 +176,9 @@ const HesaplamaAraclariPage = () => {
   return (
     <>
       <SEO
-        title="Hesaplama Araçları 2026 | 9 Avukat Onaylı Hukuki Hesaplama | Koptay Hukuk"
-        description="Kıdem tazminatı, araç değer kaybı, infaz yatar, vekâlet ücreti, ilave tediye ve daha fazlası — 9 ücretsiz, avukat onaylı hesaplama aracı. 2026 güncel mevzuat, TRH-2010, AAÜT ve sigorta tahkim formülleriyle uyumlu."
-        keywords="hukuki hesaplama araçları, kıdem tazminatı hesaplama, araç değer kaybı hesaplama, infaz yatar, vekalet ücreti, ilave tediye, iş kazası tazminatı, meslek hastalığı tazminatı, dava süresi, ankara avukat hesaplama"
+        title="Hukuki Hesaplama Araçları | Koptay Hukuk Bürosu"
+        description="Kıdem tazminatı, araç değer kaybı, infaz yatar süresi, vekâlet ücreti, ilave tediye ve daha fazlası için bilgilendirme amaçlı hesaplama araçları."
+        keywords="hukuki hesaplama, kıdem tazminatı hesaplama, araç değer kaybı hesaplama, infaz yatar, vekalet ücreti, ilave tediye, iş kazası tazminatı, meslek hastalığı tazminatı"
         url="https://koptay.av.tr/hesaplama-araclari"
       />
 
@@ -200,11 +200,11 @@ const HesaplamaAraclariPage = () => {
         <div className="container mx-auto px-4 text-center">
           <Calculator className="w-12 h-12 mx-auto mb-4" />
           <h1 className="text-4xl md:text-5xl font-bold mb-4 font-serif">
-            Avukat Onaylı Hukuki Hesaplama Araçları — 2026 Güncel
+            Hukuki Hesaplama Araçları
           </h1>
           <p className="text-xl max-w-3xl mx-auto">
-            TRH-2010 yaşam tablosu, 2026 AAÜT ve sigorta tahkim formülleriyle uyumlu, bilirkişi raporu olarak yazdırılabilir 9 ücretsiz araç.
-            Hukuki süreçlerinizde haklarınızın somut tutarını dakikalar içinde görün.
+            Kıdem tazminatı, infaz süresi, vekâlet ücreti ve diğer konularda
+            bilgilendirme amaçlı hesaplama araçları.
           </p>
         </div>
       </section>
