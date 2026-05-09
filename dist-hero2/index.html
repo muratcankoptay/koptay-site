@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- Favicon - Google Arama Sonuçları için Optimize Edildi -->
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#548c8d" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>Koptay Hukuk Bürosu — Ankara</title>
+    <meta name="description" content="Av. Murat Can Koptay - Koptay Hukuk Bürosu. Çankaya/Ankara." />
+
+    <!-- Critical CSS - Inline for faster FCP -->
+    <style>
+      *{margin:0;padding:0;box-sizing:border-box}
+      html{scroll-behavior:smooth}
+      body{font-family:'Open Sans',sans-serif;line-height:1.6;color:#1f2937;background:#fff}
+      .animate-spin{animation:spin 1s linear infinite}
+      @keyframes spin{to{transform:rotate(360deg)}}
+      .rounded-full{border-radius:9999px}
+      .border-b-2{border-bottom-width:2px}
+      .border-primary-600{border-color:rgb(70,114,118)}
+      .min-h-screen{min-height:100vh}
+      .flex{display:flex}
+      .items-center{align-items:center}
+      .justify-center{justify-content:center}
+      .h-16{height:4rem}
+      .w-16{width:4rem}
+    </style>
+
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.clarity.ms">
+
+    <!-- Preconnect to critical domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Preload Hero Image (WebP fallback'li) -->
+    <link rel="preload" as="image" href="/logo.svg" fetchpriority="high">
+
+    <!-- Optimized font loading -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"></noscript>
+
+    <!--
+      Analytics (GA4 + Microsoft Clarity) yalnızca KULLANICI ONAYI sonrası
+      yüklenir. CookieConsent komponenti onay durumuna göre
+      window.__loadAnalytics() fonksiyonunu çağırır.
+      - anonymize_ip = true (IP son okteti maskelenir)
+      - allow_google_signals = false (cross-device kapalı)
+      - Clarity default olarak metin/input maskeleme uygular.
+    -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){ window.dataLayer.push(arguments); };
+
+      window.__analyticsLoaded = false;
+      window.__loadAnalytics = function() {
+        if (window.__analyticsLoaded) return;
+        window.__analyticsLoaded = true;
+
+        var gaScript = document.createElement('script');
+        gaScript.async = true;
+        gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-8DQ21Q8GF9';
+        document.head.appendChild(gaScript);
+        window.gtag('js', new Date());
+        window.gtag('config', 'G-8DQ21Q8GF9', {
+          'anonymize_ip': true,
+          'allow_google_signals': false,
+          'allow_ad_personalization_signals': false
+        });
+
+        (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "ugrdvpu2fw");
+      };
+
+      (function() {
+        try {
+          if (localStorage.getItem('cookieConsent') === 'accepted') {
+            window.__loadAnalytics();
+          }
+        } catch (e) { }
+      })();
+
+      window.__initAnalytics = function() {};
+      window.__initClarity = function() {};
+    </script>
+    <script type="module" crossorigin src="/assets/index-db0368ca.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-230cc02e.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-vendor-f737342f.js">
+    <link rel="stylesheet" href="/assets/index-bfadf34c.css">
+  </head>
+  <body>
+    <div id="global-loader" style="position:fixed;top:0;left:0;width:100%;height:100%;background-color:#ffffff;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.3s ease-out;">
+      <img src="/logo.svg" alt="Koptay Hukuk Burosu Logo" style="width:150px;height:auto;margin-bottom:2rem;animation:pulse 2s infinite;">
+      <div style="width:3rem;height:3rem;border:3px solid #f3f4f6;border-top-color:#548c8d;border-radius:50%;animation:spin 1s linear infinite;"></div>
+    </div>
+    <style>
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1); } }
+      .loader-hidden { opacity: 0; pointer-events: none; }
+    </style>
+
+    <div id="root"></div>
+    
+  </body>
+</html>

@@ -35,22 +35,9 @@ import { initAnalytics } from './utils/analyticsTracker.js'
   }
 })();
 
-// Anasayfaya ozel hero gorseli preload — diger sayfalarda gereksiz uyari
-// vermesini engellemek icin pathname'e bagli olarak dinamik ekleniyor.
-(function preloadHeroOnHome() {
-  try {
-    const p = window.location.pathname;
-    if (p === '/' || p === '') {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = '/images/hero-bg-1.webp';
-      link.type = 'image/webp';
-      link.setAttribute('fetchpriority', 'high');
-      document.head.appendChild(link);
-    }
-  } catch (e) { /* yoksay */ }
-})();
+// NOT: Hero artik sade gradient + tipografi kullaniyor.
+// Eski hero-bg-1 gorseli preload edilmiyor (artik kullanilmiyor).
+// LCP yuku: 0 KB image.
 
 // Gercek zamanli analytics tracking'i baslat (admin paneli haric)
 if (!window.location.pathname.startsWith('/admin')) {

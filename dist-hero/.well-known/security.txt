@@ -1,0 +1,4 @@
+Contact: mailto:info@koptay.av.tr
+Contact: tel:+90-530-711-18-64
+Preferred-Languages: tr, en
+Canonical: https://koptay.av.tr/.well-known/security.txt
