@@ -1,0 +1,34 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Av. Murat Can Koptay",
+  "url": "https://koptay.av.tr",
+  "jobTitle": "Avukat",
+  "worksFor": {
+    "@type": "LegalService",
+    "name": "Koptay Hukuk Bürosu"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Ankara",
+    "addressCountry": "TR"
+  },
+  "email": "info@koptay.av.tr",
+  "telephone": "+90-530-711-18-64",
+  "sameAs": [
+    "https://www.linkedin.com/in/muratcankoptay",
+    "https://twitter.com/koptayhukuk"
+  ],
+  "knowsAbout": [
+    "İş Hukuku",
+    "Ticaret Hukuku",
+    "Aile Hukuku",
+    "Ceza Hukuku",
+    "İcra ve İflas Hukuku",
+    "Gayrimenkul Hukuku"
+  ],
+  "alumniOf": {
+    "@type": "EducationalOrganization",
+    "name": "Ankara Üniversitesi Hukuk Fakültesi"
+  }
+}

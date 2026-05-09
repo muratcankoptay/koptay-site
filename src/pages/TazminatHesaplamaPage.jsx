@@ -378,7 +378,7 @@ const TazminatHesaplamaPage = () => {
                         
                         {/* Summary Cards */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div className="bg-white p-4 rounded-xl shadow border-l-4 border-blue-500">
+                            <div className="bg-white p-4 rounded-xl shadow border-l-4 border-primary-500">
                                 <p className="text-xs text-slate-500 font-semibold uppercase">Olay Tarihi Yaşı</p>
                                 <p className="text-xl font-bold text-slate-800">{results ? results.ageAtEvent : '-'}</p>
                             </div>
@@ -435,9 +435,9 @@ const TazminatHesaplamaPage = () => {
                                                 <td className="px-4 py-3 text-right font-mono text-red-600">{results ? '-' + fmt(results.faultDeduction) : '0,00 ₺'}</td>
                                             </tr>
                                             <tr>
-                                                <td className="px-4 py-3 text-blue-600">(-) SGK Peşin Sermaye Değeri (PSD)</td>
+                                                <td className="px-4 py-3 text-primary-600">(-) SGK Peşin Sermaye Değeri (PSD)</td>
                                                 <td className="px-4 py-3 text-right text-blue-500">Rücu Edilebilir</td>
-                                                <td className="px-4 py-3 text-right font-mono text-blue-600">{results ? '-' + fmt(results.psd) : '0,00 ₺'}</td>
+                                                <td className="px-4 py-3 text-right font-mono text-primary-600">{results ? '-' + fmt(results.psd) : '0,00 ₺'}</td>
                                             </tr>
                                             <tr className="bg-teal-50 border-t-2 border-teal-100">
                                                 <td className="px-4 py-4 font-bold text-teal-900 text-lg">NET ÖDENECEK TAZMİNAT</td>

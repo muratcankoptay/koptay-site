@@ -347,7 +347,7 @@ const InfazYatarPage = () => {
               </tbody>
             </table>
           </div>
-          <div className="mt-4 bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-sm text-blue-900">
+          <div className="mt-4 bg-primary-50 border-l-4 border-primary-500 p-4 rounded text-sm text-primary-900">
             <strong>Önemli:</strong> Suç tarihinde 18 yaşından küçük hükümlülere 3/4 oranı yerine 2/3 oranı uygulanır.
             5275 SK 108/9 kapsamındaki suçlar 28/06/2014 öncesinde işlenmişse 3/4 yerine 2/3 oranı geçerlidir.
             01/06/2005 öncesi işlenen suçlarda TCK 7/3 lehe uygulama ilkesi gereği 647 sayılı (mülga) Kanun hükümleri uygulanır.
@@ -727,7 +727,7 @@ const SonucKart = ({ renk, baslik, deger, altMetin }) => {
     red:     'bg-red-50 border-red-200 text-red-900',
     amber:   'bg-amber-50 border-amber-200 text-amber-900',
     emerald: 'bg-emerald-50 border-emerald-200 text-emerald-900',
-    blue:    'bg-blue-50 border-blue-200 text-blue-900',
+    blue:    'bg-primary-50 border-blue-200 text-primary-900',
   }[renk]
   return (
     <div className={`${renkler} border-2 rounded-xl p-4`}>

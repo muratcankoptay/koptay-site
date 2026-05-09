@@ -12,26 +12,23 @@ import { trackGA, GA_EVENTS } from '../utils/gaEvents';
 const ArticleCTA = ({ category, slug }) => {
   const phone = '+905307111864';
   const phoneDisplay = '0530 711 18 64';
-  const wa = 'https://wa.me/905307111864';
+  const waText = encodeURIComponent(
+    `Merhaba, web siteniz uzerinden${category ? ' ' + category + ' alaninda' : ''} bilgi almak icin ulasiyorum.`
+  );
+  const wa = `https://wa.me/905307111864?text=${waText}`;
   const email = 'info@koptay.av.tr';
-
-  const subjectText = category
-    ? `${category} alanindaki sorunuzla ilgili`
-    : 'Hukuki sorunuzla ilgili';
 
   return (
     <section
       className="my-12 rounded-2xl bg-gradient-to-br from-lawPrimary via-lawDark to-lawPrimary text-white p-8 md:p-10 shadow-xl"
-      aria-label="Avukata danisma"
+      aria-label="Iletisim"
     >
       <div className="max-w-3xl mx-auto text-center">
         <h2 className="text-2xl md:text-3xl font-serif font-light mb-3">
-          Bu konuda Av. Murat Can Koptay'a danisin
+          Iletisim
         </h2>
         <p className="text-white/85 text-base md:text-lg leading-relaxed mb-7">
-          {subjectText} hizli ve net bir degerlendirme almak ister misiniz?
-          Ankara'da is, trafik kazasi, ceza ve aile hukuku alanlarinda
-          profesyonel destek saglayan Koptay Hukuk Burosu'na ulasabilirsiniz.
+          Bilgi almak icin asagidaki kanallardan ulasabilirsiniz.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch">
@@ -67,9 +64,8 @@ const ArticleCTA = ({ category, slug }) => {
         </div>
 
         <p className="text-xs text-white/60 mt-6">
-          Bu makale yalnizca bilgilendirme amaclidir; somut hukuki tavsiye
-          niteliginde degildir. Davaniz ozeline ozel degerlendirme icin
-          mutlaka bir avukatla gorusunuz.
+          Bu makale yalnizca bilgilendirme amaclidir; hukuki tavsiye
+          niteliginde degildir.
         </p>
       </div>
     </section>

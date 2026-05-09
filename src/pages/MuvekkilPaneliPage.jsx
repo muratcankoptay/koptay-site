@@ -116,8 +116,8 @@ const MuvekkilPaneliPage = () => {
       {/* Bilgilendirme Bölümü */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 max-w-4xl">
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
-            <h3 className="text-xl font-semibold mb-3 text-blue-900 flex items-center gap-2">
+          <div className="bg-primary-50 border-l-4 border-primary-500 p-6 rounded-r-lg">
+            <h3 className="text-xl font-semibold mb-3 text-primary-900 flex items-center gap-2">
               <Shield className="w-6 h-6" />
               Giriş Bilgileriniz
             </h3>

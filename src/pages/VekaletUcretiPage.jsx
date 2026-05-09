@@ -125,11 +125,11 @@ export default function VekaletUcretiPage() {
           {/* Breadcrumb */}
           <nav className="mb-6 text-sm">
             <ol className="flex items-center space-x-2 text-gray-600">
-              <li><a href="/" className="hover:text-blue-600 transition-colors">Ana Sayfa</a></li>
+              <li><a href="/" className="hover:text-primary-600 transition-colors">Ana Sayfa</a></li>
               <li><ChevronDown className="w-4 h-4 rotate-[-90deg]" /></li>
-              <li><a href="/hesaplama-araclari" className="hover:text-blue-600 transition-colors">Hesaplama Araçları</a></li>
+              <li><a href="/hesaplama-araclari" className="hover:text-primary-600 transition-colors">Hesaplama Araçları</a></li>
               <li><ChevronDown className="w-4 h-4 rotate-[-90deg]" /></li>
-              <li className="text-blue-600 font-medium">Vekalet Ücreti Hesaplama</li>
+              <li className="text-primary-600 font-medium">Vekalet Ücreti Hesaplama</li>
             </ol>
           </nav>
 
@@ -144,7 +144,7 @@ export default function VekaletUcretiPage() {
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               2026 Avukatlık Asgari Ücret Tarifesi'ne göre güncel vekalet ücreti hesaplaması yapın
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-lg text-sm">
+            <div className="mt-4 inline-flex items-center gap-2 bg-primary-50 text-primary-700 px-4 py-2 rounded-lg text-sm">
               <Info className="w-4 h-4" />
               <span className="font-medium">4 Kasım 2025 tarihli güncel tarife</span>
             </div>
@@ -155,7 +155,7 @@ export default function VekaletUcretiPage() {
             <div className="lg:col-span-2">
               <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <Calculator className="w-6 h-6 text-blue-600" />
+                  <Calculator className="w-6 h-6 text-primary-600" />
                   Hesaplama Bilgileri
                 </h2>
 
@@ -172,12 +172,12 @@ export default function VekaletUcretiPage() {
                       }}
                       className={`p-4 rounded-xl border-2 transition-all ${
                         ucretTuru === 'nispi'
-                          ? 'border-blue-500 bg-blue-50 text-blue-700'
+                          ? 'border-primary-500 bg-primary-50 text-primary-700'
                           : 'border-gray-200 hover:border-blue-200'
                       }`}
                     >
                       <TrendingUp className={`w-6 h-6 mx-auto mb-2 ${
-                        ucretTuru === 'nispi' ? 'text-blue-600' : 'text-gray-400'
+                        ucretTuru === 'nispi' ? 'text-primary-600' : 'text-gray-400'
                       }`} />
                       <div className="font-semibold">Nispi Ücret</div>
                       <div className="text-xs text-gray-500 mt-1">Para konulu davalar</div>
@@ -189,12 +189,12 @@ export default function VekaletUcretiPage() {
                       }}
                       className={`p-4 rounded-xl border-2 transition-all ${
                         ucretTuru === 'maktu'
-                          ? 'border-blue-500 bg-blue-50 text-blue-700'
+                          ? 'border-primary-500 bg-primary-50 text-primary-700'
                           : 'border-gray-200 hover:border-blue-200'
                       }`}
                     >
                       <Scale className={`w-6 h-6 mx-auto mb-2 ${
-                        ucretTuru === 'maktu' ? 'text-blue-600' : 'text-gray-400'
+                        ucretTuru === 'maktu' ? 'text-primary-600' : 'text-gray-400'
                       }`} />
                       <div className="font-semibold">Maktu Ücret</div>
                       <div className="text-xs text-gray-500 mt-1">Sabit ücret</div>
@@ -214,7 +214,7 @@ export default function VekaletUcretiPage() {
                         value={davaKonusuDeger}
                         onChange={(e) => setDavaKonusuDeger(e.target.value)}
                         placeholder="Örn: 1500000"
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors text-lg"
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:outline-none transition-colors text-lg"
                       />
                       <p className="text-sm text-gray-500 mt-2">
                         💡 Davanızın parasal değerini giriniz
@@ -232,7 +232,7 @@ export default function VekaletUcretiPage() {
                     <select
                       value={mahkemeTuru}
                       onChange={(e) => setMahkemeTuru(e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors text-base"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:outline-none transition-colors text-base"
                     >
                       <option value="">-- Mahkeme türünü seçiniz --</option>
                       {mahkemeKategorileri.map((kategori, index) => (
@@ -359,7 +359,7 @@ export default function VekaletUcretiPage() {
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-2">
-                              <span className="inline-flex items-center justify-center w-6 h-6 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">
+                              <span className="inline-flex items-center justify-center w-6 h-6 bg-primary-100 text-primary-700 rounded-full text-xs font-bold">
                                 {detay.kademe}
                               </span>
                               <p className="font-semibold text-gray-900">{detay.aciklama}</p>
@@ -373,7 +373,7 @@ export default function VekaletUcretiPage() {
                               </div>
                               <div>
                                 <span className="text-gray-500">Oran:</span>
-                                <span className="ml-2 font-semibold text-blue-600">
+                                <span className="ml-2 font-semibold text-primary-600">
                                   %{detay.oran}
                                 </span>
                               </div>
@@ -431,8 +431,8 @@ export default function VekaletUcretiPage() {
                 Özellikle maktu ücretlerde kayda değer artışlar gözlenirken, nispi ücretlerde de yeni kademeler getirildi.
               </p>
               <div className="grid md:grid-cols-2 gap-6 mt-6">
-                <div className="bg-blue-50 rounded-xl p-5">
-                  <h3 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
+                <div className="bg-primary-50 rounded-xl p-5">
+                  <h3 className="font-bold text-primary-900 mb-2 flex items-center gap-2">
                     <TrendingUp className="w-5 h-5" />
                     Nispi Ücret Özellikleri
                   </h3>
@@ -465,7 +465,7 @@ export default function VekaletUcretiPage() {
               Sık Sorulan Sorular
             </h2>
             <div className="space-y-6">
-              <div className="border-l-4 border-blue-500 pl-4">
+              <div className="border-l-4 border-primary-500 pl-4">
                 <h3 className="font-bold text-gray-900 mb-2">
                   Vekalet ücreti hesaplaması nasıl yapılır?
                 </h3>
@@ -540,7 +540,7 @@ export default function VekaletUcretiPage() {
               </p>
 
               <div className="bg-white rounded-xl p-5 border-2 border-blue-100">
-                <h3 className="font-bold text-blue-900 mb-3">2026 Nispi Ücret Kademeleri</h3>
+                <h3 className="font-bold text-primary-900 mb-3">2026 Nispi Ücret Kademeleri</h3>
                 <ul className="space-y-2 text-sm">
                   <li>• İlk 600.000 TL için <strong>%16 oran</strong></li>
                   <li>• Sonraki 600.000 TL için <strong>%15 oran</strong></li>

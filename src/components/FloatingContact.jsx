@@ -11,7 +11,8 @@ const FloatingContact = () => {
   const menuRef = useRef(null);
 
   const phoneNumber = '905307111864';
-  const whatsappUrl = `https://wa.me/${phoneNumber}`;
+  const waText = encodeURIComponent('Merhaba, web siteniz uzerinden ulasiyorum. Bilgi almak istiyorum.');
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${waText}`;
   const emailAddress = 'info@koptay.av.tr';
 
   useEffect(() => {

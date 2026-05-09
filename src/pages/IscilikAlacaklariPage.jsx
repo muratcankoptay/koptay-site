@@ -17,11 +17,11 @@ const TabButton = ({ active, onClick, icon: Icon, label }) => (
         onClick={onClick}
         className={`flex items-center px-6 py-3 font-medium text-sm transition-all duration-200 border-b-2 ${
             active 
-            ? 'border-blue-600 text-blue-600 bg-blue-50' 
+            ? 'border-blue-600 text-primary-600 bg-primary-50' 
             : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'
         }`}
     >
-        <Icon className={`mr-2 ${active ? 'text-blue-600' : 'text-gray-400'}`} />
+        <Icon className={`mr-2 ${active ? 'text-primary-600' : 'text-gray-400'}`} />
         {label}
     </button>
 );
@@ -42,7 +42,7 @@ const ResultCard = ({ title, amount, details }) => (
             ))}
             <div className="flex justify-between items-center pt-4 border-t mt-2">
                 <span className="text-lg font-bold text-gray-900">Net Ödenecek:</span>
-                <span className="text-2xl font-bold text-blue-600">{amount.net.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL</span>
+                <span className="text-2xl font-bold text-primary-600">{amount.net.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL</span>
             </div>
         </div>
     </div>
@@ -393,7 +393,7 @@ const IscilikAlacaklariPage = () => {
                                         name="grossSalary"
                                         value={formData.grossSalary}
                                         onChange={handleInputChange}
-                                        className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md py-3"
+                                        className="focus:ring-primary-500 focus:border-primary-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md py-3"
                                         placeholder="0.00"
                                     />
                                 </div>
@@ -411,7 +411,7 @@ const IscilikAlacaklariPage = () => {
                                             name="startDate"
                                             value={formData.startDate}
                                             onChange={handleInputChange}
-                                            className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md py-2"
+                                            className="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md py-2"
                                         />
                                     </div>
                                     <div>
@@ -423,7 +423,7 @@ const IscilikAlacaklariPage = () => {
                                             name="endDate"
                                             value={formData.endDate}
                                             onChange={handleInputChange}
-                                            className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md py-2"
+                                            className="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md py-2"
                                         />
                                     </div>
                                 </>
@@ -439,7 +439,7 @@ const IscilikAlacaklariPage = () => {
                                         name="unusedDays"
                                         value={formData.unusedDays}
                                         onChange={handleInputChange}
-                                        className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md py-2"
+                                        className="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md py-2"
                                         placeholder="Örn: 14"
                                     />
                                 </div>
@@ -456,7 +456,7 @@ const IscilikAlacaklariPage = () => {
                                             name="overtimeHours"
                                             value={formData.overtimeHours}
                                             onChange={handleInputChange}
-                                            className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md py-2"
+                                            className="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md py-2"
                                             placeholder="Örn: 10"
                                         />
                                     </div>
@@ -468,7 +468,7 @@ const IscilikAlacaklariPage = () => {
                                             name="overtimeRate"
                                             value={formData.overtimeRate}
                                             onChange={handleInputChange}
-                                            className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md py-2"
+                                            className="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md py-2"
                                         >
                                             <option value="1.5">%50 (Normal Fazla Mesai)</option>
                                             <option value="2.0">%100 (Bayram/Tatil Mesaisi)</option>
@@ -481,7 +481,7 @@ const IscilikAlacaklariPage = () => {
                         <div className="mt-8">
                             <button
                                 onClick={calculate}
-                                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+                                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200"
                             >
                                 <FaCalculator className="mr-2" />
                                 Hesapla
@@ -491,13 +491,13 @@ const IscilikAlacaklariPage = () => {
                         {results && (
                             <div className="mt-8 animate-fade-in-up">
                                 {results.extra && (
-                                    <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4">
+                                    <div className="bg-primary-50 border-l-4 border-blue-400 p-4 mb-4">
                                         <div className="flex">
                                             <div className="flex-shrink-0">
                                                 <FaInfoCircle className="h-5 w-5 text-blue-400" />
                                             </div>
                                             <div className="ml-3">
-                                                <p className="text-sm text-blue-700">
+                                                <p className="text-sm text-primary-700">
                                                     {results.extra}
                                                 </p>
                                             </div>
@@ -525,7 +525,7 @@ const IscilikAlacaklariPage = () => {
                         </div>
                         <Link
                             to="/makale/fazla-mesai-alacagi-hesaplama-ispat-dava-sureci-2026"
-                            className="inline-flex items-center justify-center bg-white text-blue-700 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors whitespace-nowrap"
+                            className="inline-flex items-center justify-center bg-white text-primary-700 px-6 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors whitespace-nowrap"
                         >
                             Rehberi Oku →
                         </Link>
@@ -603,7 +603,7 @@ const IscilikAlacaklariPage = () => {
                 </section>
 
                 {/* 4) Mevzuat dayanağı */}
-                <section className="mt-8 bg-blue-50 rounded-xl p-8 border border-blue-100">
+                <section className="mt-8 bg-primary-50 rounded-xl p-8 border border-blue-100">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">Mevzuat Dayanağı</h2>
                     <ul className="space-y-2 text-gray-700">
                         <li>• <strong>4857 sayılı İş Kanunu</strong> — yürürlükteki ana iş kanunu (m.17 ihbar, m.32 ücret, m.41 fazla mesai, m.46 hafta tatili, m.47 genel tatil, m.59 yıllık izin).</li>
@@ -621,7 +621,7 @@ const IscilikAlacaklariPage = () => {
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">Yargıtay Yerleşik İçtihatları</h2>
 
                     <div className="space-y-5">
-                        <div className="border-l-4 border-blue-500 pl-4">
+                        <div className="border-l-4 border-primary-500 pl-4">
                             <h3 className="font-semibold text-gray-900">Yargıtay 9. HD — Süreklilik arz eden yardımlar</h3>
                             <p className="text-gray-700 text-sm mt-1">
                                 Süreklilik arz eden yol, yemek, prim, ikramiye gibi yardımlar kıdem tazminatı hesabında esas brüt ücrete dahil edilir.
@@ -629,7 +629,7 @@ const IscilikAlacaklariPage = () => {
                             </p>
                         </div>
 
-                        <div className="border-l-4 border-blue-500 pl-4">
+                        <div className="border-l-4 border-primary-500 pl-4">
                             <h3 className="font-semibold text-gray-900">Yargıtay 22. HD — Gerçek ücretin tespiti</h3>
                             <p className="text-gray-700 text-sm mt-1">
                                 İşveren tarafından gerçek ücreti gizleyen ödeme yöntemleri (elden ödeme, bordroda düşük gösterme) tespit edildiğinde
@@ -637,7 +637,7 @@ const IscilikAlacaklariPage = () => {
                             </p>
                         </div>
 
-                        <div className="border-l-4 border-blue-500 pl-4">
+                        <div className="border-l-4 border-primary-500 pl-4">
                             <h3 className="font-semibold text-gray-900">Yargıtay 9. HD — Fazla mesai takdiri indirim doktrini</h3>
                             <p className="text-gray-700 text-sm mt-1">
                                 Fazla mesainin tanık beyanı ile ispat edildiği durumlarda hâkim, çalışmanın tüm süre boyunca kesintisiz yapılmamış olabileceği varsayımıyla
@@ -645,7 +645,7 @@ const IscilikAlacaklariPage = () => {
                             </p>
                         </div>
 
-                        <div className="border-l-4 border-blue-500 pl-4">
+                        <div className="border-l-4 border-primary-500 pl-4">
                             <h3 className="font-semibold text-gray-900">Yargıtay HGK — İhtirazi kayıt</h3>
                             <p className="text-gray-700 text-sm mt-1">
                                 İşçinin bordroyu ihtirazi kayıt koymadan imzalaması, gerçek alacağından feragat ettiği anlamına gelmez.
@@ -718,7 +718,7 @@ const IscilikAlacaklariPage = () => {
                         İlk değerlendirme ücretsizdir.
                     </p>
                     <div className="flex flex-wrap gap-3">
-                        <a href="tel:+905307111864" className="bg-white text-blue-700 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                        <a href="tel:+905307111864" className="bg-white text-primary-700 px-6 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors">
                             Telefon: 0530 711 18 64
                         </a>
                         <Link to="/iletisim" className="bg-blue-800 text-white border border-white/40 px-6 py-3 rounded-lg font-semibold hover:bg-blue-900 transition-colors">

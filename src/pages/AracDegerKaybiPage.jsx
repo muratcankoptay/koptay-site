@@ -343,12 +343,12 @@ export default function AracDegerKaybiPage() {
                   </div>
                 </div>
 
-                <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                <div className="bg-primary-50 border-l-4 border-primary-500 p-4 rounded">
                   <div className="flex">
                     <Info className="w-5 h-5 text-blue-500 mt-0.5 mr-3" />
                     <div>
                       <h3 className="text-sm font-medium text-blue-800">Bilgilendirme</h3>
-                      <p className="text-sm text-blue-700 mt-1">
+                      <p className="text-sm text-primary-700 mt-1">
                         Lütfen tüm bilgileri eksiksiz ve doğru şekilde doldurunuz. Hesaplama sonuçları bu bilgilere göre oluşturulacaktır.
                       </p>
                     </div>
@@ -765,7 +765,7 @@ const OzetEkrani = ({ formData, hasar1 }) => {
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Özet</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-blue-50 p-6 rounded-lg">
+        <div className="bg-primary-50 p-6 rounded-lg">
           <h3 className="font-semibold text-gray-900 mb-4">Araç Bilgileri</h3>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
@@ -877,7 +877,7 @@ const RaporEkrani = ({ sonuc, formData }) => {
 
       {/* Detaylı Bilgiler */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-blue-50 p-6 rounded-lg text-center">
+        <div className="bg-primary-50 p-6 rounded-lg text-center">
           <div className="text-sm text-gray-600 mb-1">Araç Değeri</div>
           <div className="text-2xl font-bold text-gray-900">
             {formatCurrency(sonuc.aracDegeri)}
@@ -968,9 +968,9 @@ const RaporEkrani = ({ sonuc, formData }) => {
                 </div>
                 
                 {/* Hasar Boyutu Açıklaması */}
-                <div className="bg-blue-50 border-l-4 border-blue-500 p-3 rounded">
+                <div className="bg-primary-50 border-l-4 border-primary-500 p-3 rounded">
                   <div className="flex items-start gap-2">
-                    <div className="font-semibold text-blue-900">
+                    <div className="font-semibold text-primary-900">
                       {hasar.hasarKodu}
                     </div>
                     <div className="text-sm text-blue-800">
