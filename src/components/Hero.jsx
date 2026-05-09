@@ -1,12 +1,4 @@
-import { useState, useEffect } from 'react'
-
 const Hero = () => {
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    setIsVisible(true)
-  }, [])
-
   const scrollToServices = () => {
     const servicesSection = document.getElementById('services')
     if (servicesSection) {
@@ -24,20 +16,18 @@ const Hero = () => {
   return (
     <>
       {/* Hero Section with Background Image */}
-      <section 
+      <section
         className="relative min-h-screen flex items-center bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(rgba(141, 27, 84, 0.2), rgba(53, 52, 65, 0.7)),
+          backgroundImage: `linear-gradient(rgba(45, 55, 72, 0.55), rgba(53, 52, 65, 0.78)),
                            image-set(url('/images/hero-bg-1.avif') type('image/avif'), url('/images/hero-bg-1.webp') type('image/webp'), url('/images/hero-bg-1.jpg') type('image/jpeg')),
                            url('/images/hero-bg-1.jpg'),
-                           url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23353441" width="1200" height="800"/><polygon fill="%23548c8d" points="0,800 400,600 800,700 1200,500 1200,800"/><polygon fill="%238d1b54" points="0,800 300,650 600,750 900,550 1200,600 1200,800"/></svg>')`
+                           url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23353441" width="1200" height="800"/><polygon fill="%23548c8d" points="0,800 400,600 800,700 1200,500 1200,800"/></svg>')`
         }}
       >
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="max-w-4xl">
-            <div className={`transition-all duration-700 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}>
+            <div className="hero-fade-in">
               {/* Main Tagline - Bick Law Style */}
               <div className="text-left mb-8">
                 <h1 className="font-sans text-5xl md:text-6xl lg:text-7xl font-light text-white uppercase leading-none mb-4">

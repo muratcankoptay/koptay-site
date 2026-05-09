@@ -11,29 +11,14 @@ import { initAnalytics } from './utils/analyticsTracker.js'
 if (!window.location.pathname.startsWith('/admin')) {
   setTimeout(() => {
     initAnalytics()
-    console.log('📊 Analytics tracking aktif - Google Analytics alternatifi çalışıyor')
+    console.log('Analytics tracking aktif')
   }, 1000)
 }
 
-// Unregister any existing service workers to prevent caching issues
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then((registrations) => {
-    registrations.forEach((registration) => {
-      registration.unregister();
-      console.log('Service Worker unregistered');
-    });
-  });
-}
-
-// Clear all caches on load to prevent stale cached assets
-if ('caches' in window) {
-  caches.keys().then((keys) => {
-    keys.forEach((key) => {
-      caches.delete(key);
-      console.log('Cache cleared:', key);
-    });
-  });
-}
+// NOT: Tarayıcı önbelleğini her ziyarette temizleyen bloklar kaldırıldı.
+// Önceden burada tüm SW kaydı ve Cache Storage siliniyordu; bu, dönen
+// ziyaretçilerin her seferinde 1+ MB JS bundle'ı yeniden indirmesine yol
+// açıyordu. Asset hash'leri (Vite [hash].js) zaten cache busting sağlar.
 
 // Initialize Web Vitals monitoring
 if (typeof window !== 'undefined') {

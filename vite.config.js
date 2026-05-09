@@ -20,25 +20,32 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: false, // Disable sourcemaps in production for better performance
+    sourcemap: false,
+    modulePreload: {
+      resolveDependencies: (filename, deps) => {
+        const HEAVY_PATTERNS = [
+          'chart-vendor',
+          'pdf-vendor',
+          'html2canvas-vendor',
+          'flatpickr-vendor',
+          'ai-vendor'
+        ];
+        return deps.filter((dep) => !HEAVY_PATTERNS.some((p) => dep.includes(p)));
+      }
+    },
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Split vendor chunks for better caching
           if (id.includes('node_modules')) {
-            // Core React - load immediately
             if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
               return 'react-vendor';
             }
-            // Helmet for SEO
             if (id.includes('react-helmet-async')) {
               return 'react-vendor';
             }
-            // UI icons - used everywhere
             if (id.includes('lucide-react')) {
               return 'ui-vendor';
             }
-            // Heavy libraries - lazy load on demand
             if (id.includes('chart.js') || id.includes('react-chartjs-2')) {
               return 'chart-vendor';
             }
@@ -48,15 +55,12 @@ export default defineConfig({
             if (id.includes('html2canvas')) {
               return 'html2canvas-vendor';
             }
-            // Flatpickr - only for date pickers
             if (id.includes('flatpickr')) {
               return 'flatpickr-vendor';
             }
-            // Google Generative AI - only for AI features
             if (id.includes('@google/generative-ai')) {
               return 'ai-vendor';
             }
-            // All other node_modules
             return 'vendor';
           }
         }
@@ -66,20 +70,20 @@ export default defineConfig({
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: true, // Remove console.logs in production
+        drop_console: true,
         drop_debugger: true,
         pure_funcs: ['console.log', 'console.info', 'console.debug'],
-        passes: 2 // Multiple passes for better compression
+        passes: 2
       },
       format: {
-        comments: false // Remove comments
+        comments: false
       },
       mangle: {
-        safari10: true // Better Safari compatibility
+        safari10: true
       }
     },
     cssCodeSplit: true,
-    assetsInlineLimit: 4096, // Inline assets smaller than 4kb
-    reportCompressedSize: false // Faster builds
+    assetsInlineLimit: 4096,
+    reportCompressedSize: false
   }
 })

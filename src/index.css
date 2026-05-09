@@ -77,6 +77,19 @@ body {
   animation: fadeInUp 0.6s ease-out;
 }
 
+/* Hero başlık animasyonu — JS state'i yerine pure CSS.
+   LCP'yi geciktirmemek için ilk render'da görünür konumda başlatılır,
+   küçük bir fade-in efekti CSS animasyonu ile uygulanır. */
+.hero-fade-in {
+  animation: fadeInUp 0.7s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-fade-in {
+    animation: none;
+  }
+}
+
 /* Hero background */
 .hero-gradient {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);

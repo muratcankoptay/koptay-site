@@ -86,18 +86,18 @@ function App() {
   const isAdminRoute = location.pathname.startsWith('/admin')
   const isWebAdminRoute = location.pathname.startsWith('/web-admin')
 
-  // Handle Global Loader removal
+  // Handle Global Loader removal — App mount olur olmaz hızlıca gizle.
+  // Önceki sürüm 600 ms ekstra bekliyordu; bu LCP'yi gereksizce geciktiriyordu.
   useEffect(() => {
     const loader = document.getElementById('global-loader');
-    if (loader) {
-      // Small delay to ensure smooth transition and prevent flash
+    if (!loader) return;
+    // requestAnimationFrame: ilk paint sonrası bir frame bekle, anında gizle
+    requestAnimationFrame(() => {
+      loader.classList.add('loader-hidden');
       setTimeout(() => {
-        loader.classList.add('loader-hidden');
-        setTimeout(() => {
-          loader.style.display = 'none';
-        }, 500); // Match CSS transition duration
-      }, 100);
-    }
+        loader.style.display = 'none';
+      }, 300);
+    });
   }, []);
 
   // Web Admin routes - Netlify-based admin panel

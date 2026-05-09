@@ -1,0 +1,30 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "services": "Hizmetlerimiz",
+    "team": "Ekibimiz",
+    "tools": "Hesaplama Araçları",
+    "articles": "Makaleler",
+    "contact": "İletişim"
+  },
+  "hero": {
+    "title": "Hukuki Danışmanlık",
+    "subtitle": "Profesyonel hukuk hizmetleri",
+    "cta": "Randevu Al"
+  },
+  "common": {
+    "readMore": "Devamını Oku",
+    "contactUs": "Bize Ulaşın",
+    "phone": "Telefon",
+    "email": "E-posta",
+    "address": "Adres"
+  },
+  "language": {
+    "tr": "Türkçe",
+    "en": "English",
+    "ar": "العربية",
+    "uk": "Українська",
+    "ru": "Русский",
+    "select": "Dil Seçin"
+  }
+}
