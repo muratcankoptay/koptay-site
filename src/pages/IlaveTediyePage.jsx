@@ -34,7 +34,7 @@ const InfoCard = ({ title, children }) => (
 );
 
 const ResultCard = ({ title, amount, icon: Icon, color = "blue" }) => (
-    <div className={`bg-${color}-50 border border-${color}-200 rounded-xl p-6`}>
+    <div className={`bg-${color}-50 border border-${color}-200 rounded-md p-6`}>
         <div className="flex items-center gap-3 mb-2">
             <Icon className={`text-${color}-600 text-xl`} />
             <h3 className="font-semibold text-gray-800">{title}</h3>
@@ -256,7 +256,7 @@ const IlaveTediyePage = () => {
                             <FaChevronLeft className="mr-2" />
                             Hesaplama Araçlarına Dön
                         </Link>
-                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                        <h1 className="text-3xl md:text-4xl font-serif font-light text-gray-900 mb-2">
                             İlave Tediye Hesaplama
                         </h1>
                         <p className="text-gray-600">
@@ -278,11 +278,11 @@ const IlaveTediyePage = () => {
                     </InfoCard>
 
                     {/* Main Card */}
-                    <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div className="bg-white rounded-md shadow-md overflow-hidden">
                         {/* Card Header */}
-                        <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6">
+                        <div className="bg-lawPrimary p-6">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+                                <div className="w-12 h-12 bg-white/20 rounded-md flex items-center justify-center">
                                     <FaFileInvoiceDollar className="text-white text-2xl" />
                                 </div>
                                 <div>
@@ -317,7 +317,7 @@ const IlaveTediyePage = () => {
                                         value={formData.aylikBrutUcret}
                                         onChange={handleInputChange}
                                         placeholder={`Min: ${formatTutar(ILAVE_TEDIYE_CONSTANTS.BRUT_ASGARI_UCRET)}`}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawSecondary focus:border-lawSecondary"
                                     />
                                     <p className="text-xs text-gray-500 mt-1">
                                         Sosyal yardımlar hariç temel brüt ücret
@@ -334,7 +334,7 @@ const IlaveTediyePage = () => {
                                         name="hesaplamaTuru"
                                         value={formData.hesaplamaTuru}
                                         onChange={handleInputChange}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawSecondary focus:border-lawSecondary"
                                     >
                                         <option value="tek">Tek Dönem Hesaplama</option>
                                         <option value="yillik">Yıllık Tüm Taksitler</option>
@@ -352,7 +352,7 @@ const IlaveTediyePage = () => {
                                             name="gunSayisi"
                                             value={formData.gunSayisi}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawSecondary focus:border-lawSecondary"
                                         >
                                             <option value="13">13 Gün (1 Taksit)</option>
                                             <option value="26">26 Gün (2 Taksit)</option>
@@ -372,7 +372,7 @@ const IlaveTediyePage = () => {
                                         name="vergiOrani"
                                         value={formData.vergiOrani}
                                         onChange={handleInputChange}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawSecondary focus:border-lawSecondary"
                                     >
                                         <option value="0.15">%15 (0 - 158.000 TL)</option>
                                         <option value="0.20">%20 (158.001 - 330.000 TL)</option>
@@ -430,7 +430,7 @@ const IlaveTediyePage = () => {
                                             placeholder="Örn: 180"
                                             min="1"
                                             max="365"
-                                            className="w-full md:w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                            className="w-full md:w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawSecondary focus:border-lawSecondary"
                                         />
                                     </div>
                                 )}
@@ -440,14 +440,14 @@ const IlaveTediyePage = () => {
                             <div className="mt-8 flex flex-col sm:flex-row gap-4">
                                 <button
                                     onClick={handleHesapla}
-                                    className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all flex items-center justify-center gap-2 shadow-lg"
+                                    className="flex-1 bg-lawPrimary text-white py-4 px-6 rounded-md font-semibold hover:bg-lawSecondary transition-all flex items-center justify-center gap-2 shadow-md"
                                 >
                                     <FaCalculator />
                                     Hesapla
                                 </button>
                                 <button
                                     onClick={handleTemizle}
-                                    className="sm:w-auto px-6 py-4 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+                                    className="sm:w-auto px-6 py-4 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-50 transition-colors"
                                 >
                                     Temizle
                                 </button>
@@ -457,8 +457,8 @@ const IlaveTediyePage = () => {
 
                     {/* Sonuçlar */}
                     {sonuc && (
-                        <div className="mt-8 bg-white rounded-2xl shadow-xl overflow-hidden">
-                            <div className="bg-gradient-to-r from-green-600 to-green-700 p-6">
+                        <div className="mt-8 bg-white rounded-md shadow-md overflow-hidden">
+                            <div className="bg-lawSecondary p-6">
                                 <h3 className="text-xl font-bold text-white">Hesaplama Sonuçları</h3>
                             </div>
                             
@@ -468,7 +468,7 @@ const IlaveTediyePage = () => {
                                     <>
                                         {/* Özet Kartlar */}
                                         <div className="grid md:grid-cols-3 gap-4 mb-6">
-                                            <div className="bg-primary-50 border border-blue-200 rounded-xl p-6">
+                                            <div className="bg-primary-50 border border-blue-200 rounded-md p-6">
                                                 <div className="flex items-center gap-3 mb-2">
                                                     <FaMoneyBillWave className="text-primary-600 text-xl" />
                                                     <h3 className="font-semibold text-gray-800">Brüt Tediye</h3>
@@ -477,7 +477,7 @@ const IlaveTediyePage = () => {
                                                     {formatTutar(sonuc.hesaplamalar.brutTediye)} TL
                                                 </p>
                                             </div>
-                                            <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+                                            <div className="bg-red-50 border border-red-200 rounded-md p-6">
                                                 <div className="flex items-center gap-3 mb-2">
                                                     <FaPercent className="text-red-600 text-xl" />
                                                     <h3 className="font-semibold text-gray-800">Toplam Kesinti</h3>
@@ -486,7 +486,7 @@ const IlaveTediyePage = () => {
                                                     {formatTutar(sonuc.hesaplamalar.toplamKesinti)} TL
                                                 </p>
                                             </div>
-                                            <div className="bg-green-50 border border-green-200 rounded-xl p-6">
+                                            <div className="bg-green-50 border border-green-200 rounded-md p-6">
                                                 <div className="flex items-center gap-3 mb-2">
                                                     <FaFileInvoiceDollar className="text-green-600 text-xl" />
                                                     <h3 className="font-semibold text-gray-800">Net Tediye</h3>
@@ -498,7 +498,7 @@ const IlaveTediyePage = () => {
                                         </div>
 
                                         {/* Detaylı Döküm */}
-                                        <div className="bg-gray-50 rounded-xl p-6">
+                                        <div className="bg-gray-50 rounded-md p-6">
                                             <h4 className="font-semibold text-gray-800 mb-4">Detaylı Hesap Dökümü</h4>
                                             
                                             <div className="space-y-2">
@@ -552,19 +552,19 @@ const IlaveTediyePage = () => {
                                     <>
                                         {/* Yıllık Toplam */}
                                         <div className="grid md:grid-cols-3 gap-4 mb-6">
-                                            <div className="bg-primary-50 border border-blue-200 rounded-xl p-6">
+                                            <div className="bg-primary-50 border border-blue-200 rounded-md p-6">
                                                 <h3 className="font-semibold text-gray-800 mb-2">Yıllık Brüt Toplam</h3>
                                                 <p className="text-3xl font-bold text-primary-700">
                                                     {formatTutar(sonuc.yillikToplam.brutTutar)} TL
                                                 </p>
                                             </div>
-                                            <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+                                            <div className="bg-red-50 border border-red-200 rounded-md p-6">
                                                 <h3 className="font-semibold text-gray-800 mb-2">Yıllık Toplam Kesinti</h3>
                                                 <p className="text-3xl font-bold text-red-700">
                                                     {formatTutar(sonuc.yillikToplam.kesintilerToplami)} TL
                                                 </p>
                                             </div>
-                                            <div className="bg-green-50 border border-green-200 rounded-xl p-6">
+                                            <div className="bg-green-50 border border-green-200 rounded-md p-6">
                                                 <h3 className="font-semibold text-gray-800 mb-2">Yıllık Net Toplam</h3>
                                                 <p className="text-3xl font-bold text-green-700">
                                                     {formatTutar(sonuc.yillikToplam.netTutar)} TL
@@ -630,7 +630,7 @@ const IlaveTediyePage = () => {
                     )}
 
                     {/* Yasal Uyarı */}
-                    <div className="mt-8 bg-amber-50 border border-amber-200 rounded-xl p-6">
+                    <div className="mt-8 bg-amber-50 border border-amber-200 rounded-md p-6">
                         <h4 className="font-semibold text-amber-900 mb-2 flex items-center gap-2">
                             <FaInfoCircle />
                             Önemli Bilgiler
@@ -646,7 +646,7 @@ const IlaveTediyePage = () => {
                     </div>
 
                     {/* 2026 Parametre Bilgileri */}
-                    <div className="mt-6 bg-gray-100 rounded-xl p-6">
+                    <div className="mt-6 bg-gray-100 rounded-md p-6">
                         <h4 className="font-semibold text-gray-800 mb-4">2026 Yılı Hesaplama Parametreleri</h4>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                             <div className="bg-white rounded-lg p-4">

@@ -101,12 +101,15 @@ const ArticlesPage = () => {
       />
 
       {/* Hero Section */}
-      <section className="page-hero py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-light mb-6 font-serif">
-              Makaleler
-            </h1>
+      <section className="page-hero">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="max-w-3xl">
+            <p className="page-hero-eyebrow">Bilgi & Güncel</p>
+            <h1 className="page-hero-title">Makaleler</h1>
+            <p className="page-hero-subtitle">
+              Hukuki süreçler, mevzuat değişiklikleri ve emsal kararlara
+              dair bilgilendirme amaçlı yazılar.
+            </p>
           </div>
         </div>
       </section>

@@ -25,16 +25,9 @@ const ArticleCard = ({ article, index = 0 }) => {
     return () => observer.disconnect()
   }, [])
 
-  const getCategoryColor = (category) => {
-    const colors = {
-      'İş Hukuku': 'bg-blue-100 text-blue-800',
-      'Ticaret Hukuku': 'bg-green-100 text-green-800',
-      'Aile Hukuku': 'bg-pink-100 text-pink-800',
-      'Ceza Hukuku': 'bg-red-100 text-red-800',
-      'Gayrimenkul Hukuku': 'bg-yellow-100 text-yellow-800',
-      'İcra ve İflas Hukuku': 'bg-purple-100 text-purple-800',
-    }
-    return colors[category] || 'bg-gray-100 text-gray-800'
+  // Tüm kategoriler tek tip nötr rozet (marka tutarlılığı için).
+  const getCategoryColor = () => {
+    return 'bg-white/95 text-lawDark border border-gray-200 backdrop-blur-sm'
   }
 
   return (

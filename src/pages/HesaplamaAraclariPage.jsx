@@ -26,7 +26,7 @@ const HesaplamaAraclariPage = () => {
           title: 'İşçilik Alacakları Hesaplama',
           description: 'Kıdem tazminatı, ihbar tazminatı, yıllık izin ücreti ve fazla mesai alacaklarını 2026 oranlarıyla tek raporda hesaplayın.',
           icon: Briefcase,
-          color: 'bg-orange-100 text-orange-600',
+          color: 'bg-lawSecondary/10 text-lawSecondary',
           link: '/hesaplama-araclari/iscilik-alacaklari'
         },
         {
@@ -34,7 +34,7 @@ const HesaplamaAraclariPage = () => {
           title: 'İş Kazası Tazminat Hesaplama',
           description: 'Maluliyet, kusur ve TRH-2010 esaslı aktüerya. İş kazası nedeniyle maddi tazminatı hesaplayın.',
           icon: TrendingUp,
-          color: 'bg-green-100 text-green-600',
+          color: 'bg-lawSecondary/10 text-lawSecondary',
           link: '/hesaplama-araclari/tazminat-hesaplama'
         },
         {
@@ -42,7 +42,7 @@ const HesaplamaAraclariPage = () => {
           title: 'Meslek Hastalığı Tazminatı',
           description: 'Yükümlülük süresi ve TRH-2010 tablosu kapsamında meslek hastalığı tazminatınızı hesaplayın.',
           icon: Stethoscope,
-          color: 'bg-teal-100 text-teal-600',
+          color: 'bg-lawSecondary/10 text-lawSecondary',
           link: '/hesaplama-araclari/meslek-hastaligi'
         },
         {
@@ -50,7 +50,7 @@ const HesaplamaAraclariPage = () => {
           title: 'İlave Tediye Hesaplama',
           description: '6772 sayılı kanun kapsamında kamu işçileri için ilave tediye (ikramiye) hesaplama aracı.',
           icon: Banknote,
-          color: 'bg-emerald-100 text-emerald-600',
+          color: 'bg-lawSecondary/10 text-lawSecondary',
           link: '/hesaplama-araclari/ilave-tediye'
         }
       ]
@@ -65,7 +65,7 @@ const HesaplamaAraclariPage = () => {
           title: 'Araç Değer Kaybı Hesaplama',
           description: '2026 Sigorta Genel Şartları, Baz Katsayı %19 ve A1-A4 hasar sınıflandırmasına göre değer kaybı hesabı.',
           icon: Car,
-          color: 'bg-red-100 text-red-600',
+          color: 'bg-lawSecondary/10 text-lawSecondary',
           link: '/hesaplama-araclari/arac-deger-kaybi'
         },
         {
@@ -73,7 +73,7 @@ const HesaplamaAraclariPage = () => {
           title: 'Trafik Kazası Tazminat Hesaplama',
           description: 'Sürekli sakatlık, geçici iş göremezlik, ikame araç ve manevi tazminat. KTK m.85 ve TBK m.49 uyumlu aktüerya.',
           icon: Shield,
-          color: 'bg-slate-100 text-slate-600',
+          color: 'bg-lawSecondary/10 text-lawSecondary',
           link: '/hesaplama-araclari/trafik-kazasi'
         }
       ]
@@ -88,7 +88,7 @@ const HesaplamaAraclariPage = () => {
           title: 'İnfaz Yatar Hesaplama',
           description: 'CGTİK m.107 ve 11. Yargı Paketi kapsamında ceza infaz süresi, koşullu salıverilme ve denetimli serbestlik hesaplama.',
           icon: Calculator,
-          color: 'bg-blue-100 text-blue-600',
+          color: 'bg-lawSecondary/10 text-lawSecondary',
           link: '/hesaplama-araclari/infaz-yatar'
         },
         {
@@ -96,7 +96,7 @@ const HesaplamaAraclariPage = () => {
           title: 'Vekâlet Ücreti Hesaplama',
           description: '2026 AAÜT (Avukatlık Asgari Ücret Tarifesi) kapsamında maktu ve nispi vekâlet ücretlerini hesaplayın.',
           icon: Scale,
-          color: 'bg-indigo-100 text-indigo-600',
+          color: 'bg-lawSecondary/10 text-lawSecondary',
           link: '/hesaplama-araclari/vekalet-ucreti'
         },
         {
@@ -104,7 +104,7 @@ const HesaplamaAraclariPage = () => {
           title: 'Dava Süresi & Zamanaşımı',
           description: 'Zamanaşımı, hak düşürücü süre, istinaf-temyiz ve ortalama dava süresi. TBK, TCK, HMK, CMK, İYUK ve İİK madde dayanaklı.',
           icon: Hourglass,
-          color: 'bg-amber-100 text-amber-600',
+          color: 'bg-lawSecondary/10 text-lawSecondary',
           link: '/hesaplama-araclari/dava-suresi'
         }
       ]
@@ -196,16 +196,16 @@ const HesaplamaAraclariPage = () => {
       </script>
 
       {/* Hero */}
-      <section className="page-hero py-16">
-        <div className="container mx-auto px-4 text-center">
-          <Calculator className="w-12 h-12 mx-auto mb-4" />
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 font-serif">
-            Hukuki Hesaplama Araçları
-          </h1>
-          <p className="text-xl max-w-3xl mx-auto">
-            Kıdem tazminatı, infaz süresi, vekâlet ücreti ve diğer konularda
-            bilgilendirme amaçlı hesaplama araçları.
-          </p>
+      <section className="page-hero">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="max-w-3xl">
+            <p className="page-hero-eyebrow">Pratik Araçlar</p>
+            <h1 className="page-hero-title">Hukuki Hesaplama Araçları</h1>
+            <p className="page-hero-subtitle">
+              Kıdem tazminatı, infaz süresi, vekâlet ücreti ve diğer konularda
+              bilgilendirme amaçlı hesaplama araçları.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -225,17 +225,17 @@ const HesaplamaAraclariPage = () => {
                   <Link
                     key={tool.id}
                     to={tool.link}
-                    className="block p-6 rounded-xl bg-white border border-gray-200 hover:border-lawPrimary transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                    className="group block p-6 rounded-md bg-white border border-gray-200 hover:border-lawSecondary hover:shadow-md transition-all duration-300"
                   >
-                    <div className={`w-12 h-12 rounded-lg ${tool.color} flex items-center justify-center mb-4`}>
-                      <Icon className="w-6 h-6" />
+                    <div className={`w-11 h-11 rounded-md ${tool.color} flex items-center justify-center mb-4 group-hover:bg-lawSecondary group-hover:text-white transition-colors`}>
+                      <Icon className="w-5 h-5" />
                     </div>
-                    <h3 className="text-lg font-semibold text-lawDark mb-2">{tool.title}</h3>
-                    <p className="text-sm text-gray-600 mb-4">{tool.description}</p>
-                    <div className="flex items-center text-lawPrimary font-medium text-sm">
+                    <h3 className="text-base font-semibold text-lawDark mb-2">{tool.title}</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed mb-4">{tool.description}</p>
+                    <span className="inline-flex items-center text-sm font-medium text-lawSecondary gap-1 group-hover:gap-2 transition-all">
                       Hesaplamaya Başla
-                      <ArrowRight className="w-4 h-4 ml-1" />
-                    </div>
+                      <ArrowRight className="w-4 h-4" />
+                    </span>
                   </Link>
                 )
               })}

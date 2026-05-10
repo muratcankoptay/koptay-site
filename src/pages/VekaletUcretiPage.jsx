@@ -135,10 +135,10 @@ export default function VekaletUcretiPage() {
 
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mb-4 shadow-lg">
-              <Scale className="w-8 h-8 text-white" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-lawSecondary/10 rounded-md mb-4">
+              <Scale className="w-8 h-8 text-lawSecondary" />
             </div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-3">
+            <h1 className="text-4xl font-serif font-light text-gray-900 mb-3">
               Vekalet Ücreti Hesaplama
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -153,7 +153,7 @@ export default function VekaletUcretiPage() {
           <div className="grid lg:grid-cols-3 gap-6">
             {/* Form Bölümü */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+              <div className="bg-white rounded-md shadow-md p-6 md:p-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                   <Calculator className="w-6 h-6 text-primary-600" />
                   Hesaplama Bilgileri
@@ -170,10 +170,10 @@ export default function VekaletUcretiPage() {
                         setUcretTuru('nispi');
                         handleReset();
                       }}
-                      className={`p-4 rounded-xl border-2 transition-all ${
+                      className={`p-4 rounded-md border-2 transition-all ${
                         ucretTuru === 'nispi'
-                          ? 'border-primary-500 bg-primary-50 text-primary-700'
-                          : 'border-gray-200 hover:border-blue-200'
+                          ? 'border-lawSecondary bg-lawSecondary/10 text-lawSecondary'
+                          : 'border-gray-200 hover:border-lawSecondary/40'
                       }`}
                     >
                       <TrendingUp className={`w-6 h-6 mx-auto mb-2 ${
@@ -187,10 +187,10 @@ export default function VekaletUcretiPage() {
                         setUcretTuru('maktu');
                         handleReset();
                       }}
-                      className={`p-4 rounded-xl border-2 transition-all ${
+                      className={`p-4 rounded-md border-2 transition-all ${
                         ucretTuru === 'maktu'
-                          ? 'border-primary-500 bg-primary-50 text-primary-700'
-                          : 'border-gray-200 hover:border-blue-200'
+                          ? 'border-lawSecondary bg-lawSecondary/10 text-lawSecondary'
+                          : 'border-gray-200 hover:border-lawSecondary/40'
                       }`}
                     >
                       <Scale className={`w-6 h-6 mx-auto mb-2 ${
@@ -214,7 +214,7 @@ export default function VekaletUcretiPage() {
                         value={davaKonusuDeger}
                         onChange={(e) => setDavaKonusuDeger(e.target.value)}
                         placeholder="Örn: 1500000"
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:outline-none transition-colors text-lg"
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-lawSecondary focus:outline-none transition-colors text-lg"
                       />
                       <p className="text-sm text-gray-500 mt-2">
                         💡 Davanızın parasal değerini giriniz
@@ -232,7 +232,7 @@ export default function VekaletUcretiPage() {
                     <select
                       value={mahkemeTuru}
                       onChange={(e) => setMahkemeTuru(e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary-500 focus:outline-none transition-colors text-base"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:border-lawSecondary focus:outline-none transition-colors text-base"
                     >
                       <option value="">-- Mahkeme türünü seçiniz --</option>
                       {mahkemeKategorileri.map((kategori, index) => (
@@ -260,7 +260,7 @@ export default function VekaletUcretiPage() {
                       (ucretTuru === 'nispi' && !davaKonusuDeger) ||
                       (ucretTuru === 'maktu' && !mahkemeTuru)
                     }
-                    className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                    className="flex-1 bg-lawPrimary text-white py-4 rounded-md font-semibold hover:bg-lawSecondary transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
                   >
                     {hesaplaniyor ? (
                       <span className="flex items-center justify-center gap-2">
@@ -277,7 +277,7 @@ export default function VekaletUcretiPage() {
                   {sonuc && (
                     <button
                       onClick={handleReset}
-                      className="px-6 py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all"
+                      className="px-6 py-4 border-2 border-gray-300 text-gray-700 rounded-md font-semibold hover:bg-gray-50 transition-all"
                     >
                       Temizle
                     </button>
@@ -288,7 +288,7 @@ export default function VekaletUcretiPage() {
 
             {/* Bilgi Kutusu */}
             <div className="lg:col-span-1">
-              <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl shadow-xl p-6 text-white sticky top-6">
+              <div className="bg-lawPrimary rounded-md shadow-md p-6 text-white sticky top-6">
                 <div className="flex items-center gap-2 mb-4">
                   <Info className="w-5 h-5" />
                   <h3 className="font-bold text-lg">Önemli Bilgiler</h3>
@@ -325,7 +325,7 @@ export default function VekaletUcretiPage() {
 
           {/* Sonuç Bölümü */}
           {sonuc && !sonuc.hata && (
-            <div className="mt-6 bg-white rounded-2xl shadow-xl p-6 md:p-8 animate-fade-in">
+            <div className="mt-6 bg-white rounded-md shadow-md p-6 md:p-8 animate-fade-in">
               <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                 <TrendingUp className="w-6 h-6 text-green-600" />
                 Hesaplama Sonucu

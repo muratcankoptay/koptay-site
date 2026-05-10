@@ -41,12 +41,15 @@ const EkibimizPage = () => {
       />
 
       {/* Hero Section */}
-      <section className="page-hero py-16">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6 animate-fade-in-up">
-              Ekibimiz
-            </h1>
+      <section className="page-hero">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="max-w-3xl">
+            <p className="page-hero-eyebrow">Koptay Hukuk Bürosu</p>
+            <h1 className="page-hero-title">Ekibimiz</h1>
+            <p className="page-hero-subtitle">
+              Ankara Barosu kayıtlı kurucu avukatımız ve uzmanlık
+              alanlarımız hakkında bilgi.
+            </p>
           </div>
         </div>
       </section>
@@ -70,25 +73,27 @@ const EkibimizPage = () => {
         </div>
       </section>
 
-      {/* İletişim */}
-      <section className="py-16 bg-gradient-to-r from-lawPrimary to-lawSecondary text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
-            İletişim
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/iletisim"
-              className="inline-block bg-white text-lawPrimary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              İletişim Formu
-            </a>
-            <a
-              href="tel:+905307111864"
-              className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-lawPrimary transition-all duration-300 transform hover:scale-105"
-            >
-              Telefon
-            </a>
+      {/* İletişim — slim CTA (Home ile uyumlu) */}
+      <section className="py-12 bg-lawLight border-t border-gray-200">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href="/iletisim"
+                className="inline-flex items-center justify-center gap-2 bg-lawPrimary text-white px-6 py-3 rounded-md font-medium hover:bg-lawSecondary transition-colors"
+              >
+                İletişim Formu
+              </a>
+              <a
+                href="tel:+905307111864"
+                className="inline-flex items-center justify-center gap-2 border border-lawPrimary text-lawPrimary px-6 py-3 rounded-md font-medium hover:bg-lawPrimary hover:text-white transition-colors"
+              >
+                Hemen Ara
+              </a>
+            </div>
+            <p className="text-sm text-gray-500">
+              Hafta içi 09:00 – 18:00 · Cumartesi randevu ile
+            </p>
           </div>
         </div>
       </section>

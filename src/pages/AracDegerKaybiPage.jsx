@@ -217,10 +217,10 @@ export default function AracDegerKaybiPage() {
         <div className="max-w-5xl mx-auto">
           {/* Başlık */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
-              <Car className="w-8 h-8 text-red-600" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-lawSecondary/10 rounded-full mb-4">
+              <Car className="w-8 h-8 text-lawSecondary" />
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+            <h1 className="text-3xl md:text-4xl font-serif font-light text-gray-900 mb-3">
               Araç Değer Kaybı Hesaplama
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -229,7 +229,7 @@ export default function AracDegerKaybiPage() {
           </div>
 
           {/* Progress Steps */}
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+          <div className="bg-white rounded-md shadow-md p-6 mb-8">
             <div className="flex items-center justify-between relative">
               {steps.map((step, index) => (
                 <React.Fragment key={step.number}>
@@ -240,7 +240,7 @@ export default function AracDegerKaybiPage() {
                     <div className={`
                       flex items-center justify-center w-12 h-12 rounded-full transition-all
                       ${currentStep === step.number
-                        ? 'bg-red-600 text-white scale-110'
+                        ? 'bg-lawPrimary text-white scale-110'
                         : currentStep > step.number
                           ? 'bg-green-500 text-white'
                           : 'bg-gray-200 text-gray-500'
@@ -254,7 +254,7 @@ export default function AracDegerKaybiPage() {
                     </div>
                     <span className={`
                       mt-2 text-xs font-medium hidden md:block text-center
-                      ${currentStep === step.number ? 'text-red-600' : 'text-gray-500'}
+                      ${currentStep === step.number ? 'text-lawPrimary' : 'text-gray-500'}
                     `}>
                       {step.title}
                     </span>
@@ -272,7 +272,7 @@ export default function AracDegerKaybiPage() {
           </div>
 
           {/* Form Content */}
-          <div className="bg-white rounded-xl shadow-lg p-8">
+          <div className="bg-white rounded-md shadow-md p-8">
             {/* ADIM 1: Genel Bilgiler */}
             {currentStep === 1 && (
               <div className="space-y-6">
@@ -288,7 +288,7 @@ export default function AracDegerKaybiPage() {
                       type="number"
                       value={formData.aracDegeri}
                       onChange={(e) => handleInputChange('aracDegeri', e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawSecondary focus:border-transparent"
                       placeholder="örn: 1500000"
                     />
                   </div>
@@ -302,7 +302,7 @@ export default function AracDegerKaybiPage() {
                       type="number"
                       value={formData.modelYili}
                       onChange={(e) => handleInputChange('modelYili', e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawSecondary focus:border-transparent"
                       placeholder="örn: 2022"
                       min="1990"
                       max={new Date().getFullYear()}
@@ -318,7 +318,7 @@ export default function AracDegerKaybiPage() {
                       type="date"
                       value={formData.kazaTarihi}
                       onChange={(e) => handleInputChange('kazaTarihi', e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawSecondary focus:border-transparent"
                     />
                   </div>
 
@@ -334,7 +334,7 @@ export default function AracDegerKaybiPage() {
                       type="number"
                       value={formData.kilometre}
                       onChange={(e) => handleInputChange('kilometre', e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawSecondary focus:border-transparent"
                       placeholder="örn: 45000"
                     />
                     <p className="text-xs text-gray-500 mt-1">
@@ -379,7 +379,7 @@ export default function AracDegerKaybiPage() {
                 
                 {/* SEO İçerik Bölümü */}
                 <div className="mt-12 max-w-4xl mx-auto">
-                  <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+                  <div className="bg-white rounded-md shadow-sm border border-gray-200 p-8">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">Araç Değer Kaybı Nedir ve Nasıl Hesaplanır?</h2>
                     
                     <div className="prose prose-gray max-w-none">
@@ -464,7 +464,7 @@ export default function AracDegerKaybiPage() {
                     flex items-center px-6 py-3 rounded-lg font-medium transition-all
                     ${((currentStep === 1 && !validateStep1()) || (currentStep === 2 && !validateStep2()))
                       ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                      : 'bg-red-600 text-white hover:bg-red-700'
+                      : 'bg-lawPrimary text-white hover:bg-lawSecondary'
                     }
                   `}
                 >
@@ -476,7 +476,7 @@ export default function AracDegerKaybiPage() {
               {currentStep === 3 && (
                 <button
                   onClick={handleHesapla}
-                  className="flex items-center px-8 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-all"
+                  className="flex items-center px-8 py-3 bg-lawPrimary text-white rounded-md font-medium hover:bg-lawSecondary transition-all"
                 >
                   <Calculator className="w-5 h-5 mr-2" />
                   Hesapla
@@ -645,7 +645,7 @@ const HasarForm = ({ hasarNo, hasar, onHasarChange, onParcaToggle, opsiyonel = f
               type="number"
               value={hasar.hasarTutari}
               onChange={(e) => onHasarChange('hasarTutari', e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawSecondary focus:border-transparent"
               placeholder="örn: 120000"
             />
           </div>
@@ -657,7 +657,7 @@ const HasarForm = ({ hasarNo, hasar, onHasarChange, onParcaToggle, opsiyonel = f
             <select
               value={hasar.hasarTuru}
               onChange={(e) => onHasarChange('hasarTuru', e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lawSecondary focus:border-transparent"
               required
             >
               <option value="">Hasar boyutunu seçiniz</option>
@@ -715,7 +715,7 @@ const HasarForm = ({ hasarNo, hasar, onHasarChange, onParcaToggle, opsiyonel = f
                         name={`${hasarNo}-${parca.id}`}
                         checked={islemTuru === 'boyali'}
                         onChange={() => onParcaToggle(hasarNo, parca.id, 'boyali')}
-                        className="w-4 h-4 text-red-600 focus:ring-red-500 cursor-pointer"
+                        className="w-4 h-4 text-red-600 focus:ring-lawSecondary cursor-pointer"
                       />
                     </td>
                     <td className="px-4 py-3 text-center">
@@ -863,7 +863,7 @@ const RaporEkrani = ({ sonuc, formData }) => {
       </div>
 
       {/* Ana Sonuç */}
-      <div className="bg-gradient-to-br from-red-500 to-red-600 text-white p-8 rounded-2xl shadow-lg">
+      <div className="bg-lawPrimary text-white p-8 rounded-md shadow-md">
         <div className="text-center">
           <div className="text-sm font-medium opacity-90 mb-2">TOPLAM DEĞER KAYBI</div>
           <div className="text-5xl font-bold mb-2">
@@ -991,13 +991,13 @@ const RaporEkrani = ({ sonuc, formData }) => {
       <div className="flex justify-center gap-4">
         <button
           onClick={() => window.print()}
-          className="px-6 py-3 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition-all"
+          className="px-6 py-3 bg-gray-600 text-white rounded-md font-medium hover:bg-gray-700 transition-all"
         >
           Raporu Yazdır
         </button>
         <button
           onClick={() => window.location.reload()}
-          className="px-6 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-all"
+          className="px-6 py-3 bg-lawPrimary text-white rounded-md font-medium hover:bg-lawSecondary transition-all"
         >
           Yeni Hesaplama
         </button>

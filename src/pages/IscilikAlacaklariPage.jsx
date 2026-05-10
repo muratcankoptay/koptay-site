@@ -27,7 +27,7 @@ const TabButton = ({ active, onClick, icon: Icon, label }) => (
 );
 
 const ResultCard = ({ title, amount, details }) => (
-    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mt-6">
+    <div className="bg-white p-6 rounded-md shadow-sm border border-gray-100 mt-6">
         <h3 className="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">{title}</h3>
         <div className="grid gap-4">
             <div className="flex justify-between items-center">
@@ -339,7 +339,7 @@ const IscilikAlacaklariPage = () => {
 
             <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-10">
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    <h1 className="text-3xl md:text-4xl font-serif font-light text-gray-900 mb-4">
                         Kıdem Tazminatı Hesaplama 2026 — Kıdem, İhbar, İzin, Fazla Mesai
                     </h1>
                     <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -348,7 +348,7 @@ const IscilikAlacaklariPage = () => {
                     </p>
                 </div>
 
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div className="bg-white rounded-md shadow-md overflow-hidden">
                     {/* Tabs */}
                     <div className="flex overflow-x-auto border-b border-gray-200">
                         <TabButton 
@@ -481,7 +481,7 @@ const IscilikAlacaklariPage = () => {
                         <div className="mt-8">
                             <button
                                 onClick={calculate}
-                                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200"
+                                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-lawPrimary hover:bg-lawSecondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lawSecondary transition-colors duration-200"
                             >
                                 <FaCalculator className="mr-2" />
                                 Hesapla
@@ -515,7 +515,7 @@ const IscilikAlacaklariPage = () => {
                 </div>
 
                 {/* Detayli Rehber CTA — Fazla Mesai makalesine ic link */}
-                <div className="mt-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg p-6 text-white">
+                <div className="mt-8 bg-lawPrimary rounded-md shadow-md p-6 text-white">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div className="flex-1">
                             <h3 className="text-xl font-bold mb-2">Fazla Mesai Alacağınız Var mı? Detaylı Rehberimizi İnceleyin</h3>
@@ -535,7 +535,7 @@ const IscilikAlacaklariPage = () => {
                 {/* === İÇERİK DERİNLİĞİ === */}
 
                 {/* 1) Bu hesaplamalar nedir? */}
-                <section className="mt-12 bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+                <section className="mt-12 bg-white rounded-md shadow-sm p-8 border border-gray-100">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">İşçilik Alacakları Hesaplaması Nedir?</h2>
                     <p className="text-gray-700 leading-relaxed mb-4">
                         İşçilik alacakları, iş sözleşmesinin sona ermesi veya çalışma süresince hak edilip ödenmemiş ücretler için işçinin işverenden talep edebileceği tazminat ve ücret kalemlerinin tümünü ifade eder.
@@ -549,7 +549,7 @@ const IscilikAlacaklariPage = () => {
                 </section>
 
                 {/* 2) Kıdem Tazminatı Nasıl Hesaplanır? */}
-                <section className="mt-8 bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+                <section className="mt-8 bg-white rounded-md shadow-sm p-8 border border-gray-100">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">Kıdem Tazminatı Nasıl Hesaplanır? (2026)</h2>
                     <p className="text-gray-700 leading-relaxed mb-4">
                         Kıdem tazminatı, bir işyerinde en az bir yıl süreyle çalışmış işçinin, iş sözleşmesinin kanunda sayılan hallerden biriyle (işveren tarafından haksız fesih, işçinin haklı nedenle feshi, askerlik, evlilik, emeklilik vb.) sona ermesi durumunda hak ettiği bir tutardır.
@@ -566,7 +566,7 @@ const IscilikAlacaklariPage = () => {
                 </section>
 
                 {/* 3) İhbar / Yıllık İzin / Fazla Mesai */}
-                <section className="mt-8 bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+                <section className="mt-8 bg-white rounded-md shadow-sm p-8 border border-gray-100">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">İhbar, Yıllık İzin ve Fazla Mesai Hesabı</h2>
 
                     <h3 className="text-lg font-semibold text-gray-900 mt-4 mb-2">İhbar Tazminatı (İş K. m.17)</h3>
@@ -603,7 +603,7 @@ const IscilikAlacaklariPage = () => {
                 </section>
 
                 {/* 4) Mevzuat dayanağı */}
-                <section className="mt-8 bg-primary-50 rounded-xl p-8 border border-blue-100">
+                <section className="mt-8 bg-primary-50 rounded-md p-8 border border-blue-100">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">Mevzuat Dayanağı</h2>
                     <ul className="space-y-2 text-gray-700">
                         <li>• <strong>4857 sayılı İş Kanunu</strong> — yürürlükteki ana iş kanunu (m.17 ihbar, m.32 ücret, m.41 fazla mesai, m.46 hafta tatili, m.47 genel tatil, m.59 yıllık izin).</li>
@@ -617,7 +617,7 @@ const IscilikAlacaklariPage = () => {
                 </section>
 
                 {/* 5) Yargıtay kararları */}
-                <section className="mt-8 bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+                <section className="mt-8 bg-white rounded-md shadow-sm p-8 border border-gray-100">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">Yargıtay Yerleşik İçtihatları</h2>
 
                     <div className="space-y-5">
@@ -656,7 +656,7 @@ const IscilikAlacaklariPage = () => {
                 </section>
 
                 {/* 6) SSS - Görünür blok (FAQPage schema ile uyumlu) */}
-                <section className="mt-8 bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+                <section className="mt-8 bg-white rounded-md shadow-sm p-8 border border-gray-100">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">Sıkça Sorulan Sorular</h2>
                     <div className="space-y-5">
                         {[
@@ -682,7 +682,7 @@ const IscilikAlacaklariPage = () => {
                 </section>
 
                 {/* 7) İlgili Makaleler */}
-                <section className="mt-8 bg-gradient-to-br from-slate-50 to-blue-50 rounded-xl p-8 border border-blue-100">
+                <section className="mt-8 bg-slate-50 rounded-md p-8 border border-slate-200">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">İlgili Makaleler</h2>
                     <p className="text-gray-700 mb-6">İş hukukundaki süreçleri daha derinlemesine incelemek isterseniz aşağıdaki rehberleri öneriyoruz.</p>
                     <div className="grid md:grid-cols-2 gap-4">
@@ -710,7 +710,7 @@ const IscilikAlacaklariPage = () => {
                 </section>
 
                 {/* 8) Avukatla görüş CTA */}
-                <section className="mt-8 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl shadow-lg p-8 text-white">
+                <section className="mt-8 bg-lawPrimary rounded-md shadow-md p-8 text-white">
                     <h2 className="text-2xl font-bold mb-3">Davanız İçin Kişiye Özel Hesap ve Strateji</h2>
                     <p className="text-blue-100 mb-6 leading-relaxed">
                         Bu hesaplama size yön gösterir; ancak gerçek alacağınız belge denetimi, Yargıtay içtihatları ve dava stratejisiyle şekillenir.
@@ -721,7 +721,7 @@ const IscilikAlacaklariPage = () => {
                         <a href="tel:+905307111864" className="bg-white text-primary-700 px-6 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors">
                             Telefon: 0530 711 18 64
                         </a>
-                        <Link to="/iletisim" className="bg-blue-800 text-white border border-white/40 px-6 py-3 rounded-lg font-semibold hover:bg-blue-900 transition-colors">
+                        <Link to="/iletisim" className="bg-lawSecondary text-white border border-white/40 px-6 py-3 rounded-md font-semibold hover:bg-lawDark transition-colors">
                             İletişim Formu
                         </Link>
                     </div>

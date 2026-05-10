@@ -138,12 +138,12 @@ const ClientPanel = () => {
               <div className="p-6 md:p-8">
                 {/* Status Cards */}
                 <div className="grid md:grid-cols-3 gap-6 mb-8">
-                  <div className="bg-lawGreen/10 border border-lawGreen/20 rounded-xl p-6">
+                  <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6">
                     <div className="flex items-center space-x-3 mb-2">
-                      <FileText className="w-6 h-6 text-lawGreen" />
+                      <FileText className="w-6 h-6 text-emerald-600" />
                       <h4 className="font-medium text-lawDark">Dosya Durumu</h4>
                     </div>
-                    <p className="text-2xl font-bold text-lawGreen">{mockClientData.status}</p>
+                    <p className="text-2xl font-bold text-emerald-600">{mockClientData.status}</p>
                   </div>
 
                   <div className="bg-lawSecondary/10 border border-lawSecondary/20 rounded-xl p-6">
@@ -197,7 +197,7 @@ const ClientPanel = () => {
                       {mockClientData.timeline.map((item, index) => (
                         <div key={index} className="flex items-start space-x-4">
                           <div className={`w-4 h-4 rounded-full mt-1 ${
-                            item.status === 'completed' ? 'bg-lawGreen' : 'bg-lawSecondary'
+                            item.status === 'completed' ? 'bg-emerald-500' : 'bg-lawSecondary'
                           }`} />
                           <div className="flex-1">
                             <p className="font-medium text-lawDark">{item.event}</p>
@@ -245,8 +245,8 @@ const ClientPanel = () => {
           </div>
 
           <div className="text-center">
-            <div className="w-16 h-16 bg-lawGreen/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <FileText className="w-8 h-8 text-lawGreen" />
+            <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4">
+              <FileText className="w-8 h-8 text-emerald-600" />
             </div>
             <h3 className="font-serif text-xl text-lawDark mb-2">Anlık Güncellemeler</h3>
             <p className="text-gray-600">Dosyanızdaki her gelişme anında panele yansır.</p>

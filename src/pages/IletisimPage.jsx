@@ -80,14 +80,16 @@ const IletisimPage = () => {
       />
 
       {/* Hero Section */}
-      <section className="page-hero py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-light mb-6 font-serif">
-            İletişim
-          </h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
-            Hukuki sorunlarınız için bizimle iletişime geçin
-          </p>
+      <section className="page-hero">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="max-w-3xl">
+            <p className="page-hero-eyebrow">Koptay Hukuk Bürosu</p>
+            <h1 className="page-hero-title">İletişim</h1>
+            <p className="page-hero-subtitle">
+              Telefon, e-posta veya iletişim formu üzerinden ulaşabilir;
+              davanız hakkında ön görüşme talep edebilirsiniz.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -125,12 +127,12 @@ const IletisimPage = () => {
 
             {/* Address */}
             <div className="text-center p-8 bg-gray-50 rounded-2xl">
-              <div className="w-16 h-16 bg-lawGreen rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-lawPrimary rounded-full flex items-center justify-center mx-auto mb-6">
                 <MapPin className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-2xl font-serif text-lawDark mb-4">Adres</h3>
               <p className="text-lg text-gray-700">
-                Aziziye Mah. Willy Bran Sk.<br />
+                Aziziye Mah. Willy Brandt Sk.<br />
                 No:7/1 Çankaya/ANKARA
               </p>
             </div>

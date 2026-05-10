@@ -51,7 +51,7 @@ const MuvekkilPaneliPage = () => {
       />
       
       {/* Hero Section */}
-      <section className="page-hero py-16">
+      <section className="page-hero">
         <div className="container mx-auto px-4 text-center">
           <div className="flex justify-center mb-4">
             <Shield className="w-16 h-16 text-white opacity-90" />

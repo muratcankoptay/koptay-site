@@ -12,8 +12,6 @@ export default {
         lawSecondary: '#548c8d',
         lawDark: '#1F2937',
         lawLight: '#F8F9FA',
-        lawGreen: '#899868',
-        lawGray: '#7f786f',
 
         // === Tailwind-tarz primary skala (teal aile) ===
         primary: {

@@ -85,31 +85,17 @@ const KamulastirmaHaritasiPage = () => {
       />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden" style={{
-        background: 'linear-gradient(135deg, #0c4a6e 0%, #155e75 30%, #164e63 60%, #134e4a 100%)',
-        minHeight: '380px'
-      }}>
-        {/* Decorative elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full opacity-10" style={{ background: 'radial-gradient(circle, #67e8f9, transparent)' }}></div>
-          <div className="absolute -bottom-32 -left-32 w-80 h-80 rounded-full opacity-10" style={{ background: 'radial-gradient(circle, #a7f3d0, transparent)' }}></div>
-          {/* Grid pattern */}
-          <div className="absolute inset-0 opacity-5" style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)',
-            backgroundSize: '40px 40px'
-          }}></div>
-        </div>
-
-        <div className="relative container mx-auto px-4 py-20 flex items-center justify-center" style={{ minHeight: '380px' }}>
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-5 py-2 mb-6 border border-white/20">
-              <MapPin className="w-4 h-4 text-emerald-300" />
-              <span className="text-emerald-100 text-sm font-medium">Güncel Kamulaştırma Bilgileri</span>
+      <section className="page-hero">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 mb-4 border border-white/20">
+              <MapPin className="w-3.5 h-3.5 text-lawSecondary" />
+              <span className="text-white/85 text-xs font-medium tracking-wide">Güncel Kamulaştırma Bilgileri</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-light mb-6 font-serif text-white">
-              Kamulaştırma <span className="text-emerald-300">Haritası</span>
+            <h1 className="page-hero-title">
+              Kamulaştırma <span className="text-lawSecondary italic">Haritası</span>
             </h1>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed text-cyan-100/80">
+            <p className="page-hero-subtitle">
               Kamulaştırma süreçleri hakkında bilgilendirme amaçlı içerikler.
             </p>
           </div>

@@ -15,9 +15,10 @@ const Footer = () => {
 
   const quickLinks = [
     { name: 'Ana Sayfa', href: '/' },
-    { name: 'Çalışma Alanları', href: '/#services' },
-    { name: 'Makaleler', href: '/makaleler' },
+    { name: 'Çalışma Alanları', href: '/hizmetlerimiz' },
     { name: 'Ekibimiz', href: '/ekibimiz' },
+    { name: 'Makaleler', href: '/makaleler' },
+    { name: 'Kamulaştırma Haritası', href: '/kamulastirma-haritasi' },
     { name: 'İletişim', href: '/iletisim' }
   ]
 
@@ -33,44 +34,36 @@ const Footer = () => {
     { name: 'Dava Süresi & Zamanaşımı', href: '/hesaplama-araclari/dava-suresi' }
   ]
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId)
-    if (element) element.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const handleLinkClick = (href) => {
-    if (href.startsWith('/#')) {
-      const sectionId = href.replace('/#', '')
-      scrollToSection(sectionId)
-    }
-  }
-
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid lg:grid-cols-5 md:grid-cols-2 gap-8">
+    <footer className="bg-lawDark text-white relative">
+      {/* Üst teal aksan çizgisi — marka süreklilik ipucu */}
+      <div className="h-[3px] bg-lawSecondary" aria-hidden="true" />
+
+      <div className="container mx-auto px-4 py-14">
+        <div className="grid lg:grid-cols-5 md:grid-cols-2 gap-10">
           {/* Company Info */}
           <div className="lg:col-span-1">
-            <div className="flex items-center space-x-2 mb-6">
+            <div className="flex items-center gap-3 mb-5">
               <img src="/logo.svg" alt="Koptay Hukuk Bürosu Logo" width="40" height="40" loading="lazy" decoding="async" className="w-10 h-10" />
-              <span className="text-2xl font-bold font-serif">Koptay Hukuk</span>
+              <span className="text-xl font-serif">Koptay Hukuk</span>
             </div>
-            <p className="text-gray-400 mb-6 leading-relaxed">
+            <p className="text-gray-400 leading-relaxed text-sm">
               Av. Murat Can Koptay<br />
-              Ankara 2 Nolu Barosu - Sicil No: 3560
+              Ankara 2 Nolu Barosu<br />
+              Sicil No: 3560
             </p>
           </div>
 
           {/* Practice Areas */}
           <div>
-            <h3 className="text-xl font-bold mb-6 font-serif">Çalışma Alanları</h3>
-            <ul className="space-y-3">
+            <h3 className="text-xs font-semibold mb-5 uppercase tracking-[0.15em] text-lawSecondary">Çalışma Alanları</h3>
+            <ul className="space-y-2.5">
               {practiceAreas.map((area, index) => (
                 <li key={index}>
-                  <button onClick={() => scrollToSection('services')}
-                          className="text-gray-400 hover:text-primary-400 transition-colors duration-200 text-left">
+                  <Link to="/hizmetlerimiz"
+                          className="text-gray-400 hover:text-white transition-colors duration-200 text-sm">
                     {area}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -78,20 +71,13 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-bold mb-6 font-serif">Hızlı Erişim</h3>
-            <ul className="space-y-3">
+            <h3 className="text-xs font-semibold mb-5 uppercase tracking-[0.15em] text-lawSecondary">Hızlı Erişim</h3>
+            <ul className="space-y-2.5">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  {link.href.startsWith('/#') ? (
-                    <button onClick={() => handleLinkClick(link.href)}
-                            className="text-gray-400 hover:text-primary-400 transition-colors duration-200 text-left">
-                      {link.name}
-                    </button>
-                  ) : (
-                    <Link to={link.href} className="text-gray-400 hover:text-primary-400 transition-colors duration-200">
-                      {link.name}
-                    </Link>
-                  )}
+                  <Link to={link.href} className="text-gray-400 hover:text-white transition-colors duration-200 text-sm">
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -99,18 +85,18 @@ const Footer = () => {
 
           {/* Hesaplama Araçları — site-wide internal linking */}
           <div>
-            <h3 className="text-xl font-bold mb-6 font-serif">Hesaplama Araçları</h3>
+            <h3 className="text-xs font-semibold mb-5 uppercase tracking-[0.15em] text-lawSecondary">Hesaplama Araçları</h3>
             <ul className="space-y-2.5">
               {calculators.map((calc, index) => (
                 <li key={index}>
-                  <Link to={calc.href} className="text-gray-400 hover:text-primary-400 transition-colors duration-200 text-sm">
+                  <Link to={calc.href} className="text-gray-400 hover:text-white transition-colors duration-200 text-sm">
                     {calc.name}
                   </Link>
                 </li>
               ))}
               <li className="pt-2">
-                <Link to="/hesaplama-araclari" className="text-primary-400 hover:text-primary-300 transition-colors duration-200 text-sm font-medium">
-                  → Tüm Hesaplama Araçları
+                <Link to="/hesaplama-araclari" className="inline-flex items-center gap-1 text-lawSecondary hover:text-white transition-colors duration-200 text-sm font-medium">
+                  Tüm Hesaplama Araçları →
                 </Link>
               </li>
             </ul>
@@ -118,34 +104,34 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-xl font-bold mb-6 font-serif">İletişim Bilgileri</h3>
-            <div className="space-y-4">
-              <div className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
-                <div className="text-gray-400">
-                  <p>Aziziye Mah. Willy Bran Sk.</p>
-                  <p>No:7/1 Çankaya/ANKARA</p>
+            <h3 className="text-xs font-semibold mb-5 uppercase tracking-[0.15em] text-lawSecondary">İletişim</h3>
+            <div className="space-y-3.5 text-sm">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-lawSecondary mt-0.5 shrink-0" />
+                <div className="text-gray-400 leading-relaxed">
+                  Aziziye Mah. Willy Brandt Sk.<br />
+                  No:7/1 Çankaya/ANKARA
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-primary-400 flex-shrink-0" />
+              <div className="flex items-center gap-3">
+                <Phone className="w-4 h-4 text-lawSecondary shrink-0" />
                 <a href={`tel:${import.meta.env.VITE_PHONE || '+90 530 711 18 64'}`}
-                   className="text-gray-400 hover:text-primary-400 transition-colors">
+                   className="text-gray-400 hover:text-white transition-colors">
                   {import.meta.env.VITE_PHONE || '+90 530 711 18 64'}
                 </a>
               </div>
-              <div className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-primary-400 flex-shrink-0" />
+              <div className="flex items-center gap-3">
+                <Mail className="w-4 h-4 text-lawSecondary shrink-0" />
                 <a href={`mailto:${import.meta.env.VITE_CONTACT_EMAIL || 'info@koptay.av.tr'}`}
-                   className="text-gray-400 hover:text-primary-400 transition-colors">
+                   className="text-gray-400 hover:text-white transition-colors">
                   {import.meta.env.VITE_CONTACT_EMAIL || 'info@koptay.av.tr'}
                 </a>
               </div>
-              <div className="flex items-start space-x-3">
-                <Clock className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
-                <div className="text-gray-400">
-                  <p>Pazartesi - Cuma</p>
-                  <p>09:00 - 18:00</p>
+              <div className="flex items-start gap-3">
+                <Clock className="w-4 h-4 text-lawSecondary mt-0.5 shrink-0" />
+                <div className="text-gray-400 leading-relaxed">
+                  Pazartesi – Cuma · 09:00 – 18:00<br />
+                  <span className="text-gray-500 text-xs">Cumartesi randevu ile</span>
                 </div>
               </div>
             </div>
@@ -154,17 +140,17 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm mb-4 md:mb-0">
+      <div className="border-t border-white/10">
+        <div className="container mx-auto px-4 py-5">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-3">
+            <p className="text-gray-500 text-xs">
               © {currentYear} Koptay Hukuk Bürosu. Tüm hakları saklıdır.
             </p>
-            <div className="flex space-x-6 text-sm">
-              <Link to="/kvkk" className="text-gray-400 hover:text-primary-400 transition-colors">
+            <div className="flex gap-6 text-xs">
+              <Link to="/kvkk" className="text-gray-500 hover:text-white transition-colors">
                 KVKK / Çerez Politikası
               </Link>
-              <Link to="/iletisim" className="text-gray-400 hover:text-primary-400 transition-colors">
+              <Link to="/iletisim" className="text-gray-500 hover:text-white transition-colors">
                 İletişim
               </Link>
             </div>

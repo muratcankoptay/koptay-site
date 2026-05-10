@@ -45,7 +45,7 @@ const FloatingContact = () => {
       }`}>
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden min-w-[280px]">
           {/* Header */}
-          <div className="bg-lawGray px-5 py-4">
+          <div className="bg-lawDark px-5 py-4">
             <h3 className="text-white font-semibold text-lg">İletişim</h3>
           </div>
 
@@ -139,7 +139,7 @@ const FloatingContact = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`relative w-16 h-16 rounded-2xl shadow-md transition-colors duration-300 flex items-center justify-center ${
-          isOpen ? 'bg-lawGray' : 'bg-lawSecondary'
+          isOpen ? 'bg-lawDark' : 'bg-lawSecondary'
         }`}
         aria-label="İletişim Menüsü"
       >

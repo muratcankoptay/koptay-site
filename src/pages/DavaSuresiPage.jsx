@@ -117,17 +117,19 @@ const DavaSuresiPage = () => {
       </script>
 
       {/* HERO */}
-      <section className="page-hero py-16 bg-lawPrimary text-white">
-        <div className="container mx-auto px-4 text-center">
-          <Hourglass className="w-12 h-12 mx-auto mb-4 text-lawSecondary" />
-          <h1 className="text-3xl md:text-5xl font-bold mb-4 font-serif">
-            Dava Süresi Hesaplama
-          </h1>
-          <p className="text-lg md:text-xl max-w-3xl mx-auto opacity-90">
-            Zamanaşımı, hak düşürücü süre, istinaf-temyiz ve ortalama yargılama
-            süresini tek araçta hesaplayın. TBK, TCK, HMK, CMK, İYUK ve İİK
-            madde dayanaklarıyla.
-          </p>
+      <section className="page-hero">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="max-w-3xl">
+            <p className="page-hero-eyebrow flex items-center gap-2">
+              <Hourglass className="w-3.5 h-3.5" /> Pratik Araç
+            </p>
+            <h1 className="page-hero-title">Dava Süresi Hesaplama</h1>
+            <p className="page-hero-subtitle">
+              Zamanaşımı, hak düşürücü süre, istinaf-temyiz ve ortalama yargılama
+              süresini tek araçta hesaplayın. TBK, TCK, HMK, CMK, İYUK ve İİK
+              madde dayanaklarıyla.
+            </p>
+          </div>
         </div>
       </section>
 

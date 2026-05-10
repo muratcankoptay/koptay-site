@@ -213,11 +213,11 @@ const ArticlePage = () => {
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Makale Bulunamadı</h1>
           <p className="text-gray-600 mb-8">{error}</p>
-          <Link 
-            to="/" 
-            className="inline-flex items-center bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors"
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 bg-lawPrimary text-white px-6 py-3 rounded-md hover:bg-lawSecondary transition-colors"
           >
-            <ArrowLeft className="w-5 h-5 mr-2" />
+            <ArrowLeft className="w-5 h-5" />
             Ana Sayfaya Dön
           </Link>
         </div>
@@ -225,16 +225,9 @@ const ArticlePage = () => {
     )
   }
 
-  const getCategoryColor = (category) => {
-    const colors = {
-      'İş Hukuku': 'bg-blue-100 text-blue-800',
-      'Ticaret Hukuku': 'bg-green-100 text-green-800',
-      'Aile Hukuku': 'bg-pink-100 text-pink-800',
-      'Ceza Hukuku': 'bg-red-100 text-red-800',
-      'Gayrimenkul Hukuku': 'bg-yellow-100 text-yellow-800',
-      'İcra ve İflas Hukuku': 'bg-purple-100 text-purple-800',
-    }
-    return colors[category] || 'bg-gray-100 text-gray-800'
+  // Tüm kategoriler tek tip nötr rozet — tutarlı marka dili
+  const getCategoryColor = () => {
+    return 'bg-lawSecondary/10 text-lawSecondary border border-lawSecondary/20'
   }
 
   // Image can be either a string URL or an object {url, alternativeText}
@@ -386,12 +379,12 @@ const ArticlePage = () => {
         <div className="container mx-auto px-4">
           {/* Back Button */}
           <div className="mb-8">
-            <Link 
-              to="/" 
-              className="inline-flex items-center text-gray-600 hover:text-primary-600 transition-colors"
+            <Link
+              to="/makaleler"
+              className="inline-flex items-center text-gray-600 hover:text-lawSecondary transition-colors text-sm"
             >
-              <ArrowLeft className="w-5 h-5 mr-2" />
-              Ana Sayfaya Dön
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Tüm Makaleler
             </Link>
           </div>
 
@@ -426,33 +419,33 @@ const ArticlePage = () => {
                 </div>
               </div>
 
-              {/* Share Buttons */}
-              <div className="flex items-center space-x-4 pb-6 border-b border-gray-200">
-                <span className="text-gray-600 font-medium">Paylaş:</span>
+              {/* Share Buttons — sade nötr stil */}
+              <div className="flex items-center gap-3 pb-6 border-b border-gray-200">
+                <span className="text-gray-500 text-sm font-medium mr-1">Paylaş:</span>
                 <button
                   onClick={() => shareArticle('facebook')}
-                  className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="p-2 text-gray-500 border border-gray-200 rounded-md hover:text-lawSecondary hover:border-lawSecondary transition-colors"
                   aria-label="Facebook'ta paylaş"
                 >
                   <Facebook className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => shareArticle('twitter')}
-                  className="p-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors"
+                  className="p-2 text-gray-500 border border-gray-200 rounded-md hover:text-lawSecondary hover:border-lawSecondary transition-colors"
                   aria-label="Twitter'da paylaş"
                 >
                   <Twitter className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => shareArticle('linkedin')}
-                  className="p-2 bg-blue-800 text-white rounded-lg hover:bg-blue-900 transition-colors"
+                  className="p-2 text-gray-500 border border-gray-200 rounded-md hover:text-lawSecondary hover:border-lawSecondary transition-colors"
                   aria-label="LinkedIn'de paylaş"
                 >
                   <Linkedin className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => shareArticle('copy')}
-                  className="p-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                  className="p-2 text-gray-500 border border-gray-200 rounded-md hover:text-lawSecondary hover:border-lawSecondary transition-colors"
                   aria-label="Linki kopyala"
                 >
                   <Share2 className="w-4 h-4" />

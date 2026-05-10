@@ -249,15 +249,15 @@ const MeslekHastaligiPage = () => {
             `}</style>
 
             {/* User's Header adapted as Toolbar */}
-            <div className="container mx-auto px-4 py-4 flex justify-between items-center bg-white border-b border-slate-200 rounded-xl shadow-sm mb-8">
+            <div className="container mx-auto px-4 py-4 flex justify-between items-center bg-white border-b border-slate-200 rounded-md shadow-sm mb-8">
                 <div className="flex items-center gap-3">
-                    <div className="bg-teal-700 text-white p-2 rounded-lg">
+                    <div className="bg-lawSecondary/10 text-lawSecondary p-2 rounded-md">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 3.659c0 3.074-1.8 5.523-3.99 6.197-2.296-.705-4.002-3.125-4.002-6.197 0-3.074 1.8-5.523 4.002-6.197C12.99 5.125 14.8 7.574 14.8 10.659M9 17h6m-6 3h6m-6-6h6" />
                         </svg>
                     </div>
                     <div>
-                        <h1 className="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">Meslek Hastalığı Tazminatı Hesaplama 2026</h1>
+                        <h1 className="text-2xl md:text-3xl font-serif font-light text-slate-800 tracking-tight">Meslek Hastalığı Tazminatı Hesaplama 2026</h1>
                         <p className="text-xs md:text-sm text-slate-500">Yükümlülük Süresi (5510 SK m.14) & TRH-2010 "” Yargıtay 10. HD İçtihatlarına Uygun</p>
                     </div>
                 </div>
@@ -274,39 +274,39 @@ const MeslekHastaligiPage = () => {
                     
                     {/* INPUT PANEL */}
                     <div className="lg:col-span-4 space-y-6 no-print">
-                        <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100">
+                        <div className="bg-white p-6 rounded-md shadow-md border border-slate-100">
                             <h2 className="text-lg font-bold text-slate-700 mb-4 border-b pb-2">1. Kişisel Veriler & Olay</h2>
                             
                             <div className="grid grid-cols-2 gap-4 mb-4">
                                 <div>
                                     <label className="block text-xs font-semibold text-slate-500 mb-1">Cinsiyet</label>
-                                    <select value={gender} onChange={(e) => setGender(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none">
+                                    <select value={gender} onChange={(e) => setGender(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-lawSecondary outline-none">
                                         <option value="M">Erkek</option>
                                         <option value="F">Kadın</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label className="block text-xs font-semibold text-slate-500 mb-1">Doğum Tarihi</label>
-                                    <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                                    <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-lawSecondary outline-none" />
                                 </div>
                             </div>
 
                             <div className="mb-4">
                                 <label className="block text-xs font-semibold text-slate-500 mb-1">Meslek Hastalığı Tespit Tarihi</label>
-                                <input type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                                <input type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-lawSecondary outline-none" />
                             </div>
 
                             <div className="mb-4">
                                 <label className="block text-xs font-semibold text-slate-500 mb-1">Aylık Net Kazanç (TL)</label>
                                 <div className="relative">
-                                    <input type="number" value={wage} onChange={(e) => setWage(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded pl-3 pr-10 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" placeholder="Örn: 25000" />
+                                    <input type="number" value={wage} onChange={(e) => setWage(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded pl-3 pr-10 py-2 text-sm focus:ring-2 focus:ring-lawSecondary outline-none" placeholder="Örn: 25000" />
                                     <span className="absolute right-3 top-2 text-slate-400 text-sm">₺</span>
                                 </div>
                                 <p className="text-[10px] text-slate-400 mt-1">*Çıplak net ücret giriniz.</p>
                             </div>
                         </div>
 
-                        <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100">
+                        <div className="bg-white p-6 rounded-md shadow-md border border-slate-100">
                             <h2 className="text-lg font-bold text-slate-700 mb-4 border-b pb-2">2. Maluliyet ve Kusur</h2>
                             
                             <div className="mb-4">
@@ -325,23 +325,23 @@ const MeslekHastaligiPage = () => {
                                         let val = parseInt(e.target.value) || 0;
                                         if(val > 100) val = 100;
                                         setWorkerFault(val);
-                                    }} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                                    }} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-lawSecondary outline-none" />
                                 </div>
                                 <div>
                                     <label className="block text-xs font-semibold text-slate-500 mb-1">İşveren Kusuru (%)</label>
-                                    <input type="number" value={100 - workerFault} readOnly className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                                    <input type="number" value={100 - workerFault} readOnly className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-lawSecondary outline-none" />
                                 </div>
                             </div>
                             <p className="text-[10px] text-red-400 mb-4">*İşveren kusuru otomatik hesaplanır (100 - İşçi).</p>
 
                             <div>
                                 <label className="block text-xs font-semibold text-slate-500 mb-1">SGK Tarafından Bağlanan PSD (TL)</label>
-                                <input type="number" value={psd} onChange={(e) => setPsd(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none" />
+                                <input type="number" value={psd} onChange={(e) => setPsd(e.target.value)} className="w-full bg-slate-50 border border-slate-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-lawSecondary outline-none" />
                                 <p className="text-[10px] text-slate-400 mt-1">Rücu edilebilir Peşin Sermaye Değeri (İndirim kalemi).</p>
                             </div>
                         </div>
 
-                        <button onClick={calculateCompensation} className="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 px-4 rounded-xl shadow-md transition duration-200 flex items-center justify-center gap-2">
+                        <button onClick={calculateCompensation} className="w-full bg-lawPrimary hover:bg-lawSecondary text-white font-bold py-3 px-4 rounded-md shadow-md transition duration-200 flex items-center justify-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 3.659c0 3.074-1.8 5.523-3.99 6.197-2.296-.705-4.002-3.125-4.002-6.197 0-3.074 1.8-5.523 4.002-6.197C12.99 5.125 14.8 7.574 14.8 10.659M9 17h6m-6 3h6m-6-6h6" />
                             </svg>
@@ -354,26 +354,26 @@ const MeslekHastaligiPage = () => {
                         
                         {/* Summary Cards */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div className="bg-white p-4 rounded-xl shadow border-l-4 border-primary-500">
+                            <div className="bg-white p-4 rounded-md shadow-md border-l-4 border-primary-500">
                                 <p className="text-xs text-slate-500 font-semibold uppercase">Olay Tarihi Yaşı</p>
                                 <p className="text-xl font-bold text-slate-800">{results ? results.ageAtEvent : '-'}</p>
                             </div>
-                            <div className="bg-white p-4 rounded-xl shadow border-l-4 border-indigo-500">
+                            <div className="bg-white p-4 rounded-md shadow-md border-l-4 border-indigo-500">
                                 <p className="text-xs text-slate-500 font-semibold uppercase">TRH-2010 Bakiye</p>
                                 <p className="text-xl font-bold text-slate-800">{results ? results.remainingLife.toFixed(2) + ' Yıl' : '-'}</p>
                             </div>
-                            <div className="bg-white p-4 rounded-xl shadow border-l-4 border-amber-500">
+                            <div className="bg-white p-4 rounded-md shadow-md border-l-4 border-amber-500">
                                 <p className="text-xs text-slate-500 font-semibold uppercase">Aktif Dönem</p>
                                 <p className="text-xl font-bold text-slate-800">{results ? results.activeYears.toFixed(2) + ' Yıl' : '-'}</p>
                             </div>
-                            <div className="bg-white p-4 rounded-xl shadow border-l-4 border-teal-500">
+                            <div className="bg-white p-4 rounded-md shadow-md border-l-4 border-teal-500">
                                 <p className="text-xs text-slate-500 font-semibold uppercase">Pasif Dönem</p>
                                 <p className="text-xl font-bold text-slate-800">{results ? results.passiveYears.toFixed(2) + ' Yıl' : '-'}</p>
                             </div>
                         </div>
 
                         {/* Main Result Card */}
-                        <div className="bg-white rounded-xl shadow-xl overflow-hidden border border-slate-200">
+                        <div className="bg-white rounded-md shadow-md overflow-hidden border border-slate-200">
                             <div className="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
                                 <h3 className="font-bold text-slate-700">Tazminat Hesap Özeti</h3>
                                 <span className="text-xs bg-teal-100 text-teal-800 px-2 py-1 rounded">Bilirkişi Formatı</span>
@@ -428,13 +428,13 @@ const MeslekHastaligiPage = () => {
 
                         {/* Explanation / Chart Area */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 no-print">
-                            <div className="bg-white p-6 rounded-xl shadow border border-slate-100">
+                            <div className="bg-white p-6 rounded-md shadow-md border border-slate-100">
                                 <h4 className="font-bold text-slate-700 mb-4 text-sm">Oransal Dağılım</h4>
                                 <div className="chart-container">
                                     <canvas ref={chartRef}></canvas>
                                 </div>
                             </div>
-                            <div className="bg-white p-6 rounded-xl shadow border border-slate-100">
+                            <div className="bg-white p-6 rounded-md shadow-md border border-slate-100">
                                 <h4 className="font-bold text-slate-700 mb-2 text-sm">Hukuki Notlar</h4>
                                 <ul className="text-xs text-slate-600 space-y-3 list-disc pl-4">
                                     <li><strong>TRH-2010:</strong> Hesaplamada Yargıtay'ın zorunlu kıldığı güncel yaşam tablosu kullanılmıştır.</li>
@@ -465,7 +465,7 @@ const MeslekHastaligiPage = () => {
                     </section>
 
                     {/* Expert Report Content */}
-                    <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 prose prose-slate max-w-none">
+                    <section className="bg-white p-8 rounded-md shadow-sm border border-slate-200 prose prose-slate max-w-none">
                         <h2 className="text-2xl font-bold text-slate-800 border-b pb-4 mb-6">Meslek Hastalığı Tazminatının Hukuki ve Aktüeryal Temelleri</h2>
                         
                         <div className="grid md:grid-cols-2 gap-8">
@@ -500,7 +500,7 @@ const MeslekHastaligiPage = () => {
                             </ul>
                         </div>
 
-                        <div className="mt-8 bg-slate-50 p-6 rounded-xl border-l-4 border-teal-500">
+                        <div className="mt-8 bg-slate-50 p-6 rounded-md border-l-4 border-lawSecondary">
                             <h3 className="text-lg font-semibold text-slate-800">Kritik Uyarı: SGK PSD Mahsubu</h3>
                             <p className="text-sm text-slate-600 mt-2">
                                 Hukukumuzda "Zenginleşme Yasağı" gereği, işçi aynı zarar için iki kere tazminat alamaz. 
@@ -511,7 +511,7 @@ const MeslekHastaligiPage = () => {
                     </section>
 
                     {/* FAQ Section */}
-                    <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <section className="bg-white p-8 rounded-md shadow-sm border border-slate-200">
                         <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />

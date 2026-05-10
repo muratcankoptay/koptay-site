@@ -95,13 +95,55 @@ body {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
 }
 
-/* Page Hero Section - Sabit yükseklik için */
+/* Page Hero Section — Home Hero ile uyumlu sade lacivert ton.
+   Hafif teal gradient + sol kenar aksan çizgisi.
+   Üst padding fixed Nav (~80-88px) için clearance içerir. */
 .page-hero {
-  @apply bg-gradient-to-br from-lawPrimary to-lawSecondary text-white;
-  min-height: 280px;
+  @apply bg-gradient-to-br from-lawDark via-lawPrimary to-[#395d61] text-white relative overflow-hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding-top: 7rem;
+  padding-bottom: 3rem;
+  min-height: 220px;
+}
+
+@media (min-width: 768px) {
+  .page-hero {
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+    min-height: 260px;
+  }
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 25%;
+  bottom: 25%;
+  width: 3px;
+  background: rgba(84, 140, 141, 0.6);
+}
+
+@media (max-width: 768px) {
+  .page-hero::before {
+    display: none;
+  }
+}
+
+/* Page hero üstünde küçük teal eyebrow etiket */
+.page-hero-eyebrow {
+  @apply text-lawSecondary text-xs md:text-sm font-semibold tracking-[0.2em] uppercase mb-3;
+}
+
+/* Page hero başlığı — serif, hafif font ağırlığı */
+.page-hero-title {
+  @apply text-4xl md:text-5xl font-serif text-white mb-3 leading-tight;
+}
+
+/* Page hero alt açıklama */
+.page-hero-subtitle {
+  @apply text-base md:text-lg text-white/75 max-w-2xl leading-relaxed;
 }
 
 /* Button hover effects */
