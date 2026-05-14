@@ -387,7 +387,7 @@ export const api = {
       console.log('📤 Sending contact form:', formData);
       
       // Web3Forms API Key
-      // https://web3forms.com adresinden ücretsiz key alın
+      // https://web3forms.com adresinden API key alın
       const WEB3FORMS_ACCESS_KEY = '0793b4d9-026b-47f3-b03e-efa21814fc54';
       
       // Web3Forms entegrasyonu

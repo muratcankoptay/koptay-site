@@ -709,20 +709,17 @@ const IscilikAlacaklariPage = () => {
                     </div>
                 </section>
 
-                {/* 8) Avukatla görüş CTA */}
+                {/* 8) Bilgilendirme — kişiye özel değerlendirme notu */}
                 <section className="mt-8 bg-lawPrimary rounded-md shadow-md p-8 text-white">
-                    <h2 className="text-2xl font-bold mb-3">Davanız İçin Kişiye Özel Hesap ve Strateji</h2>
+                    <h2 className="text-2xl font-bold mb-3">Bu Hesaplama Size Bir Yön Gösterir</h2>
                     <p className="text-blue-100 mb-6 leading-relaxed">
-                        Bu hesaplama size yön gösterir; ancak gerçek alacağınız belge denetimi, Yargıtay içtihatları ve dava stratejisiyle şekillenir.
-                        <strong className="text-white"> Av. Murat Can Koptay </strong> Ankara'da iş hukuku alanında danışmanlık ve dava takibi yapmaktadır.
-                        İlk değerlendirme ücretsizdir.
+                        Gerçek alacak miktarı; bordro ve banka kayıtlarının denetimi, giydirilmiş ücret kalemlerinin
+                        ispatı, Yargıtay içtihatları ve dava stratejisiyle şekillenir. Dosyanıza özel
+                        değerlendirme yapılmadan tahminî sonuç bağlayıcı kabul edilmemelidir.
                     </p>
                     <div className="flex flex-wrap gap-3">
-                        <a href="tel:+905307111864" className="bg-white text-primary-700 px-6 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors">
-                            Telefon: 0530 711 18 64
-                        </a>
                         <Link to="/iletisim" className="bg-lawSecondary text-white border border-white/40 px-6 py-3 rounded-md font-semibold hover:bg-lawDark transition-colors">
-                            İletişim Formu
+                            İletişim Bilgileri
                         </Link>
                     </div>
                 </section>

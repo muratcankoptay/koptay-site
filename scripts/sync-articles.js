@@ -4,7 +4,7 @@
  * Kullanım:
  *   node scripts/sync-articles.js
  * 
- * Not: Strapi Cloud ücretsiz planı askıya alındığında çalışmaz.
+ * Not: Strapi Cloud planı askıya alındığında çalışmaz.
  *      Ay başında veya plan yükseltildikten sonra çalıştırın.
  */
 
@@ -29,7 +29,7 @@ async function syncArticles() {
     if (!response.ok) {
       if (response.status === 503) {
         console.error('❌ Strapi askıya alınmış (503 Service Unavailable)');
-        console.error('   Strapi Cloud ücretsiz plan limitleri dolmuş olabilir.');
+        console.error('   Strapi Cloud plan limitleri dolmuş olabilir.');
         console.error('   Ay başında tekrar deneyin veya planı yükseltin.\n');
         process.exit(1);
       }

@@ -129,7 +129,7 @@ const HesaplamaAraclariPage = () => {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'Koptay Hukuk Hesaplama Araçları',
-    description: `${totalTools} adet ücretsiz hukuki hesaplama aracı`,
+    description: `${totalTools} adet hukuki hesaplama aracı`,
     numberOfItems: totalTools,
     itemListElement: allTools.map((tool, i) => ({
       '@type': 'ListItem',
@@ -274,13 +274,9 @@ const HesaplamaAraclariPage = () => {
       <section className="py-10 bg-gray-100">
         <div className="container mx-auto px-4 max-w-4xl text-center">
           <div className="flex flex-wrap gap-3 justify-center">
-            <a href="tel:+905307111864"
-              className="bg-lawPrimary text-white px-5 py-2.5 rounded-lg font-medium hover:bg-lawSecondary transition-colors">
-              Telefon: 0530 711 18 64
-            </a>
             <Link to="/iletisim"
               className="bg-white text-lawPrimary border border-lawPrimary px-5 py-2.5 rounded-lg font-medium hover:bg-lawPrimary hover:text-white transition-colors">
-              İletişim Formu
+              İletişim Bilgileri
             </Link>
           </div>
         </div>

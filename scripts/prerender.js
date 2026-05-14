@@ -140,7 +140,7 @@ const staticRoutes = [
   {
     path: '/',
     title: 'Koptay Hukuk Bürosu | Ankara Avukat — İş, Trafik, Ceza, Aile Hukuku',
-    description: 'Ankara\'da iş hukuku, trafik kazası, ceza, aile ve tazminat davalarında profesyonel avukatlık hizmetleri. 6 ücretsiz hesaplama aracı ve uzman makaleler. Av. Murat Can Koptay.',
+    description: 'Ankara\'da iş hukuku, trafik kazası, ceza, aile ve tazminat davalarında avukatlık hizmetleri. Hukuki hesaplama araçları ve uzman makaleler. Av. Murat Can Koptay.',
     keywords: 'ankara avukat, iş hukuku avukatı, trafik kazası avukatı, ceza avukatı, aile hukuku, tazminat davası, koptay hukuk, avukatlık hizmetleri ankara'
   },
   {
@@ -175,8 +175,8 @@ const staticRoutes = [
   },
   {
     path: '/hesaplama-araclari',
-    title: 'Ücretsiz Hukuki Hesaplama Araçları | Koptay Hukuk',
-    description: 'İnfaz yatar, vekâlet ücreti, tazminat, araç değer kaybı, dava süresi, ilave tediye, işçilik alacakları ve daha fazlası — 9 ücretsiz hukuki hesaplama aracı.',
+    title: 'Hukuki Hesaplama Araçları | Koptay Hukuk',
+    description: 'İnfaz yatar, vekâlet ücreti, tazminat, araç değer kaybı, dava süresi, ilave tediye, işçilik alacakları ve daha fazlası — 9 hukuki hesaplama aracı.',
     keywords: 'hukuki hesaplama, infaz yatar hesaplama, vekalet ücreti, tazminat hesaplama, değer kaybı hesaplama, ilave tediye, işçilik alacakları'
   },
   {

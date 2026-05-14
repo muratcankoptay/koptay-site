@@ -245,28 +245,22 @@ const DavaSuresiPage = () => {
         </div>
       </section>
 
-      {/* CTA – İletişim */}
+      {/* Bilgilendirme – Süre kontrolü */}
       <section className="py-12 bg-lawPrimary text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-3 font-serif">
-            Süreniz Mi Doluyor?
+            Süre Hesabında Hata Yapmayın
           </h2>
           <p className="text-lg opacity-90 mb-6 max-w-2xl mx-auto">
-            Hak kaybı yaşamamak için ücretsiz ön değerlendirme alın.
-            Avukatımız sizi arasın.
+            Zamanaşımı ve hak düşürücü sürelerin doğru hesabı dosyanın esasını etkiler.
+            Tereddüt halinde bir avukata başvurmanız önerilir.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
-              href="tel:+905307111864"
-              className="inline-flex items-center justify-center gap-2 bg-white text-lawPrimary font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors"
-            >
-              <Phone className="w-5 h-5" /> Telefon
-            </a>
             <Link
               to="/iletisim"
               className="inline-flex items-center justify-center gap-2 bg-lawSecondary text-white font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
             >
-              İletişim Formu <ArrowRight className="w-5 h-5" />
+              İletişim Bilgileri <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
         </div>
