@@ -1,42 +1,99 @@
 /**
  * Image Optimization Utility
- * For Vite/React apps - returns original URL
- * Image optimization handled at source (Strapi) or CDN level
+ *
+ * Bu modül iki çalışma modu sunar:
+ *
+ * 1) Pass-through (mevcut davranış): generateSrcSet ve optimizeImage URL'yi olduğu gibi
+ *    döndürür. Bu, geriye dönük uyumluluk için korunmuştur.
+ *
+ * 2) Responsive variants (yeni): Eğer makalenin görseli için elimizde önceden üretilmiş
+ *    `-{W}w.{ext}` varyantları varsa (örn. `cover-384w.webp`, `cover-768w.webp`, ...),
+ *    `generateResponsivePictureSources(url)` ile WebP+JPG fallback'li gerçek bir
+ *    `<picture>` source listesi oluşturulur. PageSpeed'in "resim yayınlamayı
+ *    kolaylaştırın" uyarısını ortadan kaldırır.
+ *
+ * Convention:
+ *   /images/articles/foo.jpg          → orijinal (fallback)
+ *   /images/articles/foo-384w.jpg     → mobil
+ *   /images/articles/foo-384w.webp
+ *   /images/articles/foo-768w.jpg     → tablet
+ *   /images/articles/foo-768w.webp
+ *   /images/articles/foo-1200w.jpg    → desktop
+ *   /images/articles/foo-1200w.webp
+ *
+ * Yeni bir makale eklenirken bu varyantların oluşturulması gerekir; aksi hâlde
+ * `responsive` flag'ı kullanılmamalıdır (404 hatasından kaçınmak için).
  */
 
+const RESPONSIVE_WIDTHS = [384, 768, 1200]
+
+const splitUrl = (url) => {
+  const lastDot = url.lastIndexOf('.')
+  if (lastDot === -1) return { base: url, ext: '' }
+  return { base: url.slice(0, lastDot), ext: url.slice(lastDot) }
+}
+
 /**
- * Get optimized image URL
- * @param {string} url - Original image URL
- * @param {number} width - Target width (unused in this implementation)
- * @param {number} quality - Quality (unused in this implementation)
- * @returns {string} - Image URL
+ * Get optimized image URL (pass-through)
+ * @param {string} url
+ * @returns {string}
  */
-export const optimizeImage = (url, width = 1024, quality = 80) => {
+export const optimizeImage = (url /*, width = 1024, quality = 80 */) => {
   if (!url) return url
-  
-  // For Strapi images, use as-is
-  // Optimization should be done at Strapi level or via CDN
   return url
 }
 
 /**
- * Generate srcset for responsive images
- * @param {string} url - Original image URL
- * @returns {string} - srcset attribute value
+ * Pass-through srcset (geriye dönük uyumluluk).
+ * Yeni makalelerde generateResponsiveSrcSet/generateResponsivePictureSources tercih edin.
  */
 export const generateSrcSet = (url) => {
   if (!url) return ''
-  
-  const widths = [640, 768, 1024, 1280, 1536]
-  return widths
-    .map(width => `${optimizeImage(url, width, 80)} ${width}w`)
+  return `${url} 1200w`
+}
+
+/**
+ * Sizes attribute — viewport tabanlı.
+ * Mobile-first: küçük ekranda %100 vw, masaüstünde max 1024px.
+ */
+export const generateSizes = () => {
+  return '(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1024px'
+}
+
+/**
+ * Responsive srcset — gerçek varyant URL'leri üretir.
+ * Sadece varyantları üretilmiş görseller için kullanın.
+ *
+ * @param {string} url - Orijinal URL (örn. /images/articles/foo.jpg)
+ * @param {string} forcedExt - Override için (örn. '.webp')
+ * @returns {string} srcset
+ */
+export const generateResponsiveSrcSet = (url, forcedExt) => {
+  if (!url) return ''
+  const { base, ext } = splitUrl(url)
+  const useExt = forcedExt || ext
+  return RESPONSIVE_WIDTHS
+    .map((w) => `${base}-${w}w${useExt} ${w}w`)
     .join(', ')
 }
 
 /**
- * Generate sizes attribute for responsive images
- * @returns {string} - sizes attribute value
+ * <picture> elementi için <source> dizisi (WebP + orijinal format).
+ * ArticlePage.jsx'te şu şekilde kullanılır:
+ *
+ *   <picture>
+ *     {sources.map(s => <source key={s.type} type={s.type} srcSet={s.srcSet} sizes={s.sizes} />)}
+ *     <img src={fallbackUrl} ... />
+ *   </picture>
+ *
+ * @param {string} url - Orijinal URL (jpg veya png)
+ * @returns {Array<{type: string, srcSet: string, sizes: string}>}
  */
-export const generateSizes = () => {
-  return '(max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, 1280px'
+export const generateResponsivePictureSources = (url) => {
+  if (!url) return []
+  const sizes = generateSizes()
+  return [
+    { type: 'image/webp', srcSet: generateResponsiveSrcSet(url, '.webp'), sizes },
+    { type: 'image/jpeg', srcSet: generateResponsiveSrcSet(url), sizes },
+  ]
 }

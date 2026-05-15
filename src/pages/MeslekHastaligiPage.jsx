@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO';
 import HesaplamaDisclaimer from '../components/HesaplamaDisclaimer';
-import { Chart } from 'chart.js/auto';
+// Chart.js dinamik import — bundle splitting için (sadece bu sayfa açıldığında yüklenir)
 
 const MeslekHastaligiPage = () => {
     // State for inputs
@@ -111,9 +111,15 @@ const MeslekHastaligiPage = () => {
         });
     };
 
-    // Chart Effect
+    // Chart Effect — Chart.js dinamik olarak yüklenir, böylece sayfa ilk render'ında bundle'da yer almaz
     useEffect(() => {
-        if (results && chartRef.current) {
+        if (!results || !chartRef.current) return;
+
+        let cancelled = false;
+        (async () => {
+            const { Chart } = await import('chart.js/auto');
+            if (cancelled || !chartRef.current) return;
+
             if (chartInstance.current) {
                 chartInstance.current.destroy();
             }
@@ -156,7 +162,9 @@ const MeslekHastaligiPage = () => {
                     }
                 }
             });
-        }
+        })();
+
+        return () => { cancelled = true; };
     }, [results]);
 
     const fmt = (num) => new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(num);

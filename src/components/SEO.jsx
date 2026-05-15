@@ -14,7 +14,10 @@ const SEO = ({
   author = null,
   publishedTime = null,
   modifiedTime = null,
-  preloadImage = false
+  preloadImage = false,
+  // Responsive preload (LCP için): srcset + sizes verilirse tarayıcı doğru varyantı çeker
+  preloadImageSrcSet = null,
+  preloadImageSizes = null
 }) => {
   // Minimal structured data (sadece kuruluş tanımı)
   let structuredData = {
@@ -63,8 +66,17 @@ const SEO = ({
 
       <link rel="canonical" href={url} />
 
-      {preloadImage && image && (
+      {preloadImage && image && !preloadImageSrcSet && (
         <link rel="preload" as="image" href={image} fetchpriority="high" />
+      )}
+      {preloadImage && preloadImageSrcSet && (
+        <link
+          rel="preload"
+          as="image"
+          imagesrcset={preloadImageSrcSet}
+          imagesizes={preloadImageSizes || '100vw'}
+          fetchpriority="high"
+        />
       )}
 
       <script type="application/ld+json">

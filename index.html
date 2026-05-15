@@ -102,16 +102,12 @@
     </script>
   </head>
   <body>
-    <div id="global-loader" style="position:fixed;top:0;left:0;width:100%;height:100%;background-color:#ffffff;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.3s ease-out;">
-      <img src="/logo.svg" alt="Koptay Hukuk Burosu Logo" style="width:150px;height:auto;margin-bottom:2rem;animation:pulse 2s infinite;">
-      <div style="width:3rem;height:3rem;border:3px solid #f3f4f6;border-top-color:#548c8d;border-radius:50%;animation:spin 1s linear infinite;"></div>
-    </div>
-    <style>
-      @keyframes spin { to { transform: rotate(360deg); } }
-      @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1); } }
-      .loader-hidden { opacity: 0; pointer-events: none; }
-    </style>
-
+    <!--
+      Global loader kaldırıldı: LCP elementinin "logo loader" olarak işaretlenip
+      sonradan değişmesi mobil PageSpeed'de LCP'yi 6 sn'ye taşıyordu.
+      App içindeki Suspense fallback (PageLoader) zaten ilk paint'ten sonra
+      kullanıcıya küçük bir spinner gösteriyor; ayrı bir tam ekran loader gerek değil.
+    -->
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

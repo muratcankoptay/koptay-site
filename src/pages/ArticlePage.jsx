@@ -4,7 +4,7 @@ import { Calendar, Clock, User, ArrowLeft, Share2, Facebook, Twitter, Linkedin, 
 import { Helmet } from 'react-helmet-async'
 import { marked } from 'marked'
 import { api, formatDate } from '../utils/api'
-import { optimizeImage, generateSrcSet, generateSizes } from '../utils/imageOptimizer'
+import { optimizeImage, generateSrcSet, generateSizes, generateResponsivePictureSources } from '../utils/imageOptimizer'
 import { getCustomArticleSchema, hasCustomSchema } from '../utils/articleSchemas'
 import { incrementArticleViews, getArticleViews } from '../services/articleViewsService'
 import SEO from '../components/SEO'
@@ -230,13 +230,16 @@ const ArticlePage = () => {
     return 'bg-lawSecondary/10 text-lawSecondary border border-lawSecondary/20'
   }
 
-  // Image can be either a string URL or an object {url, alternativeText}
+  // Image can be either a string URL or an object {url, alternativeText, responsive?}
   const articleImageUrl = (article.image && typeof article.image === 'object')
     ? article.image.url
     : article.image
   const articleImageAlt = (article.image && typeof article.image === 'object' && article.image.alternativeText)
     ? article.image.alternativeText
     : article.title
+  // Yeni makaleler için responsive flag — varsa <picture> ile WebP/JPG fallback srcset üret
+  const isResponsive = !!(article.image && typeof article.image === 'object' && article.image.responsive)
+  const pictureSources = isResponsive ? generateResponsivePictureSources(articleImageUrl) : []
   // Build absolute URL for OG/Twitter image (required by social platforms)
   const absoluteImageUrl = articleImageUrl
     ? (articleImageUrl.startsWith('http') ? articleImageUrl : `https://koptay.av.tr${articleImageUrl}`)
@@ -255,6 +258,8 @@ const ArticlePage = () => {
         publishedTime={article.publishedAt || article.publishDate}
         modifiedTime={article.updatedAt || article.updatedDate || article.publishedAt || article.publishDate}
         preloadImage={true}
+        preloadImageSrcSet={isResponsive ? pictureSources.find(s => s.type === 'image/webp')?.srcSet : null}
+        preloadImageSizes={isResponsive ? pictureSources[0]?.sizes : null}
       />
 
       {/* JSON-LD Structured Data Schemas */}
@@ -453,24 +458,42 @@ const ArticlePage = () => {
               </div>
             </header>
 
-            {/* Article Image */}
+            {/* Article Image — yeni makaleler için <picture> ile responsive WebP/JPG */}
             {articleImageUrl && (
               <div className="mb-8 relative overflow-hidden rounded-xl bg-gray-100">
-                <img
-                  src={optimizeImage(articleImageUrl, 1280, 85)}
-                  srcSet={generateSrcSet(articleImageUrl)}
-                  sizes={generateSizes()}
-                  alt={articleImageAlt}
-                  className="w-full h-64 md:h-96 object-cover rounded-xl"
-                  width="1024"
-                  height="690"
-                  loading="eager"
-                  fetchpriority="high"
-                  decoding="async"
-                  onError={(e) => {
-                    e.target.src = articleImageUrl // Fallback to original
-                  }}
-                />
+                {isResponsive ? (
+                  <picture>
+                    {pictureSources.map((s) => (
+                      <source key={s.type} type={s.type} srcSet={s.srcSet} sizes={s.sizes} />
+                    ))}
+                    <img
+                      src={articleImageUrl}
+                      alt={articleImageAlt}
+                      className="w-full h-64 md:h-96 object-cover rounded-xl"
+                      width="1200"
+                      height="630"
+                      loading="eager"
+                      fetchpriority="high"
+                      decoding="async"
+                    />
+                  </picture>
+                ) : (
+                  <img
+                    src={optimizeImage(articleImageUrl, 1280, 85)}
+                    srcSet={generateSrcSet(articleImageUrl)}
+                    sizes={generateSizes()}
+                    alt={articleImageAlt}
+                    className="w-full h-64 md:h-96 object-cover rounded-xl"
+                    width="1024"
+                    height="690"
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                    onError={(e) => {
+                      e.target.src = articleImageUrl
+                    }}
+                  />
+                )}
               </div>
             )}
 
