@@ -45,7 +45,9 @@ const articlesData = fs.existsSync(ARTICLES_JSON)
 const articles = articlesData.data || [];
 
 // Tek bir HTML üretici: title, description, OG/Twitter, canonical, json-ld bloklarını ekler.
-function buildHtml({ title, description, keywords, url, image, type = 'website', extraJsonLd = [], publishedTime, modifiedTime, author }) {
+// preloadImage true ise LCP optimizasyonu için <link rel="preload" as="image"> eklenir;
+// responsive flag varsa imagesrcset/imagesizes ile mobil önce yapısı kullanılır.
+function buildHtml({ title, description, keywords, url, image, type = 'website', extraJsonLd = [], publishedTime, modifiedTime, author, preloadImage = false, responsiveImage = false }) {
   const absoluteImage = image
     ? (image.startsWith('http') ? image : `${SITE_URL}${image}`)
     : `${SITE_URL}/images/hero-bg-1.jpg`;
@@ -55,8 +57,28 @@ function buildHtml({ title, description, keywords, url, image, type = 'website',
     .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(title)}</title>`)
     .replace(/<meta name="description" content="[^"]*"\s*\/?>/, `<meta name="description" content="${escapeHtml(description)}" />`);
 
+  // LCP image preload — build-time HTML'e basılır, böylece tarayıcı React mount olmadan görseli çekmeye başlar
+  let preloadBlock = '';
+  if (preloadImage && image && !image.startsWith('http')) {
+    if (responsiveImage) {
+      // Beklenen convention: image -> /images/articles/foo.jpg
+      // Varyantlar: foo-384w.webp, foo-768w.webp, foo-1200w.webp
+      const lastDot = image.lastIndexOf('.');
+      const base = image.slice(0, lastDot);
+      const webpSrcSet = [384, 768, 1200].map(w => `${SITE_URL}${base}-${w}w.webp ${w}w`).join(', ');
+      const sizes = '(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1024px';
+      preloadBlock = `
+    <!-- LCP cover image preload (responsive WebP) -->
+    <link rel="preload" as="image" type="image/webp" imagesrcset="${escapeHtml(webpSrcSet)}" imagesizes="${escapeHtml(sizes)}" fetchpriority="high">`;
+    } else {
+      preloadBlock = `
+    <!-- LCP cover image preload -->
+    <link rel="preload" as="image" href="${escapeHtml(absoluteImage)}" fetchpriority="high">`;
+    }
+  }
+
   // Build SEO meta block
-  const seoBlock = `
+  const seoBlock = `${preloadBlock}
     <!-- Prerendered SEO meta — kullanıcılar React'i yüklerken botlar bu bloğu görür -->
     <meta name="keywords" content="${escapeHtml(keywords || '')}" />
     <meta name="author" content="${escapeHtml(author || 'Av. Murat Can Koptay')}" />
@@ -326,6 +348,9 @@ articles.forEach(article => {
     ]
   };
 
+  // Responsive cover variants varsa LCP için imagesrcset ile preload, yoksa basit href preload
+  const isResponsiveImage = !!(article.image && typeof article.image === 'object' && article.image.responsive);
+
   const html = buildHtml({
     title,
     description,
@@ -336,7 +361,9 @@ articles.forEach(article => {
     author: article.author,
     publishedTime: article.publishedAt || article.createdAt,
     modifiedTime: article.updatedAt || article.publishedAt || article.createdAt,
-    extraJsonLd: [orgJsonLd, websiteJsonLd, articleJsonLd, breadcrumbJsonLd]
+    extraJsonLd: [orgJsonLd, websiteJsonLd, articleJsonLd, breadcrumbJsonLd],
+    preloadImage: !!imageUrl,
+    responsiveImage: isResponsiveImage
   });
 
   writePrerenderedPage(`/makale/${slug}`, html);

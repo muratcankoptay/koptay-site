@@ -21,18 +21,12 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    modulePreload: {
-      resolveDependencies: (filename, deps) => {
-        const HEAVY_PATTERNS = [
-          'chart-vendor',
-          'pdf-vendor',
-          'html2canvas-vendor',
-          'flatpickr-vendor',
-          'ai-vendor'
-        ];
-        return deps.filter((dep) => !HEAVY_PATTERNS.some((p) => dep.includes(p)));
-      }
-    },
+    // modulePreload tamamen kapatıldı (Vite 4+ varsayılanı agresif preload yapıyor).
+    // resolveDependencies filtresi yetmiyordu — tarayıcı preload scanner yine de
+    // dynamic import path'lerini görüp arka planda fetch ediyordu.
+    // Bu sayede chart-vendor (~67 KiB) ana bundle'ın kritik yolundan tamamen çıkar;
+    // sadece ilgili hesaplama sayfası açıldığında, gerçekten ihtiyaç olduğunda yüklenir.
+    modulePreload: false,
     rollupOptions: {
       output: {
         manualChunks: (id) => {

@@ -47,8 +47,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Preload Hero Image (WebP fallback'li) -->
-    <link rel="preload" as="image" href="/logo.svg" fetchpriority="high">
+    <!--
+      Logo preload kaldırıldı: 5 KB SVG zaten <header> içinde mount olur olmaz çekiliyor.
+      Tüm sayfalarda statik preload yapmak makale ve hesaplama sayfalarında bandwidth israfıydı.
+      Sayfaya özgü LCP image preload'u prerender.js build-time olarak HTML'e basıyor.
+    -->
 
     <!-- Optimized font loading -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -103,11 +106,24 @@
   </head>
   <body>
     <!--
-      Global loader kaldırıldı: LCP elementinin "logo loader" olarak işaretlenip
-      sonradan değişmesi mobil PageSpeed'de LCP'yi 6 sn'ye taşıyordu.
-      App içindeki Suspense fallback (PageLoader) zaten ilk paint'ten sonra
-      kullanıcıya küçük bir spinner gösteriyor; ayrı bir tam ekran loader gerek değil.
+      App boot skeleton: React mount olana kadar tarayıcının paint edebileceği
+      minimal, gerçek-içerik benzeri yapı. Amacı:
+       (a) FCP'yi düşürmek — boş body 4 sn beyaz ekran demekti
+       (b) LCP "logo loader" olarak işaretlenmesin diye küçük tutulur
+       (c) React mount olunca kendiliğinden silinir (App.jsx içinde)
+      İçeriğin tamamı pure CSS, sıfır JS bağımlılığı.
     -->
+    <div id="boot-skeleton" aria-hidden="true" style="position:fixed;top:0;left:0;right:0;background:#fff;z-index:1;">
+      <div style="height:64px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;padding:0 1rem;">
+        <div style="width:140px;height:20px;background:#e5e7eb;border-radius:4px;"></div>
+        <div style="flex:1;"></div>
+        <div style="width:80px;height:18px;background:#f3f4f6;border-radius:4px;"></div>
+      </div>
+      <div style="max-width:1200px;margin:2rem auto;padding:0 1rem;">
+        <div style="height:32px;width:60%;background:#f3f4f6;border-radius:6px;margin-bottom:1rem;"></div>
+        <div style="height:18px;width:40%;background:#f3f4f6;border-radius:4px;margin-bottom:2rem;"></div>
+      </div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

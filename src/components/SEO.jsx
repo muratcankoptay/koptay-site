@@ -73,8 +73,9 @@ const SEO = ({
         <link
           rel="preload"
           as="image"
-          imagesrcset={preloadImageSrcSet}
-          imagesizes={preloadImageSizes || '100vw'}
+          href={image}
+          imageSrcSet={preloadImageSrcSet}
+          imageSizes={preloadImageSizes || '100vw'}
           fetchpriority="high"
         />
       )}

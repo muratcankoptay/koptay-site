@@ -87,11 +87,12 @@ function App() {
   const isAdminRoute = location.pathname.startsWith('/admin')
   const isWebAdminRoute = location.pathname.startsWith('/web-admin')
 
-  // Global loader kaldırıldı (index.html), bu effect artık gereksiz.
-  // Geriye dönük güvenlik: eski cache'lerde hâlâ varsa anında gizle.
+  // App mount olduğunda boot skeleton'ı (index.html'deki) ve eski global loader'ı temizle.
   useEffect(() => {
-    const loader = document.getElementById('global-loader');
-    if (loader) loader.style.display = 'none';
+    const skeleton = document.getElementById('boot-skeleton');
+    if (skeleton) skeleton.remove();
+    const oldLoader = document.getElementById('global-loader');
+    if (oldLoader) oldLoader.remove();
   }, []);
 
   // Web Admin routes - Netlify-based admin panel

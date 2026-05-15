@@ -466,8 +466,15 @@ const ArticlePage = () => {
                     {pictureSources.map((s) => (
                       <source key={s.type} type={s.type} srcSet={s.srcSet} sizes={s.sizes} />
                     ))}
+                    {/*
+                      img'a da JPG srcSet veriyoruz: tarayıcı source'lardan birini seçemese
+                      (eski tarayıcı vs.) bile responsive bir varyant indirir, büyük 1200w'i değil.
+                      src ise en küçük varyant (mobile-first fallback).
+                    */}
                     <img
-                      src={articleImageUrl}
+                      src={pictureSources[1]?.srcSet?.split(',')[0]?.trim()?.split(' ')[0] || articleImageUrl}
+                      srcSet={pictureSources[1]?.srcSet}
+                      sizes={pictureSources[1]?.sizes}
                       alt={articleImageAlt}
                       className="w-full h-64 md:h-96 object-cover rounded-xl"
                       width="1200"
