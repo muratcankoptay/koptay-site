@@ -134,26 +134,28 @@ const ArticlePage = () => {
       try {
         setLoading(true)
         setError(null)
-        
-        // Parallel fetch for better performance
-        const [articleResponse, allArticlesResponse] = await Promise.all([
-          api.getArticle(slug),
-          api.getArticles()
-        ])
-        
-        if (articleResponse.success) {
-          setArticle(articleResponse.data)
-          
-          // Filter related articles
-          if (allArticlesResponse.success) {
-            const related = allArticlesResponse.data
-              .filter(a => a.slug !== slug && a.category === articleResponse.data.category)
-              .slice(0, 3)
-            setRelatedArticles(related)
-          }
-        } else {
-          setError(articleResponse.error || 'Makale bulunamadı')
+
+        // Tek HTTP isteği: api.getArticles() içeride cache + inflight dedup yapar.
+        // Hem makaleyi hem related listesini aynı veriden çıkarıyoruz.
+        const allArticlesResponse = await api.getArticles()
+        if (!allArticlesResponse.success) {
+          setError('Makaleler yüklenemedi')
+          return
         }
+
+        const all = allArticlesResponse.data
+        const current = all.find(a => a.slug === slug)
+        if (!current) {
+          setError('Makale bulunamadı')
+          return
+        }
+
+        setArticle({ ...current, views: (current.views || 0) + 1 })
+
+        const related = all
+          .filter(a => a.slug !== slug && a.category === current.category)
+          .slice(0, 3)
+        setRelatedArticles(related)
       } catch (err) {
         setError('Makale yüklenirken bir hata oluştu')
       } finally {

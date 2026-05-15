@@ -24,34 +24,23 @@ const normalizeArticle = (article) => ({
   image: article.image?.url || '/images/hero.jpg'
 })
 
-// Makaleleri API'dan yükle (her zaman güncel veri), fallback statik JSON
+// Makaleleri sadece STATİK articles.json'dan yükle.
+// Önceki mimari /api/admin-articles'a hit ediyordu (her sayfa yüklemesinde 105 KiB,
+// PageSpeed mobilde 1.6 sn kritik yol gecikmesinin tek başına sebebi).
+// Statik JSON ise Vercel/CDN edge'inde cache'lenir, brotli sıkıştırması ile küçülür,
+// SWR davranışıyla anında dönüş verir. Yeni makale eklendiğinde build deploy ile
+// articles.json güncellendiği için "güncellik kaybı" yoktur.
 const getArticlesFromAPI = async () => {
-  // 1. Önce API endpoint'ini dene (güncel GitHub verisi)
   try {
-    const apiRes = await fetch('/api/admin-articles', { cache: 'no-store' })
-    if (apiRes.ok) {
-      const data = await apiRes.json()
-      if (data.data && data.data.length > 0) {
-        console.log(`✅ ${data.data.length} makale API'dan yüklendi`)
-        return data.data.map(normalizeArticle)
-      }
-    }
-  } catch (err) {
-    console.warn('API erişilemedi, statik JSON deneniyor...')
-  }
-
-  // 2. Fallback: Statik articles.json
-  try {
-    const response = await fetch('/articles.json', { cache: 'no-store' })
+    const response = await fetch('/articles.json')  // tarayıcı + CDN cache aktif
     if (response.ok) {
       const data = await response.json()
       if (data.data && data.data.length > 0) {
-        console.log(`✅ ${data.data.length} makale statik JSON'dan yüklendi`)
         return data.data.map(normalizeArticle)
       }
     }
   } catch (error) {
-    console.warn('Statik JSON yüklenemedi:', error)
+    console.warn('articles.json yüklenemedi:', error)
   }
   return null
 }
@@ -306,79 +295,55 @@ const mockArticles = [
   }
 ]
 
-// Simple in-memory cache
+// In-memory cache + in-flight request deduplication
+// (aynı anda 2 useEffect getArticles çağırırsa tek HTTP isteği gider)
 const cache = {
   articles: null,
   articlesTimestamp: 0,
-  CACHE_DURATION: 30 * 1000 // 30 seconds - kısa cache süresi
+  CACHE_DURATION: 5 * 60 * 1000, // 5 dakika
+  inflight: null
+}
+
+const loadArticlesOnce = async () => {
+  const now = Date.now()
+  if (cache.articles && (now - cache.articlesTimestamp) < cache.CACHE_DURATION) {
+    return cache.articles
+  }
+  if (cache.inflight) {
+    return cache.inflight
+  }
+  cache.inflight = (async () => {
+    const articles = (await getArticlesFromStrapi()) || mockArticles
+    cache.articles = articles
+    cache.articlesTimestamp = Date.now()
+    cache.inflight = null
+    return articles
+  })()
+  return cache.inflight
 }
 
 export const api = {
-  // Get all articles
+  // Tüm makaleler — cache ile tek HTTP isteği garantili
   getArticles: async () => {
-    // Check cache first
-    const now = Date.now()
-    if (cache.articles && (now - cache.articlesTimestamp) < cache.CACHE_DURATION) {
-      return {
-        success: true,
-        data: cache.articles
-      }
-    }
-    
-    // Try Strapi first, fallback to mock data
-    const strapiArticles = await getArticlesFromStrapi()
-    const articles = strapiArticles || mockArticles
-    
-    // Update cache
-    cache.articles = articles
-    cache.articlesTimestamp = now
-    
-    return {
-      success: true,
-      data: articles
-    };
+    const articles = await loadArticlesOnce()
+    return { success: true, data: articles }
   },
 
-  // Get single article by slug
+  // Tek makale — aynı cache üzerinden, ek HTTP isteği YOK
   getArticle: async (slug) => {
-    
-    // API'dan oku (güncel veri)
-    const sources = [
-      () => fetch('/api/admin-articles', { cache: 'no-store' }),
-      () => fetch('/articles.json', { cache: 'no-store' })
-    ]
-
-    for (const fetchSource of sources) {
-      try {
-        const response = await fetchSource()
-        if (response.ok) {
-          const data = await response.json()
-          const article = data.data.find(a => a.slug === slug)
-          if (article) {
-            return {
-              success: true,
-              data: normalizeArticle({ ...article, views: (article.views || 0) + 1 })
-            }
-          }
-        }
-      } catch (error) {
-        continue
-      }
-    }
-    
-    // Fallback to mock data
-    const article = mockArticles.find(article => article.slug === slug);
+    const articles = await loadArticlesOnce()
+    const article = articles.find(a => a.slug === slug)
     if (article) {
       return {
         success: true,
-        data: article
-      };
-    } else {
-      return {
-        success: false,
-        error: 'Makale bulunamadı'
-      };
+        data: normalizeArticle({ ...article, views: (article.views || 0) + 1 })
+      }
     }
+    // Fallback to mock data
+    const mock = mockArticles.find(a => a.slug === slug)
+    return mock
+      ? { success: true, data: mock }
+      : { success: false, error: 'Makale bulunamadı' }
   },
 
   // Submit contact form

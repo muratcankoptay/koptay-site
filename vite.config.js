@@ -40,21 +40,14 @@ export default defineConfig({
             if (id.includes('lucide-react')) {
               return 'ui-vendor';
             }
-            if (id.includes('chart.js') || id.includes('react-chartjs-2')) {
-              return 'chart-vendor';
-            }
-            if (id.includes('jspdf')) {
-              return 'pdf-vendor';
-            }
-            if (id.includes('html2canvas')) {
-              return 'html2canvas-vendor';
-            }
-            if (id.includes('flatpickr')) {
-              return 'flatpickr-vendor';
-            }
-            if (id.includes('@google/generative-ai')) {
-              return 'ai-vendor';
-            }
+            // chart.js, jspdf, html2canvas, flatpickr, @google/generative-ai için
+            // manualChunks rule'u BİLEREK kaldırıldı.
+            // Sebep: bu kütüphaneler ayrı vendor chunk yapılınca, dynamic import
+            // yapan sayfaların import map'i ana bundle'a yazılıyor ve tarayıcı
+            // preload scanner bunları arka planda fetch ediyordu (PageSpeed:
+            // chart-vendor 67 KiB, kıdem makalesinde %90 kullanılmıyor).
+            // Şimdi Vite, her birini sadece kullanan async chunk'a inline eder;
+            // ana bundle'da hiçbir referans kalmaz.
             return 'vendor';
           }
         }
