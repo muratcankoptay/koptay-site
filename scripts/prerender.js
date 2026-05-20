@@ -16,6 +16,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { PRACTICE_AREAS } from '../src/data/services.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -50,7 +51,7 @@ const articles = articlesData.data || [];
 function buildHtml({ title, description, keywords, url, image, type = 'website', extraJsonLd = [], publishedTime, modifiedTime, author, preloadImage = false, responsiveImage = false }) {
   const absoluteImage = image
     ? (image.startsWith('http') ? image : `${SITE_URL}${image}`)
-    : `${SITE_URL}/images/hero-bg-1.jpg`;
+    : `${SITE_URL}/images/og/og-default.jpg`;
 
   // Replace <title> and <meta name="description">
   let html = template
@@ -91,6 +92,9 @@ function buildHtml({ title, description, keywords, url, image, type = 'website',
     <meta property="og:title" content="${escapeHtml(title)}" />
     <meta property="og:description" content="${escapeHtml(description)}" />
     <meta property="og:image" content="${escapeHtml(absoluteImage)}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="${escapeHtml(title)}" />
     <meta property="og:url" content="${escapeHtml(url)}" />
     <meta property="og:type" content="${escapeHtml(type)}" />
     <meta property="og:site_name" content="Koptay Hukuk Bürosu" />
@@ -114,37 +118,38 @@ function buildHtml({ title, description, keywords, url, image, type = 'website',
   return html;
 }
 
-// Standard Organization/LegalService JSON-LD (her sayfada bulunur)
+// TBB Madde 7/e uyumlu LegalService JSON-LD (priceRange / knowsAbout yok)
 const orgJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Attorney",
-  "@id": `${SITE_URL}/#organization`,
+  "@type": "LegalService",
+  "@id": `${SITE_URL}/#legal-service`,
   "name": "Koptay Hukuk Bürosu",
-  "alternateName": "Av. Murat Can Koptay",
   "url": SITE_URL,
   "logo": `${SITE_URL}/logo.svg`,
-  "image": `${SITE_URL}/logo.svg`,
-  "description": "Ankara merkezli profesyonel hukuk bürosu. İş Hukuku, Trafik Kazası, Aile Hukuku, Ceza Hukuku ve Tazminat Davaları.",
+  "image": `${SITE_URL}/images/og/og-default.jpg`,
   "telephone": "+905307111864",
   "email": "info@koptay.av.tr",
-  "priceRange": "$$",
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "Ankara",
+    "streetAddress": "Aziziye Mah. Willy Brandt Sk. No:7/1",
+    "addressLocality": "Çankaya",
     "addressRegion": "Ankara",
+    "postalCode": "06690",
     "addressCountry": "TR"
   },
-  "areaServed": [
-    { "@type": "City", "name": "Ankara" },
-    { "@type": "Country", "name": "Türkiye" }
-  ],
-  "knowsLanguage": ["tr", "en"],
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 39.9208,
+    "longitude": 32.8541
+  },
   "openingHoursSpecification": [{
     "@type": "OpeningHoursSpecification",
     "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     "opens": "09:00",
     "closes": "18:00"
-  }]
+  }],
+  "areaServed": { "@type": "City", "name": "Ankara" },
+  "inLanguage": "tr-TR"
 };
 
 const websiteJsonLd = {
@@ -163,7 +168,8 @@ const staticRoutes = [
     path: '/',
     title: 'Koptay Hukuk Bürosu | Ankara Avukat — İş, Trafik, Ceza, Aile Hukuku',
     description: 'Ankara\'da iş hukuku, trafik kazası, ceza, aile ve tazminat davalarında avukatlık hizmetleri. Hukuki hesaplama araçları ve uzman makaleler. Av. Murat Can Koptay.',
-    keywords: 'ankara avukat, iş hukuku avukatı, trafik kazası avukatı, ceza avukatı, aile hukuku, tazminat davası, koptay hukuk, avukatlık hizmetleri ankara'
+    keywords: 'ankara avukat, iş hukuku avukatı, trafik kazası avukatı, ceza avukatı, aile hukuku, tazminat davası, koptay hukuk, avukatlık hizmetleri ankara',
+    image: '/images/og/og-default.jpg'
   },
   {
     path: '/hakkimizda',
@@ -175,7 +181,8 @@ const staticRoutes = [
     path: '/hizmetlerimiz',
     title: 'Hizmetlerimiz | İş, Ceza, Aile, Trafik, Ticaret Hukuku — Koptay Hukuk',
     description: 'Hukuk bürosu hizmetlerimiz: iş hukuku, ceza hukuku, aile hukuku, trafik kazası, ticaret hukuku, gayrimenkul hukuku, icra ve iflas. Ankara avukat.',
-    keywords: 'avukatlık hizmetleri, iş hukuku, ceza hukuku, aile hukuku, trafik kazası, ticaret hukuku, gayrimenkul, icra iflas, ankara'
+    keywords: 'avukatlık hizmetleri, iş hukuku, ceza hukuku, aile hukuku, trafik kazası, ticaret hukuku, gayrimenkul, icra iflas, ankara',
+    image: '/images/og/og-hizmetler.jpg'
   },
   {
     path: '/ekibimiz',
@@ -287,7 +294,7 @@ staticRoutes.forEach(route => {
     description: route.description,
     keywords: route.keywords,
     url,
-    image: '/images/hero-bg-1.jpg',
+    image: route.image || '/images/og/og-default.jpg',
     type: 'website',
     extraJsonLd: [orgJsonLd, websiteJsonLd]
   });
@@ -295,6 +302,41 @@ staticRoutes.forEach(route => {
 });
 
 console.log(`📄 ${staticRoutes.length} statik sayfa prerender edildi.`);
+
+// Hizmet detay sayfaları
+PRACTICE_AREAS.forEach((service) => {
+  const url = `${SITE_URL}/hizmetler/${service.slug}`;
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: service.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer }
+    }))
+  };
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Ana Sayfa', item: `${SITE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: 'Çalışma Alanları', item: `${SITE_URL}/hizmetlerimiz` },
+      { '@type': 'ListItem', position: 3, name: service.title, item: url }
+    ]
+  };
+  const html = buildHtml({
+    title: service.seoTitle,
+    description: service.seoDescription,
+    keywords: service.title,
+    url,
+    image: service.ogImage,
+    type: 'website',
+    extraJsonLd: [orgJsonLd, websiteJsonLd, faqJsonLd, breadcrumbJsonLd]
+  });
+  writePrerenderedPage(`/hizmetler/${service.slug}`, html);
+});
+
+console.log(`⚖️  ${PRACTICE_AREAS.length} hizmet sayfası prerender edildi.`);
 
 // Makale sayfaları
 articles.forEach(article => {

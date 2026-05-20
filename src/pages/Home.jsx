@@ -26,6 +26,9 @@ import SEO from '../components/SEO'
 import Hero from '../components/Hero'
 import { api, formatDate } from '../utils/api'
 import { getAllArticleViews } from '../services/articleViewsService'
+import { formatViewCount } from '../utils/articleViews'
+import { OG_IMAGES } from '../config/ogImages'
+import { PRACTICE_AREAS } from '../data/services'
 
 const Home = () => {
   const [featuredArticles, setFeaturedArticles] = useState([])
@@ -75,7 +78,12 @@ const Home = () => {
 
   return (
     <>
-      <SEO />
+      <SEO
+        title="Koptay Hukuk Bürosu — Ankara Avukat | İş, Ceza, Aile Hukuku"
+        description="Ankara'da iş hukuku, trafik kazası, ceza, aile ve tazminat davalarında avukatlık. Hukuki hesaplama araçları ve uzman makaleler."
+        image={OG_IMAGES.home}
+        url="/"
+      />
       
       {/* Hero Section */}
       <Hero />
@@ -310,10 +318,14 @@ const Home = () => {
 
                     {/* View Count & Read More */}
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center text-sm text-gray-500">
-                        <Eye className="w-4 h-4 mr-1" />
-                        {article.views?.toLocaleString('tr-TR') || 0} görüntülenme
-                      </div>
+                      {formatViewCount(article.views) ? (
+                        <div className="flex items-center text-sm text-gray-500">
+                          <Eye className="w-4 h-4 mr-1" aria-hidden="true" />
+                          {formatViewCount(article.views)}
+                        </div>
+                      ) : (
+                        <span className="text-sm text-gray-400" />
+                      )}
                       <Link
                         to={`/makaleler/${article.slug}`}
                         className="inline-flex items-center text-lawPrimary font-medium hover:text-lawSecondary transition-colors"
@@ -354,53 +366,30 @@ const Home = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-16">
-            {[
-              {
-                title: 'İş Hukuku',
-                icon: Briefcase,
-                description: 'İşçi-işveren uyuşmazlıkları, kıdem ve ihbar tazminatı, fazla mesai alacakları.'
-              },
-              {
-                title: 'Ticaret Hukuku',
-                icon: Building,
-                description: 'Şirket kuruluşu, sözleşme yönetimi, ticari uyuşmazlık ve alacak takibi.'
-              },
-              {
-                title: 'Aile Hukuku',
-                icon: Heart,
-                description: 'Boşanma, nafaka, velayet ve mal rejimi davalarında danışmanlık ve temsil.'
-              },
-              {
-                title: 'Ceza Hukuku',
-                icon: Shield,
-                description: 'Soruşturma ve kovuşturma süreçlerinde sanık ve mağdur müdafiliği.'
-              },
-              {
-                title: 'Gayrimenkul Hukuku',
-                icon: HomeIcon,
-                description: 'Tapu iptal-tescil, kira uyuşmazlıkları, kamulaştırma ve imar davaları.'
-              }
-            ].map((service, index) => (
+            {PRACTICE_AREAS.map((service) => {
+              const iconMap = { Briefcase, Building, Heart, Shield, Home: HomeIcon }
+              const ServiceIcon = iconMap[service.icon] || Briefcase
+              return (
               <Link
-                key={index}
-                to="/hizmetlerimiz"
+                key={service.slug}
+                to={`/hizmetler/${service.slug}`}
                 className="group block bg-white border border-gray-200 rounded-md p-6 hover:border-lawSecondary hover:shadow-md transition-all duration-300"
               >
                 <div className="w-11 h-11 rounded-md bg-lawSecondary/10 text-lawSecondary flex items-center justify-center mb-4 group-hover:bg-lawSecondary group-hover:text-white transition-colors">
-                  <service.icon className="w-5 h-5" />
+                  <ServiceIcon className="w-5 h-5" aria-hidden="true" />
                 </div>
                 <h3 className="text-base font-semibold text-lawDark mb-2">
                   {service.title}
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                  {service.description}
+                  {service.shortDescription}
                 </p>
                 <span className="inline-flex items-center text-sm font-medium text-lawSecondary group-hover:gap-2 gap-1 transition-all">
                   Detay
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </span>
               </Link>
-            ))}
+            )})}
           </div>
 
           <div className="text-center">

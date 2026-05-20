@@ -37,25 +37,11 @@
       .w-16{width:4rem}
     </style>
 
-    <!-- DNS Prefetch -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <!-- DNS Prefetch (yalnızca onay sonrası analytics) -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://www.clarity.ms">
 
-    <!-- Preconnect to critical domains -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!--
-      Logo preload kaldırıldı: 5 KB SVG zaten <header> içinde mount olur olmaz çekiliyor.
-      Tüm sayfalarda statik preload yapmak makale ve hesaplama sayfalarında bandwidth israfıydı.
-      Sayfaya özgü LCP image preload'u prerender.js build-time olarak HTML'e basıyor.
-    -->
-
-    <!-- Optimized font loading -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"></noscript>
+    <!-- Fontlar @fontsource ile self-host — main.jsx içinde import edilir -->
 
     <!--
       Analytics (GA4 + Microsoft Clarity) yalnızca KULLANICI ONAYI sonrası

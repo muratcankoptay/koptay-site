@@ -5,12 +5,12 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   const practiceAreas = [
-    'İş Hukuku',
-    'Ticaret Hukuku',
-    'Aile Hukuku',
-    'Ceza Hukuku',
-    'Gayrimenkul Hukuku',
-    'İcra ve İflas Hukuku'
+    { name: 'İş Hukuku', href: '/hizmetler/is-hukuku' },
+    { name: 'Ticaret Hukuku', href: '/hizmetler/ticaret-hukuku' },
+    { name: 'Aile Hukuku', href: '/hizmetler/aile-hukuku' },
+    { name: 'Ceza Hukuku', href: '/hizmetler/ceza-hukuku' },
+    { name: 'Gayrimenkul Hukuku', href: '/hizmetler/gayrimenkul-hukuku' },
+    { name: 'İcra ve İflas Hukuku', href: '/hizmetlerimiz' }
   ]
 
   const quickLinks = [
@@ -58,11 +58,11 @@ const Footer = () => {
           <div>
             <h3 className="text-xs font-semibold mb-5 uppercase tracking-[0.15em] text-lawSecondary">Çalışma Alanları</h3>
             <ul className="space-y-2.5">
-              {practiceAreas.map((area, index) => (
-                <li key={index}>
-                  <Link to="/hizmetlerimiz"
+              {practiceAreas.map((area) => (
+                <li key={area.href}>
+                  <Link to={area.href}
                           className="text-gray-400 hover:text-white transition-colors duration-200 text-sm">
-                    {area}
+                    {area.name}
                   </Link>
                 </li>
               ))}

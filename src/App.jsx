@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import FloatingContact from './components/FloatingContact'
 import MobileStickyCallBar from './components/MobileStickyCallBar'
 import CookieConsent from './components/CookieConsent'
+import LegalServiceSchema from './components/LegalServiceSchema'
 
 // Critical pages - load immediately
 import Home from './pages/Home'
@@ -13,6 +14,7 @@ import ArticlePage from './pages/ArticlePage'
 // Non-critical pages - lazy load
 const ArticlesPage = lazy(() => import('./pages/ArticlesPage'))
 const HizmetlerimizPage = lazy(() => import('./pages/HizmetlerimizPage'))
+const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'))
 const EkibimizPage = lazy(() => import('./pages/EkibimizPage'))
 const HesaplamaAraclariPage = lazy(() => import('./pages/HesaplamaAraclariPage'))
 const InfazYatarPage = lazy(() => import('./pages/InfazYatarPage'))
@@ -132,12 +134,14 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <LegalServiceSchema />
       <Nav />
       <main className="flex-grow">
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/hizmetlerimiz" element={<HizmetlerimizPage />} />
+            <Route path="/hizmetler/:slug" element={<ServiceDetailPage />} />
             <Route path="/ekibimiz" element={<EkibimizPage />} />
             <Route path="/hesaplama-araclari" element={<HesaplamaAraclariPage />} />
             <Route path="/hesaplama-araclari/infaz-yatar" element={<InfazYatarPage />} />

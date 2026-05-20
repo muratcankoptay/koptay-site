@@ -9,6 +9,7 @@ import {
   Users
 } from 'lucide-react'
 import SEO from '../components/SEO'
+import { OG_IMAGES } from '../config/ogImages'
 import { api } from '../utils/api'
 import { trackGA, GA_EVENTS } from '../utils/gaEvents'
 
@@ -74,8 +75,9 @@ const IletisimPage = () => {
   return (
     <>
       <SEO
-        title="İletişim — Koptay Hukuk Bürosu"
-        description="Koptay Hukuk Bürosu iletişim bilgileri. Çankaya/Ankara."
+        title="İletişim — Koptay Hukuk Bürosu | Ankara"
+        description="Koptay Hukuk Bürosu iletişim: Aziziye Mah. Willy Brandt Sk. No:7/1 Çankaya/Ankara. Tel: 0530 711 18 64."
+        image={OG_IMAGES.iletisim}
         url="/iletisim"
       />
 

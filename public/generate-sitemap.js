@@ -5,6 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { PRACTICE_AREAS } from '../src/data/services.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,6 +25,11 @@ const staticPages = [
   { url: '/', changefreq: 'weekly', priority: '1.0' },
   { url: '/hakkimizda', changefreq: 'monthly', priority: '0.8' },
   { url: '/hizmetlerimiz', changefreq: 'monthly', priority: '0.8' },
+  ...PRACTICE_AREAS.map((s) => ({
+    url: `/hizmetler/${s.slug}`,
+    changefreq: 'monthly',
+    priority: '0.85'
+  })),
   { url: '/ekibimiz', changefreq: 'monthly', priority: '0.7' },
   { url: '/makaleler', changefreq: 'daily', priority: '0.9' },
   { url: '/iletisim', changefreq: 'monthly', priority: '0.7' },

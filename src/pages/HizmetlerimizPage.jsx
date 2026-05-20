@@ -1,12 +1,14 @@
 import SEO from '../components/SEO'
 import Services from '../components/Services'
+import { OG_IMAGES } from '../config/ogImages'
 
 const HizmetlerimizPage = () => {
   return (
     <>
       <SEO
-        title="Çalışma Alanları — Koptay Hukuk Bürosu"
-        description="Koptay Hukuk Bürosu çalışma alanları."
+        title="Çalışma Alanları — Koptay Hukuk Bürosu | Ankara"
+        description="İş, ticaret, aile, ceza ve gayrimenkul hukuku alanlarında danışmanlık ve dava takibi. Her alan için süreç ve SSS sayfaları."
+        image={OG_IMAGES.hizmetler}
         url="/hizmetlerimiz"
       />
 

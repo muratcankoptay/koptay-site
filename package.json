@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node public/generate-sitemap.js && node public/generate-rss.js && vite build && node scripts/prerender.js",
+    "build": "node scripts/generate-og-images.js && node public/generate-sitemap.js && node public/generate-rss.js && vite build && node scripts/prerender.js",
+    "og-images": "node scripts/generate-og-images.js",
     "build:no-prerender": "node public/generate-sitemap.js && node public/generate-rss.js && vite build",
     "prerender": "node scripts/prerender.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
@@ -16,6 +17,8 @@
     "publish": "git add articles.json public/articles.json public/images/articles && git commit -m \"Yeni makale/gorsel eklendi\" && git push origin main"
   },
   "dependencies": {
+    "@fontsource/merriweather": "^5.2.11",
+    "@fontsource/open-sans": "^5.2.7",
     "@google/generative-ai": "^0.24.1",
     "chart.js": "^4.5.1",
     "cors": "^2.8.5",

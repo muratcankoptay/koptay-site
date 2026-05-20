@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import TeamMember from "../components/TeamMember"
 import SEO from "../components/SEO"
+import { OG_IMAGES } from '../config/ogImages'
 
 const EkibimizPage = () => {
   useEffect(() => {
@@ -36,8 +37,10 @@ const EkibimizPage = () => {
   return (
     <>
       <SEO
-        title="Ekibimiz — Koptay Hukuk Bürosu"
-        description="Av. Murat Can Koptay - Ankara 2 Nolu Barosu, Sicil No: 3560."
+        title="Ekibimiz — Koptay Hukuk Bürosu | Av. Murat Can Koptay"
+        description="Av. Murat Can Koptay — Ankara 2 Nolu Barosu, Sicil No: 3560. Ceza, iş hukuku ve tazminat davaları."
+        image={OG_IMAGES.ekibimiz}
+        url="/ekibimiz"
       />
 
       {/* Hero Section */}
