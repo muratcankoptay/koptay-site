@@ -9,9 +9,9 @@ import LegalServiceSchema from './components/LegalServiceSchema'
 
 // Critical pages - load immediately
 import Home from './pages/Home'
-import ArticlePage from './pages/ArticlePage'
 
 // Non-critical pages - lazy load
+const ArticlePage = lazy(() => import('./pages/ArticlePage'))
 const ArticlesPage = lazy(() => import('./pages/ArticlesPage'))
 const HizmetlerimizPage = lazy(() => import('./pages/HizmetlerimizPage'))
 const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'))

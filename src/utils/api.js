@@ -21,28 +21,72 @@ const normalizeArticle = (article) => ({
   metaDescription: article.seoDescription || article.excerpt,
   metaKeywords: article.keywords || '',
   seoTitle: article.seoTitle || article.title,
-  image: article.image?.url || '/images/hero.jpg'
+  image: (() => {
+    if (!article.image) return '/images/hero.jpg'
+    if (typeof article.image === 'string') {
+      return {
+        url: article.image,
+        alternativeText: article.title || '',
+        responsive: false
+      }
+    }
+    return {
+      url: article.image.url || '/images/hero.jpg',
+      alternativeText: article.image.alternativeText || article.title || '',
+      responsive: !!article.image.responsive,
+      name: article.image.name
+    }
+  })()
 })
 
-// Makaleleri sadece STATİK articles.json'dan yükle.
-// Önceki mimari /api/admin-articles'a hit ediyordu (her sayfa yüklemesinde 105 KiB,
-// PageSpeed mobilde 1.6 sn kritik yol gecikmesinin tek başına sebebi).
-// Statik JSON ise Vercel/CDN edge'inde cache'lenir, brotli sıkıştırması ile küçülür,
-// SWR davranışıyla anında dönüş verir. Yeni makale eklendiğinde build deploy ile
-// articles.json güncellendiği için "güncellik kaybı" yoktur.
-const getArticlesFromAPI = async () => {
+/** Liste sayfaları — içeriksiz hafif index (~15–25 KiB) */
+const fetchArticlesIndex = async () => {
   try {
-    const response = await fetch('/articles.json')  // tarayıcı + CDN cache aktif
+    const response = await fetch('/articles-index.json')
     if (response.ok) {
       const data = await response.json()
-      if (data.data && data.data.length > 0) {
-        return data.data.map(normalizeArticle)
-      }
+      if (data.data?.length) return data.data.map(normalizeArticle)
+    }
+  } catch (error) {
+    console.warn('articles-index.json yüklenemedi:', error)
+  }
+  return null
+}
+
+/** Tek makale — slug başına ayrı JSON (tam içerik, ~5–40 KiB) */
+const fetchArticleBySlug = async (slug) => {
+  try {
+    const response = await fetch(`/articles/${encodeURIComponent(slug)}.json`)
+    if (response.ok) {
+      const payload = await response.json()
+      const raw = payload.data ?? payload
+      const article = Array.isArray(raw) ? raw[0] : raw
+      if (article?.slug) return normalizeArticle(article)
+    }
+  } catch (error) {
+    console.warn(`articles/${slug}.json yüklenemedi:`, error)
+  }
+  return null
+}
+
+/** Fallback: tam articles.json (eski istemciler / index yoksa) */
+const fetchArticlesFull = async () => {
+  try {
+    const response = await fetch('/articles.json')
+    if (response.ok) {
+      const data = await response.json()
+      if (data.data?.length) return data.data.map(normalizeArticle)
     }
   } catch (error) {
     console.warn('articles.json yüklenemedi:', error)
   }
   return null
+}
+
+const getArticlesFromAPI = async () => {
+  const index = await fetchArticlesIndex()
+  if (index?.length) return index
+  return fetchArticlesFull()
 }
 
 // Ana fonksiyon
@@ -329,21 +373,34 @@ export const api = {
     return { success: true, data: articles }
   },
 
-  // Tek makale — aynı cache üzerinden, ek HTTP isteği YOK
+  // Tek makale — önce /articles/{slug}.json (kritik yolda 105 KiB articles.json yok)
   getArticle: async (slug) => {
-    const articles = await loadArticlesOnce()
-    const article = articles.find(a => a.slug === slug)
-    if (article) {
-      return {
-        success: true,
-        data: normalizeArticle({ ...article, views: (article.views || 0) + 1 })
-      }
+    const fromSlug = await fetchArticleBySlug(slug)
+    if (fromSlug) {
+      return { success: true, data: { ...fromSlug, views: (fromSlug.views || 0) + 1 } }
     }
-    // Fallback to mock data
-    const mock = mockArticles.find(a => a.slug === slug)
+
+    const articles = await loadArticlesOnce()
+    const article = articles.find((a) => a.slug === slug)
+    if (article) {
+      const full = await fetchArticlesFull()
+      const withContent = full?.find((a) => a.slug === slug)
+      const merged = withContent
+        ? { ...withContent, views: (article.views || 0) + 1 }
+        : { ...article, views: (article.views || 0) + 1 }
+      return { success: true, data: merged }
+    }
+
+    const mock = mockArticles.find((a) => a.slug === slug)
     return mock
       ? { success: true, data: mock }
       : { success: false, error: 'Makale bulunamadı' }
+  },
+
+  /** İlgili makaleler / listeler — yalnızca index (içeriksiz) */
+  getArticlesIndex: async () => {
+    const articles = await loadArticlesOnce()
+    return { success: true, data: articles }
   },
 
   // Submit contact form

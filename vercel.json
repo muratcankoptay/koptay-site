@@ -19,7 +19,7 @@
       "destination": "/api/$1"
     },
     {
-      "source": "/((?!api/|assets/|images/|favicon|robots\\.txt|sitemap\\.xml|rss\\.xml|manifest\\.json|sw\\.js|locales/|articles\\.json|.*\\.(?:js|css|png|jpg|jpeg|svg|webp|avif|ico|woff2?|ttf|map)$).*)",
+      "source": "/((?!api/|assets/|images/|favicon|robots\\.txt|sitemap\\.xml|rss\\.xml|manifest\\.json|sw\\.js|locales/|articles\\.json|articles-index\\.json|articles/|.*\\.(?:js|css|png|jpg|jpeg|svg|webp|avif|ico|woff2?|ttf|map)$).*)",
       "destination": "/index.html"
     }
   ],
@@ -90,7 +90,25 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
+          "value": "public, max-age=300, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/articles-index.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/articles/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, stale-while-revalidate=86400"
         }
       ]
     },

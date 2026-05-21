@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Calendar, Clock, User, ArrowLeft, Share2, Facebook, Twitter, Linkedin, Eye } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
-import { marked } from 'marked'
 import { api, formatDate } from '../utils/api'
 import { optimizeImage, generateSrcSet, generateSizes, generateResponsivePictureSources } from '../utils/imageOptimizer'
 import { getCustomArticleSchema, hasCustomSchema } from '../utils/articleSchemas'
@@ -12,13 +11,20 @@ import ArticleCard from '../components/ArticleCard'
 import ArticleTLDR from '../components/ArticleTLDR'
 import ArticleCTA from '../components/ArticleCTA'
 
-// Configure marked to handle line breaks properly
-marked.setOptions({
-  breaks: false,
-  gfm: true,
-  headerIds: false,
-  mangle: false
-})
+let markedParser = null
+const getMarkedHtml = async (content) => {
+  if (!markedParser) {
+    const { marked } = await import('marked')
+    marked.setOptions({
+      breaks: false,
+      gfm: true,
+      headerIds: false,
+      mangle: false
+    })
+    markedParser = marked
+  }
+  return markedParser.parse(content)
+}
 
 // Function to clean up content - remove single line breaks in paragraphs only
 const cleanContent = (content) => {
@@ -113,19 +119,21 @@ const ArticlePage = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [viewCount, setViewCount] = useState(0)
+  const [contentHtml, setContentHtml] = useState('')
 
-  // Görüntülenme sayısını artır (sayfa yüklendiğinde bir kez)
+  // Görüntülenme sayacı — LCP sonrası (idle)
   useEffect(() => {
-    if (slug) {
-      // Görüntülenmeyi artır ve yeni sayıyı al
-      incrementArticleViews(slug).then(newViews => {
-        if (newViews !== null) {
-          setViewCount(newViews)
-        } else {
-          // Zaten sayıldıysa mevcut sayıyı getir
-          getArticleViews(slug).then(views => setViewCount(views))
-        }
+    if (!slug) return
+    const run = () => {
+      incrementArticleViews(slug).then((newViews) => {
+        if (newViews !== null) setViewCount(newViews)
+        else getArticleViews(slug).then((views) => setViewCount(views))
       })
+    }
+    if (typeof requestIdleCallback === 'function') {
+      requestIdleCallback(run, { timeout: 2500 })
+    } else {
+      setTimeout(run, 1500)
     }
   }, [slug])
 
@@ -135,25 +143,22 @@ const ArticlePage = () => {
         setLoading(true)
         setError(null)
 
-        // Tek HTTP isteği: api.getArticles() içeride cache + inflight dedup yapar.
-        // Hem makaleyi hem related listesini aynı veriden çıkarıyoruz.
-        const allArticlesResponse = await api.getArticles()
-        if (!allArticlesResponse.success) {
-          setError('Makaleler yüklenemedi')
-          return
-        }
+        const [articleResponse, indexResponse] = await Promise.all([
+          api.getArticle(slug),
+          api.getArticlesIndex()
+        ])
 
-        const all = allArticlesResponse.data
-        const current = all.find(a => a.slug === slug)
-        if (!current) {
+        if (!articleResponse.success || !articleResponse.data) {
           setError('Makale bulunamadı')
           return
         }
 
-        setArticle({ ...current, views: (current.views || 0) + 1 })
+        const current = articleResponse.data
+        setArticle(current)
 
-        const related = all
-          .filter(a => a.slug !== slug && a.category === current.category)
+        const indexList = indexResponse.success ? indexResponse.data : []
+        const related = indexList
+          .filter((a) => a.slug !== slug && a.category === current.category)
           .slice(0, 3)
         setRelatedArticles(related)
       } catch (err) {
@@ -167,6 +172,18 @@ const ArticlePage = () => {
       fetchArticle()
     }
   }, [slug])
+
+  useEffect(() => {
+    if (!article?.content) {
+      setContentHtml('')
+      return
+    }
+    let cancelled = false
+    getMarkedHtml(cleanContent(article.content)).then((html) => {
+      if (!cancelled) setContentHtml(html)
+    })
+    return () => { cancelled = true }
+  }, [article?.content])
 
   const shareArticle = (platform) => {
     if (!article) return
@@ -511,8 +528,8 @@ const ArticlePage = () => {
 
             {/* Article Content */}
             <div className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:font-bold prose-h1:text-4xl prose-h2:text-3xl prose-h2:mt-8 prose-h2:mb-4 prose-h2:border-b prose-h2:border-gray-200 prose-h2:pb-2 prose-h3:text-2xl prose-h3:mt-6 prose-h3:mb-3 prose-p:leading-relaxed prose-p:mb-4 prose-ul:list-disc prose-ul:pl-6 prose-ol:list-decimal prose-ol:pl-6 prose-li:mb-2 prose-strong:font-bold prose-strong:text-gray-900 prose-blockquote:border-l-4 prose-blockquote:border-primary-500 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-700 prose-a:text-primary-600 prose-a:underline hover:prose-a:text-primary-700 prose-table:w-full prose-table:border-collapse prose-table:my-8 prose-thead:bg-gradient-to-r prose-thead:from-primary-600 prose-thead:to-primary-700 prose-th:text-white prose-th:font-semibold prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:border prose-th:border-primary-500 prose-td:px-4 prose-td:py-3 prose-td:border prose-td:border-gray-300 prose-tr:even:bg-gray-50 prose-tr:hover:bg-gray-100 prose-tr:transition-colors prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto">
-              <div 
-                dangerouslySetInnerHTML={{ __html: marked.parse(cleanContent(article.content || '')) }}
+              <div
+                dangerouslySetInnerHTML={{ __html: contentHtml }}
                 className="text-gray-700"
               />
             </div>
