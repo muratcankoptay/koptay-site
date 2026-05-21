@@ -40,6 +40,9 @@ export default defineConfig({
             if (id.includes('lucide-react')) {
               return 'ui-vendor';
             }
+            if (id.includes('web-vitals')) {
+              return 'web-vitals';
+            }
             // chart.js, jspdf, html2canvas, flatpickr, @google/generative-ai için
             // manualChunks rule'u BİLEREK kaldırıldı.
             // Sebep: bu kütüphaneler ayrı vendor chunk yapılınca, dynamic import

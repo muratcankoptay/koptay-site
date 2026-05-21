@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-article-image-variants.js && node scripts/generate-articles-data.js && node scripts/generate-og-images.js && node public/generate-sitemap.js && node public/generate-rss.js && vite build && node scripts/prerender.js",
+    "build": "node scripts/generate-article-image-variants.js && node scripts/generate-articles-data.js && node scripts/generate-og-images.js && node public/generate-sitemap.js && node public/generate-rss.js && vite build && node scripts/prerender.js && node scripts/defer-stylesheets.js",
+    "build:images": "node scripts/generate-article-image-variants.js --force",
     "og-images": "node scripts/generate-og-images.js",
     "build:no-prerender": "node public/generate-sitemap.js && node public/generate-rss.js && vite build",
     "prerender": "node scripts/prerender.js",

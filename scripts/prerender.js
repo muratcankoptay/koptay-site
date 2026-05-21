@@ -66,8 +66,8 @@ function buildHtml({ title, description, keywords, url, image, type = 'website',
       // Varyantlar: foo-384w.webp, foo-768w.webp, foo-1200w.webp
       const lastDot = image.lastIndexOf('.');
       const base = image.slice(0, lastDot);
-      const webpSrcSet = [384, 768, 1200].map(w => `${SITE_URL}${base}-${w}w.webp ${w}w`).join(', ');
-      const sizes = '(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1024px';
+      const webpSrcSet = [384, 512, 768, 1200].map(w => `${SITE_URL}${base}-${w}w.webp ${w}w`).join(', ');
+      const sizes = '(max-width: 768px) min(100vw, 512px), (max-width: 1280px) min(80vw, 768px), 1024px';
       preloadBlock = `
     <!-- LCP cover image preload (responsive WebP) -->
     <link rel="preload" as="image" type="image/webp" imagesrcset="${escapeHtml(webpSrcSet)}" imagesizes="${escapeHtml(sizes)}" fetchpriority="high">`;

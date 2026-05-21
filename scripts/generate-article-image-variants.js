@@ -12,7 +12,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(__dirname, '..')
 const ARTICLES_JSON = path.join(ROOT, 'articles.json')
 const ARTICLES_DIR = path.join(ROOT, 'public', 'images', 'articles')
-const WIDTHS = [384, 768, 1200]
+const WIDTHS = [384, 512, 768, 1200]
+const FORCE = process.env.FORCE_IMAGE_VARIANTS === '1' || process.argv.includes('--force')
 
 async function generateVariants(filePath) {
   const { base, ext } = (() => {
@@ -25,12 +26,15 @@ async function generateVariants(filePath) {
   for (const w of WIDTHS) {
     const jpgOut = `${base}-${w}w.jpg`
     const webpOut = `${base}-${w}w.webp`
-    if (!fs.existsSync(jpgOut)) {
-      await sharp(filePath).resize(w, null, { withoutEnlargement: true }).jpeg({ quality: 82, mozjpeg: true }).toFile(jpgOut)
+    if (FORCE || !fs.existsSync(jpgOut)) {
+      await sharp(filePath).resize(w, null, { withoutEnlargement: true }).jpeg({ quality: 80, mozjpeg: true }).toFile(jpgOut)
       changed = true
     }
-    if (!fs.existsSync(webpOut)) {
-      await sharp(filePath).resize(w, null, { withoutEnlargement: true }).webp({ quality: 80 }).toFile(webpOut)
+    if (FORCE || !fs.existsSync(webpOut)) {
+      await sharp(filePath)
+        .resize(w, null, { withoutEnlargement: true })
+        .webp({ quality: 72, effort: 6, smartSubsample: true })
+        .toFile(webpOut)
       changed = true
     }
   }

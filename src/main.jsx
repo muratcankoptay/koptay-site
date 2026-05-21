@@ -8,8 +8,6 @@ import '@fontsource/open-sans/latin-600.css'
 import '@fontsource/merriweather/latin-400.css'
 import '@fontsource/merriweather/latin-700.css'
 import './index.css'
-import { initWebVitals } from './utils/webVitals'
-import { initAnalytics } from './utils/analyticsTracker.js'
 
 // === Bir defalik temizlik: eski Service Worker + cache kaliplari ===
 // Onceden main.jsx her ziyarette SW unregister + cache silme yapiyordu
@@ -43,15 +41,21 @@ import { initAnalytics } from './utils/analyticsTracker.js'
 // Eski hero-bg-1 gorseli preload edilmiyor (artik kullanilmiyor).
 // LCP yuku: 0 KB image.
 
-// Gercek zamanli analytics tracking'i baslat (admin paneli haric)
-if (!window.location.pathname.startsWith('/admin')) {
+// Analytics yalnızca development'ta; production bundle'dan çıkar
+if (import.meta.env.DEV && !window.location.pathname.startsWith('/admin')) {
   setTimeout(() => {
-    initAnalytics()
+    import('./utils/analyticsTracker.js').then((m) => m.initAnalytics())
   }, 1000)
 }
 
+// Web Vitals — kritik yoldan çıkar, idle'da yükle
 if (typeof window !== 'undefined') {
-  initWebVitals();
+  const loadVitals = () => import('./utils/webVitals').then((m) => m.initWebVitals())
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(loadVitals, { timeout: 3000 })
+  } else {
+    setTimeout(loadVitals, 1500)
+  }
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(

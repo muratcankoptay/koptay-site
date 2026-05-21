@@ -25,7 +25,7 @@
  * `responsive` flag'ı kullanılmamalıdır (404 hatasından kaçınmak için).
  */
 
-const RESPONSIVE_WIDTHS = [384, 768, 1200]
+const RESPONSIVE_WIDTHS = [384, 512, 768, 1200]
 
 const splitUrl = (url) => {
   const lastDot = url.lastIndexOf('.')
@@ -57,7 +57,8 @@ export const generateSrcSet = (url) => {
  * Mobile-first: küçük ekranda %100 vw, masaüstünde max 1024px.
  */
 export const generateSizes = () => {
-  return '(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1024px'
+  // Makale kapak: mobilde container ~100vw, 2x DPR'da 512/768 yeterli
+  return '(max-width: 768px) min(100vw, 512px), (max-width: 1280px) min(80vw, 768px), 1024px'
 }
 
 /**
