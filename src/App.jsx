@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { lazy, Suspense, useEffect } from 'react'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
@@ -24,7 +24,8 @@ const AracDegerKaybiPage = lazy(() => import('./pages/AracDegerKaybiPage'))
 const MeslekHastaligiPage = lazy(() => import('./pages/MeslekHastaligiPage'))
 const IscilikAlacaklariPage = lazy(() => import('./pages/IscilikAlacaklariPage'))
 const IlaveTediyePage = lazy(() => import('./pages/IlaveTediyePage'))
-const TrafikKazasiPage = lazy(() => import('./pages/TrafikKazasiPage'))
+const TrafikKazasiTazminatiPage = lazy(() => import('./pages/TrafikKazasiTazminatiPage'))
+const AracHasarIkamePage = lazy(() => import('./pages/AracHasarIkamePage'))
 const DavaSuresiPage = lazy(() => import('./pages/DavaSuresiPage'))
 const MakalelerPage = lazy(() => import('./pages/MakalelerPage'))
 const IletisimPage = lazy(() => import('./pages/IletisimPage'))
@@ -151,7 +152,10 @@ function App() {
             <Route path="/hesaplama-araclari/meslek-hastaligi" element={<MeslekHastaligiPage />} />
             <Route path="/hesaplama-araclari/iscilik-alacaklari" element={<IscilikAlacaklariPage />} />
             <Route path="/hesaplama-araclari/ilave-tediye" element={<IlaveTediyePage />} />
-            <Route path="/hesaplama-araclari/trafik-kazasi" element={<TrafikKazasiPage />} />
+            <Route path="/hesaplama-araclari/trafik-kazasi-tazminati" element={<TrafikKazasiTazminatiPage />} />
+            <Route path="/hesaplama-araclari/arac-hasar-ikame-arac" element={<AracHasarIkamePage />} />
+            {/* Eski birleşik araç → 301 (vercel.json) + client-side fallback redirect */}
+            <Route path="/hesaplama-araclari/trafik-kazasi" element={<Navigate to="/hesaplama-araclari/trafik-kazasi-tazminati" replace />} />
             <Route path="/hesaplama-araclari/dava-suresi" element={<DavaSuresiPage />} />
             <Route path="/makaleler" element={<ArticlesPage />} />
             <Route path="/makaleler/:slug" element={<ArticlePage />} />

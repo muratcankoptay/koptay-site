@@ -9,7 +9,12 @@
     },
     {
       "source": "/hesaplama-araclari/bedeni-hasar",
-      "destination": "/hesaplama-araclari/trafik-kazasi",
+      "destination": "/hesaplama-araclari/trafik-kazasi-tazminati",
+      "permanent": true
+    },
+    {
+      "source": "/hesaplama-araclari/trafik-kazasi",
+      "destination": "/hesaplama-araclari/trafik-kazasi-tazminati",
       "permanent": true
     }
   ],

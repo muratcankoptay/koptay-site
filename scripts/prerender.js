@@ -162,6 +162,62 @@ const websiteJsonLd = {
   "publisher": { "@id": `${SITE_URL}/#organization` }
 };
 
+// --- Hesaplama aracı JSON-LD yardımcıları ---
+const buildCalculatorJsonLd = ({ name, description, url }) => ({
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": name,
+  "description": description,
+  "url": url,
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "browserRequirements": "Requires JavaScript",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "TRY" },
+  "provider": { "@id": `${SITE_URL}/#legal-service` },
+  "inLanguage": "tr-TR"
+});
+
+const buildFaqJsonLd = (items) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": items.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": { "@type": "Answer", "text": item.a }
+  }))
+});
+
+const buildToolBreadcrumb = (name, url) => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Ana Sayfa", "item": `${SITE_URL}/` },
+    { "@type": "ListItem", "position": 2, "name": "Hesaplama Araçları", "item": `${SITE_URL}/hesaplama-araclari` },
+    { "@type": "ListItem", "position": 3, "name": name, "item": url }
+  ]
+});
+
+// Sayfadaki görünür SSS ile birebir eşleşmelidir (TrafikKazasiTazminatiPage.jsx FAQ_ITEMS)
+const FAQ_TRAFIK_TAZMINAT = [
+  { q: 'Trafik kazasında maluliyet tazminatı nasıl hesaplanır?', a: 'Sürekli sakatlık tazminatı; kişinin yaş ve cinsiyetine göre TRH-2010 yaşam tablosundan bulunan bakiye ömür, yıllık net kazanç ve maluliyet oranının çarpımıyla hesaplanır. Hesap aktif (60 yaşa kadar) ve pasif (sonrası) dönem olarak ikiye ayrılır; bulunan tutardan mağdurun kusuru oranında indirim yapılır.' },
+  { q: 'Maluliyet oranı nereden ve nasıl belirlenir?', a: 'Maluliyet oranı; Adli Tıp Kurumu veya sağlık kurulu raporu vermeye yetkili üniversite, eğitim-araştırma ve devlet hastanelerinden alınan sağlık kurulu (heyet) raporuyla belirlenir. Erişkinler İçin Engellilik Değerlendirmesi Hakkında Yönetmelik esas alınır; rapora itiraz hakkınız saklıdır.' },
+  { q: 'Geçici iş göremezlik tazminatı nedir?', a: 'Kaza sonrası iyileşme sürecinde çalışamadığınız (raporlu) günler için ödenen tazminattır. Raporlu gün sayısı ile günlük net kazancınız çarpılarak bulunur; gerçek kazanç ispat edilemiyorsa asgari ücret esas alınır.' },
+  { q: 'Bakıcı gideri hangi ücret üzerinden hesaplanır?', a: 'Yargıtay yerleşik içtihatlarına göre bakıcı gideri, başkasının bakımına muhtaç kalınan gün sayısı ile brüt asgari ücretin çarpımı üzerinden hesaplanır. Profesyonel bakıcı tutulmasa dahi bu gider talep edilebilir.' },
+  { q: 'Trafik kazası tazminat davasının zamanaşımı kaç yıldır?', a: 'TBK m.72 uyarınca haksız fiilden doğan tazminat davası, zararın ve failin öğrenilmesinden itibaren 2 yıl, her hâlde 10 yıl içinde açılmalıdır. Kaza suç teşkil ediyorsa daha uzun ceza zamanaşımı süresi uygulanır. Sigortacıya karşı taleplerde KTK m.109 gereği 2 yıllık özel zamanaşımı geçerlidir.' },
+  { q: 'Maluliyet tazminatını sigorta mı yoksa kusurlu sürücü mü öder?', a: 'Bedensel zararlar, teminat limitleri dahilinde aracın zorunlu trafik sigortasından ödenir (KTK m.85). Sigorta limitini aşan kısım ve manevi tazminat için kusurlu sürücüye karşı dava açılır. Manevi tazminat zorunlu trafik sigortası teminatı dışındadır.' }
+];
+
+// Sayfadaki görünür SSS ile birebir eşleşmelidir (AracHasarIkamePage.jsx FAQ_ITEMS)
+const FAQ_IKAME_ARAC = [
+  { q: 'İkame araç (mahrumiyet) bedeli nasıl hesaplanır?', a: 'İkame araç bedeli; aracın fiilen kullanılamadığı makul onarım süresi (gün) ile aynı segment aracın günlük emsal kira bedelinin çarpımıyla hesaplanır. Elde edilen tutardan mağdurun kusuru oranında indirim yapılır. Onarımın makul süreyi aşan kısmı tazminata dahil edilmez.' },
+  { q: 'İkame araç için fiilen kiralık araç tutmam şart mı?', a: 'Hayır. Yargıtay 17. Hukuk Dairesi yerleşik içtihatlarına göre, mağdur fiilen kiralık araç tutmasa dahi aracından mahrum kaldığı makul süre için emsal kira bedeli üzerinden mahrumiyet tazminatı talep edebilir. Fatura ibrazı zorunlu değildir.' },
+  { q: 'Mahrumiyet bedelini sigorta mı öder?', a: 'Karşı tarafın zorunlu trafik sigortası (ZMSS), kusuru oranında maddi zararları teminat limiti dahilinde öder (KTK m.85). Standart kasko kural olarak mahrumiyet bedelini ve değer kaybını ödemez; bu kalemler kusurlu sürücüden veya onun trafik sigortasından talep edilir.' },
+  { q: 'İkame araç bedeli ile araç değer kaybı aynı şey mi?', a: 'Hayır, ayrı kalemlerdir ve birlikte talep edilebilir. İkame araç bedeli, aracın onarımda olduğu dönemdeki geçici kullanım kaybıdır. Değer kaybı ise hasar onarılsa bile aracın ikinci el piyasa değerindeki kalıcı düşüştür. Değer kaybının ayrıntılı hesabı için ayrı aracımızı kullanabilirsiniz.' },
+  { q: 'Onarım süresi tartışmalıysa ne olur?', a: 'Makul onarım süresi; servis kayıtları, parça temin süreleri ve ekspertiz/bilirkişi değerlendirmesiyle belirlenir. Servisin ihmalinden kaynaklanan gecikmeler genellikle kusurlu tarafa yüklenmez. Uyuşmazlıkta Sigorta Tahkim Komisyonu veya mahkeme bilirkişisi süreyi takdir eder.' },
+  { q: 'Mahrumiyet bedeli talebinin zamanaşımı ne kadar?', a: 'Sigortacıya karşı taleplerde KTK m.109 uyarınca 2 yıllık özel zamanaşımı uygulanır. Kusurlu sürücüye karşı açılacak haksız fiil davasında TBK m.72 gereği zararın ve failin öğrenilmesinden itibaren 2 yıl, her hâlde 10 yıllık süre geçerlidir.' }
+];
+
 // Statik sayfalar
 const staticRoutes = [
   {
@@ -257,10 +313,36 @@ const staticRoutes = [
     keywords: 'meslek hastalığı tazminat, TRH-2010, maluliyet oranı, sürekli iş göremezlik, meslek hastalığı avukatı'
   },
   {
-    path: '/hesaplama-araclari/trafik-kazasi',
-    title: 'Trafik Kazası Tazminat Hesaplama 2026 | Aktüerya | Koptay Hukuk',
-    description: 'Araç değer kaybı, ikame araç, sürekli sakatlık ve geçici iş göremezlik tazminatı hesaplama. KTK m.85 ve TBK m.49 uyumlu aktüerya.',
-    keywords: 'trafik kazası tazminat, araç değer kaybı, ikame araç, sürekli sakatlık, KTK 85, TBK 49'
+    path: '/hesaplama-araclari/trafik-kazasi-tazminati',
+    title: 'Trafik Kazası Maluliyet Tazminatı Hesaplama 2026 | İş Göremezlik | Koptay Hukuk',
+    description: 'Trafik kazası sonrası sürekli sakatlık (maluliyet), geçici iş göremezlik ve bakıcı gideri tazminatını hesaplayın. TRH-2010 yaşam tablosu, KTK m.90 ve TBK m.55 esaslı aktüerya. Ankara avukat — Koptay Hukuk.',
+    keywords: 'trafik kazası maluliyet tazminatı hesaplama, sürekli sakatlık tazminatı hesaplama, geçici iş göremezlik tazminatı, trafik kazası iş göremezlik hesaplama, maluliyet oranı tazminat, TRH-2010 hesaplama, bakıcı gideri tazminatı, trafik kazası avukatı ankara',
+    image: '/images/articles/trafik-kazasi-sonrasi-maluliyet-raporu-nasil-alinir.jpg',
+    extraJsonLd: [
+      buildCalculatorJsonLd({
+        name: 'Trafik Kazası Maluliyet Tazminatı Hesaplama',
+        description: 'Sürekli sakatlık, geçici iş göremezlik ve bakıcı gideri tazminatını TRH-2010 yaşam tablosuna göre hesaplayan aktüerya aracı.',
+        url: `${SITE_URL}/hesaplama-araclari/trafik-kazasi-tazminati`
+      }),
+      buildFaqJsonLd(FAQ_TRAFIK_TAZMINAT),
+      buildToolBreadcrumb('Trafik Kazası Maluliyet Tazminatı Hesaplama', `${SITE_URL}/hesaplama-araclari/trafik-kazasi-tazminati`)
+    ]
+  },
+  {
+    path: '/hesaplama-araclari/arac-hasar-ikame-arac',
+    title: 'İkame Araç ve Araç Hasar Tazminatı Hesaplama 2026 | Mahrumiyet Bedeli | Koptay Hukuk',
+    description: 'Trafik kazası sonrası ikame araç (mahrumiyet) bedeli ve maddi araç hasar tazminatını hesaplayın. Onarım süresi, günlük kira ve kusur oranına göre Yargıtay 17. HD içtihatlarına uygun. Ankara avukat — Koptay Hukuk.',
+    keywords: 'ikame araç bedeli hesaplama, araç mahrumiyet bedeli hesaplama, araç hasar tazminatı hesaplama, kaza sonrası ikame araç hakkı, mahrumiyet tazminatı, onarım süresi tazminatı, trafik kazası maddi hasar, ikame araç ücreti, araç kullanım kaybı tazminatı',
+    image: '/images/articles/arac-mahrumiyet-bedeli-ikame-arac.jpg',
+    extraJsonLd: [
+      buildCalculatorJsonLd({
+        name: 'İkame Araç ve Araç Hasar Tazminatı Hesaplama',
+        description: 'İkame araç (mahrumiyet) bedeli ve maddi araç hasar tazminatını onarım süresi ve günlük kira bedeline göre hesaplayan araç.',
+        url: `${SITE_URL}/hesaplama-araclari/arac-hasar-ikame-arac`
+      }),
+      buildFaqJsonLd(FAQ_IKAME_ARAC),
+      buildToolBreadcrumb('İkame Araç ve Araç Hasar Tazminatı Hesaplama', `${SITE_URL}/hesaplama-araclari/arac-hasar-ikame-arac`)
+    ]
   },
   {
     path: '/kvkk',
@@ -296,7 +378,7 @@ staticRoutes.forEach(route => {
     url,
     image: route.image || '/images/og/og-default.jpg',
     type: 'website',
-    extraJsonLd: [orgJsonLd, websiteJsonLd]
+    extraJsonLd: [orgJsonLd, websiteJsonLd, ...(route.extraJsonLd || [])]
   });
   writePrerenderedPage(route.path, html);
 });

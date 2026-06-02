@@ -69,12 +69,20 @@ const HesaplamaAraclariPage = () => {
           link: '/hesaplama-araclari/arac-deger-kaybi'
         },
         {
-          id: 'trafik-kazasi',
-          title: 'Trafik Kazası Tazminat Hesaplama',
-          description: 'Sürekli sakatlık, geçici iş göremezlik, ikame araç ve manevi tazminat. KTK m.85 ve TBK m.49 uyumlu aktüerya.',
-          icon: Shield,
+          id: 'trafik-kazasi-tazminati',
+          title: 'Trafik Kazası Maluliyet Tazminatı Hesaplama',
+          description: 'Sürekli sakatlık (maluliyet), geçici iş göremezlik ve bakıcı gideri tazminatı. TRH-2010 yaşam tablosu, KTK m.90 ve TBK m.55 esaslı aktüerya.',
+          icon: Stethoscope,
           color: 'bg-lawSecondary/10 text-lawSecondary',
-          link: '/hesaplama-araclari/trafik-kazasi'
+          link: '/hesaplama-araclari/trafik-kazasi-tazminati'
+        },
+        {
+          id: 'arac-hasar-ikame-arac',
+          title: 'İkame Araç ve Araç Hasar Tazminatı Hesaplama',
+          description: 'İkame araç (mahrumiyet) bedeli ve maddi araç hasar tazminatı. Onarım süresi, günlük kira ve kusur oranına göre Yargıtay 17. HD içtihatlarına uygun.',
+          icon: Car,
+          color: 'bg-lawSecondary/10 text-lawSecondary',
+          link: '/hesaplama-araclari/arac-hasar-ikame-arac'
         }
       ]
     },
