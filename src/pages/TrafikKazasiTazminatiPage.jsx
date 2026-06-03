@@ -391,6 +391,11 @@ const TrafikKazasiTazminatiPage = () => {
                     <h2 className="text-2xl font-bold text-slate-900 mt-10">İlgili Hesaplama ve Rehberler</h2>
                     <ul className="not-prose grid sm:grid-cols-2 gap-3 mt-4">
                         <li>
+                            <Link to="/hesaplama-araclari/trafik-kazasi-maluliyet-hesaplama" className="block bg-white border border-slate-200 rounded-lg p-4 hover:border-amber-400 transition text-sm font-medium text-slate-700">
+                                Maluliyet (Engellilik) Oranı Hesaplama →
+                            </Link>
+                        </li>
+                        <li>
                             <Link to="/hesaplama-araclari/arac-hasar-ikame-arac" className="block bg-white border border-slate-200 rounded-lg p-4 hover:border-amber-400 transition text-sm font-medium text-slate-700">
                                 İkame Araç & Araç Hasar Tazminatı Hesaplama →
                             </Link>
