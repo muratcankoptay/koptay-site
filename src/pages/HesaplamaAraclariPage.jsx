@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import {
   Calculator, TrendingUp, Car, Building, Users, ArrowRight,
-  Scale, Banknote, Hourglass, Briefcase, Stethoscope, Shield
+  Scale, Banknote, Hourglass, Briefcase, Stethoscope, Shield, Accessibility
 } from 'lucide-react'
 import SEO from '../components/SEO'
 import HesaplamaDisclaimer from '../components/HesaplamaDisclaimer'
@@ -10,11 +10,11 @@ import HesaplamaDisclaimer from '../components/HesaplamaDisclaimer'
  * Hesaplama Araçları İndex (Hub) Sayfası
  * - Tek görevi: ziyaretçiyi doğru hesaplayıcıya yönlendirmek + Google'a "hesaplama hub'ıyız" sinyali vermek.
  * - Önizleme formları kaldırıldı (UX kırığı + Helpful Content sinyali için).
- * - Üç kategori (İş Hukuku / Trafik & Sigorta / Ceza & Usul) altında 9 araç gruplandı.
+ * - Üç kategori (İş Hukuku / Trafik & Sigorta / Ceza & Usul) altında 10 araç gruplandı.
  * - BreadcrumbList + ItemList JSON-LD eklendi.
  */
 const HesaplamaAraclariPage = () => {
-  // Üç kategoride 9 araç (bedeni-hasar broken link kaldırıldı; vercel.json 301 ile trafik-kazasi'ye yönlendirilir)
+  // Üç kategoride 10 araç (bedeni-hasar broken link kaldırıldı; vercel.json 301 ile trafik-kazasi'ye yönlendirilir)
   const categories = [
     {
       id: 'is-hukuku',
@@ -67,6 +67,14 @@ const HesaplamaAraclariPage = () => {
           icon: Car,
           color: 'bg-lawSecondary/10 text-lawSecondary',
           link: '/hesaplama-araclari/arac-deger-kaybi'
+        },
+        {
+          id: 'trafik-kazasi-maluliyet-hesaplama',
+          title: 'Maluliyet (Engellilik) Oranı Hesaplama',
+          description: 'Yaralanmalarınızı soru-cevap ile girin, engellilik oranınızı tahmin edin. Ek-2 cetveli, Balthazard formülü ve 65+ yaş %10 kuralı esaslı; tıbbi bilgi gerektirmez.',
+          icon: Accessibility,
+          color: 'bg-lawSecondary/10 text-lawSecondary',
+          link: '/hesaplama-araclari/trafik-kazasi-maluliyet-hesaplama'
         },
         {
           id: 'trafik-kazasi-tazminati',

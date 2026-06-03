@@ -3,311 +3,449 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maluliyet (Engellilik Oranı) Hesaplama Aracı</title>
+<title>Maluliyet (Engellilik Oranı) Hesaplama Aracı – Rehberli</title>
 <style>
 :root{
-  --bg:#f4f6f9; --card:#ffffff; --ink:#1f2733; --muted:#64748b; --line:#e2e8f0;
-  --brand:#0f4c81; --brand2:#1769aa; --accent:#0e7c5a; --danger:#c0392b; --warn:#b45309;
+  --bg:#f4f6f9;--card:#fff;--ink:#1f2733;--muted:#64748b;--line:#e2e8f0;
+  --brand:#0f4c81;--brand2:#1769aa;--accent:#0e7c5a;--danger:#c0392b;
   --shadow:0 1px 3px rgba(16,24,40,.06),0 1px 2px rgba(16,24,40,.04);
 }
 *{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  background:var(--bg);color:var(--ink);line-height:1.5;font-size:15px}
-.wrap{max-width:920px;margin:0 auto;padding:20px 16px 64px}
-header.top{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-radius:14px;
-  padding:22px 24px;box-shadow:var(--shadow)}
-header.top h1{margin:0 0 6px;font-size:22px;font-weight:700}
-header.top p{margin:0;opacity:.92;font-size:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:18px;box-shadow:var(--shadow)}
-.card h2{margin:0 0 4px;font-size:16px;font-weight:700;color:var(--brand)}
-.card .hint{color:var(--muted);font-size:13px;margin:0 0 14px}
-.step-badge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;
-  background:var(--brand);color:#fff;font-size:13px;font-weight:700;margin-right:8px}
-label{font-size:13px;font-weight:600;color:var(--ink);display:block;margin-bottom:5px}
-input,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;font-size:15px;background:#fff;color:var(--ink)}
-input:focus,select:focus{outline:none;border-color:var(--brand2);box-shadow:0 0 0 3px rgba(23,105,170,.12)}
-.row{display:flex;gap:12px;flex-wrap:wrap}
-.row>div{flex:1;min-width:140px}
-.btn{cursor:pointer;border:none;border-radius:9px;padding:10px 16px;font-size:14px;font-weight:600;transition:.15s}
-.btn-primary{background:var(--brand);color:#fff}
-.btn-primary:hover{background:#0c3e6a}
-.btn-accent{background:var(--accent);color:#fff}
-.btn-accent:hover{background:#0a6147}
-.btn-ghost{background:#eef2f7;color:var(--ink)}
-.btn-ghost:hover{background:#e2e8f0}
-.btn-lg{padding:13px 22px;font-size:15px}
-.tabs{display:flex;gap:6px;margin-bottom:14px;background:#eef2f7;padding:4px;border-radius:10px}
-.tabs button{flex:1;border:none;background:transparent;padding:9px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted)}
-.tabs button.active{background:#fff;color:var(--brand);box-shadow:var(--shadow)}
-.search-box{position:relative}
-.results{max-height:300px;overflow-y:auto;border:1px solid var(--line);border-radius:10px;margin-top:8px;display:none}
-.results.show{display:block}
-.res-item{padding:10px 12px;border-bottom:1px solid var(--line);cursor:pointer;display:flex;gap:10px;align-items:flex-start}
-.res-item:last-child{border-bottom:none}
-.res-item:hover{background:#f1f7fc}
-.res-item .pct{flex:0 0 auto;background:#e8f1f9;color:var(--brand);font-weight:700;border-radius:7px;padding:3px 9px;font-size:13px;white-space:nowrap}
-.res-item .meta{font-size:11px;color:var(--muted);margin-top:3px}
-.res-item .desc{font-size:13px}
-.added{margin-top:6px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;font-size:15px}
+.wrap{max-width:760px;margin:0 auto;padding:18px 14px 70px}
+header.top{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-radius:14px;padding:20px 22px;box-shadow:var(--shadow)}
+header.top h1{margin:0 0 6px;font-size:21px}
+header.top p{margin:0;opacity:.92;font-size:13.5px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:16px;box-shadow:var(--shadow)}
+.card h2{margin:0 0 4px;font-size:16px;color:var(--brand)}
+.hint{color:var(--muted);font-size:13px;margin:0 0 14px}
+.crumbs{font-size:12px;color:var(--muted);margin-bottom:12px;min-height:16px}
+.crumbs b{color:var(--brand)}
+.qtext{font-size:17px;font-weight:700;margin:0 0 4px}
+.qhelp{font-size:13px;color:var(--muted);margin:0 0 16px}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:11px;padding:14px 15px;margin-bottom:10px;cursor:pointer;font-size:15px;transition:.13s;color:var(--ink)}
+.opt:hover{border-color:var(--brand2);background:#f1f7fc;transform:translateY(-1px)}
+.opt .emo{font-size:22px;flex:0 0 auto}
+.opt .ot{flex:1}
+.opt .ot small{display:block;color:var(--muted);font-size:12px;font-weight:400;margin-top:2px}
+.opt .arr{color:var(--brand2);font-size:18px}
+.backbtn{background:none;border:none;color:var(--brand2);cursor:pointer;font-size:13px;padding:4px 0;margin-bottom:6px}
+.result-box{border:1.5px solid #a7f3d0;background:#ecfdf5;border-radius:12px;padding:16px;margin-bottom:8px}
+.result-box.est{border-color:#fed7aa;background:#fff7ed}
+.result-box h3{margin:0 0 6px;font-size:15px}
+.result-box .pctline{font-size:28px;font-weight:800;color:var(--brand)}
+.result-box .rng{font-size:13px;color:var(--muted)}
+.result-box .src{font-size:12px;color:var(--muted);margin-top:8px}
+.adjust{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.adjust label{font-size:13px;font-weight:600}
+.adjust input{width:90px;padding:8px;border:1px solid var(--line);border-radius:8px;text-align:center;font-size:15px}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:6px}
+.tag-exact{background:#dcfce7;color:#166534}
+.tag-est{background:#ffedd5;color:#9a3412}
+.btn{cursor:pointer;border:none;border-radius:9px;padding:11px 18px;font-size:14px;font-weight:600;transition:.15s}
+.btn-primary{background:var(--brand);color:#fff}.btn-primary:hover{background:#0c3e6a}
+.btn-accent{background:var(--accent);color:#fff}.btn-accent:hover{background:#0a6147}
+.btn-ghost{background:#eef2f7;color:var(--ink)}.btn-ghost:hover{background:#e2e8f0}
 .added-item{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:#fbfcfe}
-.added-item .num{flex:0 0 28px;height:28px;border-radius:7px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.added-item .num{flex:0 0 26px;height:26px;border-radius:7px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
 .added-item .txt{flex:1;font-size:13px}
 .added-item .txt small{color:var(--muted);display:block;font-size:11px}
-.added-item .val{font-weight:700;color:var(--brand);font-size:15px;white-space:nowrap}
-.added-item .rm{cursor:pointer;color:var(--danger);background:#fdecea;border:none;border-radius:6px;width:28px;height:28px;font-size:16px;line-height:1}
+.added-item .val{font-weight:700;color:var(--brand);white-space:nowrap}
+.added-item .rm{cursor:pointer;color:var(--danger);background:#fdecea;border:none;border-radius:6px;width:26px;height:26px;font-size:15px}
 .empty{color:var(--muted);font-size:13px;text-align:center;padding:14px;border:1px dashed var(--line);border-radius:10px}
-.result-card{background:linear-gradient(135deg,#0e7c5a,#0a6147);color:#fff;border-radius:14px;padding:22px;margin-top:18px;display:none}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+label.fld{font-size:13px;font-weight:600;display:block;margin-bottom:5px}
+input.fld,select.fld{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;font-size:15px}
+.result-card{background:linear-gradient(135deg,#0e7c5a,#0a6147);color:#fff;border-radius:14px;padding:22px;margin-top:16px;display:none}
 .result-card.show{display:block}
 .result-card .big{font-size:46px;font-weight:800;line-height:1;margin:6px 0}
-.result-card .sub{opacity:.9;font-size:13px}
+.result-card .sub{opacity:.92;font-size:13px}
 .breakdown{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:14px;font-size:13px;display:none}
 .breakdown.show{display:block}
 .breakdown h3{margin:0 0 10px;font-size:14px;color:var(--brand)}
-.bd-step{padding:8px 0;border-bottom:1px dashed var(--line);font-variant-numeric:tabular-nums}
-.bd-step:last-child{border-bottom:none}
-.bd-step .formula{color:var(--muted);font-size:12px}
+.bd-step{padding:7px 0;border-bottom:1px dashed var(--line);font-variant-numeric:tabular-nums}
+.bd-step:last-child{border-bottom:none}.bd-step .formula{color:var(--muted);font-size:12px}
 .bd-final{margin-top:10px;padding-top:10px;border-top:2px solid var(--brand);font-weight:700;font-size:15px}
 .note{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 14px;font-size:12.5px;color:#92660b;margin-top:14px}
-.note b{color:#7c4a02}
 .reg-note{font-size:13px;padding:12px 14px;border-radius:10px;margin-top:12px;display:none;border:1px solid}
 .reg-ok{background:#ecfdf5;border-color:#a7f3d0;color:#065f46;display:block}
 .reg-warn{background:#fff7ed;border-color:#fed7aa;color:#9a3412;display:block}
-.disclaimer{font-size:11.5px;color:var(--muted);margin-top:22px;padding:14px;background:#fff;border:1px solid var(--line);border-radius:12px;line-height:1.6}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .pill{display:inline-block;background:#eef2f7;color:var(--muted);font-size:11px;padding:2px 8px;border-radius:20px;margin-left:6px}
-@media(max-width:560px){.result-card .big{font-size:38px}header.top h1{font-size:19px}}
+.disclaimer{font-size:11.5px;color:var(--muted);margin-top:20px;padding:14px;background:#fff;border:1px solid var(--line);border-radius:12px;line-height:1.6}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.progress{display:flex;gap:6px;margin:2px 0 16px}
+.progress .dot{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.progress .dot.on{background:var(--brand2)}
+@media(max-width:560px){.result-card .big{font-size:38px}header.top h1{font-size:18px}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <h1>Maluliyet Hesaplama Aracı</h1>
-    <p>Trafik kazası ve yaralanmalara bağlı engellilik (maluliyet) oranının, <b>Erişkinler İçin Engellilik Değerlendirmesi Hakkında Yönetmelik</b> (R.G. 20.02.2019/30692) ekindeki <b>Balthazard formülü</b> ile birleştirilmiş hesabı.</p>
+    <h1>Maluliyet (Engellilik Oranı) Hesaplama Aracı</h1>
+    <p>Trafik kazası ve yaralanmalara bağlı engellilik oranını adım adım, soru-cevap ile hesaplayın. Hiçbir tıbbi/hukuki bilgi gerektirmez. Dayanak: <b>Erişkinler İçin Engellilik Değerlendirmesi Hakkında Yönetmelik</b> (R.G. 20.02.2019/30692) ve Balthazard formülü.</p>
   </header>
 
-  <!-- 1. Kaza tarihi -->
-  <div class="card">
-    <h2><span class="step-badge">1</span>Kaza Tarihi</h2>
-    <p class="hint">Hangi yönetmeliğin uygulanacağı kaza tarihine göre belirlenir (Yargıtay: haksız fiil/kaza tarihinde yürürlükteki yönetmelik esas alınır).</p>
-    <div class="row">
-      <div style="max-width:220px"><input type="date" id="kazaTarihi"></div>
+  <div class="progress"><div class="dot on" id="d1"></div><div class="dot" id="d2"></div><div class="dot" id="d3"></div></div>
+
+  <div class="card" id="wizardCard">
+    <div class="crumbs" id="crumbs"></div>
+    <button class="backbtn" id="backBtn" onclick="goBack()" style="display:none">‹ Geri</button>
+    <div id="wizardBody"></div>
+  </div>
+
+  <div class="card" id="listCard" style="display:none">
+    <h2>Eklenen yaralanmalar</h2>
+    <p class="hint">Birden fazla yaralanma varsa hepsini ekleyin; oranlar Balthazard formülü ile birleştirilir.</p>
+    <div id="addedList"></div>
+    <div class="toolbar">
+      <button class="btn btn-ghost" onclick="restartWizard()">+ Başka bir yaralanma ekle</button>
     </div>
+  </div>
+
+  <div class="card" id="finalCard" style="display:none">
+    <h2>Son adım: yaş, kaza tarihi ve sonuç</h2>
+    <div class="row" style="margin-bottom:6px">
+      <div style="max-width:150px"><label class="fld">Yaş (isteğe bağlı)</label><input type="number" class="fld" id="yas" min="0" max="120" placeholder="Örn: 45"></div>
+      <div style="max-width:200px"><label class="fld">Kaza tarihi (isteğe bağlı)</label><input type="date" class="fld" id="kazaTarihi"></div>
+    </div>
+    <p class="hint">65 yaş ve üzeri bireylerde bulunan orana yönetmelik gereği ayrıca %10 eklenir.</p>
     <div id="regNote" class="reg-note"></div>
-  </div>
-
-  <!-- 2. Engel oranlari -->
-  <div class="card">
-    <h2><span class="step-badge">2</span>Engel Oranlarını Ekleyin</h2>
-    <p class="hint">Her bir fonksiyon kaybının engel oranını (%) ekleyin. Oranları sağlık kurulu raporundan girebilir ya da Ek-2 cetvelinde arayabilirsiniz.</p>
-    <div class="tabs">
-      <button id="tabSearch" class="active" onclick="switchTab('search')">Ek-2 cetvelinde ara</button>
-      <button id="tabManual" onclick="switchTab('manual')">Oranı elle gir</button>
-    </div>
-
-    <div id="paneSearch">
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Örn: işitme kaybı, böbrek, kalp, hipertansiyon, burun..." autocomplete="off">
-        <div id="results" class="results"></div>
-      </div>
-    </div>
-
-    <div id="paneManual" style="display:none">
-      <div class="row">
-        <div style="flex:2"><label>Açıklama (isteğe bağlı)</label><input type="text" id="mDesc" placeholder="Örn: Sol diz hareket kısıtlılığı (rapordan)"></div>
-        <div style="max-width:140px"><label>Engel oranı %</label><input type="number" id="mVal" min="0" max="100" step="0.5" placeholder="0-100"></div>
-        <div style="max-width:120px;display:flex;align-items:flex-end"><button class="btn btn-accent" style="width:100%" onclick="addManual()">Ekle</button></div>
-      </div>
-    </div>
-
-    <div style="margin-top:16px">
-      <label>Eklenen engel oranları</label>
-      <div id="addedList" class="added"></div>
-    </div>
-  </div>
-
-  <!-- 3. Yas ve hesap -->
-  <div class="card">
-    <h2><span class="step-badge">3</span>Yaş ve Hesaplama</h2>
-    <p class="hint">65 yaş ve üzeri bireylerde, yönetmelik gereği bulunan orana Balthazard formülü ile ayrıca %10 eklenir.</p>
-    <div class="row">
-      <div style="max-width:160px"><label>Yaş (isteğe bağlı)</label><input type="number" id="yas" min="0" max="120" placeholder="Örn: 45"></div>
-      <div style="display:flex;align-items:flex-end;gap:8px;flex:1">
-        <button class="btn btn-primary btn-lg" onclick="hesapla()">Maluliyet Oranını Hesapla</button>
-        <button class="btn btn-ghost btn-lg" onclick="temizle()">Temizle</button>
-      </div>
+    <div class="toolbar">
+      <button class="btn btn-primary" onclick="hesapla()">Maluliyet Oranını Hesapla</button>
+      <button class="btn btn-ghost" onclick="resetAll()">Hepsini temizle</button>
     </div>
 
     <div id="resultCard" class="result-card">
-      <div class="sub">Birleştirilmiş Engellilik (Maluliyet) Oranı</div>
+      <div class="sub">Birleştirilmiş Engellilik (Maluliyet) Oranı – tahmini</div>
       <div class="big"><span id="finalPct">0</span>%</div>
       <div class="sub" id="resultSub"></div>
       <div class="toolbar">
-        <button class="btn btn-ghost" onclick="toggleBd()">Adım adım dökümü göster/gizle</button>
+        <button class="btn btn-ghost" onclick="toggleBd()">Adım adım dökümü</button>
         <button class="btn btn-ghost" onclick="kopyala()">Dökümü kopyala</button>
       </div>
     </div>
-
     <div id="breakdown" class="breakdown"></div>
-
-    <div class="note">
-      <b>Önemli:</b> Ek-2 cetvelinin ortopedik (eklem hareket açıklığı), görme ve işitme gibi bölümleri sabit bir orana değil; gonyometrik ölçüm, odyometri ve görme alanı skorları gibi <b>sağlık kurulunca yapılan ölçümlere</b> dayanır. Bu aracın arama listesi yalnızca cetveldeki <b>sabit/sınıf bazlı oranları</b> içerir. Ölçüme dayalı kalemlerde oranı, sağlık kurulu raporundan alıp "Oranı elle gir" ile ekleyin.
-    </div>
+    <div class="note"><b>Bu bir ön tahmindir.</b> Kesin maluliyet oranı yalnızca yetkili sağlık kurullarınca, muayene ve ölçümlerle (eklem hareket açıklığı, odyometri, görme alanı, nöropsikolojik test vb.) belirlenir. Bu araç mağduru yönlendirmek ve fikir vermek içindir.</div>
   </div>
 
-  <div class="disclaimer" id="disclaimer">
-    <b>Yasal uyarı.</b> Bu araç yalnızca <b>bilgilendirme ve ön hesaplama</b> amaçlıdır; resmî bir sağlık kurulu raporu, bilirkişi raporu veya hukuki/tıbbi görüş yerine geçmez. Nihai engellilik/maluliyet oranı, yetkili sağlık kurulları tarafından ilgili yönetmelik ve Ek-2 Engel Oranları Alan Kılavuzu esas alınarak belirlenir. Arama listesindeki oranlar, resmî PDF'in optik karakter tanıma (OCR) ile çıkarılmış halidir; her kalemde belirtilen <b>sayfa numarasından resmî metinle teyit ediniz</b>. Balthazard hesabı yönetmeliğe uygundur. <span id="srcLine"></span>
+  <div class="disclaimer" id="disc">
+    <b>Yasal uyarı.</b> Bu araç yalnızca bilgilendirme ve ön hesaplama amaçlıdır; resmî sağlık kurulu raporu, bilirkişi raporu veya hukuki/tıbbi görüş yerine geçmez. "Kesin değer" etiketli kalemler Ek-2 cetvelindeki sabit oranlardır; "tahmini" etiketli kalemler ölçüme dayalı olup yalnızca yaklaşık bir fikir verir. Nihai oran yetkili sağlık kurullarınca belirlenir. Kaynak: Resmî Gazete 20.02.2019, Sayı 30692.
   </div>
 </div>
 
 <script>
-const DATA = [{"s": "Deri Hastalıkları", "d": "1-Hafif: Vücudun 900-19'unu kaplayan", "min": 5, "max": 5, "pg": 19}, {"s": "Deri Hastalıkları", "d": "2-Orta: Vücudun Y620-49*unu kaplayan", "min": 15, "max": 15, "pg": 19}, {"s": "Deri Hastalıkları", "d": "3-Şiddetli: Vücudun 9650-79*unu kaplayan", "min": 30, "max": 30, "pg": 19}, {"s": "Deri Hastalıkları", "d": "4-Çok şiddetli", "min": 30, "max": 30, "pg": 19}, {"s": "Deri Hastalıkları", "d": "1-1.5-20 em arasında olanlar", "min": 5, "max": 5, "pg": 20}, {"s": "Deri Hastalıkları", "d": "2-20 cm'den büyük", "min": 20, "max": 20, "pg": 20}, {"s": "Deri Hastalıkları", "d": "1-Hafif: Vücudun 9610-19*unu kaplayan", "min": 5, "max": 5, "pg": 20}, {"s": "Deri Hastalıkları", "d": "2-Orta: Vücudun 9020-49'unu kaplayan", "min": 10, "max": 10, "pg": 20}, {"s": "Deri Hastalıkları", "d": "3-Şiddetli: Vücudun 050-79*unu kaplayan", "min": 20, "max": 20, "pg": 20}, {"s": "Deri Hastalıkları", "d": "4-Çok şiddetli: Vücudun 080-100'unu kaplayan", "min": 30, "max": 30, "pg": 20}, {"s": "Deri Hastalıkları", "d": "5-Ayrıca saçlı deri ve yüz bölümünün yarısından fazlasını kaplarsa", "min": 15, "max": 15, "pg": 20}, {"s": "Deri Hastalıkları", "d": "1-Hafif (vücut yüzeyinin Y01-9'unu kaplayan)", "min": 5, "max": 5, "pg": 20}, {"s": "Deri Hastalıkları", "d": "2-Orta (vücut yüzeyinin 9010-Y019*unu kaplayan", "min": 10, "max": 10, "pg": 20}, {"s": "Deri Hastalıkları", "d": "3-Şiddetli (vücut yüzeyinin 9620-49'unu kaplayan)", "min": 20, "max": 20, "pg": 20}, {"s": "Deri Hastalıkları", "d": "4-Çok şiddetli: Vücudun 9650-100'unu kaplayan", "min": 40, "max": 40, "pg": 20}, {"s": "Deri Hastalıkları", "d": "5-Ayrıca saçlı deri ve yüz bölümünün yarısında fazlasını kaplarsa", "min": 15, "max": 15, "pg": 20}, {"s": "Deri Hastalıkları", "d": "olan hastalar", "min": 80, "max": 80, "pg": 20}, {"s": "Deri Hastalıkları", "d": "1-Vücut yüzeyinin 9020-9050'sini kaplayan", "min": 5, "max": 5, "pg": 21}, {"s": "Deri Hastalıkları", "d": "2-Vücut yüzeyinin 2050-90100'ini kaplayan", "min": 10, "max": 10, "pg": 21}, {"s": "Deri Hastalıkları", "d": "Kronik ve/veya tedaviye dirençli ürtiker ve anjioödem", "min": 10, "max": 10, "pg": 21}, {"s": "Deri Hastalıkları", "d": "1-Tedavi altında hafif ve orta derecede mukokutanöz Behçet hastalığı", "min": 10, "max": 10, "pg": 21}, {"s": "Deri Hastalıkları", "d": "2-Tedaviye dirençli şiddetli mukokutanöz Behçet hastalığı", "min": 20, "max": 20, "pg": 21}, {"s": "Deri Hastalıkları", "d": "4-Çok şiddetli", "min": 60, "max": 60, "pg": 21}, {"s": "Deri Hastalıkları", "d": "Reiter sendromu: Sadece deri lezyonları için", "min": 5, "max": 5, "pg": 22}, {"s": "Deri Hastalıkları", "d": "1-Sadece deri lezyonları için lokalize", "min": 5, "max": 5, "pg": 22}, {"s": "Deri Hastalıkları", "d": "Sadece deri lezyonları için", "min": 5, "max": 5, "pg": 22}, {"s": "Deri Hastalıkları", "d": "1-Sistem bulgusu olmayan, az sayıda deri lezyonları olan olgular", "min": 5, "max": 5, "pg": 22}, {"s": "Deri Hastalıkları", "d": "2-Yaygın deri lezyonları olan olgular", "min": 10, "max": 10, "pg": 22}, {"s": "Deri Hastalıkları", "d": "4-Çok şiddetli", "min": 80, "max": 80, "pg": 22}, {"s": "Deri Hastalıkları", "d": "1-Hafif olgular", "min": 20, "max": 20, "pg": 23}, {"s": "Deri Hastalıkları", "d": "2-Orta derecede", "min": 40, "max": 40, "pg": 23}, {"s": "Deri Hastalıkları", "d": "3-Şiddetli olgular", "min": 60, "max": 60, "pg": 23}, {"s": "Deri Hastalıkları", "d": "1-Sadece deri lezyonları olan hafif olgular", "min": 5, "max": 5, "pg": 23}, {"s": "Deri Hastalıkları", "d": "2-Orta derecede olgular", "min": 10, "max": 10, "pg": 23}, {"s": "Deri Hastalıkları", "d": "3-Şiddetli olgular", "min": 20, "max": 20, "pg": 23}, {"s": "Deri Hastalıkları", "d": "4-Yaygın ve çok şiddetli olgular", "min": 40, "max": 40, "pg": 23}, {"s": "Deri Hastalıkları", "d": "1-Orta (Grade IN)", "min": 5, "max": 5, "pg": 23}, {"s": "Deri Hastalıkları", "d": "2-Şiddetli (Grade TIh)", "min": 10, "max": 10, "pg": 23}, {"s": "Deri Hastalıkları", "d": "dönemde, yeni tanı konmuş, tedavi altında)", "min": 20, "max": 20, "pg": 24}, {"s": "Deri Hastalıkları", "d": "Vücut yüzeyinin Ye 10'unu kaplayan ve ameliyatla giderilemeyen keloid hipertrofi", "min": 20, "max": 20, "pg": 84}, {"s": "Deri Hastalıkları", "d": "Vücut yüzeyinin 9e 50sini kaplayanlar", "min": 30, "max": 30, "pg": 84}, {"s": "Deri Hastalıkları", "d": "Vücut yüzeyinin Ye 50”sinden fazlasını kaplayanlar", "min": 40, "max": 40, "pg": 84}, {"s": "Deri Hastalıkları", "d": "Saçlı derinin yarıdan çok alanını kaplayan yanıklar ve yaralar", "min": 25, "max": 25, "pg": 84}, {"s": "Endokrin Sistem", "d": "1- Gigantizm ve Akromegali", "min": 30, "max": 30, "pg": 79}, {"s": "Endokrin Sistem", "d": "2- Prolaktin Hormonu Fazlalığı", "min": 30, "max": 30, "pg": 79}, {"s": "Endokrin Sistem", "d": "3- Adrenokortikotrop hormon (ACTH) fazlalığı", "min": 30, "max": 30, "pg": 79}, {"s": "Endokrin Sistem", "d": "Hipofiz Bezinin Hipofonksiyonu", "min": 30, "max": 30, "pg": 79}, {"s": "Endokrin Sistem", "d": "1- Hipofizer nanismus", "min": 30, "max": 30, "pg": 79}, {"s": "Endokrin Sistem", "d": "2- Hipofizin izole hormon eksikliği", "min": 20, "max": 20, "pg": 79}, {"s": "Endokrin Sistem", "d": "2- Kalıcı hipotiroidi (tedaviye cevap veren", "min": 10, "max": 10, "pg": 79}, {"s": "Endokrin Sistem", "d": "fazla tiroksin gerektirenler)", "min": 40, "max": 40, "pg": 79}, {"s": "Endokrin Sistem", "d": "Doğuştan iyot eksikliği sendromu", "min": 20, "max": 20, "pg": 79}, {"s": "Endokrin Sistem", "d": "Tirotoksikoz (komplikasyonsuz)", "min": 10, "max": 10, "pg": 79}, {"s": "Endokrin Sistem", "d": "Hiperparatiroidi (Cerrahi olarak tedavi edilemeyen)", "min": 30, "max": 30, "pg": 79}, {"s": "Endokrin Sistem", "d": "1- İdiopatik Primer Hipoparatiroidi (Replasmanla Kompanse", "min": 20, "max": 20, "pg": 79}, {"s": "Endokrin Sistem", "d": "2- İdiopatik Primer Hipoparatiroidi (Replasmana dirençli)", "min": 40, "max": 40, "pg": 80}, {"s": "Endokrin Sistem", "d": "3- Sekonder Hipoparatiroidi (Replasmana Kompanse)", "min": 20, "max": 20, "pg": 80}, {"s": "Endokrin Sistem", "d": "4- Sekonder Hipoparatiroidi (Replasmana dirençli)", "min": 50, "max": 50, "pg": 80}, {"s": "Endokrin Sistem", "d": "İki taraflı hiperplazi (Hipofizer Adenoma bağlı)", "min": 45, "max": 45, "pg": 80}, {"s": "Endokrin Sistem", "d": "Adrenal korteks yetersizliği (Addison hastalığı", "min": 40, "max": 40, "pg": 80}, {"s": "Endokrin Sistem", "d": "2- Tedaviye dirençli", "min": 30, "max": 30, "pg": 80}, {"s": "Endokrin Sistem", "d": "3- Cerrahi tedaviden yararlanamayanlar veya inoperabl olanlar", "min": 50, "max": 50, "pg": 80}, {"s": "Endokrin Sistem", "d": "1- Postoperatif kontrol altında", "min": 30, "max": 30, "pg": 80}, {"s": "Endokrin Sistem", "d": "2- Cerrahi tedaviden yararlanamayanlar veya inoperabi olanlar", "min": 80, "max": 80, "pg": 80}, {"s": "Endokrin Sistem", "d": "Adrenogenital bozukluklar", "min": 40, "max": 40, "pg": 80}, {"s": "Endokrin Sistem", "d": "Ergenlik bozuklukları (puberte)", "min": 20, "max": 20, "pg": 80}, {"s": "Endokrin Sistem", "d": "Çoğul bez (poligülandüler) işlev bozukluğu", "min": 60, "max": 60, "pg": 80}, {"s": "Endokrin Sistem", "d": "Timus hastalıkları", "min": 40, "max": 40, "pg": 80}, {"s": "Endokrin Sistem", "d": "Tip LI Diabetes mellitus", "min": 20, "max": 20, "pg": 80}, {"s": "Endokrin Sistem", "d": "ketoz ve hipoglisemi göstermeyen Tip 1 diabetes mellitus", "min": 30, "max": 30, "pg": 80}, {"s": "Endokrin Sistem", "d": "ketoz gösteren Tip 1 diabetes mellitus", "min": 40, "max": 40, "pg": 80}, {"s": "Endokrin Sistem", "d": "bozuklukları yapan", "min": 50, "max": 50, "pg": 81}, {"s": "Endokrin Sistem", "d": "Osteomalazi (Tıbbi tedaviye cevap vermeyen)", "min": 50, "max": 50, "pg": 81}, {"s": "Endokrin Sistem", "d": "<) Purin ve primidin metabolizması bozuklukları (organ disfonksiyonu yapmış)", "min": 40, "max": 40, "pg": 81}, {"s": "Endokrin Sistem", "d": "1- Leseh-Nyhan Hastalığı", "min": 90, "max": 90, "pg": 81}, {"s": "Endokrin Sistem", "d": "— Kronik gut artiriti", "min": 20, "max": 20, "pg": 81}, {"s": "Endokrin Sistem", "d": "Porfirin metabolizması bozuklukları (organ disfonksiyonu yapmış)", "min": 40, "max": 40, "pg": 81}, {"s": "Endokrin Sistem", "d": "I- Konjenital Formlar (Organ komplikasyonları ayrıca gözönüne alınmalıdır)", "min": 25, "max": 25, "pg": 81}, {"s": "Endokrin Sistem", "d": "— Familyal heterozigot formlar diyete yanıt vermeyenler", "min": 40, "max": 40, "pg": 81}, {"s": "Endokrin Sistem", "d": "— Diyet ve ilaç tedavisi ile regüle", "min": 10, "max": 10, "pg": 81}, {"s": "Endokrin Sistem", "d": "— Diyet ve ilaç tedavisine dirençli olanlar", "min": 20, "max": 20, "pg": 81}, {"s": "Endokrin Sistem", "d": "1- Çiddi Obezite (Vücut Kitle indeksi 40-50kg/m? arasında olanlar)", "min": 20, "max": 20, "pg": 81}, {"s": "Endokrin Sistem", "d": "2- Morbid Obezite (Vücut Kitle indeksi 50kg/m? üstü olanlar)", "min": 30, "max": 30, "pg": 81}, {"s": "Endokrin Sistem", "d": "Amino asit metabolizması bozuklukları (organ disfonksiyonu yapmış ve diyete bağımlı)", "min": 40, "max": 40, "pg": 81}, {"s": "Endokrin Sistem", "d": "Karbonhidrat metabolizması bozuklukları (organ disfonksiyonu yapmış)", "min": 40, "max": 40, "pg": 81}, {"s": "Endokrin Sistem", "d": "İ) Glikojen depo hastalığı (organ disfonksiyonu yapmış formları)", "min": 40, "max": 40, "pg": 81}, {"s": "Endokrin Sistem", "d": "Sfingolipid metabolizması ve diğer lipid depo hastalıkları (organ disfonksiyonu yapmış)", "min": 60, "max": 60, "pg": 81}, {"s": "Endokrin Sistem", "d": "|) Glikozaminoglikan metabolizması bozuklukları (organ disfonksiyonu yapmış)", "min": 60, "max": 60, "pg": 82}, {"s": "Endokrin Sistem", "d": "Glikoprotein metabolizması bozuklukları (organ disfonksiyonu yapmış)", "min": 60, "max": 60, "pg": 82}, {"s": "Endokrin Sistem", "d": "Kistik fibrozis (organ disfonksiyonu yapmış)", "min": 40, "max": 40, "pg": 82}, {"s": "Endokrin Sistem", "d": "Diğer metabolik bozukluklar (organ disfonksiyonu yapmış)", "min": 40, "max": 40, "pg": 82}, {"s": "Endokrin Sistem", "d": "2- Akondroplazi dışı iskelet displazileri", "min": 60, "max": 60, "pg": 82}, {"s": "Endokrin Sistem", "d": "Ailevi Akdeniz Ateşi", "min": 20, "max": 20, "pg": 82}, {"s": "Göz / Görme Sistemi", "d": "ayar ame am a", "min": 6, "max": 6, "pg": 38}, {"s": "Göz / Görme Sistemi", "d": "Bir gözü kapamadan diplopinin önlenemediği durumlarda", "min": 30, "max": 30, "pg": 44}, {"s": "Göz / Görme Sistemi", "d": "Diplopi tali bakış sırasında oluyor ve baş pozisyonu yoksa", "min": 10, "max": 10, "pg": 44}, {"s": "Göz / Görme Sistemi", "d": "Tek gözde", "min": 5, "max": 5, "pg": 44}, {"s": "Göz / Görme Sistemi", "d": "L Tek gözde w", "min": 5, "max": 5, "pg": 44}, {"s": "Göz / Görme Sistemi", "d": "Çift gözde", "min": 10, "max": 10, "pg": 44}, {"s": "Göz / Görme Sistemi", "d": "İşlevsel keskinlik puanı (İKP)", "min": 80, "max": 80, "pg": 46}, {"s": "Göz / Görme Sistemi", "d": "Sağ GK.:20/40 (düzeltilmiş)", "min": 85, "max": 85, "pg": 47}, {"s": "Göz / Görme Sistemi", "d": "Otomatik perimetri: Görme alanının yetersizlik (impairment) belirlenmesi muayenesinde", "min": 60, "max": 60, "pg": 51}, {"s": "Göz / Görme Sistemi", "d": "i#ie sele m 0 Jj ele", "min": 9, "max": 9, "pg": 63}, {"s": "Göz / Görme Sistemi", "d": "15 nokta - 15 puan alk OR 15 nakta - 15 puan", "min": 2, "max": 2, "pg": 63}, {"s": "Göz / Görme Sistemi", "d": "Engel Oranı “o 10 Engel Oranı “e 25 Engel Oranı “a 50 Engel Oranı", "min": 75, "max": 75, "pg": 67}, {"s": "Göz / Görme Sistemi", "d": "Engel Oranı “e 10 Engel Oranı “6 25 Engel Oranı “e 50 Engel Oranı “o", "min": 75, "max": 75, "pg": 68}, {"s": "Göğüs / Solunum Sistemi", "d": "a- Az etkilenme varsa", "min": 20, "max": 20, "pg": 83}, {"s": "Göğüs / Solunum Sistemi", "d": "c- Ağır derecede etkilenme varsa veya kronik kor pulmonale gelişmişse", "min": 80, "max": 80, "pg": 83}, {"s": "Hematoloji", "d": "1-Vücutta plak, papül veya ekzematöz yama: Evre JA, IB", "min": 10, "max": 10, "pg": 23}, {"s": "Hematoloji", "d": "2-Yama, plak, papültdermopatik LAP; Evre HA", "min": 20, "max": 20, "pg": 23}, {"s": "Hematoloji", "d": "4-Yama, plak, papül, tümor, Sezary send, patoloji pozitif lenf nodu: Evre IVA, IVB", "min": 60, "max": 60, "pg": 23}, {"s": "Hematoloji", "d": "5-Parapsoriazis Geniş plak", "min": 10, "max": 10, "pg": 23}, {"s": "Hematoloji", "d": "6-Küçükplak parapsoriasis / Dijitat dermatoz, Pitriazis likenoides kronika", "min": 10, "max": 10, "pg": 23}, {"s": "Hematoloji", "d": "7-Lenfomatoid papülosis", "min": 10, "max": 10, "pg": 23}, {"s": "Hematoloji", "d": "i-Lokalize deri lezyonları ve iyi seyir gösteren deri lenfomaları", "min": 10, "max": 10, "pg": 24}, {"s": "Hematoloji", "d": "2-Yaygın deri lezyonları veya lokalize, ancak kötü seyir gösteren", "min": 20, "max": 20, "pg": 24}, {"s": "Hematoloji", "d": "3-Deri dışı tutulumu olan, patolojik LAP(1), yaygın deri lezyonu, kötü prognoz", "min": 40, "max": 40, "pg": 24}, {"s": "Hematoloji", "d": "4-Yaygın deri lezyonu olan, uzak metastazlı", "min": 60, "max": 60, "pg": 24}, {"s": "Hematoloji", "d": "2-Ürtikerya pigmentoza, makulopapüler varyant ve Telenjektazia Makularis Eruptiva Perstans", "min": 10, "max": 10, "pg": 24}, {"s": "Hematoloji", "d": "3-Diffüz kutanöz mastositoz", "min": 20, "max": 20, "pg": 24}, {"s": "Hematoloji", "d": "I- Ağır olmayan aplastik anemi", "min": 40, "max": 40, "pg": 25}, {"s": "Hematoloji", "d": "2- Ağır aplastik anemi (Nötrofil 200-500, trombosit 20000'in altı)", "min": 70, "max": 70, "pg": 25}, {"s": "Hematoloji", "d": "3- Çokağır (nötrofil 200'ün altı", "min": 80, "max": 80, "pg": 25}, {"s": "Hematoloji", "d": "Transfüzyon ihtiyacı olmayan", "min": 40, "max": 40, "pg": 25}, {"s": "Hematoloji", "d": "1-Steroid tedavisine yanıt verenler", "min": 30, "max": 30, "pg": 25}, {"s": "Hematoloji", "d": "2-Steroid tedavisine bağımlı olanlar", "min": 40, "max": 40, "pg": 25}, {"s": "Hematoloji", "d": "3-Steroid tedavisine yanıt vermeyenler", "min": 70, "max": 70, "pg": 25}, {"s": "Hematoloji", "d": "1-Hafif anemi (Hb:10-12 g/di)", "min": 10, "max": 10, "pg": 25}, {"s": "Hematoloji", "d": "2-Orta dercede anemi ( Hb:8-10 g/di", "min": 40, "max": 40, "pg": 25}, {"s": "Hematoloji", "d": "3-Ağır anemi (Hb:<8 g/dl)", "min": 80, "max": 80, "pg": 25}, {"s": "Hematoloji", "d": "1-Hafif-orta", "min": 40, "max": 40, "pg": 25}, {"s": "Hematoloji", "d": "2-Ağır ve Terminal vakalar", "min": 80, "max": 80, "pg": 25}, {"s": "Hematoloji", "d": "I-Hafif-orta (Tedavi ile Hb 10-12 g/di)", "min": 20, "max": 20, "pg": 25}, {"s": "Hematoloji", "d": "2-Tedavi ile Hb 8-10 g/dl)", "min": 40, "max": 40, "pg": 25}, {"s": "Hematoloji", "d": "3-Tedaviye yanıt vermeyenler (Hb <8 g/dl)", "min": 80, "max": 80, "pg": 25}, {"s": "Hematoloji", "d": "1-Yılda bir veya daha az oraklaşma krizi geçiren hafif- orta vakalar", "min": 40, "max": 40, "pg": 25}, {"s": "Hematoloji", "d": "sendromu geçiren ağır ve terminal vakalar | OO", "min": 80, "max": 80, "pg": 25}, {"s": "Hematoloji", "d": "3-Ağır veya terminal vakalar", "min": 80, "max": 80, "pg": 25}, {"s": "Hematoloji", "d": "1-Hb <10 g/di, plt <100000/mm3 (Tedavi ile ilişkili olmayan)", "min": 80, "max": 80, "pg": 26}, {"s": "Hematoloji", "d": "LIPSS düşük ve orta | risk", "min": 40, "max": 40, "pg": 26}, {"s": "Hematoloji", "d": "2 IPSS Orta-2 ve yüksek risk", "min": 80, "max": 80, "pg": 26}, {"s": "Hematoloji", "d": "Ağır ve terminal vakalar", "min": 90, "max": 90, "pg": 26}, {"s": "Hematoloji", "d": "1-Tam Remisyonda (Remisyon sonrası 5. yıla kadar)", "min": 60, "max": 60, "pg": 26}, {"s": "Hematoloji", "d": "2-Tam Remisyonda (Remisyon sonrası 5. yıldan sonra)", "min": 40, "max": 40, "pg": 26}, {"s": "Hematoloji", "d": "3-Tedavisi devam eden olgular", "min": 70, "max": 70, "pg": 26}, {"s": "Hematoloji", "d": "4-Remisyona girmeyen", "min": 90, "max": 90, "pg": 26}, {"s": "Hematoloji", "d": "1-Kronik Faz (Tam sitogenetik yanıt varsa", "min": 30, "max": 30, "pg": 26}, {"s": "Hematoloji", "d": "2-Kronik Faz (6. ayda major sitogenetik yanıt yoksa )", "min": 60, "max": 60, "pg": 26}, {"s": "Hematoloji", "d": "3- Akselere veya blastik faz", "min": 90, "max": 90, "pg": 26}, {"s": "Hematoloji", "d": "1- Evre KI (Tedavi gereksinimi olmayan)", "min": 30, "max": 30, "pg": 26}, {"s": "Hematoloji", "d": "2-Evre L-II (Tedavi gereksinimi olan)", "min": 60, "max": 60, "pg": 26}, {"s": "Hematoloji", "d": "1-Benign Gammapatiler", "min": 10, "max": 10, "pg": 26}, {"s": "Hematoloji", "d": "2-Soliter plazmositom ve Smoldering myeloma", "min": 30, "max": 30, "pg": 26}, {"s": "Hematoloji", "d": "3-Malign Gammapatiler (Remisyonda veya tedavi ile kontrolde", "min": 50, "max": 50, "pg": 26}, {"s": "Hematoloji", "d": "4-Malign Gammapatiler (Ağır veya remisyona girmeyen", "min": 90, "max": 90, "pg": 26}, {"s": "Hematoloji", "d": "Hemostatik bir sorun yaşamamış ve kontrol altında olanlar", "min": 30, "max": 30, "pg": 26}, {"s": "Hematoloji", "d": "Hastalıkları kontrol altında olmayanlar", "min": 40, "max": 40, "pg": 26}, {"s": "Hematoloji", "d": "Hayatı tehdit eden tromboz ve/veya kanaması olanlar", "min": 70, "max": 70, "pg": 26}, {"s": "Hematoloji", "d": "Lösemikdönüşüm gösterenler", "min": 80, "max": 80, "pg": 26}, {"s": "Hematoloji", "d": "Hafif kanamalar ile seyreden ve tedavi gerektirmeyen vakalar", "min": 20, "max": 20, "pg": 26}, {"s": "Hematoloji", "d": "Ağır ve hayati kanamalar ile seyreden vakalar", "min": 80, "max": 80, "pg": 27}, {"s": "Hematoloji", "d": "1- Faktör Aktivitesi 9462'nin altında (en az iki kez, farklı zamanda ölçülmüş) o o", "min": 80, "max": 80, "pg": 27}, {"s": "Hematoloji", "d": "2- Faktör Aktivitesi 902-5 (en az iki kez, farklı zamanda ölçülmüş)", "min": 40, "max": 40, "pg": 27}, {"s": "Hematoloji", "d": "3- Faktör Aktivitesi 9465'in üstünde (en az iki kez, farklı zamanda ölçülmüş) o", "min": 20, "max": 20, "pg": 27}, {"s": "Hematoloji", "d": "1- Sık kanama ile seyreden ve tedavi gerektiren olgular", "min": 60, "max": 60, "pg": 27}, {"s": "Hematoloji", "d": "2- Nadir kanama ile seyreden olgular", "min": 20, "max": 20, "pg": 27}, {"s": "Hematoloji", "d": "1- Bir kez ekstremitede DVT ya da hemodinamik sekel bırakmayan PTE, gelişenler", "min": 10, "max": 10, "pg": 27}, {"s": "Hematoloji", "d": "2- Birden fazla ekstremitede DVT gelişen vakalar", "min": 20, "max": 20, "pg": 27}, {"s": "Hematoloji", "d": "tehdit eden diğer trombozlar", "min": 60, "max": 60, "pg": 27}, {"s": "Hematoloji", "d": "Tekrarlayan ataklar", "min": 60, "max": 60, "pg": 27}, {"s": "Hematoloji", "d": "D. Dissemine İntravasküler Koagülopati (kronik)", "min": 20, "max": 20, "pg": 27}, {"s": "Hematoloji", "d": "1-Evre L-II remisyonda (Remisyon sonrası 5. yıla kadar)", "min": 60, "max": 60, "pg": 27}, {"s": "Hematoloji", "d": "2-Evre 1-11 remisyonda (Remisyon sonrası 5. yıldan sonra)", "min": 40, "max": 40, "pg": 27}, {"s": "Hematoloji", "d": "3-Evre TI-IV remisyonda", "min": 40, "max": 40, "pg": 27}, {"s": "Hematoloji", "d": "4-Remisyona girmeyen veya tedavi sürecinde olan", "min": 80, "max": 80, "pg": 27}, {"s": "Hematoloji", "d": "1-Düşük dereceli remisyonda (Remisyon sonrası 5. yıla kadar)", "min": 40, "max": 40, "pg": 27}, {"s": "Hematoloji", "d": "2-Düşük dereceli remisyonda (Remisyon sonrası 3. yıldan sonra)", "min": 30, "max": 30, "pg": 27}, {"s": "Hematoloji", "d": "3-Düşük dereceli remisyona girmeyen veya tedavi sürecinde olan", "min": 70, "max": 70, "pg": 27}, {"s": "Hematoloji", "d": "4-Orta veya yüksek dereceli remisyonda", "min": 40, "max": 40, "pg": 27}, {"s": "Hematoloji", "d": "6- Orta veya yüksek dereceli remisyona girmeyen veya tedavi sürecinde olan", "min": 80, "max": 80, "pg": 27}, {"s": "Hematoloji", "d": "Sık ve ağır enfeksiyon geçirmesine neden olmayan vakalar", "min": 20, "max": 20, "pg": 27}, {"s": "Hematoloji", "d": "Sık ve ağır enfeksiyon geçirmesine neden olan vakalar", "min": 40, "max": 40, "pg": 27}, {"s": "Hematoloji", "d": "tedavi almayanlar", "min": 30, "max": 30, "pg": 27}, {"s": "Hematoloji", "d": "tedavisi devam eden olgular", "min": 60, "max": 60, "pg": 27}, {"s": "Hematoloji", "d": "3-İleri derecede komplikasyonu olan ve/veya ağır-terminal olgular", "min": 80, "max": 80, "pg": 28}, {"s": "Hematoloji", "d": "1-Hastalığı remisyonda, komplikasyonu olmayan", "min": 40, "max": 40, "pg": 28}, {"s": "Hematoloji", "d": "2-Hafif-orta derecede komplikasyonu olan", "min": 60, "max": 60, "pg": 28}, {"s": "Hematoloji", "d": "3-İleri derecede komplikasyonu olan ağır-terminal olgular", "min": 90, "max": 90, "pg": 28}, {"s": "Kadın Hastalıkları ve Doğum", "d": "1-Derece fonksiyonel/yapısal kayıp", "min": 2, "max": 2, "pg": 72}, {"s": "Kadın Hastalıkları ve Doğum", "d": "3-Derece fonksiyonel/yapısal kayıp", "min": 10, "max": 10, "pg": 72}, {"s": "Kadın Hastalıkları ve Doğum", "d": "2-Derece fonksiyonel/yapısal kayıp", "min": 5, "max": 5, "pg": 72}, {"s": "Kadın Hastalıkları ve Doğum", "d": "B-Derece fonksiyonel/yapısal kayıp", "min": 15, "max": 15, "pg": 72}, {"s": "Kadın Hastalıkları ve Doğum", "d": "Derece fonksiyonel/yapısal kayıp", "min": 20, "max": 20, "pg": 73}, {"s": "Kardiyovasküler Sistem", "d": "ilaç tedavisi veya kalıcı kalp pili ile semptomları giderilmiştir", "min": 20, "max": 20, "pg": 29}, {"s": "Kardiyovasküler Sistem", "d": "aritmi devam etmektedir ve organik bir kalp hastalığı vardır", "min": 20, "max": 20, "pg": 29}, {"s": "Kardiyovasküler Sistem", "d": "aritmi nedeniyle İÇD implante edilmiştir", "min": 30, "max": 30, "pg": 29}, {"s": "Kardiyovasküler Sistem", "d": "uygulanmıştır, fakat semptomları devam etmektedir (fonksiyonel kapasite 3)", "min": 50, "max": 50, "pg": 29}, {"s": "Kardiyovasküler Sistem", "d": "semptomları devamlıdır ve hastanın günlük aktivitelerini engellemektedir (fonksiyonel kapasite", "min": 3, "max": 3, "pg": 29}, {"s": "Kardiyovasküler Sistem", "d": "30-40 mmHg saptanan ve Pulmoner Hipertansiyon tanısı konmuş hastalar", "min": 10, "max": 10, "pg": 29}, {"s": "Kardiyovasküler Sistem", "d": "50 mmHg saptanan hastalar", "min": 25, "max": 25, "pg": 29}, {"s": "Kardiyovasküler Sistem", "d": "PASB: 70 mmHg üzeri hastalar", "min": 100, "max": 100, "pg": 29}, {"s": "Kardiyovasküler Sistem", "d": "Antihipertansif tedavi kullanan ve komplikasyonu olamayan kişiler", "min": 10, "max": 10, "pg": 30}, {"s": "Kardiyovasküler Sistem", "d": "Kişi antihipertansif tedavi alıyor ve aşağıdakilerden birisi varsa", "min": 20, "max": 20, "pg": 30}, {"s": "Kardiyovasküler Sistem", "d": "Kişi antihipertansif tedavi alıyor ve aşağıdakilerden iki veya daha fazlası varsa", "min": 50, "max": 50, "pg": 30}, {"s": "Kardiyovasküler Sistem", "d": "NYHA sınıf-I ve konstriksiyon bulgusu olmayanlar", "min": 10, "max": 10, "pg": 30}, {"s": "Kardiyovasküler Sistem", "d": "yapılan, fonksiyonel kapasite NYHA sınıf-1I olanlar", "min": 30, "max": 30, "pg": 30}, {"s": "Kardiyovasküler Sistem", "d": "asemptomatik olan hastalar", "min": 50, "max": 50, "pg": 30}, {"s": "Kardiyovasküler Sistem", "d": "rağmen semptomatik olan hastalar", "min": 100, "max": 100, "pg": 30}, {"s": "Kardiyovasküler Sistem", "d": "60 olan ve tedaviye rağmen NYHA sınıf -1 hastalar", "min": 30, "max": 30, "pg": 30}, {"s": "Kardiyovasküler Sistem", "d": "Y030'un altında olan veya NYHA sınıf HILIV hastalar", "min": 100, "max": 100, "pg": 31}, {"s": "Kardiyovasküler Sistem", "d": "Klas | hastalar", "min": 10, "max": 10, "pg": 32}, {"s": "Kardiyovasküler Sistem", "d": "girişimsel-cerrahi olarak tedavi edilmiş hastalarda aşağıdaki şartların varlığı; NYHA Sınıf", "min": 2, "max": 2, "pg": 32}, {"s": "Kardiyovasküler Sistem", "d": "kapak hastalığı nedeni ile opere edilmiş hastalarda aşağıdaki şartların varlığı; NYHA Sınıf", "min": 4, "max": 4, "pg": 32}, {"s": "Kardiyovasküler Sistem", "d": "1- Tıbbi tedaviden istifade ediyor ise", "min": 20, "max": 20, "pg": 33}, {"s": "Kardiyovasküler Sistem", "d": "2- Tıbbi tedaviden istifade edemiyor ise", "min": 30, "max": 30, "pg": 33}, {"s": "Kardiyovasküler Sistem", "d": "1- Cerrahi tedaviden istifade etmiş olanlar", "min": 30, "max": 30, "pg": 33}, {"s": "Kardiyovasküler Sistem", "d": "2- Cerrahi tedaviden istifade edememiş olanlar", "min": 50, "max": 50, "pg": 33}, {"s": "Kardiyovasküler Sistem", "d": "3-Birden fazla damar lezyonuna yönelik operasyon olup istirahat ağrısı devam eden oo", "min": 60, "max": 60, "pg": 34}, {"s": "Kardiyovasküler Sistem", "d": "1-Sempatektomi ameliyatı yapılmamış ve tıbbi tedaviden yararlanıyorsa", "min": 20, "max": 20, "pg": 34}, {"s": "Kardiyovasküler Sistem", "d": "intermittant varsa", "min": 30, "max": 30, "pg": 34}, {"s": "Kardiyovasküler Sistem", "d": "3- Sempatektomi yapılmış, trofik bozukluğu ve iskemiye bağlı istirahat ağrısı olanlar o", "min": 50, "max": 50, "pg": 34}, {"s": "Kardiyovasküler Sistem", "d": "a- Trofik bozukluğu olmayanlar", "min": 20, "max": 20, "pg": 34}, {"s": "Kardiyovasküler Sistem", "d": "b- Cerrahi müdahale görmüş, dolaşım bozukluğu ve iskemi bulguları olanlar", "min": 30, "max": 30, "pg": 34}, {"s": "Kardiyovasküler Sistem", "d": "a- Staz ülseri bulunmayanlar", "min": 20, "max": 20, "pg": 34}, {"s": "Kardiyovasküler Sistem", "d": "a- Hafif derecede lenfödemi olanlar", "min": 10, "max": 10, "pg": 34}, {"s": "Kardiyovasküler Sistem", "d": "1- Tek ekstremitede", "min": 20, "max": 20, "pg": 34}, {"s": "Kardiyovasküler Sistem", "d": "2- İki ekstremitede", "min": 45, "max": 45, "pg": 34}, {"s": "Kardiyovasküler Sistem", "d": "e- İleri derecede lenfödemi olanlar (Yürüme ve hareketi engelleyecek ölçüde)", "min": 80, "max": 80, "pg": 34}, {"s": "Kardiyovasküler Sistem", "d": "4- Tek taraflı pnömonektomi", "min": 10, "max": 10, "pg": 83}, {"s": "Kardiyovasküler Sistem", "d": "3- Akciğer transplantasyonu", "min": 70, "max": 70, "pg": 83}, {"s": "Kulak Burun Boğaz", "d": "Sf Vestibüler bozukluk işaretlerine ait destekleyici objektif bulguların olması ve", "min": 5, "max": 5, "pg": 11}, {"s": "Kulak Burun Boğaz", "d": "Vestibüler bozukluk işaretlerine ait destekleyici objektif bulguların olması ve", "min": 15, "max": 15, "pg": 11}, {"s": "Kulak Burun Boğaz", "d": "Sınıf | o Vestibüler bozukluk işaretlerine ait destekleyici objektif bulguların olması ve", "min": 25, "max": 25, "pg": 11}, {"s": "Kulak Burun Boğaz", "d": "Vestibüler bozukluk işaretlerine ait destekleyici objektif bulguların olması ve", "min": 35, "max": 35, "pg": 12}, {"s": "Kulak Burun Boğaz", "d": "Edinsel nedenlerle fiziksel görünümü bozan burun eğriliği", "min": 2, "max": 2, "pg": 12}, {"s": "Kulak Burun Boğaz", "d": "Dış kulağın tek taraflı kaybı veya şekil bozukluğu", "min": 3, "max": 3, "pg": 12}, {"s": "Kulak Burun Boğaz", "d": "Yanakla beraber burun veya frontal kemikte çökme", "min": 6, "max": 6, "pg": 12}, {"s": "Kulak Burun Boğaz", "d": "Burun ve sinüs boşluğuna açılma ile birlikte maksilla'nın kısmi kaybı (medial duvar kaybı)", "min": 10, "max": 10, "pg": 12}, {"s": "Kulak Burun Boğaz", "d": "Dış kulağın çift taraflı kaybı veya şekil bozukluğu", "min": 7, "max": 7, "pg": 12}, {"s": "Kulak Burun Boğaz", "d": "Cerrahi veya travma sonucu mandibula segmenter rezeksiyonu", "min": 13, "max": 13, "pg": 12}, {"s": "Kulak Burun Boğaz", "d": "medial duvar dışında bir duvarının kaybı)", "min": 35, "max": 35, "pg": 12}, {"s": "Kulak Burun Boğaz", "d": "Cerrahi veya travma sonucu hemimandibulektomi", "min": 33, "max": 33, "pg": 12}, {"s": "Kulak Burun Boğaz", "d": "Doku kaybı, skarlı fiksasyon veya felce bağlı dilin fonksiyon kaybı (hafif)", "min": 25, "max": 25, "pg": 12}, {"s": "Kulak Burun Boğaz", "d": "Primer atrofik rinit (0zena)", "min": 20, "max": 20, "pg": 12}, {"s": "Kulak Burun Boğaz", "d": "Travma, tümör veya ameliyat sonrası en az bir alveoler arktaki bütün kalıcı dişlerin kaybı", "min": 17, "max": 17, "pg": 12}, {"s": "Kulak Burun Boğaz", "d": "Tam fonksiyon bozukluğu yapan dudak arızaları", "min": 25, "max": 25, "pg": 12}, {"s": "Kulak Burun Boğaz", "d": "alveoler çıkıntıda 9050'den fazla kayıp)", "min": 45, "max": 45, "pg": 13}, {"s": "Kulak Burun Boğaz", "d": "Burnun tam kaybı", "min": 47, "max": 47, "pg": 13}, {"s": "Kulak Burun Boğaz", "d": "Ameliyat edilemeyen burun, paranazal sinüsler, çene, ağız ve farinks tümörleri", "min": 65, "max": 65, "pg": 13}, {"s": "Kulak Burun Boğaz", "d": "Hasta sıvı, yarı katı ve yumuşak diyetlerden bazılarını sınırlı", "min": 10, "max": 10, "pg": 14}, {"s": "Kulak Burun Boğaz", "d": "Tedaviyle işlevselliği düzelen", "min": 45, "max": 45, "pg": 15}, {"s": "Kulak Burun Boğaz", "d": "Tedaviyle işlevselliği kısmi düzelen", "min": 65, "max": 65, "pg": 15}, {"s": "Kulak Burun Boğaz", "d": "Tedaviyle işlevselliği düzelmeyen", "min": 80, "max": 80, "pg": 15}, {"s": "Kulak Burun Boğaz", "d": "Tedaviyle işlevselliği kısmi düzelen", "min": 40, "max": 40, "pg": 15}, {"s": "Kulak Burun Boğaz", "d": "Asperger Sendromu", "min": 40, "max": 40, "pg": 15}, {"s": "Kulak Burun Boğaz", "d": "Disintegratif psikoz", "min": 80, "max": 80, "pg": 15}, {"s": "Kulak Burun Boğaz", "d": "Rett Sendromu", "min": 80, "max": 80, "pg": 15}, {"s": "Kulak Burun Boğaz", "d": "dAtipik otizm (başka türlü adlandırılamayan yaygın gelişimsel bozukluk)", "min": 40, "max": 40, "pg": 15}, {"s": "Kulak Burun Boğaz", "d": "Tedavi ile işlevselliği kısmen düzelen", "min": 40, "max": 40, "pg": 16}, {"s": "Kulak Burun Boğaz", "d": "Tedavi ile işlevselliği düzelmeyen", "min": 70, "max": 70, "pg": 16}, {"s": "Kulak Burun Boğaz", "d": "Tedavi ile işlevselliği kısmen düzelen", "min": 25, "max": 25, "pg": 16}, {"s": "Kulak Burun Boğaz", "d": "Tedavi ile işlevselliği düzelmeyen", "min": 40, "max": 40, "pg": 16}, {"s": "Kulak Burun Boğaz", "d": "Tedavi ile işlevselliği kısmen düzelen", "min": 20, "max": 20, "pg": 16}, {"s": "Kulak Burun Boğaz", "d": "Tedavi ile işlevselliği düzelmeyen", "min": 60, "max": 60, "pg": 17}, {"s": "Kulak Burun Boğaz", "d": "2-Tedavi ile işlevselliği kısmen düzelen", "min": 20, "max": 20, "pg": 17}, {"s": "Kulak Burun Boğaz", "d": "3-Tedavi ile işlevselliği düzelmeyen", "min": 40, "max": 40, "pg": 17}, {"s": "Kulak Burun Boğaz", "d": "2-Tedavi ile işlevselliği kısmen düzelen", "min": 15, "max": 15, "pg": 17}, {"s": "Kulak Burun Boğaz", "d": "3-Tedavi ile işlevselliği düzelmeyen", "min": 20, "max": 20, "pg": 17}, {"s": "Kulak Burun Boğaz", "d": "3-Çok şiddetli", "min": 15, "max": 15, "pg": 18}, {"s": "Kulak Burun Boğaz", "d": "4-Çok şiddetli", "min": 40, "max": 40, "pg": 19}, {"s": "Kulak Burun Boğaz", "d": "1-Alopesi totalis", "min": 10, "max": 10, "pg": 19}, {"s": "Kulak Burun Boğaz", "d": "2-Alopesi universalis", "min": 10, "max": 10, "pg": 19}, {"s": "Kulak Burun Boğaz", "d": "4-Saç rengi ve saç gövdesi anormallikleri (moniletrix vb)", "min": 5, "max": 5, "pg": 19}, {"s": "Kulak Burun Boğaz", "d": "1-Hafif; Vücudun 900-19*unu kaplayan", "min": 5, "max": 5, "pg": 19}, {"s": "Kulak Burun Boğaz", "d": "2-Orta: Vücudun 2020-49'unu kaplayan", "min": 10, "max": 10, "pg": 19}, {"s": "Kulak Burun Boğaz", "d": "3-Şiddetli: Vücudun 9650-79'unu kaplayan", "min": 20, "max": 20, "pg": 19}, {"s": "Kulak Burun Boğaz", "d": "4-Çok şiddetli: Vücudun 9080-100*unu kaplayan", "min": 40, "max": 40, "pg": 19}, {"s": "Kulak Burun Boğaz", "d": "3-Çok şiddetli", "min": 20, "max": 20, "pg": 19}, {"s": "Onkoloji", "d": "1-Evre LIl remisyonda (Remisyon sonrası 5. yıla kadar)", "min": 60, "max": 60, "pg": 86}, {"s": "Onkoloji", "d": "2- Evre 1-11 remisyonda (Remisyon sonrası 5. yıldan sonra)", "min": 40, "max": 40, "pg": 86}, {"s": "Onkoloji", "d": "3- Evre Ili-IV remisyonda", "min": 40, "max": 40, "pg": 86}, {"s": "Onkoloji", "d": "sürecinde olan", "min": 80, "max": 80, "pg": 86}, {"s": "Onkoloji", "d": "S-İleri klinik evreli (Evre 111 ve IV) malign tümörü olan (Remisyon sonrası 5. yıldan sonra)", "min": 40, "max": 40, "pg": 86}, {"s": "Onkoloji", "d": "Operasyon sonrasında ? yıl süreyle", "min": 80, "max": 80, "pg": 86}, {"s": "Onkoloji", "d": "Remisyonda 2 yıldan sonra", "min": 40, "max": 40, "pg": 86}, {"s": "Sindirim Sistemi", "d": "Engel Oranı e 15 Engel Oranı “e 30 Engel Oranı “o 50 Engel Oranı e", "min": 95, "max": 95, "pg": 70}, {"s": "Sindirim Sistemi", "d": "Engel Oranı “e 10 Engel Oranı “0 30 Engel Oranı “e 50 Engel Oranı “e", "min": 95, "max": 95, "pg": 71}, {"s": "Sinir Sistemi", "d": "1-Nöbeti olmayan ancak nöbet geçirme riski olanlar", "min": 5, "max": 5, "pg": 88}, {"s": "Sinir Sistemi", "d": "2-Günlük aktiviteleri engellemeyen ancak gerçekleştirilmesini güçleştiren nöbetler", "min": 15, "max": 15, "pg": 88}, {"s": "Sinir Sistemi", "d": "veren sıklık ve sayıda nöbetler", "min": 70, "max": 70, "pg": 88}, {"s": "Sinir Sistemi", "d": "5-Günlük aktiviteleri tamamen engelleyen şiddet ve sıklıkta kontrol edilemeyen nöbetler", "min": 90, "max": 90, "pg": 88}, {"s": "Sinir Sistemi", "d": "insomni, çocukluk çağının davranışsal insomnisi)", "min": 10, "max": 10, "pg": 88}, {"s": "Sinir Sistemi", "d": "hastalıkların tanısı için polisomnografi tetkiki yapılmalıdır", "min": 35, "max": 35, "pg": 88}, {"s": "Sinir Sistemi", "d": "1-Günlük aktiviteyi kısmen etkileyen ağrı", "min": 5, "max": 5, "pg": 89}, {"s": "Sinir Sistemi", "d": "Günlük aktiviteyi orta derecede etkileyen ağrı", "min": 10, "max": 10, "pg": 89}, {"s": "Sinir Sistemi", "d": "Yargılama ve Problem Çözme (YPÇ)", "min": 0, "max": 3, "pg": 90}, {"s": "Sinir Sistemi", "d": "Toplumsal İlişkiler Tİ)", "min": 3, "max": 3, "pg": 90}, {"s": "Sinir Sistemi", "d": "Hafif (KDS: 4-7) Arada sırada bazı bozulmalar", "min": 25, "max": 25, "pg": 91}, {"s": "Sinir Sistemi", "d": "Hafif - Orta (KDS: 8-11) Günlük yaşam aktivitelerinin", "min": 50, "max": 50, "pg": 91}, {"s": "Sinir Sistemi", "d": "Orta (KDS: 12-15) Günlük yaşam aktivitelerinin", "min": 70, "max": 70, "pg": 91}, {"s": "Sinir Sistemi", "d": "Trigeminal Nevralji", "min": 15, "max": 15, "pg": 91}, {"s": "Sinir Sistemi", "d": "1- Hafif (minimum fonksiyon bozukluğu veya estetik kayıp)", "min": 5, "max": 5, "pg": 91}, {"s": "Sinir Sistemi", "d": "3- Ağır (oral kaslar ve göz kasları plejik", "min": 30, "max": 30, "pg": 91}, {"s": "Sinir Sistemi", "d": "disfoni ile birlikte sıvı ve yarı katı", "min": 15, "max": 15, "pg": 92}, {"s": "Sinir Sistemi", "d": "Orta Orta derecede dizartri veya disfaji ile", "min": 35, "max": 35, "pg": 92}, {"s": "Sinir Sistemi", "d": "Ağır Oral sekresyonları bile yutamayacak", "min": 55, "max": 55, "pg": 92}, {"s": "Sinir Sistemi", "d": "Hareket segmentinin bütünlüğünde bozulma olması; fleksiyon-ekstansiyon grafilerinde", "min": 2, "max": 2, "pg": 94}, {"s": "Sinir Sistemi", "d": "omurganın hareket genişliği asimetrik olarak azalmıştır veya radiküler ağrı var ancak objektif bulgı", "min": 8, "max": 8, "pg": 95}, {"s": "Sinir Sistemi", "d": "segmentinde gelişimsel füzyon veya cerrahi artrodeze bağlı tam veya tama yakın hareket kaybı olması", "min": 28, "max": 28, "pg": 95}, {"s": "Sinir Sistemi", "d": "v Üst ekstremitede yardımcı cihaz gerektirecek ciddi fonksiyon kaybı; tek seviyede total nörolojil", "min": 38, "max": 38, "pg": 95}, {"s": "Sinir Sistemi", "d": "ilgili bulgular varsa kategori I1'deki radikülopati bulguları aranmaz Veya", "min": 23, "max": 23, "pg": 96}, {"s": "Sinir Sistemi", "d": "V Kategori TV'deki gibi alt ekstremite bulguları ve kategori IV'deki gibi yapısal o", "min": 28, "max": 28, "pg": 96}, {"s": "Sinir Sistemi", "d": "Fleksiyon O (nötral Pozisyon)", "min": 12, "max": 12, "pg": 99}, {"s": "Sinir Sistemi", "d": "Ekstansiyon O (nötral pozisyon)", "min": 12, "max": 12, "pg": 99}, {"s": "Sinir Sistemi", "d": "İLateral Fleksiyon O (nötral pozisyon)", "min": 8, "max": 8, "pg": 99}, {"s": "Sinir Sistemi", "d": "Rotasyon 0 (nötral pozisyon)", "min": 2, "max": 2, "pg": 99}, {"s": "Sinir Sistemi", "d": "Fleksiyon- Ekstansiyon -302 (torasik lordoz)", "min": 20, "max": 20, "pg": 100}, {"s": "Sinir Sistemi", "d": "Rotasyon 08 (nötral pozisyon)", "min": 6, "max": 6, "pg": 100}, {"s": "Sinir Sistemi", "d": "Lateral Fleksiyon O (nötral pozisyon)", "min": 10, "max": 10, "pg": 101}, {"s": "Sinir Sistemi", "d": "2759 (lateral tam", "min": 50, "max": 50, "pg": 101}, {"s": "Sinir Sistemi", "d": "Posterior eleman kırığı (Pedikül-lamina-artikülei", "min": 2, "max": 2, "pg": 102}, {"s": "Sinir Sistemi", "d": "Bir vertebranın redükte dislokasyonu", "min": 3, "max": 3, "pg": 102}, {"s": "Sinir Sistemi", "d": "Ameliyat edilmemiş, stabil. Tıbbi olarak tesbit edilmiş)", "min": 2, "max": 2, "pg": 102}, {"s": "Sinir Sistemi", "d": "Opere edilmiş disk lezyonu (disk injeksiyonunu da)", "min": 7, "max": 7, "pg": 102}, {"s": "Sinir Sistemi", "d": "Opere edilmiş disk lezyonu. Tıbbi olarak tesbit edilmiş", "min": 10, "max": 10, "pg": 102}, {"s": "Sinir Sistemi", "d": "Spinal füzyonsuz kalıcı bulgu ve semptom olmaksızın", "min": 7, "max": 7, "pg": 103}, {"s": "Sinir Sistemi", "d": "Engellilik oranı", "min": 30, "max": 30, "pg": 108}, {"s": "Sinir Sistemi", "d": "İşaret parmağı", "min": 4, "max": 4, "pg": 123}, {"s": "Sinir Sistemi", "d": "Orta parmak", "min": 6, "max": 6, "pg": 123}, {"s": "Sinir Sistemi", "d": "İYüzük parmak", "min": 4, "max": 4, "pg": 123}, {"s": "Sinir Sistemi", "d": "Küçük parmak", "min": 5, "max": 5, "pg": 123}, {"s": "Sinir Sistemi", "d": "fleksiyonunun Ye 100 kaybını gösterir. Bu durum, el bileğinde Yo 70, üst ekstremitede ise Ye", "min": 42, "max": 42, "pg": 124}, {"s": "Ürogenital Sistem", "d": "a-Tek Böbrekte", "min": 5, "max": 5, "pg": 75}, {"s": "Ürogenital Sistem", "d": "b-İki Böbrekte", "min": 10, "max": 10, "pg": 75}, {"s": "Ürogenital Sistem", "d": "a-Tek Böbrekte", "min": 10, "max": 10, "pg": 75}, {"s": "Ürogenital Sistem", "d": "b-İki Böbrekte", "min": 20, "max": 20, "pg": 75}, {"s": "Ürogenital Sistem", "d": "a-Tek Böbrekte", "min": 15, "max": 15, "pg": 75}, {"s": "Ürogenital Sistem", "d": "Diğer böbrek tamamen normal", "min": 10, "max": 10, "pg": 75}, {"s": "Ürogenital Sistem", "d": "Diğer böbrek tamamen normal, potansiyel hastalık mevcut (örnek: taş hastalığı", "min": 15, "max": 15, "pg": 75}, {"s": "Ürogenital Sistem", "d": "sistem hastalığı", "min": 20, "max": 20, "pg": 75}, {"s": "Ürogenital Sistem", "d": "Diğer böbrekte devamlı takip ve sık tedavi gerektiren üst üriner sistem hastalığı", "min": 25, "max": 25, "pg": 75}, {"s": "Ürogenital Sistem", "d": "NEFREKTOMİ (BİLATERAL)", "min": 90, "max": 90, "pg": 75}, {"s": "Ürogenital Sistem", "d": "Üreterointestinal (coffey", "min": 2, "max": 2, "pg": 75}, {"s": "Ürogenital Sistem", "d": "Üreterokütanostomi, ileal loop", "min": 30, "max": 30, "pg": 76}, {"s": "Ürogenital Sistem", "d": "Ortotopik mesane", "min": 2, "max": 2, "pg": 76}, {"s": "Ürogenital Sistem", "d": "Sistostomi, Üretrostomi", "min": 30, "max": 30, "pg": 76}, {"s": "Ürogenital Sistem", "d": "İntermitan sistitizm semptomları, normal mesane fonksiyonları", "min": 5, "max": 5, "pg": 76}, {"s": "Ürogenital Sistem", "d": "Devamlı tedavi gerektiren sistitizm semptomları ya da aşırı aktif mesane", "min": 15, "max": 15, "pg": 76}, {"s": "Ürogenital Sistem", "d": "Tedavi ile tam olarak kontrol altına alınamayan mesane hastalığı", "min": 20, "max": 20, "pg": 76}, {"s": "Ürogenital Sistem", "d": "Ekstrofi Vezika", "min": 40, "max": 40, "pg": 76}, {"s": "Ürogenital Sistem", "d": "Tedaviyle düzeltilebilen tekrarlayan üretra hastalığı", "min": 10, "max": 10, "pg": 76}, {"s": "Ürogenital Sistem", "d": "Sık tekrarlayan ve tedaviyle kısmi kür sağlanabilen üretra hastalığı", "min": 15, "max": 15, "pg": 76}, {"s": "Ürogenital Sistem", "d": "Sık tekrarlayan ve tedaviyle kür sağlanabilen üretra darlığı", "min": 20, "max": 20, "pg": 76}, {"s": "Ürogenital Sistem", "d": "Sık tekrarlayan ve yeterli kür sağlanamayan komplike üretra darlığı", "min": 40, "max": 40, "pg": 76}, {"s": "Ürogenital Sistem", "d": "Medikal tedaviyle kısmi kür sağlanabilen erektil disfonksiyon", "min": 5, "max": 5, "pg": 76}, {"s": "Ürogenital Sistem", "d": "Cerrahi tedaviyle kür sağlanabilen erektil disfonksiyon", "min": 10, "max": 10, "pg": 76}, {"s": "Ürogenital Sistem", "d": "Tedaviye yeterli kür sağlanamayan penis hastalığı", "min": 15, "max": 15, "pg": 76}, {"s": "Ürogenital Sistem", "d": "Tedaviyle düzeltilebilen tekrarlayan prostat, vezikuloseminalis hastalığı", "min": 5, "max": 5, "pg": 77}, {"s": "Ürogenital Sistem", "d": "Sık tekrarlayan ve tedaviyle kısmi kür sağlanabilen prostat, vezikulo-seminalis hastalığı", "min": 10, "max": 10, "pg": 77}, {"s": "Ürogenital Sistem", "d": "Prostatektomi, V.Seminalis Eksizyonu", "min": 20, "max": 20, "pg": 77}, {"s": "Ürogenital Sistem", "d": "Tedaviye kısmi yanıt veren urge inkontinans", "min": 5, "max": 5, "pg": 78}, {"s": "Ürogenital Sistem", "d": "Tedaviye kısmi yanıt veren hafif stress veya orta şiddetli urge inkontinans", "min": 10, "max": 10, "pg": 78}, {"s": "Ürogenital Sistem", "d": "Tedaviye kısmi yanıt veren şiddetli stress inkontinans veya urge inkontinans", "min": 5, "max": 5, "pg": 78}, {"s": "Ürogenital Sistem", "d": "Tedaviye yetersiz yanıt veren stress ve urge inkontinans", "min": 25, "max": 25, "pg": 78}, {"s": "Ürogenital Sistem", "d": "Total üriner inkontinans", "min": 50, "max": 50, "pg": 78}, {"s": "Ürogenital Sistem", "d": "Tedaviye kısmi yanıt veren rekürren skrotum hastalığı", "min": 5, "max": 5, "pg": 78}, {"s": "Ürogenital Sistem", "d": "Tedaviyle kontrol altına alınamayan skrotum hastalığı", "min": 10, "max": 10, "pg": 78}, {"s": "Ürogenital Sistem", "d": "Aralıklı hafif-orta derecede drenaja yol açan üriner fistül veya abse", "min": 10, "max": 10, "pg": 78}, {"s": "Ürogenital Sistem", "d": "Devamlı hafif derecede drenaja yol açan üriner fistül veya abse", "min": 15, "max": 15, "pg": 78}, {"s": "Ürogenital Sistem", "d": "Aralıklı fazla derecede ya da devamlı orta-ağır derecede drenaja yol açan üriner fistül veya abse", "min": 30, "max": 30, "pg": 78}];
-let added = []; // {desc, val, section, page, manual}
-let curTab='search';
+function R(o){return Object.assign({exact:false,note:''},o);}
+const P_UEAMP=248,P_LEAMP=268,P_SPINE=215,P_ROM_UE='226-247',P_ROM_LE='255-267',P_VISION='148-177',P_EAR='116-130',P_NERVE='200-214',P_BURN='197-199',P_ORG='189-196';
 
-function switchTab(t){
-  curTab=t;
-  document.getElementById('tabSearch').classList.toggle('active',t==='search');
-  document.getElementById('tabManual').classList.toggle('active',t==='manual');
-  document.getElementById('paneSearch').style.display = t==='search'?'block':'none';
-  document.getElementById('paneManual').style.display = t==='manual'?'block':'none';
-}
+const NODES={
+'kol':{q:'Kol, omuz, dirsek, el bileği veya elinizde ne oldu?',help:'Size en uygun seçeneği işaretleyin.',opts:[
+  {label:'Uzuv koptu / ameliyatla alındı (ampütasyon)',emo:'✂️',go:'kol_amp'},
+  {label:'Kemik kırığı oldu',emo:'🦴',go:'kol_part'},
+  {label:'Eklemde çıkık / kalıcı hareket kısıtlılığı',emo:'🦾',go:'kol_part'},
+  {label:'Sinir hasarı (his veya kuvvet kaybı)',emo:'⚡',go:'kol_nerve'},
+  {label:'Bilmiyorum / listede yok',emo:'❓',go:'manual'}]},
+'kol_amp':{q:'Kopma / ampütasyon hangi düzeyde?',help:'En yakın seçenek yeterli.',opts:[
+  {label:'Omuzdan (tüm kol)',sub:'Omuz dezartikülasyonu / üst kol',go:R({desc:'Kol ampütasyonu – omuz düzeyi',exact:true,val:60,page:P_UEAMP,sec:'Üst ekstremite ampütasyonu (Tablo 2.7)'})},
+  {label:'Kol ortasından',sub:'Dirsek üstü',go:R({desc:'Kol ampütasyonu – kol ortası',exact:true,val:57,page:P_UEAMP,sec:'Tablo 2.7'})},
+  {label:'Ön kol / el bileği düzeyinden',go:R({desc:'Ön kol/el ampütasyonu',exact:true,val:56,page:P_UEAMP,sec:'Tablo 2.7'})},
+  {label:'Tüm el (bütün parmaklar dahil)',go:R({desc:'El ampütasyonu (tüm parmaklar)',exact:true,val:54,page:P_UEAMP,sec:'Tablo 2.7'})},
+  {label:'Başparmak',go:R({desc:'Başparmak ampütasyonu',exact:true,val:22,page:P_UEAMP,sec:'Tablo 2.7'})},
+  {label:'İşaret veya orta parmak',go:R({desc:'İşaret/orta parmak ampütasyonu',exact:true,val:11,page:P_UEAMP,sec:'Tablo 2.7'})},
+  {label:'Yüzük veya küçük parmak',go:R({desc:'Yüzük/küçük parmak ampütasyonu',exact:true,val:5,page:P_UEAMP,sec:'Tablo 2.7'})}]},
+'kol_part':{q:'Etkilenen bölge neresi?',opts:[
+  {label:'Omuz / üst kol',go:'sev_omuz'},
+  {label:'Dirsek',go:'sev_dirsek'},
+  {label:'El bileği / ön kol',go:'sev_elbilek'},
+  {label:'El / parmaklar',go:'sev_el'}]},
+'kol_nerve':{q:'Sinir hasarı kolu ne kadar etkiliyor?',help:'Günlük yaşamdaki etkisine göre seçin.',opts:[
+  {label:'Hafif – ara sıra uyuşma/karıncalanma',go:R({desc:'Kol sinir hasarı (hafif)',min:2,max:10,val:5,page:P_NERVE,sec:'Periferik sinir bozuklukları'})},
+  {label:'Orta – belirgin kuvvet/his kaybı',go:R({desc:'Kol sinir hasarı (orta)',min:10,max:30,val:18,page:P_NERVE,sec:'Periferik sinir bozuklukları'})},
+  {label:'Ağır – elini/kolunu kullanamıyor',go:R({desc:'Kol sinir hasarı (ağır)',min:30,max:55,val:40,page:P_NERVE,sec:'Periferik sinir bozuklukları'})}]},
 
-// --- search ---
-function norm(s){return s.toLocaleLowerCase('tr-TR').replace(/[ıİiI]/g,'i').replace(/[şŞ]/g,'s').replace(/[çÇ]/g,'c').replace(/[ğĞ]/g,'g').replace(/[üÜ]/g,'u').replace(/[öÖ]/g,'o');}
-const searchInput=document.getElementById('searchInput');
-const resultsBox=document.getElementById('results');
-searchInput.addEventListener('input',function(){
-  const q=norm(this.value.trim());
-  if(q.length<2){resultsBox.classList.remove('show');resultsBox.innerHTML='';return;}
-  const terms=q.split(/\s+/);
-  const hits=DATA.filter(e=>{const t=norm(e.d+' '+e.s);return terms.every(w=>t.includes(w));}).slice(0,60);
-  if(!hits.length){resultsBox.innerHTML='<div class="res-item"><div class="desc">Sonuç bulunamadı. \"Oranı elle gir\" sekmesini kullanabilirsiniz.</div></div>';resultsBox.classList.add('show');return;}
-  resultsBox.innerHTML=hits.map((e,i)=>{
-    const idx=DATA.indexOf(e);
-    const rng=e.min!==e.max?('%'+e.min+'–'+e.max):('%'+e.min);
-    return '<div class="res-item" onclick="pickEntry('+idx+')"><div class="pct">'+rng+'</div><div><div class="desc">'+escapeHtml(e.d)+'</div><div class="meta">'+escapeHtml(e.s)+' · Resmî PDF sayfa '+(e.pg+113)+'</div></div></div>';
-  }).join('');
-  resultsBox.classList.add('show');
+'bacak':{q:'Bacak, kalça, diz, ayak bileği veya ayağınızda ne oldu?',opts:[
+  {label:'Uzuv koptu / ameliyatla alındı (ampütasyon)',emo:'✂️',go:'bacak_amp'},
+  {label:'Kemik kırığı oldu',emo:'🦴',go:'bacak_part'},
+  {label:'Eklemde çıkık / kalıcı hareket kısıtlılığı',emo:'🦵',go:'bacak_part'},
+  {label:'Sinir hasarı (his veya kuvvet kaybı)',emo:'⚡',go:'bacak_nerve'},
+  {label:'Bilmiyorum / listede yok',emo:'❓',go:'manual'}]},
+'bacak_amp':{q:'Kopma / ampütasyon hangi düzeyde?',opts:[
+  {label:'Kalçadan (tüm bacak)',sub:'Kalça dezartikülasyonu',go:R({desc:'Bacak ampütasyonu – kalça düzeyi',exact:true,val:50,page:P_LEAMP,sec:'Alt ekstremite ampütasyonu (Tablo 3.30)'})},
+  {label:'Uyluktan (diz üstü)',go:R({desc:'Bacak ampütasyonu – diz üstü',exact:true,val:50,page:P_LEAMP,sec:'Tablo 3.30'})},
+  {label:'Diz düzeyinden',sub:'Diz dezartikülasyonu',go:R({desc:'Bacak ampütasyonu – diz',exact:true,val:45,page:P_LEAMP,sec:'Tablo 3.30'})},
+  {label:'Baldırdan (diz altı)',go:R({desc:'Bacak ampütasyonu – diz altı',exact:true,val:43,page:P_LEAMP,sec:'Tablo 3.30'})},
+  {label:'Ayak bileğinden (Syme)',go:R({desc:'Ayak ampütasyonu – ayak bileği (Syme)',exact:true,val:38,page:P_LEAMP,sec:'Tablo 3.30'})},
+  {label:'Ayak ortasından (Chopart)',go:R({desc:'Ayak ortası ampütasyonu',exact:true,val:31,page:P_LEAMP,sec:'Tablo 3.30'})},
+  {label:'Tüm ayak parmakları',go:R({desc:'Tüm ayak parmakları ampütasyonu',exact:true,val:11,page:P_LEAMP,sec:'Tablo 3.30'})},
+  {label:'Ayak başparmağı',go:R({desc:'Ayak başparmağı ampütasyonu',exact:true,val:6,page:P_LEAMP,sec:'Tablo 3.30'})}]},
+'bacak_part':{q:'Etkilenen bölge neresi?',opts:[
+  {label:'Kalça / uyluk',go:'sev_kalca'},
+  {label:'Diz',go:'sev_diz'},
+  {label:'Ayak bileği / baldır',go:'sev_aybilek'},
+  {label:'Ayak / parmaklar',go:'sev_ayak'}]},
+'bacak_nerve':{q:'Sinir hasarı bacağı ne kadar etkiliyor?',opts:[
+  {label:'Hafif – ara sıra uyuşma/karıncalanma',go:R({desc:'Bacak sinir hasarı (hafif)',min:2,max:10,val:5,page:P_NERVE,sec:'Periferik sinir bozuklukları'})},
+  {label:'Orta – belirgin kuvvet/his kaybı, aksama',go:R({desc:'Bacak sinir hasarı (orta)',min:10,max:30,val:18,page:P_NERVE,sec:'Periferik sinir bozuklukları'})},
+  {label:'Ağır – ayağını/bacağını kullanamıyor',go:R({desc:'Bacak sinir hasarı (ağır)',min:30,max:50,val:40,page:P_NERVE,sec:'Periferik sinir bozuklukları'})}]}
+};
+
+function sevNode(bolge,page,h,o,a){return {q:bolge+' – iyileşme sonrası bugünkü durum nasıl?',help:'Kırık/çıkık iyileştikten sonra kalıcı kısıtlılığa göre seçin. Kesin oran eklem hareket açıklığı ölçümüyle belirlenir.',opts:[
+  {label:'Sorunsuz iyileşti, kısıtlılık yok',sub:'Tam hareket ediyor, ağrı yok',go:R({desc:bolge+' kırığı/çıkığı – sorunsuz iyileşmiş',min:0,max:3,val:0,page:page,sec:'Eklem hareket açıklığı modeli'})},
+  {label:'Hafif kısıtlılık veya ara sıra ağrı',go:R({desc:bolge+' – hafif kalıcı kısıtlılık',min:h[0],max:h[1],val:h[2],page:page,sec:'Eklem hareket açıklığı modeli'})},
+  {label:'Belirgin / orta dereceli kısıtlılık',go:R({desc:bolge+' – orta dereceli kısıtlılık',min:o[0],max:o[1],val:o[2],page:page,sec:'Eklem hareket açıklığı modeli'})},
+  {label:'İleri kısıtlılık / eklem neredeyse tutmuyor (ankiloz)',go:R({desc:bolge+' – ileri kısıtlılık / ankiloz',min:a[0],max:a[1],val:a[2],page:page,sec:'Eklem hareket açıklığı / ankiloz'})}]};}
+NODES['sev_omuz']=sevNode('Omuz / üst kol',P_ROM_UE,[2,8,5],[8,20,14],[20,45,32]);
+NODES['sev_dirsek']=sevNode('Dirsek',P_ROM_UE,[2,7,4],[7,18,12],[18,35,26]);
+NODES['sev_elbilek']=sevNode('El bileği / ön kol',P_ROM_UE,[2,6,4],[6,15,10],[15,30,22]);
+NODES['sev_el']=sevNode('El / parmaklar',P_ROM_UE,[1,5,3],[5,12,8],[12,25,18]);
+NODES['sev_kalca']=sevNode('Kalça / uyluk',P_ROM_LE,[2,8,5],[8,20,14],[20,45,32]);
+NODES['sev_diz']=sevNode('Diz',P_ROM_LE,[2,8,5],[8,20,14],[20,40,30]);
+NODES['sev_aybilek']=sevNode('Ayak bileği / baldır',P_ROM_LE,[2,6,4],[6,15,10],[15,30,22]);
+NODES['sev_ayak']=sevNode('Ayak / parmaklar',P_ROM_LE,[1,4,2],[4,10,7],[10,22,16]);
+
+Object.assign(NODES,{
+'omurga':{q:'Omurganızın hangi bölümü yaralandı?',help:'Birden fazla omur kırıldıysa her birini ayrı ayrı ekleyin; araç bunları birleştirir.',opts:[
+  {label:'Boyun (servikal)',go:'omurga_t_Boyun'},
+  {label:'Sırt (torakal)',go:'omurga_t_Sırt'},
+  {label:'Bel (lomber)',go:'omurga_t_Bel'},
+  {label:'Omurilik / sinir hasarı (felç, his kaybı)',emo:'⚡',go:'omurga_kord'}]},
+'omurga_kord':{q:'Omurilik hasarının etkisi nedir?',help:'Bu çok ciddi bir durumdur; kesin oran nörolojik muayene ile belirlenir.',opts:[
+  {label:'Bir kol veya bacakta kısmi kuvvet kaybı',go:R({desc:'Omurilik/sinir hasarı (kısmi)',min:20,max:50,val:35,page:P_NERVE,sec:'Spinal kord ve ilgili bozukluklar'})},
+  {label:'İki bacakta felç (parapleji)',go:R({desc:'Parapleji (iki bacak felci)',min:70,max:100,val:85,page:P_NERVE,sec:'Spinal kord ve ilgili bozukluklar'})},
+  {label:'Kol ve bacaklarda felç (tetrapleji)',go:R({desc:'Tetrapleji',min:90,max:100,val:95,page:P_NERVE,sec:'Spinal kord ve ilgili bozukluklar'})}]}
 });
-document.addEventListener('click',e=>{if(!e.target.closest('.search-box'))resultsBox.classList.remove('show');});
+function omurgaType(reg,post,disl){return {q:reg+' – ne tür bir hasar var?',help:'Raporunuzda yazıyorsa ona göre seçin.',opts:[
+  {label:'Omur (vertebra) cisminde kırık / çökme',go:'omurga_comp_'+reg},
+  {label:'Omurun arka elemanında kırık',sub:'Pedikül, lamina, transvers proçes',go:R({desc:reg+' – posterior eleman kırığı',exact:true,val:post,page:P_SPINE,sec:'Spesifik omurga hastalığı (Tablo 1.7)'})},
+  {label:'Omurda çıkık (dislokasyon)',go:R({desc:reg+' – redükte dislokasyon',exact:true,val:disl,page:P_SPINE,sec:'Tablo 1.7'})},
+  {label:'Disk fıtığı / yumuşak doku',go:'omurga_disk_'+reg}]};}
+function compNode(reg,vals){return {q:reg+' – omurdaki çökme miktarı ne kadar?',help:'Raporda "kompresyon %" olarak yazar. Bilmiyorsanız orta seçeneği uygundur.',opts:[
+  {label:'Hafif (%25’e kadar çökme)',go:R({desc:reg+' vertebra kompresyon kırığı (%0-25)',exact:true,val:vals[0],page:P_SPINE,sec:'Tablo 1.7'})},
+  {label:'Orta (%26-50 çökme)',go:R({desc:reg+' vertebra kompresyon kırığı (%26-50)',exact:true,val:vals[1],page:P_SPINE,sec:'Tablo 1.7'})},
+  {label:'Ağır (%50’den fazla çökme)',go:R({desc:reg+' vertebra kompresyon kırığı (>%50)',exact:true,val:vals[2],page:P_SPINE,sec:'Tablo 1.7'})}]};}
+function diskNode(reg,a,b){return {q:reg+' – disk/yumuşak doku lezyonunun durumu?',opts:[
+  {label:'Belirti yok, kalıcı sorun yok',go:R({desc:reg+' disk lezyonu – semptomsuz',exact:true,val:0,page:P_SPINE,sec:'Tablo 1.7'})},
+  {label:'Ameliyatsız, kalıcı ağrı/bulgu var',go:R({desc:reg+' disk lezyonu – ameliyatsız, bulgulu',exact:true,val:a,page:P_SPINE,sec:'Tablo 1.7'})},
+  {label:'Ameliyat edildi (disk cerrahisi)',go:R({desc:reg+' disk lezyonu – opere',min:b,max:b+3,val:b,page:P_SPINE,sec:'Tablo 1.7'})}]};}
+NODES['omurga_t_Boyun']=omurgaType('Boyun',4,5); NODES['omurga_comp_Boyun']=compNode('Boyun',[4,6,10]); NODES['omurga_disk_Boyun']=diskNode('Boyun',4,7);
+NODES['omurga_t_Sırt']=omurgaType('Sırt',2,3);   NODES['omurga_comp_Sırt']=compNode('Sırt',[2,3,5]);   NODES['omurga_disk_Sırt']=diskNode('Sırt',2,5);
+NODES['omurga_t_Bel']=omurgaType('Bel',5,6);     NODES['omurga_comp_Bel']=compNode('Bel',[5,7,12]);    NODES['omurga_disk_Bel']=diskNode('Bel',5,7);
 
-function pickEntry(idx){
-  const e=DATA[idx];
-  let val=e.min;
-  if(e.min!==e.max){
-    const inp=prompt('Bu kalem için oran aralığı %'+e.min+' – %'+e.max+'.\\nSağlık kurulu raporundaki oranı girin:',String(e.max));
-    if(inp===null)return; val=parseFloat(inp.replace(',','.'));
-    if(isNaN(val)||val<0||val>100){alert('Geçersiz oran.');return;}
+Object.assign(NODES,{
+'kafa':{q:'Kafa travmasının kalıcı etkisi nedir?',help:'Kazadan sonra DEVAM EDEN şikâyetlere göre seçin.',opts:[
+  {label:'Yüzeysel yara, kalıcı etki yok',go:R({desc:'Kafa travması – kalıcı etki yok',min:0,max:2,val:0,page:'200',sec:'Sinir sistemi'})},
+  {label:'Süregelen baş ağrısı / baş dönmesi',go:R({desc:'Travma sonrası baş ağrısı/baş dönmesi',min:0,max:10,val:5,page:'200',sec:'Sinir sistemi'})},
+  {label:'Hafıza, dikkat, konuşma gibi zihinsel etkilenme',go:'kafa_kognitif'},
+  {label:'Sara nöbetleri (epilepsi) başladı',go:'kafa_epilepsi'},
+  {label:'Kol/bacakta felç gelişti',go:'omurga_kord'}]},
+'kafa_kognitif':{q:'Zihinsel etkilenme günlük hayatı ne kadar bozuyor?',help:'Kesin oran nöropsikolojik testlerle belirlenir.',opts:[
+  {label:'Hafif – işini biraz zorlaştırıyor',go:R({desc:'Travma sonrası bilişsel bozukluk (hafif)',min:10,max:25,val:17,page:'205',sec:'Yüksek kortikal fonksiyon bozuklukları'})},
+  {label:'Orta – çoğu işte yardım gerekiyor',go:R({desc:'Bilişsel bozukluk (orta)',min:25,max:50,val:37,page:'205',sec:'Yüksek kortikal fonksiyon bozuklukları'})},
+  {label:'Ağır – kendi başına yaşayamıyor',go:R({desc:'Bilişsel bozukluk (ağır)',min:50,max:90,val:70,page:'205',sec:'Yüksek kortikal fonksiyon / demans'})}]},
+'kafa_epilepsi':{q:'Nöbetler ne sıklıkta?',opts:[
+  {label:'İlaçla kontrol altında, seyrek',go:R({desc:'Post-travmatik epilepsi (kontrollü)',min:10,max:20,val:15,page:'201',sec:'Sinir sistemi – epilepsi'})},
+  {label:'İlaca rağmen sık nöbet',go:R({desc:'Post-travmatik epilepsi (sık)',min:20,max:50,val:35,page:'201',sec:'Sinir sistemi – epilepsi'})},
+  {label:'Sık ve günlük hayatı engelleyen nöbetler',go:R({desc:'Post-travmatik epilepsi (ağır)',min:50,max:90,val:70,page:'201',sec:'Sinir sistemi – epilepsi'})}]},
+
+'goz':{q:'Gözünüzde / görmenizde ne oldu?',opts:[
+  {label:'Bir gözü tamamen kaybettim (görmüyor / küre alındı)',go:R({desc:'Tek göz görme kaybı',min:20,max:30,val:25,page:P_VISION,sec:'Görme sistemi'})},
+  {label:'İki gözde de ileri görme kaybı / körlük',go:R({desc:'İki taraflı ileri görme kaybı',min:85,max:100,val:95,page:P_VISION,sec:'Görme sistemi'})},
+  {label:'Görmem azaldı (kısmi)',go:'goz_kismi'},
+  {label:'Göz çevresinde yaralanma / iz, görme normal',go:R({desc:'Göz çevresi yaralanması (görme korunmuş)',min:0,max:8,val:3,page:P_VISION,sec:'Görme sistemi'})}]},
+'goz_kismi':{q:'Görme kaybı ne kadar?',help:'Kesin oran görme keskinliği ve görme alanı ölçümüyle (GSYO) belirlenir.',opts:[
+  {label:'Hafif – gözlükle düzeliyor',go:R({desc:'Görme azalması (hafif)',min:0,max:10,val:5,page:P_VISION,sec:'Görme sistemi'})},
+  {label:'Orta – tek gözde belirgin azalma',go:R({desc:'Görme azalması (orta, tek göz)',min:10,max:25,val:17,page:P_VISION,sec:'Görme sistemi'})},
+  {label:'İleri – iki gözde belirgin azalma',go:R({desc:'Görme azalması (ileri, iki göz)',min:25,max:60,val:40,page:P_VISION,sec:'Görme sistemi'})}]},
+
+'kulak':{q:'Kulağınızda / işitmenizde ne oldu?',opts:[
+  {label:'İşitme kaybı oldu',go:'kulak_isitme'},
+  {label:'Baş dönmesi / denge bozukluğu (vestibüler)',go:'kulak_denge'},
+  {label:'Dış kulak (kepçe) kaybı / şekil bozukluğu',go:'kulak_dis'},
+  {label:'Kulak çınlaması (tinnitus)',go:R({desc:'Tinnitus (kulak çınlaması)',min:0,max:5,val:2,page:P_EAR,sec:'Kulak Burun Boğaz'})}]},
+'kulak_isitme':{q:'İşitme kaybı hangi düzeyde?',help:'Kesin oran odyometri (işitme testi) ile belirlenir.',opts:[
+  {label:'Tek kulakta kısmi',go:R({desc:'Tek kulak işitme kaybı (kısmi)',min:0,max:6,val:3,page:P_EAR,sec:'İşitme'})},
+  {label:'Tek kulakta tam sağırlık',go:R({desc:'Tek kulak tam işitme kaybı',min:6,max:15,val:10,page:P_EAR,sec:'İşitme'})},
+  {label:'İki kulakta ileri/tam işitme kaybı',go:R({desc:'İki taraflı ileri işitme kaybı',min:25,max:50,val:35,page:P_EAR,sec:'İşitme'})}]},
+'kulak_denge':{q:'Denge bozukluğunun derecesi?',opts:[
+  {label:'Hafif (destekleyici bulgular)',go:R({desc:'Vestibüler bozukluk (hafif)',min:5,max:15,val:10,page:P_EAR,sec:'Denge'})},
+  {label:'Orta',go:R({desc:'Vestibüler bozukluk (orta)',min:15,max:25,val:20,page:P_EAR,sec:'Denge'})},
+  {label:'Ağır (günlük hayatı kısıtlıyor)',go:R({desc:'Vestibüler bozukluk (ağır)',min:25,max:35,val:30,page:P_EAR,sec:'Denge'})}]},
+'kulak_dis':{q:'Dış kulak kaybı?',opts:[
+  {label:'Tek kulak',go:R({desc:'Dış kulağın tek taraflı kaybı/şekil bozukluğu',exact:true,val:3,page:'125',sec:'Kulak Burun Boğaz'})},
+  {label:'İki kulak',go:R({desc:'Dış kulağın çift taraflı kaybı/şekil bozukluğu',exact:true,val:7,page:'125',sec:'Kulak Burun Boğaz'})}]},
+
+'yuz':{q:'Yüz, çene, burun veya ağız bölgesinde ne oldu?',opts:[
+  {label:'Burnun tamamen kaybı',go:R({desc:'Burnun tam kaybı',exact:true,val:47,page:'126',sec:'Kulak Burun Boğaz'})},
+  {label:'Burun şekil bozukluğu / kısmi kayıp',go:R({desc:'Burun şekil bozukluğu / kısmi kayıp',min:2,max:12,val:6,page:'125',sec:'Kulak Burun Boğaz'})},
+  {label:'Çene (mandibula) kısmen alındı',go:R({desc:'Mandibula segmenter rezeksiyon',exact:true,val:13,page:'125',sec:'Kulak Burun Boğaz'})},
+  {label:'Çene yarısı alındı (hemimandibulektomi)',go:R({desc:'Hemimandibulektomi',exact:true,val:33,page:'125',sec:'Kulak Burun Boğaz'})},
+  {label:'Diş / çene kemiği kaybı',go:R({desc:'Diş/alveoler kemik kaybı',min:2,max:17,val:8,page:'125',sec:'Kulak Burun Boğaz'})},
+  {label:'Yüzde kalıcı iz / yara izi',go:R({desc:'Yüzde kalıcı skar/iz',min:0,max:15,val:5,page:P_BURN,sec:'Deri / yanık arızaları'})},
+  {label:'Yüz felci (mimik kaybı)',go:R({desc:'Periferik fasial paralizi',min:5,max:25,val:12,page:P_NERVE,sec:'Periferik fasial paralizi'})}]},
+
+'gogus':{q:'Göğüs bölgesinde ne oldu?',opts:[
+  {label:'Kaburga kırığı (iyileşmiş)',go:R({desc:'Kaburga kırığı (iyileşmiş)',min:0,max:5,val:2,page:'180',sec:'Göğüs / solunum'})},
+  {label:'Bir akciğer alındı (pnömonektomi)',go:R({desc:'Tek taraflı pnömonektomi',exact:true,val:10,page:'196',sec:'Akciğer'})},
+  {label:'Nefes darlığı / solunum kapasitesi düştü',go:'gogus_solunum'}]},
+'gogus_solunum':{q:'Nefes darlığı ne kadar?',help:'Kesin oran solunum fonksiyon testi ile belirlenir.',opts:[
+  {label:'Sadece ağır eforda',go:R({desc:'Solunum kısıtlılığı (hafif)',min:5,max:15,val:10,page:'180',sec:'Göğüs / solunum'})},
+  {label:'Günlük aktivitede',go:R({desc:'Solunum kısıtlılığı (orta)',min:20,max:40,val:30,page:'180',sec:'Göğüs / solunum'})},
+  {label:'İstirahatte bile / oksijene bağımlı',go:R({desc:'Solunum kısıtlılığı (ağır)',min:50,max:90,val:70,page:'180',sec:'Göğüs / solunum'})}]},
+
+'karin':{q:'Karın bölgesi / iç organlarda ne oldu?',opts:[
+  {label:'Dalak alındı (splenektomi)',go:R({desc:'Dalak kaybı (splenektomi)',min:3,max:10,val:6,page:P_ORG,sec:'Hematoloji / iç organlar'})},
+  {label:'Bir böbrek alındı (diğeri normal)',go:R({desc:'Tek böbrek kaybı (diğeri normal)',min:15,max:25,val:20,page:'189',sec:'Üriner sistem'})},
+  {label:'Her iki böbrek işlevsiz (diyaliz)',go:R({desc:'Bilateral nefrektomi / böbrek yetmezliği',exact:true,val:90,page:'189',sec:'Üriner sistem'})},
+  {label:'Bağırsak / karaciğer rezeksiyonu',go:R({desc:'Bağırsak/karaciğer rezeksiyonu',min:5,max:30,val:15,page:P_ORG,sec:'Sindirim sistemi'})},
+  {label:'Karın duvarı fıtığı / kalıcı sorun',go:R({desc:'Karın duvarı defekti/fıtık',min:0,max:10,val:5,page:P_ORG,sec:'Sindirim sistemi'})}]},
+
+'urogenital':{q:'Üriner veya genital sistemde ne oldu?',opts:[
+  {label:'İdrar kaçırma (inkontinans)',go:R({desc:'Üriner inkontinans',min:5,max:25,val:12,page:'190',sec:'Üriner sistem'})},
+  {label:'Bir böbrek kaybı',go:R({desc:'Tek böbrek kaybı',min:15,max:25,val:20,page:'189',sec:'Üriner sistem'})},
+  {label:'Genital organ yaralanması / kaybı',go:R({desc:'Genital organ yaralanması/kaybı',min:5,max:30,val:15,page:'191',sec:'Genital sistem'})}]},
+
+'cilt':{q:'Cilt yaralanması / yanık durumu?',help:'Yanıkta kesin oran, vücut yüzey alanı ve fonksiyon kaybıyla belirlenir.',opts:[
+  {label:'Küçük yanık / iz (vücudun <%10)',go:R({desc:'Yanık / skar (sınırlı, <%10)',min:0,max:8,val:4,page:P_BURN,sec:'Yanıklar'})},
+  {label:'Orta yanık (%10-30)',go:R({desc:'Yanık (%10-30)',min:8,max:25,val:16,page:P_BURN,sec:'Yanıklar'})},
+  {label:'Geniş yanık (>%30) / eklemi kısıtlayan skar',go:R({desc:'Yaygın yanık / kontraktür (>%30)',min:25,max:60,val:40,page:P_BURN,sec:'Yanıklar'})}]},
+
+'sinir':{q:'Felç / sinir tutulumu nasıl?',help:'Kesin oran nörolojik muayene ile belirlenir.',opts:[
+  {label:'Tek kol veya bacakta kısmi güç kaybı',go:R({desc:'Tek ekstremite parsiyel parezi',min:15,max:45,val:30,page:P_NERVE,sec:'Sinir sistemi'})},
+  {label:'Vücudun bir yarısı felçli (hemipleji)',go:R({desc:'Hemipleji (yarım vücut felci)',min:50,max:90,val:70,page:P_NERVE,sec:'Sinir sistemi'})},
+  {label:'İki bacak felçli (parapleji)',go:R({desc:'Parapleji',min:70,max:100,val:85,page:P_NERVE,sec:'Spinal kord'})},
+  {label:'Dört uzuv felçli (tetrapleji)',go:R({desc:'Tetrapleji',min:90,max:100,val:95,page:P_NERVE,sec:'Spinal kord'})}]},
+
+'manual':{q:'Oranı elle girin',help:'Bu yaralanma listede yoksa veya elinizde sağlık kurulu raporu varsa, oranı doğrudan yazın.',manual:true}
+});
+
+const ROOT={q:'Vücudunuzun neresi yaralandı?',help:'Birden fazla bölge yaralandıysa önce birini seçin; sonra diğerlerini ekleyebilirsiniz.',opts:[
+  {label:'Kol / omuz / dirsek / el',emo:'💪',go:'kol'},
+  {label:'Bacak / kalça / diz / ayak',emo:'🦵',go:'bacak'},
+  {label:'Omurga (boyun / sırt / bel)',emo:'🦴',go:'omurga'},
+  {label:'Kafa / beyin',emo:'🧠',go:'kafa'},
+  {label:'Göz / görme',emo:'👁️',go:'goz'},
+  {label:'Kulak / işitme / denge',emo:'👂',go:'kulak'},
+  {label:'Yüz / çene / burun / ağız',emo:'👃',go:'yuz'},
+  {label:'Göğüs / akciğer / kaburga',emo:'🫁',go:'gogus'},
+  {label:'Karın / iç organlar',emo:'🩺',go:'karin'},
+  {label:'Üriner / genital sistem',emo:'🩻',go:'urogenital'},
+  {label:'Cilt / yanık',emo:'🔥',go:'cilt'},
+  {label:'Sinir sistemi / felç',emo:'⚡',go:'sinir'}]};
+
+let added=[];let stack=[];let path=[];
+function curNode(){const k=stack[stack.length-1];return k==='ROOT'?ROOT:NODES[k];}
+function renderNode(){
+  const body=document.getElementById('wizardBody');
+  const node=curNode();
+  document.getElementById('backBtn').style.display=stack.length>1?'inline-block':'none';
+  document.getElementById('crumbs').innerHTML=path.length?('Seçimler: <b>'+path.join(' › ')+'</b>'):'';
+  if(node.manual){
+    body.innerHTML='<p class="qtext">'+node.q+'</p><p class="qhelp">'+node.help+'</p>'+
+      '<div class="row"><div style="flex:2;min-width:180px"><label class="fld">Açıklama</label><input class="fld" id="mDesc" placeholder="Örn: Sol diz hareket kısıtlılığı"></div>'+
+      '<div style="max-width:130px"><label class="fld">Oran %</label><input class="fld" type="number" id="mVal" min="0" max="100" step="0.5"></div></div>'+
+      '<div class="toolbar"><button class="btn btn-accent" onclick="addManual()">Ekle</button><button class="btn btn-ghost" onclick="goBack()">‹ Geri</button></div>';
+    return;
   }
-  added.push({desc:e.d,val:val,section:e.s,page:e.pg+113,manual:false});
-  searchInput.value='';resultsBox.classList.remove('show');renderAdded();
+  let h='<p class="qtext">'+node.q+'</p>';
+  if(node.help)h+='<p class="qhelp">'+node.help+'</p>';
+  node.opts.forEach((o,i)=>{h+='<button class="opt" onclick="choose('+i+')"><span class="emo">'+(o.emo||'•')+'</span><span class="ot">'+o.label+(o.sub?'<small>'+o.sub+'</small>':'')+'</span><span class="arr">›</span></button>';});
+  body.innerHTML=h;
+}
+function choose(i){
+  const node=curNode();const opt=node.opts[i];
+  path.push(opt.label.length>26?opt.label.slice(0,24)+'…':opt.label);
+  if(typeof opt.go==='string'){stack.push(opt.go);renderNode();}
+  else showResult(opt.go);
+}
+function goBack(){if(stack.length>1){stack.pop();path.pop();}renderNode();}
+function showResult(res){
+  const body=document.getElementById('wizardBody');const est=!res.exact;
+  let valTxt=res.exact?('%'+res.val):('~%'+res.val);
+  let rngTxt=res.exact?'Cetvelde sabit (kesin) değer':('Aralık: %'+res.min+' – %'+res.max+' (ölçümle netleşir)');
+  let h='<div class="result-box'+(est?' est':'')+'"><h3>'+res.desc+(res.exact?'<span class="tag tag-exact">Kesin değer</span>':'<span class="tag tag-est">Tahmini</span>')+'</h3>'+
+    '<div class="pctline">'+valTxt+'</div><div class="rng">'+rngTxt+'</div>';
+  if(est)h+='<div class="adjust"><label>Tahmini oranı ayarlayın:</label><input type="number" id="adjVal" value="'+res.val+'" min="'+res.min+'" max="'+res.max+'" step="0.5"><span class="rng">(%'+res.min+'–%'+res.max+')</span></div>';
+  h+='<div class="src">Dayanak: '+res.sec+' · Ek-2 cetveli, Resmî PDF sayfa '+res.page+'</div></div>'+
+     '<div class="toolbar"><button class="btn btn-accent" id="confBtn">✓ Bu yaralanmayı ekle</button><button class="btn btn-ghost" onclick="goBack()">‹ Geri / değiştir</button></div>';
+  body.innerHTML=h;
+  document.getElementById('confBtn').onclick=function(){confirmResult(res);};
+}
+function confirmResult(res){
+  let v=res.val;
+  if(!res.exact){const a=document.getElementById('adjVal');if(a){let x=parseFloat(a.value);if(!isNaN(x))v=Math.max(res.min,Math.min(res.max,x));}}
+  added.push({desc:res.desc,val:v,min:res.min,max:res.max,exact:!!res.exact,page:res.page,sec:res.sec});
+  afterAdd();
 }
 function addManual(){
   const v=parseFloat((document.getElementById('mVal').value||'').replace(',','.'));
   const d=document.getElementById('mDesc').value.trim()||'Elle girilen oran';
-  if(isNaN(v)||v<0||v>100){alert('Lütfen 0-100 arasında geçerli bir oran girin.');return;}
-  added.push({desc:d,val:v,section:'Elle girildi',page:null,manual:true});
-  document.getElementById('mVal').value='';document.getElementById('mDesc').value='';renderAdded();
+  if(isNaN(v)||v<0||v>100){alert('Lütfen 0-100 arası geçerli bir oran girin.');return;}
+  added.push({desc:d,val:v,exact:true,sec:'Elle girildi',page:'-'});afterAdd();
 }
-function removeItem(i){added.splice(i,1);renderAdded();}
+function afterAdd(){renderAdded();document.getElementById('listCard').style.display='block';document.getElementById('finalCard').style.display='block';setDot(2,true);document.getElementById('listCard').scrollIntoView({behavior:'smooth',block:'start'});}
+function restartWizard(){stack=['ROOT'];path=[];renderNode();document.getElementById('wizardCard').scrollIntoView({behavior:'smooth',block:'start'});}
 function renderAdded(){
   const box=document.getElementById('addedList');
-  if(!added.length){box.innerHTML='<div class="empty">Henüz oran eklenmedi.</div>';return;}
-  box.innerHTML=added.map((a,i)=>'<div class="added-item"><div class="num">'+(i+1)+'</div><div class="txt">'+escapeHtml(a.desc)+'<small>'+escapeHtml(a.section)+(a.page?(' · sf. '+a.page):'')+'</small></div><div class="val">%'+fmt(a.val)+'</div><button class="rm" onclick="removeItem('+i+')">×</button></div>').join('');
+  if(!added.length){box.innerHTML='<div class="empty">Henüz yaralanma eklenmedi.</div>';return;}
+  box.innerHTML=added.map((a,i)=>'<div class="added-item"><div class="num">'+(i+1)+'</div><div class="txt">'+esc(a.desc)+(a.exact?' <span class="tag tag-exact">kesin</span>':' <span class="tag tag-est">tahmini</span>')+'<small>'+esc(a.sec||'')+(a.page&&a.page!=='-'?(' · sf. '+a.page):'')+'</small></div><div class="val">%'+fmt(a.val)+'</div><button class="rm" onclick="removeItem('+i+')">×</button></div>').join('');
 }
-function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function removeItem(i){added.splice(i,1);renderAdded();}
+function esc(s){return (s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function fmt(n){return (Math.round(n*100)/100).toString().replace('.',',');}
 
-// --- Balthazard ---
 function balthazard(rates){
-  rates=rates.slice().sort((a,b)=>b-a);
-  let steps=[];let c=rates.length?rates[0]:0;
-  steps.push({type:'base',value:c});
-  for(let k=1;k<rates.length;k++){
-    const r=rates[k];const rem=100-c;const add=rem*r/100;const nc=c+add;
-    steps.push({type:'comb',prev:c,r:r,rem:rem,add:add,value:nc});c=nc;
-  }
+  rates=rates.slice().sort((a,b)=>b-a);let steps=[];let c=rates.length?rates[0]:0;steps.push({type:'base',value:c});
+  for(let k=1;k<rates.length;k++){const r=rates[k];const rem=100-c;const add=rem*r/100;const nc=c+add;steps.push({type:'comb',prev:c,r:r,rem:rem,add:add,value:nc});c=nc;}
   return {value:c,steps:steps};
 }
-
 let lastText='';
 function hesapla(){
-  if(!added.length){alert('Lütfen en az bir engel oranı ekleyin.');return;}
-  const rates=added.map(a=>a.val);
-  const res=balthazard(rates);
-  let combined=res.value;
-  const yas=parseInt(document.getElementById('yas').value);
-  let ageStep=null;
-  if(!isNaN(yas)&&yas>=65){
-    const rem=100-combined;const add=rem*10/100;const nc=combined+add;
-    ageStep={prev:combined,rem:rem,add:add,value:nc};combined=nc;
-  }
+  if(!added.length){alert('Lütfen en az bir yaralanma ekleyin.');return;}
+  setDot(3,true);
+  const res=balthazard(added.map(a=>a.val));let combined=res.value;
+  const yas=parseInt(document.getElementById('yas').value);let ageStep=null;
+  if(!isNaN(yas)&&yas>=65){const rem=100-combined;const add=rem*10/100;ageStep={prev:combined,add:add,value:combined+add};combined+=add;}
+  const anyEst=added.some(a=>!a.exact);
   document.getElementById('finalPct').textContent=fmt(combined);
-  let sub=added.length+' engel oranı birleştirildi (Balthazard).';
-  if(ageStep)sub+=' 65 yaş ve üzeri için +%10 uygulandı.';
-  document.getElementById('resultSub').textContent=sub;
-  document.getElementById('resultCard').classList.add('show');
-
-  // breakdown
-  const sortedAdded=added.slice().sort((a,b)=>b.val-a.val);
-  let h='<h3>Balthazard formülü – adım adım</h3>';
-  h+='<div class="bd-step"><b>Sıralı engel oranları (yüksekten düşüğe):</b> '+sortedAdded.map(a=>'%'+fmt(a.val)).join(', ')+'</div>';
-  res.steps.forEach((s,i)=>{
-    if(s.type==='base'){
-      h+='<div class="bd-step">1. En yüksek oran → <b>%'+fmt(s.value)+'</b></div>';
-    }else{
-      h+='<div class="bd-step">'+(i+1)+'. %'+fmt(s.prev)+' + ( (100 − '+fmt(s.prev)+') × '+fmt(s.r)+' ÷ 100 ) = %'+fmt(s.prev)+' + %'+fmt(s.add)+' = <b>%'+fmt(s.value)+'</b><div class="formula">kalan beden fonksiyonu %'+fmt(s.rem)+' üzerinden eklendi</div></div>';
-    }
-  });
-  if(ageStep){
-    h+='<div class="bd-step"><b>65 yaş ve üzeri (+%10):</b> %'+fmt(ageStep.prev)+' + ( (100 − '+fmt(ageStep.prev)+') × 10 ÷ 100 ) = <b>%'+fmt(ageStep.value)+'</b></div>';
-  }
-  h+='<div class="bd-final">Sonuç (birleştirilmiş maluliyet oranı): %'+fmt(combined)+'  →  yuvarlanmış: %'+Math.round(combined)+'</div>';
-  document.getElementById('breakdown').innerHTML=h;
-  document.getElementById('breakdown').classList.add('show');
-
-  // copy text
-  let t='MALULİYET (ENGELLİLİK ORANI) HESABI\\n';
-  const kt=document.getElementById('kazaTarihi').value;
-  if(kt)t+='Kaza tarihi: '+kt+'\\n';
-  t+='Yöntem: Balthazard formülü (Erişkinler İçin Engellilik Değerlendirmesi Hakkında Yönetmelik, Ek-3)\\n\\nEngel oranları:\\n';
-  sortedAdded.forEach((a,i)=>{t+=(i+1)+') '+a.desc+' — %'+fmt(a.val)+(a.page?(' (Ek-2 sf.'+a.page+')'):'')+'\\n';});
-  t+='\\nAdım adım:\\n';
-  res.steps.forEach((s,i)=>{
-    if(s.type==='base')t+='1. En yüksek oran: %'+fmt(s.value)+'\\n';
-    else t+=(i+1)+'. %'+fmt(s.prev)+' + (100-'+fmt(s.prev)+')*'+fmt(s.r)+'/100 = %'+fmt(s.value)+'\\n';
-  });
-  if(ageStep)t+='65+ yaş (+%10): %'+fmt(ageStep.prev)+' + (100-'+fmt(ageStep.prev)+')*10/100 = %'+fmt(ageStep.value)+'\\n';
-  t+='\\nSONUÇ: %'+fmt(combined)+' (yuvarlanmış %'+Math.round(combined)+')\\n';
-  lastText=t;
-  document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'nearest'});
+  document.getElementById('resultCard').querySelector('.sub').textContent=anyEst?'Birleştirilmiş Maluliyet Oranı – TAHMİNİ':'Birleştirilmiş Maluliyet Oranı';
+  let sub=added.length+' yaralanma Balthazard ile birleştirildi.';if(ageStep)sub+=' 65+ yaş için +%10 uygulandı.';
+  document.getElementById('resultSub').textContent=sub;document.getElementById('resultCard').classList.add('show');
+  const sa=added.slice().sort((a,b)=>b.val-a.val);
+  let h='<h3>Balthazard formülü – adım adım</h3><div class="bd-step"><b>Sıralı oranlar:</b> '+sa.map(a=>'%'+fmt(a.val)).join(', ')+'</div>';
+  res.steps.forEach((s,i)=>{if(s.type==='base')h+='<div class="bd-step">1. En yüksek oran → <b>%'+fmt(s.value)+'</b></div>';
+    else h+='<div class="bd-step">'+(i+1)+'. %'+fmt(s.prev)+' + ((100−'+fmt(s.prev)+')×'+fmt(s.r)+'÷100) = %'+fmt(s.prev)+' + %'+fmt(s.add)+' = <b>%'+fmt(s.value)+'</b><div class="formula">kalan beden fonksiyonu %'+fmt(s.rem)+' üzerinden eklendi</div></div>';});
+  if(ageStep)h+='<div class="bd-step"><b>65+ yaş (+%10):</b> %'+fmt(ageStep.prev)+' + ((100−'+fmt(ageStep.prev)+')×10÷100) = <b>%'+fmt(ageStep.value)+'</b></div>';
+  h+='<div class="bd-final">Sonuç: %'+fmt(combined)+'  →  yuvarlanmış: %'+Math.round(combined)+(anyEst?'  (tahmini)':'')+'</div>';
+  document.getElementById('breakdown').innerHTML=h;document.getElementById('breakdown').classList.add('show');
+  let t='MALULİYET (ENGELLİLİK ORANI) ÖN HESABI\n';const kt=document.getElementById('kazaTarihi').value;
+  if(kt)t+='Kaza tarihi: '+kt+'\n';
+  t+='Yöntem: Balthazard formülü (Erişkinler İçin Engellilik Değerlendirmesi Hakkında Yönetmelik)\n\nYaralanmalar:\n';
+  sa.forEach((a,i)=>{t+=(i+1)+') '+a.desc+' — %'+fmt(a.val)+(a.exact?' (kesin)':' (tahmini)')+(a.page&&a.page!=='-'?(' [Ek-2 sf.'+a.page+']'):'')+'\n';});
+  t+='\nAdım adım:\n';
+  res.steps.forEach((s,i)=>{if(s.type==='base')t+='1. En yüksek: %'+fmt(s.value)+'\n';else t+=(i+1)+'. %'+fmt(s.prev)+' + (100-'+fmt(s.prev)+')*'+fmt(s.r)+'/100 = %'+fmt(s.value)+'\n';});
+  if(ageStep)t+='65+ yaş (+%10): %'+fmt(ageStep.value)+'\n';
+  t+='\nSONUÇ: %'+fmt(combined)+' (yuvarlanmış %'+Math.round(combined)+')'+(anyEst?' — TAHMİNİDİR, kesin oran sağlık kurulunca belirlenir.':'')+'\n';
+  lastText=t;document.getElementById('resultCard').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 function toggleBd(){document.getElementById('breakdown').classList.toggle('show');}
-function kopyala(){if(!lastText){return;}navigator.clipboard.writeText(lastText).then(()=>alert('Hesap dökümü panoya kopyalandı.')).catch(()=>{const ta=document.createElement('textarea');ta.value=lastText;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();alert('Kopyalandı.');});}
-function temizle(){added=[];document.getElementById('yas').value='';document.getElementById('mVal').value='';document.getElementById('mDesc').value='';document.getElementById('resultCard').classList.remove('show');document.getElementById('breakdown').classList.remove('show');renderAdded();}
+function kopyala(){if(!lastText)return;navigator.clipboard.writeText(lastText).then(()=>alert('Hesap dökümü panoya kopyalandı.')).catch(()=>{const ta=document.createElement('textarea');ta.value=lastText;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();alert('Kopyalandı.');});}
+function resetAll(){added=[];renderAdded();document.getElementById('resultCard').classList.remove('show');document.getElementById('breakdown').classList.remove('show');document.getElementById('yas').value='';document.getElementById('kazaTarihi').value='';document.getElementById('regNote').className='reg-note';document.getElementById('listCard').style.display='none';document.getElementById('finalCard').style.display='none';setDot(2,false);setDot(3,false);restartWizard();}
+function setDot(n,on){document.getElementById('d'+n).classList.toggle('on',on);}
 
-// --- regulation note by date ---
 document.getElementById('kazaTarihi').addEventListener('change',function(){
-  const d=this.value;const box=document.getElementById('regNote');
-  if(!d){box.className='reg-note';box.textContent='';return;}
-  const t=new Date(d);
-  const reg=(()=>{
-    if(t< new Date('2008-10-11')) return ['warn','Sosyal Sigorta Sağlık İşlemleri Tüzüğü','11.10.2008 öncesi'];
-    if(t< new Date('2013-09-01')) return ['warn','Çalışma Gücü ve Meslekte Kazanma Gücü Kaybı Oranı Tespit İşlemleri Yönetmeliği','11.10.2008 – 31.08.2013'];
-    if(t< new Date('2015-06-01')) return ['warn','Maluliyet Tespiti İşlemleri Yönetmeliği (2013)','01.09.2013 – 31.05.2015'];
-    if(t< new Date('2019-02-20')) return ['warn','Özürlülük Ölçütü, Sınıflandırması ve Özürlülere Verilecek Sağlık Kurulu Raporları Hakkında Yönetmelik','01.06.2015 – 19.02.2019'];
-    return ['ok','Erişkinler İçin Engellilik Değerlendirmesi Hakkında Yönetmelik (20.02.2019)','20.02.2019 ve sonrası'];
-  })();
+  const d=this.value;const box=document.getElementById('regNote');if(!d){box.className='reg-note';return;}
+  const t=new Date(d);let reg;
+  if(t<new Date('2008-10-11'))reg=['warn','Sosyal Sigorta Sağlık İşlemleri Tüzüğü','11.10.2008 öncesi'];
+  else if(t<new Date('2013-09-01'))reg=['warn','Çalışma Gücü ve Meslekte Kazanma Gücü Kaybı Oranı Tespit İşlemleri Yönetmeliği','2008–2013'];
+  else if(t<new Date('2015-06-01'))reg=['warn','Maluliyet Tespiti İşlemleri Yönetmeliği (2013)','2013–2015'];
+  else if(t<new Date('2019-02-20'))reg=['warn','Özürlülük Ölçütü... Hakkında Yönetmelik','2015–2019'];
+  else reg=['ok','Erişkinler İçin Engellilik Değerlendirmesi Hakkında Yönetmelik','20.02.2019 ve sonrası'];
   box.className='reg-note reg-'+reg[0];
-  if(reg[0]==='ok'){
-    box.innerHTML='✓ <b>Uygulanacak yönetmelik:</b> '+reg[1]+' <span class="pill">'+reg[2]+'</span><br>Bu araç tam olarak bu yönetmeliğin Ek-2 cetveline ve Balthazard yöntemine dayanır.';
-  }else{
-    box.innerHTML='⚠ <b>Uygulanacak yönetmelik:</b> '+reg[1]+' <span class="pill">'+reg[2]+'</span><br>Bu kaza tarihi için farklı bir yönetmelik yürürlüktedir. Balthazard birleştirme yöntemi benzer şekilde uygulanır; ancak <b>oranlar bu aracın Ek-2 (2019) listesinden değil, o tarihte yürürlükteki cetvelden alınmalıdır.</b>';
-  }
+  if(reg[0]==='ok')box.innerHTML='✓ <b>Uygulanacak yönetmelik:</b> '+reg[1]+' <span class="pill">'+reg[2]+'</span><br>Bu araç tam olarak bu yönetmeliğe dayanır.';
+  else box.innerHTML='⚠ <b>Uygulanacak yönetmelik:</b> '+reg[1]+' <span class="pill">'+reg[2]+'</span><br>Bu kaza tarihinde farklı bir yönetmelik yürürlükteydi. Balthazard birleştirmesi benzer; ancak oranlar o tarihteki cetvelden alınmalıdır.';
 });
 
-renderAdded();
-document.getElementById('srcLine').textContent='Kaynak: Erişkinler İçin Engellilik Değerlendirmesi Hakkında Yönetmelik ve ekleri, Resmî Gazete 20.02.2019 / Sayı 30692. Liste: '+DATA.length+' sabit/sınıf bazlı kalem.';
+stack=['ROOT'];path=[];renderNode();renderAdded();
 </script>
 </body>
 </html>

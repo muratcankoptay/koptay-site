@@ -218,6 +218,16 @@ const FAQ_IKAME_ARAC = [
   { q: 'Mahrumiyet bedeli talebinin zamanaşımı ne kadar?', a: 'Sigortacıya karşı taleplerde KTK m.109 uyarınca 2 yıllık özel zamanaşımı uygulanır. Kusurlu sürücüye karşı açılacak haksız fiil davasında TBK m.72 gereği zararın ve failin öğrenilmesinden itibaren 2 yıl, her hâlde 10 yıllık süre geçerlidir.' }
 ];
 
+// Sayfadaki görünür SSS ile birebir eşleşmelidir (MaluliyetHesaplamaPage.jsx FAQ_ITEMS)
+const FAQ_MALULIYET = [
+  { q: 'Maluliyet (engellilik) oranı nasıl hesaplanır?', a: 'Maluliyet oranı, Erişkinler İçin Engellilik Değerlendirmesi Hakkında Yönetmelik ekindeki Ek-2 Engel Oranları Cetveli esas alınarak belirlenir. Her yaralanma veya fonksiyon kaybı için cetvelde karşılık gelen yüzde bulunur; birden fazla arıza varsa Balthazard formülüyle birleştirilir ve 65 yaş üzeri bireylerde orana %10 ilave edilir.' },
+  { q: 'Balthazard formülü nedir ve oranlar neden toplanmaz?', a: 'Balthazard formülü, birden fazla engellilik oranını birleştirmek için kullanılır. Oranlar doğrudan toplanmaz; çünkü her yeni arıza, geriye kalan sağlam beden fonksiyonu üzerinden etki eder. Formül: Birleşik = 100 × (1 − çarpım(1 − rᵢ/100)). Örneğin %40, %30 ve %20 birleştiğinde sonuç %90 değil, yaklaşık %66,4 olur.' },
+  { q: 'Bu araç kesin maluliyet oranımı verir mi?', a: 'Hayır. Bu araç ön tahmin verir ve sizi yönlendirir. Kesin maluliyet oranı yalnızca Adli Tıp Kurumu veya yetkili sağlık kurulu (heyet) raporuyla; muayene ve ölçümlerle (eklem hareket açıklığı, odyometri, görme alanı, nöropsikolojik test vb.) belirlenir. Özellikle kırık ve eklem kısıtlılığı gibi ölçüme dayalı kalemlerde aracın verdiği değer bir aralık tahminidir.' },
+  { q: '65 yaş ve üzeri için neden orana %10 ekleniyor?', a: 'Erişkinler İçin Engellilik Değerlendirmesi Hakkında Yönetmelik gereği, 65 yaş ve üzerindeki bireylerde bulunan engellilik oranına kalan beden fonksiyonu üzerinden ayrıca %10 ilave yapılır. Araç, yaş bilgisini girdiğinizde bu ilaveyi otomatik uygular.' },
+  { q: 'Maluliyet oranı tazminat tutarını nasıl etkiler?', a: 'Maluliyet oranı, sürekli sakatlık (iş göremezlik) tazminatının doğrudan çarpanıdır. Tazminat; bakiye ömür, yıllık kazanç ve maluliyet oranının çarpımıyla hesaplanır. Oran arttıkça tazminat da artar. Oranı bulduktan sonra Trafik Kazası Maluliyet Tazminatı Hesaplama aracımızla tutarı hesaplayabilirsiniz.' },
+  { q: 'Kaza tarihi maluliyet oranını neden etkiler?', a: 'Maluliyet oranı, kaza tarihinde yürürlükte olan yönetmeliğe göre belirlenir. 20.02.2019 ve sonrasındaki kazalarda Erişkinler İçin Engellilik Değerlendirmesi Hakkında Yönetmelik (Ek-2 cetveli) uygulanır. Daha eski kazalarda 2013 veya 2015 tarihli yönetmelikler gibi farklı mevzuat geçerli olabilir; bu nedenle araç kaza tarihini girdiğinizde uygulanacak yönetmeliği belirtir.' }
+];
+
 // Statik sayfalar
 const staticRoutes = [
   {
@@ -326,6 +336,22 @@ const staticRoutes = [
       }),
       buildFaqJsonLd(FAQ_TRAFIK_TAZMINAT),
       buildToolBreadcrumb('Trafik Kazası Maluliyet Tazminatı Hesaplama', `${SITE_URL}/hesaplama-araclari/trafik-kazasi-tazminati`)
+    ]
+  },
+  {
+    path: '/hesaplama-araclari/trafik-kazasi-maluliyet-hesaplama',
+    title: 'Maluliyet (Engellilik) Oranı Hesaplama 2026 | Trafik Kazası Rehberli Araç | Koptay Hukuk',
+    description: 'Trafik kazası sonrası maluliyet (engellilik) oranınızı soru-cevap ile adım adım hesaplayın. Hiçbir tıbbi bilgi gerektirmez; Erişkinler İçin Engellilik Değerlendirmesi Yönetmeliği (Ek-2 cetveli), Balthazard formülü ve 65+ yaş %10 kuralı esaslı. Ankara avukat — Koptay Hukuk Bürosu.',
+    keywords: 'maluliyet oranı hesaplama, engellilik oranı hesaplama, trafik kazası maluliyet hesaplama, balthazard formülü hesaplama, ek-2 cetveli engel oranı, engellilik değerlendirme yönetmeliği, maluliyet oranı nasıl hesaplanır, birden fazla yaralanma maluliyet, kaza sonrası engel oranı, trafik kazası avukatı ankara',
+    image: '/images/articles/trafik-kazasi-sonrasi-maluliyet-raporu-nasil-alinir.jpg',
+    extraJsonLd: [
+      buildCalculatorJsonLd({
+        name: 'Maluliyet (Engellilik) Oranı Hesaplama Aracı',
+        description: 'Trafik kazası ve yaralanmalara bağlı engellilik oranını soru-cevap akışıyla, Ek-2 cetveli ve Balthazard formülü esas alınarak adım adım hesaplayan rehberli araç.',
+        url: `${SITE_URL}/hesaplama-araclari/trafik-kazasi-maluliyet-hesaplama`
+      }),
+      buildFaqJsonLd(FAQ_MALULIYET),
+      buildToolBreadcrumb('Maluliyet (Engellilik) Oranı Hesaplama', `${SITE_URL}/hesaplama-araclari/trafik-kazasi-maluliyet-hesaplama`)
     ]
   },
   {

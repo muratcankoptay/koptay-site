@@ -42,6 +42,7 @@ const staticPages = [
   { url: '/hesaplama-araclari/ilave-tediye', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/iscilik-alacaklari', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/meslek-hastaligi', changefreq: 'weekly', priority: '0.9' },
+  { url: '/hesaplama-araclari/trafik-kazasi-maluliyet-hesaplama', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/trafik-kazasi-tazminati', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/arac-hasar-ikame-arac', changefreq: 'weekly', priority: '0.9' },
   { url: '/kvkk', changefreq: 'yearly', priority: '0.3' }

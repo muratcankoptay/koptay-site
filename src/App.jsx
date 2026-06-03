@@ -25,6 +25,7 @@ const MeslekHastaligiPage = lazy(() => import('./pages/MeslekHastaligiPage'))
 const IscilikAlacaklariPage = lazy(() => import('./pages/IscilikAlacaklariPage'))
 const IlaveTediyePage = lazy(() => import('./pages/IlaveTediyePage'))
 const TrafikKazasiTazminatiPage = lazy(() => import('./pages/TrafikKazasiTazminatiPage'))
+const MaluliyetHesaplamaPage = lazy(() => import('./pages/MaluliyetHesaplamaPage'))
 const AracHasarIkamePage = lazy(() => import('./pages/AracHasarIkamePage'))
 const DavaSuresiPage = lazy(() => import('./pages/DavaSuresiPage'))
 const MakalelerPage = lazy(() => import('./pages/MakalelerPage'))
@@ -153,6 +154,7 @@ function App() {
             <Route path="/hesaplama-araclari/iscilik-alacaklari" element={<IscilikAlacaklariPage />} />
             <Route path="/hesaplama-araclari/ilave-tediye" element={<IlaveTediyePage />} />
             <Route path="/hesaplama-araclari/trafik-kazasi-tazminati" element={<TrafikKazasiTazminatiPage />} />
+            <Route path="/hesaplama-araclari/trafik-kazasi-maluliyet-hesaplama" element={<MaluliyetHesaplamaPage />} />
             <Route path="/hesaplama-araclari/arac-hasar-ikame-arac" element={<AracHasarIkamePage />} />
             {/* Eski birleşik araç → 301 (vercel.json) + client-side fallback redirect */}
             <Route path="/hesaplama-araclari/trafik-kazasi" element={<Navigate to="/hesaplama-araclari/trafik-kazasi-tazminati" replace />} />

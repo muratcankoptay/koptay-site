@@ -28,6 +28,7 @@ const Footer = () => {
     { name: 'Meslek Hastalığı Tazminatı', href: '/hesaplama-araclari/meslek-hastaligi' },
     { name: 'İlave Tediye Hesaplama', href: '/hesaplama-araclari/ilave-tediye' },
     { name: 'Araç Değer Kaybı', href: '/hesaplama-araclari/arac-deger-kaybi' },
+    { name: 'Maluliyet (Engellilik) Oranı Hesaplama', href: '/hesaplama-araclari/trafik-kazasi-maluliyet-hesaplama' },
     { name: 'Trafik Kazası Maluliyet Tazminatı', href: '/hesaplama-araclari/trafik-kazasi-tazminati' },
     { name: 'İkame Araç & Araç Hasar Tazminatı', href: '/hesaplama-araclari/arac-hasar-ikame-arac' },
     { name: 'İnfaz Yatar Hesaplama', href: '/hesaplama-araclari/infaz-yatar' },
