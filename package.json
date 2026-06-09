@@ -17,7 +17,8 @@
     "admin": "concurrently \"node admin-server.js\" \"node analytics-server.js\" \"vite\"",
     "admin:server": "node admin-server.js",
     "analytics:server": "node analytics-server.js",
-    "publish": "git add articles.json public/articles.json public/images/articles && git commit -m \"Yeni makale/gorsel eklendi\" && git push origin main"
+    "publish": "git add articles.json public/articles.json public/images/articles && git commit -m \"Yeni makale/gorsel eklendi\" && git push origin main",
+    "capture": "node scripts/capture-dynamic.js"
   },
   "dependencies": {
     "@fontsource/merriweather": "^5.2.11",
