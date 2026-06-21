@@ -570,4 +570,61 @@ articles.forEach(article => {
 });
 
 console.log(`📚 ${articles.length} makale prerender edildi.`);
+
+// ── Kamulaştırma Haritası: il + ilçe SEO sayfaları ──────────────────────────
+const KAMULASTIRMA_JSON = path.resolve(__dirname, '../public/data/kamulastirma.json');
+let kamConfig = { iller: [], ilanlar: [] };
+try {
+  if (fs.existsSync(KAMULASTIRMA_JSON)) {
+    kamConfig = JSON.parse(fs.readFileSync(KAMULASTIRMA_JSON, 'utf-8'));
+  }
+} catch (e) {
+  console.warn('⚠️  kamulastirma.json okunamadı:', e.message);
+}
+
+let kamSayfa = 0;
+(kamConfig.iller || []).forEach(il => {
+  const ilUrl = `${SITE_URL}/kamulastirma-haritasi/${il.il_slug}`;
+  const ilBaslik = `${il.il} Kamulaştırma İlanları (${il.sayi}) | Koptay Hukuk Bürosu`;
+  const ilAciklama = `${il.il} ilinde Resmî Gazete'de yayımlanan güncel kamulaştırma, acele kamulaştırma ve irtifak ilanları. İlçe bazında parsel ve dava süresi bilgileri.`;
+  const ilBreadcrumb = {
+    "@context": "https://schema.org", "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Ana Sayfa", "item": `${SITE_URL}/` },
+      { "@type": "ListItem", "position": 2, "name": "Kamulaştırma Haritası", "item": `${SITE_URL}/kamulastirma-haritasi` },
+      { "@type": "ListItem", "position": 3, "name": il.il, "item": ilUrl }
+    ]
+  };
+  writePrerenderedPage(`/kamulastirma-haritasi/${il.il_slug}`, buildHtml({
+    title: ilBaslik, description: ilAciklama,
+    keywords: `${il.il} kamulaştırma, ${il.il} acele kamulaştırma, ${il.il} kamulaştırma ilanı, kamulaştırma davası`,
+    url: ilUrl, image: '/images/og/og-default.jpg', type: 'website',
+    extraJsonLd: [orgJsonLd, ilBreadcrumb]
+  }));
+  kamSayfa++;
+
+  (il.ilceler || []).forEach(ic => {
+    const icUrl = `${SITE_URL}/kamulastirma-haritasi/${il.il_slug}/${ic.ilce_slug}`;
+    const icBaslik = `${il.il} / ${ic.ilce} Kamulaştırma İlanları | Koptay Hukuk Bürosu`;
+    const icAciklama = `${il.il} ${ic.ilce} ilçesinde Resmî Gazete'de yayımlanan güncel kamulaştırma ve irtifak ilanları, parsel bilgileri ve 30 günlük dava süreleri.`;
+    const icBreadcrumb = {
+      "@context": "https://schema.org", "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Ana Sayfa", "item": `${SITE_URL}/` },
+        { "@type": "ListItem", "position": 2, "name": "Kamulaştırma Haritası", "item": `${SITE_URL}/kamulastirma-haritasi` },
+        { "@type": "ListItem", "position": 3, "name": il.il, "item": ilUrl },
+        { "@type": "ListItem", "position": 4, "name": ic.ilce, "item": icUrl }
+      ]
+    };
+    writePrerenderedPage(`/kamulastirma-haritasi/${il.il_slug}/${ic.ilce_slug}`, buildHtml({
+      title: icBaslik, description: icAciklama,
+      keywords: `${il.il} ${ic.ilce} kamulaştırma, ${ic.ilce} kamulaştırma ilanı, ${ic.ilce} acele kamulaştırma`,
+      url: icUrl, image: '/images/og/og-default.jpg', type: 'website',
+      extraJsonLd: [orgJsonLd, icBreadcrumb]
+    }));
+    kamSayfa++;
+  });
+});
+console.log(`🗺️  ${kamSayfa} kamulaştırma il/ilçe sayfası prerender edildi.`);
+
 console.log(`✅ Toplam ${writtenCount} HTML dosyası dist/ altında oluşturuldu.`);

@@ -45,6 +45,7 @@ const staticPages = [
   { url: '/hesaplama-araclari/trafik-kazasi-maluliyet-hesaplama', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/trafik-kazasi-tazminati', changefreq: 'weekly', priority: '0.9' },
   { url: '/hesaplama-araclari/arac-hasar-ikame-arac', changefreq: 'weekly', priority: '0.9' },
+  { url: '/kamulastirma-haritasi', changefreq: 'daily', priority: '0.9' },
   { url: '/kvkk', changefreq: 'yearly', priority: '0.3' }
 ];
 
@@ -154,6 +155,36 @@ async function generateSitemap() {
   </url>
 `;
   });
+
+  // Kamulaştırma haritası — il/ilçe sayfaları
+  console.log('🗺️  Adding kamulastirma il/ilce pages...');
+  try {
+    const kamPath = path.join(__dirname, 'data', 'kamulastirma.json');
+    if (fs.existsSync(kamPath)) {
+      const kam = JSON.parse(fs.readFileSync(kamPath, 'utf-8'));
+      const lastmod = (kam.guncelleme || buildDate).split('T')[0];
+      (kam.iller || []).forEach(il => {
+        sitemap += `  <url>
+    <loc>${SITE_URL}/kamulastirma-haritasi/${il.il_slug}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+`;
+        (il.ilceler || []).forEach(ic => {
+          sitemap += `  <url>
+    <loc>${SITE_URL}/kamulastirma-haritasi/${il.il_slug}/${ic.ilce_slug}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+`;
+        });
+      });
+    }
+  } catch (e) {
+    console.warn('⚠️  kamulastirma sitemap eklenemedi:', e.message);
+  }
 
   sitemap += `</urlset>`;
 
