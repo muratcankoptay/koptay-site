@@ -1,12 +1,12 @@
 {
-  "guncelleme": "2026-06-22T15:08:56",
-  "toplam_ilan": 11,
-  "toplam_il": 3,
+  "guncelleme": "2026-06-22T20:07:24",
+  "toplam_ilan": 26,
+  "toplam_il": 6,
   "iller": [
     {
       "il": "Diyarbakır",
       "il_slug": "diyarbakir",
-      "sayi": 6,
+      "sayi": 8,
       "lat": 37.91,
       "lng": 40.24,
       "ilceler": [
@@ -14,6 +14,11 @@
           "ilce": "Hazro",
           "ilce_slug": "diyarbakir-hazro",
           "sayi": 4
+        },
+        {
+          "ilce": "Bismil",
+          "ilce_slug": "diyarbakir-bismil",
+          "sayi": 2
         },
         {
           "ilce": "Yenişehir",
@@ -25,18 +30,46 @@
     {
       "il": "İstanbul",
       "il_slug": "istanbul",
-      "sayi": 4,
+      "sayi": 8,
       "lat": 41.01,
       "lng": 28.98,
       "ilceler": [
         {
+          "ilce": "Silivri",
+          "ilce_slug": "istanbul-silivri",
+          "sayi": 6
+        },
+        {
           "ilce": "Fatih",
           "ilce_slug": "istanbul-fatih",
           "sayi": 2
-        },
+        }
+      ]
+    },
+    {
+      "il": "Kırklareli",
+      "il_slug": "kirklareli",
+      "sayi": 6,
+      "lat": 41.74,
+      "lng": 27.22,
+      "ilceler": [
         {
-          "ilce": "Silivri",
-          "ilce_slug": "istanbul-silivri",
+          "ilce": "Babaeski",
+          "ilce_slug": "kirklareli-babaeski",
+          "sayi": 6
+        }
+      ]
+    },
+    {
+      "il": "Siirt",
+      "il_slug": "siirt",
+      "sayi": 2,
+      "lat": 37.93,
+      "lng": 41.94,
+      "ilceler": [
+        {
+          "ilce": "Kurtalan",
+          "ilce_slug": "siirt-kurtalan",
           "sayi": 2
         }
       ]
@@ -51,6 +84,20 @@
         {
           "ilce": "Merkez",
           "ilce_slug": "adiyaman-merkez",
+          "sayi": 1
+        }
+      ]
+    },
+    {
+      "il": "Amasya",
+      "il_slug": "amasya",
+      "sayi": 1,
+      "lat": 40.65,
+      "lng": 35.83,
+      "ilceler": [
+        {
+          "ilce": "Merkez",
+          "ilce_slug": "amasya-merkez",
           "sayi": 1
         }
       ]
@@ -302,6 +349,421 @@
       ],
       "lat": 37.83,
       "lng": 38.3,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 41,
+      "slug": "amasya-merkez-helkis-mahallesi-41",
+      "baslik": "Amasya / Merkez — Konut Kamulaştırması",
+      "ozet": "Helkis Mahallesi, Merkez, Amasya. Amasya Belediye Başkanlığı. Amaç: konut. 1 parsel. İrtifak Hakkı. Son dava tarihi: 2025-10-03.",
+      "il": "Amasya",
+      "ilce": "Merkez",
+      "koy": "Helkis Mahallesi",
+      "il_slug": "amasya",
+      "ilce_slug": "amasya-merkez",
+      "kurum": "Amasya Belediye Başkanlığı",
+      "amac": "konut",
+      "karar_turu": "irtifak_hakki",
+      "karar_etiket": "İrtifak Hakkı",
+      "tarih": "2025-09-02",
+      "son_dava_tarihi": "2025-10-03",
+      "acele": false,
+      "parsel_sayisi": 1,
+      "etiketler": [
+        "konut",
+        "İrtifak Hakkı",
+        "Amasya Belediye Başkanlığı",
+        "Amasya"
+      ],
+      "lat": 40.61,
+      "lng": 35.89,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 39,
+      "slug": "kirklareli-babaeski-oruclu-39",
+      "baslik": "Kırklareli / Babaeski — Petrol boru hattı Kamulaştırması",
+      "ozet": "Oruçlu, Babaeski, Kırklareli. Türkiye Petrolleri Anonim Ortaklığı. Amaç: petrol boru hattı. 3 parsel. 10. Madde İlanı. Son dava tarihi: 2025-09-22.",
+      "il": "Kırklareli",
+      "ilce": "Babaeski",
+      "koy": "Oruçlu",
+      "il_slug": "kirklareli",
+      "ilce_slug": "kirklareli-babaeski",
+      "kurum": "Türkiye Petrolleri Anonim Ortaklığı",
+      "amac": "petrol boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-08-22",
+      "son_dava_tarihi": "2025-09-22",
+      "acele": true,
+      "parsel_sayisi": 3,
+      "etiketler": [
+        "petrol boru hattı",
+        "10. Madde İlanı",
+        "Türkiye Petrolleri Anonim Ortaklığı",
+        "Kırklareli"
+      ],
+      "lat": 41.81,
+      "lng": 27.24,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 38,
+      "slug": "kirklareli-babaeski-oruclu-38",
+      "baslik": "Kırklareli / Babaeski — Petrol boru hattı Kamulaştırması",
+      "ozet": "Oruçlu, Babaeski, Kırklareli. Türk Petrol Kanunu. Amaç: petrol boru hattı. 3 parsel. 10. Madde İlanı. Son dava tarihi: 2025-09-22.",
+      "il": "Kırklareli",
+      "ilce": "Babaeski",
+      "koy": "Oruçlu",
+      "il_slug": "kirklareli",
+      "ilce_slug": "kirklareli-babaeski",
+      "kurum": "Türk Petrol Kanunu",
+      "amac": "petrol boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-08-22",
+      "son_dava_tarihi": "2025-09-22",
+      "acele": true,
+      "parsel_sayisi": 3,
+      "etiketler": [
+        "petrol boru hattı",
+        "10. Madde İlanı",
+        "Türk Petrol Kanunu",
+        "Kırklareli"
+      ],
+      "lat": 41.78,
+      "lng": 27.22,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 36,
+      "slug": "siirt-kurtalan-merha-36",
+      "baslik": "Siirt / Kurtalan — Petrol boru hattı Kamulaştırması",
+      "ozet": "Merha, Kurtalan, Siirt. Enerji ve Tabii Kaynaklar Bakanlığı Maden ve Petrol İşleri Genel Müdürlüğü. Amaç: petrol boru hattı. 1 parsel. Kamulaştırma. Son dava tarihi: 2025-09-16.",
+      "il": "Siirt",
+      "ilce": "Kurtalan",
+      "koy": "Merha",
+      "il_slug": "siirt",
+      "ilce_slug": "siirt-kurtalan",
+      "kurum": "Enerji ve Tabii Kaynaklar Bakanlığı Maden ve Petrol İşleri Genel Müdürlüğü",
+      "amac": "petrol boru hattı",
+      "karar_turu": "diger",
+      "karar_etiket": "Kamulaştırma",
+      "tarih": "2025-08-16",
+      "son_dava_tarihi": "2025-09-16",
+      "acele": true,
+      "parsel_sayisi": 1,
+      "etiketler": [
+        "petrol boru hattı",
+        "Kamulaştırma",
+        "Enerji ve Tabii Kaynaklar Bakanlığı Maden ve Petrol İşleri Genel Müdürlüğü",
+        "Siirt"
+      ],
+      "lat": 37.91,
+      "lng": 41.9,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 35,
+      "slug": "siirt-kurtalan-merha-35",
+      "baslik": "Siirt / Kurtalan — Petrol boru hattı Kamulaştırması",
+      "ozet": "Merha, Kurtalan, Siirt. Amaç: petrol boru hattı. 1 parsel. 10. Madde İlanı. Son dava tarihi: 2025-09-16.",
+      "il": "Siirt",
+      "ilce": "Kurtalan",
+      "koy": "Merha",
+      "il_slug": "siirt",
+      "ilce_slug": "siirt-kurtalan",
+      "kurum": null,
+      "amac": "petrol boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-08-16",
+      "son_dava_tarihi": "2025-09-16",
+      "acele": true,
+      "parsel_sayisi": 1,
+      "etiketler": [
+        "petrol boru hattı",
+        "10. Madde İlanı",
+        "Siirt"
+      ],
+      "lat": 37.88,
+      "lng": 41.88,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 34,
+      "slug": "diyarbakir-bismil-agilli-34",
+      "baslik": "Diyarbakır / Bismil — Petrol boru hattı Kamulaştırması",
+      "ozet": "Ağıllı, Bismil, Diyarbakır. Türkiye Petrolleri A.O.. Amaç: petrol boru hattı. 2 parsel. 10. Madde İlanı. Son dava tarihi: 2025-09-15.",
+      "il": "Diyarbakır",
+      "ilce": "Bismil",
+      "koy": "Ağıllı",
+      "il_slug": "diyarbakir",
+      "ilce_slug": "diyarbakir-bismil",
+      "kurum": "Türkiye Petrolleri A.O.",
+      "amac": "petrol boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-08-15",
+      "son_dava_tarihi": "2025-09-15",
+      "acele": true,
+      "parsel_sayisi": 2,
+      "etiketler": [
+        "petrol boru hattı",
+        "10. Madde İlanı",
+        "Türkiye Petrolleri A.O.",
+        "Diyarbakır"
+      ],
+      "lat": 37.83,
+      "lng": 40.16,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 33,
+      "slug": "diyarbakir-bismil-agilli-33",
+      "baslik": "Diyarbakır / Bismil — Petrol boru hattı Kamulaştırması",
+      "ozet": "Ağıllı, Bismil, Diyarbakır. Amaç: petrol boru hattı. 2 parsel. 10. Madde İlanı. Son dava tarihi: 2025-09-15.",
+      "il": "Diyarbakır",
+      "ilce": "Bismil",
+      "koy": "Ağıllı",
+      "il_slug": "diyarbakir",
+      "ilce_slug": "diyarbakir-bismil",
+      "kurum": null,
+      "amac": "petrol boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-08-15",
+      "son_dava_tarihi": "2025-09-15",
+      "acele": true,
+      "parsel_sayisi": 2,
+      "etiketler": [
+        "petrol boru hattı",
+        "10. Madde İlanı",
+        "Diyarbakır"
+      ],
+      "lat": 37.97,
+      "lng": 40.31,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 32,
+      "slug": "kirklareli-babaeski-oruclu-32",
+      "baslik": "Kırklareli / Babaeski — Petrol boru hattı Kamulaştırması",
+      "ozet": "Oruçlu, Babaeski, Kırklareli. Türkiye Petrolleri A.O.. Amaç: petrol boru hattı. 3 parsel. 10. Madde İlanı. Son dava tarihi: 2025-09-03.",
+      "il": "Kırklareli",
+      "ilce": "Babaeski",
+      "koy": "Oruçlu",
+      "il_slug": "kirklareli",
+      "ilce_slug": "kirklareli-babaeski",
+      "kurum": "Türkiye Petrolleri A.O.",
+      "amac": "petrol boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-08-03",
+      "son_dava_tarihi": "2025-09-03",
+      "acele": true,
+      "parsel_sayisi": 3,
+      "etiketler": [
+        "petrol boru hattı",
+        "10. Madde İlanı",
+        "Türkiye Petrolleri A.O.",
+        "Kırklareli"
+      ],
+      "lat": 41.77,
+      "lng": 27.27,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 31,
+      "slug": "kirklareli-babaeski-oruclu-31",
+      "baslik": "Kırklareli / Babaeski — Petrol boru hattı Kamulaştırması",
+      "ozet": "Oruçlu, Babaeski, Kırklareli. Amaç: petrol boru hattı. 3 parsel. 10. Madde İlanı. Son dava tarihi: 2025-09-03.",
+      "il": "Kırklareli",
+      "ilce": "Babaeski",
+      "koy": "Oruçlu",
+      "il_slug": "kirklareli",
+      "ilce_slug": "kirklareli-babaeski",
+      "kurum": null,
+      "amac": "petrol boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-08-03",
+      "son_dava_tarihi": "2025-09-03",
+      "acele": true,
+      "parsel_sayisi": 3,
+      "etiketler": [
+        "petrol boru hattı",
+        "10. Madde İlanı",
+        "Kırklareli"
+      ],
+      "lat": 41.74,
+      "lng": 27.25,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 30,
+      "slug": "istanbul-silivri-balaban-30",
+      "baslik": "İstanbul / Silivri — Doğalgaz boru hattı Kamulaştırması",
+      "ozet": "Balaban, Silivri, İstanbul. Türkiye Petrolleri A.O.. Amaç: doğalgaz boru hattı. 1 parsel. 10. Madde İlanı. Son dava tarihi: 2025-09-02.",
+      "il": "İstanbul",
+      "ilce": "Silivri",
+      "koy": "Balaban",
+      "il_slug": "istanbul",
+      "ilce_slug": "istanbul-silivri",
+      "kurum": "Türkiye Petrolleri A.O.",
+      "amac": "doğalgaz boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-08-02",
+      "son_dava_tarihi": "2025-09-02",
+      "acele": true,
+      "parsel_sayisi": 1,
+      "etiketler": [
+        "doğalgaz boru hattı",
+        "10. Madde İlanı",
+        "Türkiye Petrolleri A.O.",
+        "İstanbul"
+      ],
+      "lat": 40.98,
+      "lng": 28.99,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 29,
+      "slug": "istanbul-silivri-balaban-29",
+      "baslik": "İstanbul / Silivri — Petrol boru hattı Kamulaştırması",
+      "ozet": "Balaban, Silivri, İstanbul. Amaç: petrol boru hattı. 1 parsel. 10. Madde İlanı. Son dava tarihi: 2025-09-02.",
+      "il": "İstanbul",
+      "ilce": "Silivri",
+      "koy": "Balaban",
+      "il_slug": "istanbul",
+      "ilce_slug": "istanbul-silivri",
+      "kurum": null,
+      "amac": "petrol boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-08-02",
+      "son_dava_tarihi": "2025-09-02",
+      "acele": true,
+      "parsel_sayisi": 1,
+      "etiketler": [
+        "petrol boru hattı",
+        "10. Madde İlanı",
+        "İstanbul"
+      ],
+      "lat": 40.95,
+      "lng": 28.97,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 28,
+      "slug": "kirklareli-babaeski-oruclu-28",
+      "baslik": "Kırklareli / Babaeski — Petrol boru hattı Kamulaştırması",
+      "ozet": "Oruçlu, Babaeski, Kırklareli. Türkiye Petrolleri Anonim Ortaklığı. Amaç: petrol boru hattı. 3 parsel. 10. Madde İlanı. Son dava tarihi: 2025-08-25.",
+      "il": "Kırklareli",
+      "ilce": "Babaeski",
+      "koy": "Oruçlu",
+      "il_slug": "kirklareli",
+      "ilce_slug": "kirklareli-babaeski",
+      "kurum": "Türkiye Petrolleri Anonim Ortaklığı",
+      "amac": "petrol boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-07-25",
+      "son_dava_tarihi": "2025-08-25",
+      "acele": true,
+      "parsel_sayisi": 3,
+      "etiketler": [
+        "petrol boru hattı",
+        "10. Madde İlanı",
+        "Türkiye Petrolleri Anonim Ortaklığı",
+        "Kırklareli"
+      ],
+      "lat": 41.82,
+      "lng": 27.19,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 27,
+      "slug": "kirklareli-babaeski-oruclu-27",
+      "baslik": "Kırklareli / Babaeski — Petrol boru hattı Kamulaştırması",
+      "ozet": "Oruçlu, Babaeski, Kırklareli. Amaç: petrol boru hattı. 3 parsel. 10. Madde İlanı. Son dava tarihi: 2025-08-25.",
+      "il": "Kırklareli",
+      "ilce": "Babaeski",
+      "koy": "Oruçlu",
+      "il_slug": "kirklareli",
+      "ilce_slug": "kirklareli-babaeski",
+      "kurum": null,
+      "amac": "petrol boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-07-25",
+      "son_dava_tarihi": "2025-08-25",
+      "acele": true,
+      "parsel_sayisi": 3,
+      "etiketler": [
+        "petrol boru hattı",
+        "10. Madde İlanı",
+        "Kırklareli"
+      ],
+      "lat": 41.79,
+      "lng": 27.17,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 26,
+      "slug": "istanbul-silivri-balaban-26",
+      "baslik": "İstanbul / Silivri — Doğalgaz boru hattı Kamulaştırması",
+      "ozet": "Balaban, Silivri, İstanbul. Türkiye Petrolleri Anonim Ortaklığı. Amaç: doğalgaz boru hattı. 1 parsel. 10. Madde İlanı. Son dava tarihi: 2025-08-25.",
+      "il": "İstanbul",
+      "ilce": "Silivri",
+      "koy": "Balaban",
+      "il_slug": "istanbul",
+      "ilce_slug": "istanbul-silivri",
+      "kurum": "Türkiye Petrolleri Anonim Ortaklığı",
+      "amac": "doğalgaz boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-07-24",
+      "son_dava_tarihi": "2025-08-25",
+      "acele": true,
+      "parsel_sayisi": 1,
+      "etiketler": [
+        "doğalgaz boru hattı",
+        "10. Madde İlanı",
+        "Türkiye Petrolleri Anonim Ortaklığı",
+        "İstanbul"
+      ],
+      "lat": 41.03,
+      "lng": 28.91,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 25,
+      "slug": "istanbul-silivri-balaban-25",
+      "baslik": "İstanbul / Silivri — Petrol boru hattı Kamulaştırması",
+      "ozet": "Balaban, Silivri, İstanbul. Türk Petrol Kanunu. Amaç: petrol boru hattı. 1 parsel. 10. Madde İlanı. Son dava tarihi: 2025-08-25.",
+      "il": "İstanbul",
+      "ilce": "Silivri",
+      "koy": "Balaban",
+      "il_slug": "istanbul",
+      "ilce_slug": "istanbul-silivri",
+      "kurum": "Türk Petrol Kanunu",
+      "amac": "petrol boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-07-24",
+      "son_dava_tarihi": "2025-08-25",
+      "acele": true,
+      "parsel_sayisi": 1,
+      "etiketler": [
+        "petrol boru hattı",
+        "10. Madde İlanı",
+        "Türk Petrol Kanunu",
+        "İstanbul"
+      ],
+      "lat": 41.0,
+      "lng": 29.06,
       "read_time": "1 dk"
     },
     {
