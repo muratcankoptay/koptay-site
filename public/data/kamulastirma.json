@@ -1,12 +1,12 @@
 {
-  "guncelleme": "2026-06-21T15:01:28",
-  "toplam_ilan": 9,
+  "guncelleme": "2026-06-22T15:08:56",
+  "toplam_ilan": 11,
   "toplam_il": 3,
   "iller": [
     {
       "il": "Diyarbakır",
       "il_slug": "diyarbakir",
-      "sayi": 4,
+      "sayi": 6,
       "lat": 37.91,
       "lng": 40.24,
       "ilceler": [
@@ -14,6 +14,11 @@
           "ilce": "Hazro",
           "ilce_slug": "diyarbakir-hazro",
           "sayi": 4
+        },
+        {
+          "ilce": "Yenişehir",
+          "ilce_slug": "diyarbakir-yenisehir",
+          "sayi": 2
         }
       ]
     },
@@ -297,6 +302,61 @@
       ],
       "lat": 37.83,
       "lng": 38.3,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 23,
+      "slug": "diyarbakir-yenisehir-sivritepe-23",
+      "baslik": "Diyarbakır / Yenişehir — Petrol boru hattı Kamulaştırması",
+      "ozet": "Sivritepe, Yenişehir, Diyarbakır. Enerji ve Tabii Kaynaklar Bakanlığı Maden ve Petrol İşleri Genel Müdürlüğü. Amaç: petrol boru hattı. 4 parsel. 10. Madde İlanı. Son dava tarihi: 2025-08-04.",
+      "il": "Diyarbakır",
+      "ilce": "Yenişehir",
+      "koy": "Sivritepe",
+      "il_slug": "diyarbakir",
+      "ilce_slug": "diyarbakir-yenisehir",
+      "kurum": "Enerji ve Tabii Kaynaklar Bakanlığı Maden ve Petrol İşleri Genel Müdürlüğü",
+      "amac": "petrol boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-07-04",
+      "son_dava_tarihi": "2025-08-04",
+      "acele": true,
+      "parsel_sayisi": 4,
+      "etiketler": [
+        "petrol boru hattı",
+        "10. Madde İlanı",
+        "Enerji ve Tabii Kaynaklar Bakanlığı Maden ve Petrol İşleri Genel Müdürlüğü",
+        "Diyarbakır"
+      ],
+      "lat": 37.84,
+      "lng": 40.28,
+      "read_time": "1 dk"
+    },
+    {
+      "id": 22,
+      "slug": "diyarbakir-yenisehir-sivritepe-22",
+      "baslik": "Diyarbakır / Yenişehir — Petrol boru hattı Kamulaştırması",
+      "ozet": "Sivritepe, Yenişehir, Diyarbakır. Amaç: petrol boru hattı. 4 parsel. 10. Madde İlanı. Son dava tarihi: 2025-08-04.",
+      "il": "Diyarbakır",
+      "ilce": "Yenişehir",
+      "koy": "Sivritepe",
+      "il_slug": "diyarbakir",
+      "ilce_slug": "diyarbakir-yenisehir",
+      "kurum": null,
+      "amac": "petrol boru hattı",
+      "karar_turu": "idari_ilan_10_madde",
+      "karar_etiket": "10. Madde İlanı",
+      "tarih": "2025-07-04",
+      "son_dava_tarihi": "2025-08-04",
+      "acele": true,
+      "parsel_sayisi": 4,
+      "etiketler": [
+        "petrol boru hattı",
+        "10. Madde İlanı",
+        "Diyarbakır"
+      ],
+      "lat": 37.98,
+      "lng": 40.26,
       "read_time": "1 dk"
     }
   ]
