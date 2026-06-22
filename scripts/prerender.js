@@ -318,6 +318,12 @@ const staticRoutes = [
     keywords: 'koptay hukuk iletişim, ankara avukat telefon, avukat randevu, hukuki danışmanlık'
   },
   {
+    path: '/kamulastirma-haritasi',
+    title: 'Kamulaştırma Haritası — Güncel İlanlar | Koptay Hukuk Bürosu',
+    description: 'Resmî Gazete\'de yayımlanan güncel kamulaştırma, acele kamulaştırma ve irtifak ilanlarının il/ilçe bazında interaktif haritası. Taşınmazınız etkileniyor mu, dava süresi ne zaman doluyor?',
+    keywords: 'kamulaştırma haritası, kamulaştırma ilanları, acele kamulaştırma, kamulaştırma davası, kamulaştırma bedel tespiti, irtifak hakkı'
+  },
+  {
     path: '/hesaplama-araclari',
     title: 'Hukuki Hesaplama Araçları | Koptay Hukuk',
     description: 'İnfaz yatar, vekâlet ücreti, tazminat, araç değer kaybı, dava süresi, ilave tediye, işçilik alacakları ve daha fazlası — 9 hukuki hesaplama aracı.',
