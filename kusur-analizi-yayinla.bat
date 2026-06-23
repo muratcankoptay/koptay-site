@@ -19,6 +19,7 @@ if exist ".git\index.lock" (
 echo [1/3] Degisiklikler ekleniyor...
 git add api/kusur-analizi.js
 git add src/pages/KusurAnaliziPage.jsx
+git add src/data/kusurSSS.js
 git add src/App.jsx
 git add src/pages/HesaplamaAraclariPage.jsx
 git add kusur-analizi-yayinla.bat

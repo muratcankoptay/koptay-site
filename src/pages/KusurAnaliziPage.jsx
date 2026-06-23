@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Shield, Sparkles, Scale, FileText, AlertCircle, ArrowRight, Loader2 } from 'lucide-react'
 import SEO from '../components/SEO'
 import HesaplamaDisclaimer from '../components/HesaplamaDisclaimer'
+import { kusurSSS, kusurSSSDuz } from '../data/kusurSSS'
 
 /**
  * Yapay Zekâ Kusur Analizi
@@ -103,6 +104,17 @@ export default function KusurAnaliziPage() {
         .kx-maddeler{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
         .kx-madde{display:inline-flex;align-items:center;gap:.4rem;background:rgba(201,162,75,.1);border:1px solid rgba(201,162,75,.3);color:${GOLD2};padding:.35rem .75rem;border-radius:8px;font-size:.82rem;font-weight:600}
         .kx-note{display:flex;gap:.6rem;align-items:flex-start;background:#FAF6EC;border:1px solid #EAD9B0;color:#6B5418;padding:.85rem 1rem;border-radius:12px;margin-top:1.1rem;font-size:.88rem;line-height:1.55}
+        .kx-seo{margin-top:2.8rem}
+        .kx-seo h2{font-size:1.55rem;color:${NAVY};font-weight:800;margin:0 0 .5rem;letter-spacing:-.01em}
+        .kx-seo .kx-intro{color:#5B6B82;font-size:1rem;line-height:1.7;max-width:62ch;margin-bottom:1.6rem}
+        .kx-faq-cat{font-size:1.05rem;color:${GOLD2};font-weight:700;margin:1.8rem 0 .7rem;padding-left:.1rem}
+        .kx-faq details{border:1px solid #E2E8F0;border-radius:12px;background:#fff;margin-bottom:.6rem;overflow:hidden;transition:border-color .15s}
+        .kx-faq details[open]{border-color:rgba(201,162,75,.4)}
+        .kx-faq summary{cursor:pointer;list-style:none;padding:1rem 1.15rem;font-weight:600;color:${NAVY};display:flex;justify-content:space-between;align-items:center;gap:1rem;font-size:.98rem}
+        .kx-faq summary::-webkit-details-marker{display:none}
+        .kx-faq summary::after{content:'+';color:${GOLD2};font-size:1.45rem;font-weight:400;flex:none;line-height:1}
+        .kx-faq details[open] summary::after{content:'–'}
+        .kx-faq .kx-ans{padding:0 1.15rem 1.15rem;color:#3A4961;font-size:.95rem;line-height:1.72}
       `}</style>
 
       <div className="kx-wrap">
@@ -198,10 +210,49 @@ export default function KusurAnaliziPage() {
           </div>
         )}
 
+        <section className="kx-seo">
+          <h2>Trafik Kazası Kusur Oranı Hakkında Sıkça Sorulan Sorular</h2>
+          <p className="kx-intro">
+            Kusur oranı nasıl belirlenir, arkadan çarpma ve kavşak kazalarında kim kusurludur,
+            değer kaybı ile sigorta tahkim süreci nasıl işler? Trafik kazalarında kusur ve
+            tazminata dair en çok merak edilen soruları Koptay Hukuk Bürosu için derledik.
+          </p>
+
+          {kusurSSS.map((grup) => (
+            <div key={grup.kategori}>
+              <h3 className="kx-faq-cat">{grup.kategori}</h3>
+              <div className="kx-faq">
+                {grup.sorular.map((q, i) => (
+                  <details key={i}>
+                    <summary>{q.s}</summary>
+                    <div className="kx-ans">{q.c}</div>
+                  </details>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
+
         <div style={{ marginTop: '1.6rem' }}>
           <HesaplamaDisclaimer />
         </div>
       </div>
+
+      {/* Google zengin sonuçları için FAQPage yapısal verisi */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: kusurSSSDuz.map((q) => ({
+              '@type': 'Question',
+              name: q.s,
+              acceptedAnswer: { '@type': 'Answer', text: q.c },
+            })),
+          }),
+        }}
+      />
     </>
   )
 }
