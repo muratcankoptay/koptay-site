@@ -21,6 +21,7 @@ const InfazYatarPage = lazy(() => import('./pages/InfazYatarPage'))
 const TazminatHesaplamaPage = lazy(() => import('./pages/TazminatHesaplamaPage'))
 const VekaletUcretiPage = lazy(() => import('./pages/VekaletUcretiPage'))
 const AracDegerKaybiPage = lazy(() => import('./pages/AracDegerKaybiPage'))
+const KusurAnaliziPage = lazy(() => import('./pages/KusurAnaliziPage'))
 const MeslekHastaligiPage = lazy(() => import('./pages/MeslekHastaligiPage'))
 const IscilikAlacaklariPage = lazy(() => import('./pages/IscilikAlacaklariPage'))
 const IlaveTediyePage = lazy(() => import('./pages/IlaveTediyePage'))
@@ -151,6 +152,7 @@ function App() {
             <Route path="/hesaplama-araclari/tazminat-hesaplama" element={<TazminatHesaplamaPage />} />
             <Route path="/hesaplama-araclari/vekalet-ucreti" element={<VekaletUcretiPage />} />
             <Route path="/hesaplama-araclari/arac-deger-kaybi" element={<AracDegerKaybiPage />} />
+            <Route path="/hesaplama-araclari/yapay-zeka-kusur-analizi" element={<KusurAnaliziPage />} />
             <Route path="/hesaplama-araclari/meslek-hastaligi" element={<MeslekHastaligiPage />} />
             <Route path="/hesaplama-araclari/iscilik-alacaklari" element={<IscilikAlacaklariPage />} />
             <Route path="/hesaplama-araclari/ilave-tediye" element={<IlaveTediyePage />} />

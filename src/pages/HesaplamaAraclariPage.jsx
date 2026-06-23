@@ -61,6 +61,15 @@ const HesaplamaAraclariPage = () => {
       description: 'Araç değer kaybı ve trafik kazası tazminatı için bilirkişi formatlı, sigorta tahkim ve mahkeme süreçlerine uygun hesaplama araçları.',
       tools: [
         {
+          id: 'yapay-zeka-kusur-analizi',
+          title: 'Yapay Zekâ Kusur Analizi',
+          description: 'Kaza senaryonuzu yazın; yapay zekâ Karayolları Trafik Kanunu, TRAMER cetvelleri ve Yargıtay içtihatlarına dayalı kusur oranını gerekçesiyle hesaplasın.',
+          icon: Shield,
+          color: 'bg-lawSecondary/10 text-lawSecondary',
+          link: '/hesaplama-araclari/yapay-zeka-kusur-analizi',
+          badge: 'Yapay Zekâ'
+        },
+        {
           id: 'arac-deger-kaybi',
           title: 'Araç Değer Kaybı Hesaplama',
           description: '2026 Sigorta Genel Şartları, Baz Katsayı %19 ve A1-A4 hasar sınıflandırmasına göre değer kaybı hesabı.',
