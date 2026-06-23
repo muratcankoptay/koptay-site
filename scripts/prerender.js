@@ -348,6 +348,15 @@ const staticRoutes = [
     keywords: 'tazminat hesaplama, iş kazası tazminatı, meslek hastalığı tazminatı, TRH-2010, maluliyet'
   },
   {
+    path: '/hesaplama-araclari/yapay-zeka-kusur-analizi',
+    title: 'Yapay Zekâ Kusur Analizi | Trafik Kazası Kusur Oranı Hesaplama 2026 | Koptay Hukuk',
+    description: 'Kaza senaryonuzu yazın; yapay zekâ Karayolları Trafik Kanunu, TRAMER cetvelleri ve Yargıtay içtihatlarına dayalı kusur oranını gerekçesiyle tahmin etsin. Arkadan çarpma, kavşak, kırmızı ışık, şerit ihlali ve değer kaybı dahil 36 soru-cevap. Ankara avukat — Koptay Hukuk.',
+    keywords: 'yapay zeka kusur analizi, trafik kazası kusur oranı hesaplama, kusur oranı nasıl belirlenir, arkadan çarpma kusur, kavşak kusur oranı, kırmızı ışık kusur, asli kusur tali kusur, müterafik kusur, araç değer kaybı, sigorta tahkim, bilirkişi raporu, trafik kazası avukatı ankara',
+    extraJsonLd: [
+      buildToolBreadcrumb('Yapay Zekâ Kusur Analizi', `${SITE_URL}/hesaplama-araclari/yapay-zeka-kusur-analizi`)
+    ]
+  },
+  {
     path: '/hesaplama-araclari/arac-deger-kaybi',
     title: 'Araç Değer Kaybı Hesaplama 2026 | Trafik Sigortası | Koptay Hukuk',
     description: 'Kaza sonrası aracınızın değer kaybını 2026 mevzuatına göre hesaplayın. Trafik sigortası ve tahkim itirazı için profesyonel rapor.',

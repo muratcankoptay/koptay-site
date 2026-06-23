@@ -22,6 +22,8 @@ git add src/pages/KusurAnaliziPage.jsx
 git add src/data/kusurSSS.js
 git add src/App.jsx
 git add src/pages/HesaplamaAraclariPage.jsx
+git add scripts/prerender.js
+git add public/generate-sitemap.js
 git add kusur-analizi-yayinla.bat
 
 echo.
