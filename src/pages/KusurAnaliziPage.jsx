@@ -1,8 +1,27 @@
 import React, { useState } from 'react'
-import { Shield, Sparkles, Scale, FileText, AlertCircle, ArrowRight, Loader2 } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Shield, Sparkles, Scale, FileText, AlertCircle, ArrowRight, Loader2, Calculator, BookOpen, ArrowUpRight } from 'lucide-react'
 import SEO from '../components/SEO'
 import HesaplamaDisclaimer from '../components/HesaplamaDisclaimer'
 import { kusurSSS, kusurSSSDuz } from '../data/kusurSSS'
+
+// İç linkler — ilgili hesaplama araçları (sitenizdeki diğer hesaplayıcılar)
+const ILGILI_ARACLAR = [
+  { ad: 'Araç Değer Kaybı Hesaplama', url: '/hesaplama-araclari/arac-deger-kaybi', aciklama: 'Kaza sonrası aracınızın değer kaybını 2026 mevzuatına göre hesaplayın.' },
+  { ad: 'İkame Araç ve Araç Hasar Tazminatı', url: '/hesaplama-araclari/arac-hasar-ikame-arac', aciklama: 'Mahrumiyet bedeli ve maddi hasar tazminatını kusur oranına göre hesaplayın.' },
+  { ad: 'Trafik Kazası Maluliyet Tazminatı', url: '/hesaplama-araclari/trafik-kazasi-tazminati', aciklama: 'Sürekli sakatlık ve iş göremezlik tazminatını TRH-2010 esaslı hesaplayın.' },
+  { ad: 'Maluliyet (Engellilik) Oranı Hesaplama', url: '/hesaplama-araclari/trafik-kazasi-maluliyet-hesaplama', aciklama: 'Yaralanmalarınıza göre engellilik oranınızı soru-cevap ile tahmin edin.' },
+]
+
+// İç linkler — ilgili hukuki rehberler (sitenizdeki makaleler)
+const ILGILI_MAKALELER = [
+  { ad: 'Trafik Kazalarında Kusur Tespiti ve Bilirkişi Raporu Rehberi', url: '/makaleler/trafik-kazalarinda-kusur-tespiti-bilirkisi-raporu-rehberi-2026' },
+  { ad: 'TRAMER Kusur Oranına İtiraz: %100 Kusurlu Çıkarsanız Ne Yapmalısınız?', url: '/makaleler/tramer-kusur-oranina-itiraz-rehberi-yuzde-100-kusurlu' },
+  { ad: 'Sigorta Tahkim Komisyonu Nedir? Başvuru Nasıl Yapılır?', url: '/makaleler/sigorta-tahkim-komisyonu-basvurusu-ve-sureci' },
+  { ad: 'Araç Değer Kaybı Tazminatı: A’dan Z’ye Kapsamlı Rehber', url: '/makaleler/arac-deger-kaybi-kapsamli-rehber-2026' },
+  { ad: 'Trafik Kazasında Taksirle Yaralama Suçu: Hapis Cezası Alır mıyım?', url: '/makaleler/trafik-kazasinda-taksirle-yaralama-sucu-hapis-cezasi-rehberi' },
+  { ad: 'Araç Mahrumiyet Bedeli ve İkame Araç Hakkı', url: '/makaleler/arac-mahrumiyet-bedeli-ikame-arac-hakki' },
+]
 
 /**
  * Yapay Zekâ Kusur Analizi
@@ -115,6 +134,19 @@ export default function KusurAnaliziPage() {
         .kx-faq summary::after{content:'+';color:${GOLD2};font-size:1.45rem;font-weight:400;flex:none;line-height:1}
         .kx-faq details[open] summary::after{content:'–'}
         .kx-faq .kx-ans{padding:0 1.15rem 1.15rem;color:#3A4961;font-size:.95rem;line-height:1.72}
+        .kx-links{margin-top:2.8rem}
+        .kx-links h2{font-size:1.4rem;color:${NAVY};font-weight:800;margin:0 0 1.1rem;letter-spacing:-.01em}
+        .kx-links-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+        @media(max-width:640px){.kx-links-grid{grid-template-columns:1fr}}
+        .kx-tool{display:flex;flex-direction:column;gap:.25rem;border:1px solid #E2E8F0;border-radius:12px;padding:1rem 1.1rem;background:#fff;text-decoration:none;transition:all .15s}
+        .kx-tool:hover{border-color:${GOLD};box-shadow:0 8px 22px -14px rgba(10,31,60,.25);transform:translateY(-1px)}
+        .kx-tool .t{display:flex;align-items:center;gap:.5rem;font-weight:700;color:${NAVY};font-size:.98rem}
+        .kx-tool .t .ic{color:${GOLD2};flex:none}
+        .kx-tool .d{color:#5B6B82;font-size:.86rem;line-height:1.5}
+        .kx-articles{list-style:none;padding:0;margin:.3rem 0 0}
+        .kx-articles a{display:flex;align-items:flex-start;gap:.55rem;padding:.75rem .2rem;border-bottom:1px solid #EDF1F7;color:${NAVY};text-decoration:none;font-weight:600;font-size:.95rem;transition:color .15s}
+        .kx-articles a:hover{color:${GOLD2}}
+        .kx-articles a .ic{color:${GOLD};flex:none;margin-top:.15rem}
       `}</style>
 
       <div className="kx-wrap">
@@ -231,6 +263,27 @@ export default function KusurAnaliziPage() {
               </div>
             </div>
           ))}
+        </section>
+
+        <section className="kx-links">
+          <h2>İlgili Hesaplama Araçları</h2>
+          <div className="kx-links-grid">
+            {ILGILI_ARACLAR.map((a) => (
+              <Link key={a.url} to={a.url} className="kx-tool">
+                <span className="t"><Calculator size={17} className="ic" /> {a.ad}</span>
+                <span className="d">{a.aciklama}</span>
+              </Link>
+            ))}
+          </div>
+
+          <h2 style={{ marginTop: '2rem' }}>İlgili Hukuki Rehberler</h2>
+          <ul className="kx-articles">
+            {ILGILI_MAKALELER.map((m) => (
+              <li key={m.url}>
+                <Link to={m.url}><BookOpen size={16} className="ic" /> {m.ad} <ArrowUpRight size={14} style={{ opacity: 0.5 }} /></Link>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <div style={{ marginTop: '1.6rem' }}>
