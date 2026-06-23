@@ -27,6 +27,7 @@ git add public/generate-sitemap.js
 git add index.html
 git add src/components/CookieConsent.jsx
 git add src/pages/KvkkPage.jsx
+git add src/components/FloatingContact.jsx
 git add kusur-analizi-yayinla.bat
 
 echo.

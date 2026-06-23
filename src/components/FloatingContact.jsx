@@ -36,7 +36,7 @@ const FloatingContact = () => {
   };
 
   return (
-    <div ref={menuRef} className="fixed bottom-6 right-6 z-50">
+    <div ref={menuRef} className="hidden md:block fixed bottom-6 right-6 z-50">
       {/* Açılır Menü */}
       <div className={`absolute bottom-20 right-0 transition-all duration-300 ease-out ${
         isOpen
