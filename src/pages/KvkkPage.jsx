@@ -29,8 +29,8 @@ const KvkkPage = () => {
             <h3 className="text-xl font-bold text-gray-800 mt-6 mb-3">3. Çerez (Cookie) Kullanımı</h3>
             <p className="mb-4">
               Sitemizde kullanıcı deneyimini geliştirmek, site trafiğini analiz etmek ve performans takibi yapmak 
-              amacıyla çerezler kullanılmaktadır. Microsoft Clarity ve Google Analytics gibi araçlar vasıtasıyla 
-              anonim kullanım verileri (tıklama, gezinme hareketleri vb.) toplanabilir.
+              amacıyla çerezler kullanılmaktadır. Google Analytics gibi araçlar vasıtasıyla
+              anonim kullanım verileri toplanabilir.
             </p>
             
             <h3 className="text-xl font-bold text-gray-800 mt-6 mb-3">4. Haklarınız</h3>

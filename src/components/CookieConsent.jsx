@@ -53,7 +53,7 @@ const CookieConsent = () => {
         <div className="text-sm text-gray-300 flex-1">
           <p>
             Sitemizde ziyaretci sayisini ve kullanici deneyimini iyilestirmek icin
-            anonim analitik araclar (Google Analytics, Microsoft Clarity) kullanmak istiyoruz.
+            anonim analitik araclar (Google Analytics) kullanmak istiyoruz.
             Onayiniz olmadan bu araclar yuklenmez. Detaylar icin{' '}
             <Link to="/kvkk" className="text-lawSecondary hover:text-white underline">
               KVKK ve Cerez Politikamizi

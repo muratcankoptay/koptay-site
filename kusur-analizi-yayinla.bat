@@ -24,6 +24,9 @@ git add src/App.jsx
 git add src/pages/HesaplamaAraclariPage.jsx
 git add scripts/prerender.js
 git add public/generate-sitemap.js
+git add index.html
+git add src/components/CookieConsent.jsx
+git add src/pages/KvkkPage.jsx
 git add kusur-analizi-yayinla.bat
 
 echo.
@@ -32,7 +35,7 @@ git status -s -- api/kusur-analizi.js src/pages/KusurAnaliziPage.jsx src/App.jsx
 echo.
 
 echo [3/3] Commit ve push...
-git commit -m "ozellik: Yapay Zeka Kusur Analizi sayfasi + KUSURAI proxy entegrasyonu"
+git commit -m "perf+seo: Microsoft Clarity kaldirildi (INP), kusur analizi sayfasi ic linkler ve soru-cevap"
 if errorlevel 1 (
   echo [bilgi] Commit edilecek yeni degisiklik yok ya da bir sorun olustu.
 )
